@@ -1,4 +1,12 @@
 
-  import renderer from "./renderer.js";
-  const {generate_table} = renderer
-  generate_table("board", 8, 8);
+import renderer from "./renderer.js";
+const { generate_table, render } = renderer
+import initial_status from "./initial_status";
+import gameLogic from "./gameLogic";
+const { create_context_from_initial_status } = gameLogic
+const context = create_context_from_initial_status(initial_status)
+
+
+let table = generate_table("board", initial_status.height, initial_status.width);
+
+render(context, table)
