@@ -8,6 +8,7 @@ export default {
       }
       table_body.appendChild(table_row)
     }
+    document.getElementById(target_id).appendChild(table_body)
   },
   render(board, table) {
     for (let x = 0; x < board.length; x++) {
