@@ -12,19 +12,23 @@ export default {
     moves: ({ current_x, current_y, context }) => [
       {
         x: [1, 8],
-        y: (x) => [0, 1]
+        y: (x) => [0, 1],
+        killing: true
       },
       {
         x: [-8, 0],
-        y: (x) => [0, 1]
+        y: (x) => [0, 1],
+        killing: true
       },
       {
         x: [0, 1],
-        y: (x) => [1, 8]
+        y: (x) => [1, 8],
+        killing: true
       },
       {
         x: [0, 1],
-        y: (x) => [-8, 0]
+        y: (x) => [-8, 0],
+        killing: true
       }
     ],
     can_jump: false,
@@ -38,35 +42,43 @@ export default {
     moves: ({ current_x, current_y, context }) => [
       {
         x: [2, 3],
-        y: (x) => [1, 2]
+        y: (x) => [1, 2],
+        killing: true
       },
       {
         x: [2, 3],
-        y: (x) => [-1, 0]
+        y: (x) => [-1, 0],
+        killing: true
       },
       {
         x: [-2, -1],
-        y: (x) => [1, 2]
+        y: (x) => [1, 2],
+        killing: true
       },
       {
         x: [-3, -2],
-        y: (x) => [-1, 0]
+        y: (x) => [-1, 0],
+        killing: true
       },
       {
         x: [1, 2],
         y: (x) => [2, 3],
+        killing: true
       },
       {
         x: [-1, 0],
         y: (x) => [2, 3],
+        killing: true
       },
       {
         x: [1, 2],
         y: (x) => [-2, -1],
+        killing: true
       },
       {
         x: [-1, 0],
         y: (x) => [-2, -1],
+        killing: true
       },
     ],
     can_jump: true,
@@ -79,19 +91,23 @@ export default {
     moves: ({ current_x, current_y, context }) => [
       {
         x: [1, 8],
-        y: (x) => [x, x + 1]
+        y: (x) => [x, x + 1],
+        killing: true
       },
       {
         x: [-8, 0],
-        y: (x) => [x, x + 1]
+        y: (x) => [x, x + 1],
+        killing: true
       },
       {
         x: [1, 8],
-        y: (x) => [-x, -x + 1]
+        y: (x) => [-x, -x + 1],
+        killing: true
       },
       {
         x: [-8, 0],
-        y: (x) => [-x, -x + 1]
+        y: (x) => [-x, -x + 1],
+        killing: true
       },
     ],
     can_jump: false,
@@ -104,19 +120,43 @@ export default {
     moves: ({ current_x, current_y, context }) => [
       {
         x: [1, 2],
-        y: (x) => [-1, 2]
+        y: (x) => [0, 1],
+        killing: true
+      },
+      {
+        x: [1, 2],
+        y: (x) => [1, 2],
+        killing: true
+      },
+      {
+        x: [1, 2],
+        y: (x) => [-1, 0],
+        killing: true
       },
       {
         x: [-1, 0],
-        y: (x) => [-1, 2]
+        y: (x) => [0, 1],
+        killing: true
+      },
+      {
+        x: [-1, 0],
+        y: (x) => [1, 2],
+        killing: true
+      },
+      {
+        x: [-1, 0],
+        y: (x) => [-1, 0],
+        killing: true
       },
       {
         x: [0, 1],
-        y: (x) => [1, 2]
+        y: (x) => [-1, 0],
+        killing: true
       },
       {
         x: [0, 1],
-        y: (x) => [-1, 0]
+        y: (x) => [1, 2],
+        killing: true
       },
     ],
     can_jump: false,
@@ -129,35 +169,43 @@ export default {
     moves: ({ current_x, current_y, context }) => [
       {
         x: [1, 8],
-        y: (x) => [0, 1]
+        y: (x) => [0, 1],
+        killing: true
       },
       {
         x: [-8, 0],
-        y: (x) => [0, 1]
+        y: (x) => [0, 1],
+        killing: true
       },
       {
         x: [0, 1],
-        y: (x) => [1, 8]
+        y: (x) => [1, 8],
+        killing: true
       },
       {
         x: [0, 1],
-        y: (x) => [-8, 0]
+        y: (x) => [-8, 0],
+        killing: true
       },
       {
         x: [1, 8],
-        y: (x) => [x, x + 1]
+        y: (x) => [x, x + 1],
+        killing: true
       },
       {
         x: [-8, 0],
-        y: (x) => [x, x + 1]
+        y: (x) => [x, x + 1],
+        killing: true
       },
       {
         x: [1, 8],
-        y: (x) => [-x, -x + 1]
+        y: (x) => [-x, -x + 1],
+        killing: true
       },
       {
         x: [-8, 0],
-        y: (x) => [-x, -x + 1]
+        y: (x) => [-x, -x + 1],
+        killing: true
       }
     ],
     can_jump: false,
@@ -172,34 +220,40 @@ export default {
       let result = [
         {
           x: [0, 1],
-          y: (x) => [1, 2]
+          y: (x) => [1, 2],
+          killing: false
         }
       ]
       if (current_y === 1 || current_y === context.height - 2)
-        result.push({
+        result = [{
           x: [0, 1],
-          y: (x) => [2, 3]
-        })
+          y: (x) => [1, 3],
+          killing: false
+        }]
 
       if (
         context.board[current_x + 1]
-        && context.board[current_x + 1][current_y + mirrored ? -1 : 1]
-        && context.board[current_x + 1][current_y + mirrored ? -1 : 1].piece
-        && context.board[current_x + 1][current_y + mirrored ? -1 : 1].piece !== null
-        && context.board[current_x + 1][current_y + mirrored ? -1 : 1].piece.owner !== context.current_player)
+        && context.board[current_x + 1][current_y + (mirrored ? -1 : 1)]
+        && context.board[current_x + 1][current_y + (mirrored ? -1 : 1)].piece
+        && context.board[current_x + 1][current_y + (mirrored ? -1 : 1)].piece !== null
+        && context.board[current_x + 1][current_y + (mirrored ? -1 : 1)].piece.owner !== context.board[current_x][current_y]) {
+        console.log("qwe")
         result.push({
           x: [1, 2],
-          y: (x) => [1, 2]
+          y: (x) => [1, 2],
+          killing: true
         })
+      }
       if (
         context.board[current_x - 1]
-        && context.board[current_x - 1][current_y + mirrored ? -1 : 1]
-        && context.board[current_x - 1][current_y + mirrored ? -1 : 1].piece
-        && context.board[current_x - 1][current_y + mirrored ? -1 : 1].piece !== null
-        && context.board[current_x - 1][current_y + mirrored ? -1 : 1].piece.owner !== context.current_player)
+        && context.board[current_x - 1][current_y + (mirrored ? -1 : 1)]
+        && context.board[current_x - 1][current_y + (mirrored ? -1 : 1)].piece
+        && context.board[current_x - 1][current_y + (mirrored ? -1 : 1)].piece !== null
+        && context.board[current_x - 1][current_y + (mirrored ? -1 : 1)].piece.owner !== context.board[current_x][current_y])
         result.push({
           x: [-1, 0],
-          y: (x) => [1, 2]
+          y: (x) => [1, 2],
+          killing: true
         })
       if (mirrored)
         reverse(result)

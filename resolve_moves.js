@@ -19,7 +19,8 @@ export default (moves, current_x, current_y, context, table) => {
               if (context.board[current_x + x])
                 if (context.board[current_x + x][current_y + y]) {
                   if (context.board[current_x + x][current_y + y].piece)
-                    if (context.board[current_x + x][current_y + y].piece.owner === context.board[current_x][current_y].piece.owner)
+                    if (!move.killing
+                      || context.board[current_x + x][current_y + y].piece.owner === context.board[current_x][current_y].piece.owner)
                       if (!context.board[current_x][current_y].piece.can_jump)
                         break outer1
                   context.board[current_x + x][current_y + y]["target"] = true
@@ -34,7 +35,8 @@ export default (moves, current_x, current_y, context, table) => {
               if (context.board[current_x + x])
                 if (context.board[current_x + x][current_y + y]) {
                   if (context.board[current_x + x][current_y + y].piece)
-                    if (context.board[current_x + x][current_y + y].piece.owner === context.board[current_x][current_y].piece.owner)
+                    if (!move.killing
+                      || context.board[current_x + x][current_y + y].piece.owner === context.board[current_x][current_y].piece.owner)
                       if (!context.board[current_x][current_y].piece.can_jump)
                         break outer1
                   context.board[current_x + x][current_y + y]["target"] = true
@@ -56,9 +58,11 @@ export default (moves, current_x, current_y, context, table) => {
               if (context.board[current_x + x])
                 if (context.board[current_x + x][current_y + y]) {
                   if (context.board[current_x + x][current_y + y].piece)
-                    if (context.board[current_x + x][current_y + y].piece.owner === context.board[current_x][current_y].piece.owner)
+                    if (!move.killing
+                      || context.board[current_x + x][current_y + y].piece.owner === context.board[current_x][current_y].piece.owner)
                       if (!context.board[current_x][current_y].piece.can_jump)
                         break outer2
+
                   context.board[current_x + x][current_y + y]["target"] = true
 
                   if (context.board[current_x + x][current_y + y].piece)
@@ -68,13 +72,12 @@ export default (moves, current_x, current_y, context, table) => {
             }
           }
           else {
-            console.log("yhey")
             for (let y = bound[1] - 1; y >= bound[0]; y--) {
-              console.log(y)
               if (context.board[current_x + x])
                 if (context.board[current_x + x][current_y + y]) {
                   if (context.board[current_x + x][current_y + y].piece)
-                    if (context.board[current_x + x][current_y + y].piece.owner === context.board[current_x][current_y].piece.owner)
+                    if (!move.killing
+                      || context.board[current_x + x][current_y + y].piece.owner === context.board[current_x][current_y].piece.owner)
                       if (!context.board[current_x][current_y].piece.can_jump)
                         break outer2
                   context.board[current_x + x][current_y + y]["target"] = true
