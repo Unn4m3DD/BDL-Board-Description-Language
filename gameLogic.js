@@ -1,7 +1,5 @@
 export default {
   create_context_from_initial_status: (initial_status) => {
-    console.log(initial_status)
-
     let board = []
     for (let i = 0; i < initial_status.width; i++) {
       board.push([])

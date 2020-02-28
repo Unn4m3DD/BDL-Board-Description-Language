@@ -1,5 +1,5 @@
 import pieces from "./pieces.js";
-
+import get_onclick_from_piece_moves from "./resolve_moves.js"
 export default {
   generate_table: (target_id, height, width) => {
     let old_table = []
@@ -38,7 +38,15 @@ export default {
 
           if (board[x][y].piece.owner == 1)
             table[x][y].className = "p2"
+
+          table[x][y].onclick =
+            get_onclick_from_piece_moves(pieces[board[x][y].piece.name].moves, x, y, context, table)
+
         }
+        else if (board[x][y].target)
+          table[x][y].className = "target"
+        else
+          table[x][y].className = ""
       }
     }
   }

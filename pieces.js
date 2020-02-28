@@ -1,20 +1,20 @@
 export default {
   tower: {
-    moves: ({ x, y, context }) => [
+    moves: ({ current_x, current_y, context }) => [
       {
         x: [1, 8],
-        y: (x) => [0, 0]
+        y: (x) => [0, 1]
       },
       {
         x: [-8, -1],
-        y: (x) => [0, 0]
+        y: (x) => [0, 1]
       },
       {
-        x: [0, 0],
+        x: [0, 1],
         y: (x) => [1, 8]
       },
       {
-        x: [0, 0],
+        x: [0, 1],
         y: (x) => [-8, -1]
       }
     ],
@@ -25,38 +25,38 @@ export default {
   },
 
   horse: {
-    moves: ({ x, y, context }) => [
+    moves: ({ current_x, current_y, context }) => [
       {
-        x: [3, 3],
-        y: (x) => [1, 1]
+        x: [2, 3],
+        y: (x) => [1, 2]
       },
       {
-        x: [3, 3],
-        y: (x) => [-1, -1]
+        x: [2, 3],
+        y: (x) => [-1, 0]
       },
       {
-        x: [-3, -3],
-        y: (x) => [1, 1]
+        x: [-2, -1],
+        y: (x) => [1, 2]
       },
       {
-        x: [-3, -3],
-        y: (x) => [-1, -1]
+        x: [-3, -2],
+        y: (x) => [-1, 0]
       },
       {
-        x: [1, 1],
-        y: (x) => [3, 3],
+        x: [1, 2],
+        y: (x) => [2, 3],
       },
       {
-        x: [-1, -1],
-        y: (x) => [3, 3],
+        x: [-1, 0],
+        y: (x) => [2, 3],
       },
       {
-        x: [1, 1],
-        y: (x) => [-3, -3],
+        x: [1, 2],
+        y: (x) => [-2, -1],
       },
       {
-        x: [-1, -1],
-        y: (x) => [-3, -3],
+        x: [-1, 0],
+        y: (x) => [-2, -1],
       },
     ],
     representation: {
@@ -65,22 +65,22 @@ export default {
     }
   },
   bishop: {
-    moves: ({ x, y, context }) => [
+    moves: ({ current_x, current_y, context }) => [
       {
         x: [1, 8],
-        y: (x) => [x, x]
+        y: (x) => [x, x + 1]
       },
       {
-        x: [-1, -8],
-        y: (x) => [x, x]
+        x: [-8, -1],
+        y: (x) => [x, x + 1]
       },
       {
         x: [1, 8],
-        y: (x) => [-x, -x]
+        y: (x) => [-x, -x + 1]
       },
       {
-        x: [-1, -8],
-        y: (x) => [-x, -x]
+        x: [-8, -1],
+        y: (x) => [-x, -x + 1]
       },
     ],
     representation: {
@@ -89,22 +89,22 @@ export default {
     }
   },
   king: {
-    moves: ({ x, y, context }) => [
+    moves: ({ current_x, current_y, context }) => [
       {
-        x: [1, 1],
-        y: (x) => [-1, 1]
+        x: [1, 2],
+        y: (x) => [-1, 2]
       },
       {
-        x: [-1, -1],
-        y: (x) => [-1, 1]
+        x: [-1, 0],
+        y: (x) => [-1, 2]
       },
       {
-        x: [0, 0],
-        y: (x) => [1, 1]
+        x: [0, 1],
+        y: (x) => [1, 2]
       },
       {
-        x: [0, 0],
-        y: (x) => [-1, -1]
+        x: [0, 1],
+        y: (x) => [-1, 0]
       },
     ],
     representation: {
@@ -113,38 +113,38 @@ export default {
     }
   },
   queen: {
-    moves: ({ x, y, context }) => [
+    moves: ({ current_x, current_y, context }) => [
       {
         x: [1, 8],
-        y: (x) => [0, 0]
+        y: (x) => [0, 1]
       },
       {
         x: [-8, -1],
-        y: (x) => [0, 0]
+        y: (x) => [0, 1]
       },
       {
-        x: [0, 0],
+        x: [0, 1],
         y: (x) => [1, 8]
       },
       {
-        x: [0, 0],
+        x: [0, 1],
         y: (x) => [-8, -1]
       },
       {
         x: [1, 8],
-        y: (x) => [x, x]
+        y: (x) => [x, x + 1]
       },
       {
-        x: [-1, -8],
-        y: (x) => [x, x]
+        x: [-8, -1],
+        y: (x) => [x, x + 1]
       },
       {
         x: [1, 8],
-        y: (x) => [-x, -x]
+        y: (x) => [-x, -x + 1]
       },
       {
-        x: [-1, -8],
-        y: (x) => [-x, -x] 
+        x: [-8, -1],
+        y: (x) => [-x, -x + 1]
       }
     ],
     representation: {
@@ -153,30 +153,41 @@ export default {
     }
   },
   pawn: {
-    moves: ({ x, y, context }) => {
+    moves: ({ current_x, current_y, context }) => {
       let result = [
         {
-          x: [0, 0],
-          y: (x) => [1, 1]
+          x: [0, 1],
+          y: (x) => [1, 2]
         }
       ]
-      if (y === 1)
+
+      if (current_y === 1)
         result.push({
-          x: [0, 0],
-          y: (x) => [2, 2]
+          x: [0, 1],
+          y: (x) => [2, 3]
         })
-      if (context.board[x + 1][y + 1].piece !== null
-        && context.board[x + 1][y + 1].piece.owner !== context.current_player)
+
+      if (
+        context.board[current_x + 1]
+        && context.board[current_x + 1][current_y + 1]
+        && context.board[current_x + 1][current_y + 1].piece
+        && context.board[current_x + 1][current_y + 1].piece !== null
+        && context.board[current_x + 1][current_y + 1].piece.owner !== context.current_player)
         result.push({
-          x: [1, 1],
-          y: (x) => [1, 1]
+          x: [1, 2],
+          y: (x) => [1, 2]
         })
-      if (context.board[x - 1][y + 1].piece !== null
-        && context.board[x - 1][y + 1].piece.owner !== context.current_player)
+      if (
+        context.board[current_x - 1]
+        && context.board[current_x - 1][current_y + 1]
+        && context.board[current_x - 1][current_y + 1].piece
+        && context.board[current_x - 1][current_y + 1].piece !== null
+        && context.board[current_x - 1][current_y + 1].piece.owner !== context.current_player)
         result.push({
-          x: [-1, -1],
-          y: (x) => [1, 1]
+          x: [-1, 0],
+          y: (x) => [1, 2]
         })
+      return result
     },
     representation: {
       img: "",
