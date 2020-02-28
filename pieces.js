@@ -160,7 +160,7 @@ export default {
           y: (x) => [1, 1]
         }
       ]
-      if (y === 2)
+      if (y === 1)
         result.push({
           x: [0, 0],
           y: (x) => [2, 2]
@@ -180,7 +180,7 @@ export default {
     },
     representation: {
       img: "",
-      letter: "K"
+      letter: "P"
     }
   }
 }

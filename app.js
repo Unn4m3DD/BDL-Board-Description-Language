@@ -1,8 +1,8 @@
 
 import renderer from "./renderer.js";
 const { generate_table, render } = renderer
-import initial_status from "./initial_status";
-import gameLogic from "./gameLogic";
+import initial_status from "./initial_status.js";
+import gameLogic from "./gameLogic.js";
 const { create_context_from_initial_status } = gameLogic
 const context = create_context_from_initial_status(initial_status)
 
