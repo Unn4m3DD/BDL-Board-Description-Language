@@ -31,7 +31,10 @@ export default {
     const { board } = context
     for (let x = 0; x < board.length; x++) {
       for (let y = 0; y < board[x].length; y++) {
-        if (board[x][y].piece) {
+
+        if (board[x][y].target)
+          table[x][y].className = "target"
+        else if (board[x][y].piece) {
           table[x][y].innerText = pieces[board[x][y].piece.name].representation.letter
           if (board[x][y].piece.owner == 0)
             table[x][y].className = "p1"
@@ -43,8 +46,6 @@ export default {
             get_onclick_from_piece_moves(pieces[board[x][y].piece.name].moves, x, y, context, table)
 
         }
-        else if (board[x][y].target)
-          table[x][y].className = "target"
         else
           table[x][y].className = ""
       }

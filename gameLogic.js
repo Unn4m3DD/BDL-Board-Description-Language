@@ -4,7 +4,11 @@ export default {
     for (let i = 0; i < initial_status.width; i++) {
       board.push([])
       for (let j = 0; j < initial_status.height; j++) {
-        board[i].push([])
+        board[i].push([{
+          mirrored: false,
+          target: false,
+          piece: null
+        }])
       }
     }
     for (let piece_name in initial_status.pieces) {
@@ -12,6 +16,8 @@ export default {
 
       for (let position of current_piece.positions) {
         board[position.x][position.y] = {
+          mirrored: false,
+          target: false,
           piece: {
             name: piece_name,
             owner: 0
@@ -19,6 +25,8 @@ export default {
         }
         if (current_piece.mirrored)
           board[position.x][(initial_status.height - 1) - position.y] = {
+            mirrored: true,
+            target: false,
             piece: {
               name: piece_name,
               owner: 1
@@ -27,6 +35,8 @@ export default {
       }
     }
     return {
+      height: initial_status.height,
+      width: initial_status.width,
       current_player: 0,
       board,
     }
