@@ -35,10 +35,13 @@ const functions = {
         if (board[x][y].target) {
           table[x][y].className = "target"
           table[x][y].onclick = (event) => {
-            for (let x = 0; x < context.board.length; x++)
-              for (let y = 0; y < context.board[x].length; y++)
+            for (let x = 0; x < context.board.length; x++) {
+              for (let y = 0; y < context.board[x].length; y++) {
                 context.board[x][y].target = false
-            board[x][y].piece = { ...board[context.focused.x][context.focused.y].piece }
+                table[x][y].onclick = (event) => { }
+              }
+            }
+            board[x][y].piece = board[context.focused.x][context.focused.y].piece
             board[context.focused.x][context.focused.y].piece = null
             functions.render(context, table)
             console.log(board)
