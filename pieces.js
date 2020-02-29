@@ -56,7 +56,7 @@ export default {
         killing: true
       },
       {
-        x: [-3, -2],
+        x: [-2, -1],
         y: (x) => [-1, 0],
         killing: true
       },
@@ -216,7 +216,7 @@ export default {
   },
   pawn: {
     moves: ({ current_x, current_y, context }) => {
-      const mirrored = context.board[current_x][current_y].mirrored
+      const mirrored = context.board[current_x][current_y].piece.mirrored
       let result = [
         {
           x: [0, 1],
@@ -224,20 +224,19 @@ export default {
           killing: false
         }
       ]
-      if (current_y === 1 || current_y === context.height - 2)
+      if ((!mirrored && current_y === 1)
+        || (mirrored && current_y === context.height - 2))
         result = [{
           x: [0, 1],
           y: (x) => [1, 3],
           killing: false
         }]
-
       if (
         context.board[current_x + 1]
         && context.board[current_x + 1][current_y + (mirrored ? -1 : 1)]
         && context.board[current_x + 1][current_y + (mirrored ? -1 : 1)].piece
         && context.board[current_x + 1][current_y + (mirrored ? -1 : 1)].piece !== null
-        && context.board[current_x + 1][current_y + (mirrored ? -1 : 1)].piece.owner !== context.board[current_x][current_y]) {
-        console.log("qwe")
+        && context.board[current_x + 1][current_y + (mirrored ? -1 : 1)].piece.owner !== context.board[current_x][current_y].owner) {
         result.push({
           x: [1, 2],
           y: (x) => [1, 2],
@@ -249,7 +248,7 @@ export default {
         && context.board[current_x - 1][current_y + (mirrored ? -1 : 1)]
         && context.board[current_x - 1][current_y + (mirrored ? -1 : 1)].piece
         && context.board[current_x - 1][current_y + (mirrored ? -1 : 1)].piece !== null
-        && context.board[current_x - 1][current_y + (mirrored ? -1 : 1)].piece.owner !== context.board[current_x][current_y])
+        && context.board[current_x - 1][current_y + (mirrored ? -1 : 1)].piece.owner !== context.board[current_x][current_y].owner)
         result.push({
           x: [-1, 0],
           y: (x) => [1, 2],
@@ -257,6 +256,7 @@ export default {
         })
       if (mirrored)
         reverse(result)
+      console.log(result)
 
       return result
     },

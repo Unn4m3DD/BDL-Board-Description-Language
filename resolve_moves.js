@@ -3,8 +3,8 @@ import renderer from "./renderer.js";
 export default (moves, current_x, current_y, context, table) => {
   const { render } = renderer
   return (event) => {
-    context.focused.x= current_x
-    context.focused.y= current_y
+    context.focused.x = current_x
+    context.focused.y = current_y
     for (let x = 0; x < context.board.length; x++)
       for (let y = 0; y < context.board[x].length; y++)
         context.board[x][y].target = false

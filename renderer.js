@@ -41,6 +41,8 @@ const functions = {
             board[x][y].piece = { ...board[context.focused.x][context.focused.y].piece }
             board[context.focused.x][context.focused.y].piece = null
             functions.render(context, table)
+            console.log(board)
+
           }
         }
         else if (board[x][y].piece) {
