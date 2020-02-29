@@ -1,6 +1,6 @@
 import pieces from "./pieces.js";
 import get_onclick_from_piece_moves from "./resolve_moves.js"
-export default {
+const functions = {
   generate_table: (target_id, height, width) => {
     let old_table = []
     let table_body = document.createElement("tbody")
@@ -32,8 +32,17 @@ export default {
     for (let x = 0; x < board.length; x++) {
       for (let y = 0; y < board[x].length; y++) {
 
-        if (board[x][y].target)
+        if (board[x][y].target) {
           table[x][y].className = "target"
+          table[x][y].onclick = (event) => {
+            for (let x = 0; x < context.board.length; x++)
+              for (let y = 0; y < context.board[x].length; y++)
+                context.board[x][y].target = false
+            board[x][y].piece = { ...board[context.focused.x][context.focused.y].piece }
+            board[context.focused.x][context.focused.y].piece = null
+            functions.render(context, table)
+          }
+        }
         else if (board[x][y].piece) {
           table[x][y].innerText = pieces[board[x][y].piece.name].representation.letter
           if (board[x][y].piece.owner == 0)
@@ -46,9 +55,12 @@ export default {
             get_onclick_from_piece_moves(pieces[board[x][y].piece.name].moves, x, y, context, table)
 
         }
-        else
+        else {
+          table[x][y].innerText = ""
           table[x][y].className = ""
+        }
       }
     }
   }
 }
+export default functions;

@@ -11,7 +11,7 @@ export default {
     queen: {
       mirrored: true,
       positions: [{
-        x: 5, y: 5,
+        x: 3, y: 0,
       }]
     },
     bishop: {
