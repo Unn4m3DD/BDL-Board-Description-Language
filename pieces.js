@@ -1,3 +1,4 @@
+import renderer from "./renderer.js";
 function reverse(array) {
   for (let i = 0; i < array.length; i++) {
     const func = array[i].y
@@ -7,7 +8,7 @@ function reverse(array) {
     }
   }
 }
-export default {
+const pieces = {
   tower: {
     moves: ({ current_x, current_y, context }) => [
       {
@@ -31,6 +32,7 @@ export default {
         killing: true
       }
     ],
+    on_end_reached: (context, current_x, current_y) => { },
     can_jump: false,
     representation: {
       img: "",
@@ -81,6 +83,7 @@ export default {
         killing: true
       },
     ],
+    on_end_reached: (context, current_x, current_y) => { },
     can_jump: true,
     representation: {
       img: "",
@@ -110,6 +113,7 @@ export default {
         killing: true
       },
     ],
+    on_end_reached: (context, current_x, current_y) => { },
     can_jump: false,
     representation: {
       img: "",
@@ -159,6 +163,7 @@ export default {
         killing: true
       },
     ],
+    on_end_reached: (context, current_x, current_y) => { },
     can_jump: false,
     representation: {
       img: "",
@@ -208,6 +213,7 @@ export default {
         killing: true
       }
     ],
+    on_end_reached: (context, current_x, current_y) => { },
     can_jump: false,
     representation: {
       img: "",
@@ -256,9 +262,22 @@ export default {
         })
       if (mirrored)
         reverse(result)
-      console.log(result)
 
       return result
+    },
+    on_end_reached: (context, current_x, current_y) => {
+      let response = ""
+      while (!pieces[response]) {
+        let msg = "Select one: "
+        let sep = ""
+        for (let i in pieces) {
+          msg += sep + i
+          sep = ", "
+        }
+        response = prompt(msg)
+      }
+      console.log(context.board)
+      context.board[current_x][current_y].piece.name = response
     },
     can_jump: false,
     representation: {
@@ -267,3 +286,5 @@ export default {
     }
   }
 }
+
+export default pieces

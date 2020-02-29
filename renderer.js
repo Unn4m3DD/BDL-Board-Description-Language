@@ -43,9 +43,15 @@ const functions = {
             }
             board[x][y].piece = board[context.focused.x][context.focused.y].piece
             board[context.focused.x][context.focused.y].piece = null
-            functions.render(context, table)
-            console.log(board)
+            if (!board[x][y].piece.mirrored) {
+              if (y === context.height - 1)
+                pieces[board[x][y].piece.name].on_end_reached(context, x, y)
+            } else {
+              if (y === 0)
+                pieces[board[x][y].piece.name].on_end_reached(context, x, y)
+            }
 
+            functions.render(context, table)
           }
         }
         else if (board[x][y].piece) {
