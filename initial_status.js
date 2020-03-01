@@ -1,4 +1,5 @@
 export default {
+  first_player: 1,
   width: 8,
   height: 8,
   pieces: {

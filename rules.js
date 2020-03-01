@@ -2,6 +2,9 @@ import resolve_moves from "./resolve_moves.js";
 import pieces from "./pieces.js";
 
 export default {
+  player_change_rule: (context) => {
+    context.current_player = context.current_player === 0 ? 1 : 0
+  },
   targeting_invariants: [
     (context, current_x, current_y, target_x, target_y) => {
       if (!context.board[current_x][current_y].piece ||

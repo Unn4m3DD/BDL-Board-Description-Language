@@ -31,7 +31,7 @@ export default {
       focused: { x: 1, y: 1 },
       height: initial_status.height,
       width: initial_status.width,
-      current_player: 0,
+      current_player: initial_status.first_player,
       board,
     }
   }
