@@ -62,9 +62,12 @@ const functions = {
           if (board[x][y].piece.owner == 1)
             table[x][y].className = "p2"
 
-          table[x][y].onclick =
-            get_onclick_from_piece_moves(pieces[board[x][y].piece.name].moves, x, y, context, table)
-
+          table[x][y].onclick = () => {
+            context.focused.x = x
+            context.focused.y = y
+            get_onclick_from_piece_moves(pieces[board[x][y].piece.name].moves, x, y, context, true)()
+            functions.render(context, table)
+          }
         }
         else {
           table[x][y].innerText = ""

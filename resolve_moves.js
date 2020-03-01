@@ -1,10 +1,8 @@
-import renderer from "./renderer.js";
-
-export default (moves, current_x, current_y, context, table) => {
-  const { render } = renderer
+import rules from "./rules.js";
+const { targeting_invariants } = rules
+export default (moves, current_x, current_y, context, resolve_recursively) => {
   return (event) => {
-    context.focused.x = current_x
-    context.focused.y = current_y
+    console.log("asd")
     for (let x = 0; x < context.board.length; x++)
       for (let y = 0; y < context.board[x].length; y++)
         context.board[x][y].target = false
@@ -22,7 +20,13 @@ export default (moves, current_x, current_y, context, table) => {
                       || context.board[current_x + x][current_y + y].piece.owner === context.board[current_x][current_y].piece.owner)
                       if (!context.board[current_x][current_y].piece.can_jump)
                         break outer1
-                  context.board[current_x + x][current_y + y]["target"] = true
+                  let invariant_check = true;
+                  if (resolve_recursively)
+                    for (const invariant of targeting_invariants)
+                      invariant_check = invariant_check && invariant(context, current_x, current_y, current_x + x, current_y + y)
+                  //console.log(invariant_check)
+                  if (invariant_check)
+                    context.board[current_x + x][current_y + y]["target"] = true
                   if (context.board[current_x + x][current_y + y].piece)
                     if (!context.board[current_x][current_y].piece.can_jump)
                       break outer1
@@ -37,7 +41,13 @@ export default (moves, current_x, current_y, context, table) => {
                       || context.board[current_x + x][current_y + y].piece.owner === context.board[current_x][current_y].piece.owner)
                       if (!context.board[current_x][current_y].piece.can_jump)
                         break outer1
-                  context.board[current_x + x][current_y + y]["target"] = true
+                  let invariant_check = true;
+                  if (resolve_recursively)
+                    for (const invariant of targeting_invariants)
+                      invariant_check = invariant_check && invariant(context, current_x, current_y, current_x + x, current_y + y)
+                  //console.log(invariant_check)
+                  if (invariant_check)
+                    context.board[current_x + x][current_y + y]["target"] = true
                   if (context.board[current_x + x][current_y + y].piece)
                     if (!context.board[current_x][current_y].piece.can_jump)
                       break outer1
@@ -58,7 +68,13 @@ export default (moves, current_x, current_y, context, table) => {
                       || context.board[current_x + x][current_y + y].piece.owner === context.board[current_x][current_y].piece.owner)
                       if (!context.board[current_x][current_y].piece.can_jump)
                         break outer2
-                  context.board[current_x + x][current_y + y]["target"] = true
+                  let invariant_check = true;
+                  if (resolve_recursively)
+                    for (const invariant of targeting_invariants)
+                      invariant_check = invariant_check && invariant(context, current_x, current_y, current_x + x, current_y + y)
+                  //console.log(invariant_check)
+                  if (invariant_check)
+                    context.board[current_x + x][current_y + y]["target"] = true
                   if (context.board[current_x + x][current_y + y].piece)
                     if (!context.board[current_x][current_y].piece.can_jump)
                       break outer2
@@ -74,7 +90,13 @@ export default (moves, current_x, current_y, context, table) => {
                       || context.board[current_x + x][current_y + y].piece.owner === context.board[current_x][current_y].piece.owner)
                       if (!context.board[current_x][current_y].piece.can_jump)
                         break outer2
-                  context.board[current_x + x][current_y + y]["target"] = true
+                  let invariant_check = true;
+                  if (resolve_recursively)
+                    for (const invariant of targeting_invariants)
+                      invariant_check = invariant_check && invariant(context, current_x, current_y, current_x + x, current_y + y)
+                  //console.log(invariant_check)
+                  if (invariant_check)
+                    context.board[current_x + x][current_y + y]["target"] = true
 
                   if (context.board[current_x + x][current_y + y].piece)
                     if (!context.board[current_x][current_y].piece.can_jump)
@@ -85,7 +107,9 @@ export default (moves, current_x, current_y, context, table) => {
         }
       }
     }
+    console.log(
+      context.board[current_x][current_y].piece.name,
+      context.board.map((e) => e.map((e2) => e2.target)))
 
-    render(context, table)
   }
 }

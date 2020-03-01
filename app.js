@@ -10,3 +10,6 @@ const context = create_context_from_initial_status(initial_status)
 let table = generate_table("board", initial_status.height, initial_status.width);
 
 render(context, table)
+
+
+import rules from "./rules.js";

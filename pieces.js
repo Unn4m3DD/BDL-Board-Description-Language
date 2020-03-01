@@ -1,4 +1,3 @@
-import renderer from "./renderer.js";
 function reverse(array) {
   for (let i = 0; i < array.length; i++) {
     const func = array[i].y
@@ -257,7 +256,7 @@ const pieces = {
         && context.board[current_x - 1][current_y + (mirrored ? -1 : 1)].piece.owner !== context.board[current_x][current_y].owner)
         result.push({
           x: [-1, 0],
-          y: (x) => [1, 2],
+          y: (x) => [1, 2] ,
           killing: true
         })
       if (mirrored)

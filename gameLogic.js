@@ -1,15 +1,8 @@
+import create_board from "./create_board.js"
+
 export default {
   create_context_from_initial_status: (initial_status) => {
-    let board = []
-    for (let i = 0; i < initial_status.width; i++) {
-      board.push([])
-      for (let j = 0; j < initial_status.height; j++) {
-        board[i].push({
-          target: false,
-          piece: null
-        })
-      }
-    }
+    let board = create_board(initial_status.width, initial_status.height)
     for (let piece_name in initial_status.pieces) {
       let current_piece = initial_status.pieces[piece_name]
 
