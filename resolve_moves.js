@@ -2,7 +2,6 @@ import rules from "./rules.js";
 const { targeting_invariants } = rules
 export default (moves, current_x, current_y, context, resolve_recursively) => {
   return (event) => {
-    console.log("asd")
     for (let x = 0; x < context.board.length; x++)
       for (let y = 0; y < context.board[x].length; y++)
         context.board[x][y].target = false

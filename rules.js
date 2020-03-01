@@ -14,6 +14,8 @@ export default {
           if (context.board[x][y].piece
             && context.board[x][y].piece.owner !== context.board[current_x][current_y].piece.owner) {
             let temp_board = JSON.parse(JSON.stringify(context.board))
+            temp_board[target_x][target_y].piece = { ...temp_board[current_x][current_y].piece }
+            temp_board[current_x][current_y].piece = null
             resolve_moves(
               pieces[context.board[x][y].piece.name].moves,
               x,
@@ -26,9 +28,6 @@ export default {
                 focused: context.focused
               },
               false)()
-            console.log(
-              context.board[x][y].piece.name,
-              temp_board.map((e) => e.map((e2) => e2.target)))
             if (temp_board[target_x]
               && temp_board[target_x][target_y]
               && temp_board[target_x][target_y].target)
