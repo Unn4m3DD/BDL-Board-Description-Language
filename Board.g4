@@ -1,6 +1,6 @@
 grammar Board;
 
-game: pieces initial_status rules invariants finish ;
+game: pieces* initial_status* rules* invariants* finish* ;
 //game: finish ;
 
 pieces: 'pieces{' piece+ '}' ;
@@ -38,7 +38,7 @@ coordenates: 'x'':' x ',' 'y' ':' y ;
 x: VALUE | interval ;
 y: VALUE | interval ;
 interval: '[' VALUE ',' VALUE ']' ;
-explicit: 'explicit«' ~('»')+ '»';
+explicit: 'explicit«' (~'»'|'='|'>')+ '»';
 
 
 name: STRING;

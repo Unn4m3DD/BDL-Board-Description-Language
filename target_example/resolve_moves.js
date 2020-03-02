@@ -23,7 +23,6 @@ export default (moves, current_x, current_y, context, resolve_recursively) => {
                   if (resolve_recursively)
                     for (const invariant of targeting_invariants)
                       invariant_check = invariant_check && invariant(context, current_x, current_y, current_x + x, current_y + y)
-                  //console.log(invariant_check)
                   if (invariant_check)
                     context.board[current_x + x][current_y + y]["target"] = true
                   if (context.board[current_x + x][current_y + y].piece)
@@ -44,7 +43,6 @@ export default (moves, current_x, current_y, context, resolve_recursively) => {
                   if (resolve_recursively)
                     for (const invariant of targeting_invariants)
                       invariant_check = invariant_check && invariant(context, current_x, current_y, current_x + x, current_y + y)
-                  //console.log(invariant_check)
                   if (invariant_check)
                     context.board[current_x + x][current_y + y]["target"] = true
                   if (context.board[current_x + x][current_y + y].piece)
@@ -71,7 +69,6 @@ export default (moves, current_x, current_y, context, resolve_recursively) => {
                   if (resolve_recursively)
                     for (const invariant of targeting_invariants)
                       invariant_check = invariant_check && invariant(context, current_x, current_y, current_x + x, current_y + y)
-                  //console.log(invariant_check)
                   if (invariant_check)
                     context.board[current_x + x][current_y + y]["target"] = true
                   if (context.board[current_x + x][current_y + y].piece)
@@ -93,7 +90,6 @@ export default (moves, current_x, current_y, context, resolve_recursively) => {
                   if (resolve_recursively)
                     for (const invariant of targeting_invariants)
                       invariant_check = invariant_check && invariant(context, current_x, current_y, current_x + x, current_y + y)
-                  //console.log(invariant_check)
                   if (invariant_check)
                     context.board[current_x + x][current_y + y]["target"] = true
 

@@ -8,7 +8,6 @@ export default {
     return last_color
   },
   player_change_rule: (context) => {
-    console.log(context.current_player)
     context.current_player = context.current_player === 0 ? 1 : 0
   },
   targeting_invariants: [
@@ -26,7 +25,7 @@ export default {
             temp_board[target_x][target_y].piece = { ...temp_board[current_x][current_y].piece }
             temp_board[current_x][current_y].piece = null
             resolve_moves(
-              pieces[temp_board[x][y].piece.name].moves, //verify
+              pieces[temp_board[x][y].piece.name].moves, 
               x,
               y,
               {
@@ -52,9 +51,13 @@ export default {
         return true
 
       if (target_x === current_x) {
-        if (Math.abs(current_y - target_y) < 2) return true
-        if (!context.board[target_x][target_y].piece)
-          return true
+        if (!context.board[target_x][target_y].piece) {
+          if (Math.abs(current_y - target_y) < 2)
+            return true
+          if (!context.board[current_x][current_y].piece.mirrored ?
+            current_y === 1 : current_y === context.height - 2)
+            return true
+        }
       }
 
       if (context.board[target_x][target_y].piece !== null)
