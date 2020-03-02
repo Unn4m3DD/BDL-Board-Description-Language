@@ -1,8 +1,17 @@
 import pieces from "./pieces.js";
 import get_onclick_from_piece_moves from "./resolve_moves.js"
 import rules from "./rules.js"
-const { player_change_rule, finishing_rules } = rules
+const { player_change_rule, finishing_rules, board_coloring_rule } = rules
 const functions = {
+  colorize_table: (table, context) => {
+    let last_color = ""
+    for (let x = 0; x < context.height; x++) {
+      for (let y = 0; y < context.width; y++) {
+        last_color = board_coloring_rule(x, y, last_color)
+        table[x][y].style.backgroundColor = last_color
+      }
+    }
+  },
   generate_table: (target_id, height, width) => {
     let old_table = []
     let table_body = document.createElement("tbody")
@@ -31,11 +40,12 @@ const functions = {
   },
   render: (context, table) => {
     const { board } = context
+    functions.colorize_table(table, context)
     for (let x = 0; x < board.length; x++) {
       for (let y = 0; y < board[x].length; y++) {
 
         if (board[x][y].target) {
-          table[x][y].className = "target"
+          table[x][y].style.backgroundColor = "rgba(100, 200, 100, 100)"
           table[x][y].onclick = (event) => {
             player_change_rule(context)
             for (let x = 0; x < context.board.length; x++) {
