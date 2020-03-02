@@ -3,6 +3,7 @@ import pieces from "./pieces.js";
 
 export default {
   player_change_rule: (context) => {
+    console.log(context.current_player)
     context.current_player = context.current_player === 0 ? 1 : 0
   },
   targeting_invariants: [
@@ -82,18 +83,44 @@ export default {
                 focused: context.focused
               },
               false)()
-            console.log(context.board[x][y].piece.name)
             const targets = temp_board.map((e) => e.map((e2) => e2.target))
             for (let i = 0; i < context.width; i++) {
               for (let j = 0; j < context.width; j++) {
-                if (targets[i][j])
-                  console.log(context.board[i][j].piece)
                 if (targets[i][j]
                   && temp_board[i][j].piece
                   && temp_board[i][j].piece.name === "king")
                   return false
               }
             }
+          }
+        }
+      }
+      return true
+    }
+  ],
+  finishing_rules: [
+    (context) => {
+      for (let x = 0; x < context.width; x++) {
+        for (let y = 0; y < context.width; y++) {
+          if (context.board[x][y].piece
+            && context.board[x][y].piece.owner === context.current_player) {
+            let temp_board = JSON.parse(JSON.stringify(context.board))
+            resolve_moves(
+              pieces[temp_board[x][y].piece.name].moves, 
+              x,
+              y,
+              {
+                board: temp_board,
+                height: context.height,
+                width: context.width,
+                current_player: context.current_player,
+                focused: context.focused
+              },
+              true)()
+            const targets = temp_board.map((e) => e.map((e2) => e2.target))
+            for (let i = 0; i < context.width; i++)
+              for (let j = 0; j < context.width; j++)
+                if (targets[i][j]) return false
           }
         }
       }

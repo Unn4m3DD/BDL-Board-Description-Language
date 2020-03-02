@@ -1,7 +1,7 @@
 import pieces from "./pieces.js";
 import get_onclick_from_piece_moves from "./resolve_moves.js"
 import rules from "./rules.js"
-const { player_change_rule } = rules
+const { player_change_rule, finishing_rules } = rules
 const functions = {
   generate_table: (target_id, height, width) => {
     let old_table = []
@@ -37,6 +37,7 @@ const functions = {
         if (board[x][y].target) {
           table[x][y].className = "target"
           table[x][y].onclick = (event) => {
+            player_change_rule(context)
             for (let x = 0; x < context.board.length; x++) {
               for (let y = 0; y < context.board[x].length; y++) {
                 context.board[x][y].target = false
@@ -65,7 +66,6 @@ const functions = {
             table[x][y].className = "p2"
           if (context.current_player === board[x][y].piece.owner)
             table[x][y].onclick = () => {
-              player_change_rule(context)
               context.focused.x = x
               context.focused.y = y
               get_onclick_from_piece_moves(pieces[board[x][y].piece.name].moves, x, y, context, true)()
@@ -73,10 +73,18 @@ const functions = {
             }
         }
         else {
+          table[x][y].onclick = () => { }
           table[x][y].innerText = ""
           table[x][y].className = ""
         }
       }
+    }
+    let finished = true;
+    for (const rule of finishing_rules) {
+      finished = finished & rule(context)
+    }
+    if (finished) {
+      alert("Game Finished")
     }
   }
 }
