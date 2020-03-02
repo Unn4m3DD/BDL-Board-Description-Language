@@ -106,9 +106,6 @@ export default (moves, current_x, current_y, context, resolve_recursively) => {
         }
       }
     }
-    console.log(
-      context.board[current_x][current_y].piece.name,
-      context.board.map((e) => e.map((e2) => e2.target)))
 
   }
 }
