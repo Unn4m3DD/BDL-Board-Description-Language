@@ -42,7 +42,11 @@ pieces{
     moves{
       vertical(1,2)
       x : 1, y : 1
-      x : -1, y : 1
+      explicit{
+        x: [-1, 0],
+        y: (x) => [1, 2],
+        killing: true
+      }
     }
   }
 }
@@ -50,3 +54,4 @@ pieces{
 rules{
 
 }
+
