@@ -51,7 +51,56 @@ pieces{
   }
 }
 
-rules{
-
+initial_status{
+  pieces{
+    tower{
+      positions{
+        x : 0, y : 0
+        x : 7, y : 0
+      }
+      mirrored
+    }
+    horse{
+      positions{
+        x : 1, y : 0
+        x : 6, y : 0
+      }
+      mirrored
+    }
+    bishop{
+      positions{
+        x : 2, y : 0
+        x : 5, y : 0
+      }
+      mirrored
+    }
+    queen{
+      positions{
+        x : 3, y : 0
+      }
+      mirrored
+    }
+    king{
+      positions{
+        x : 4, y : 0
+      }
+      mirrored
+    }
+    pawn{
+      positions{
+        x : [0, 8], y : 1
+      }
+      mirrored
+    }
+  }
 }
 
+rules{
+  first_player : 0
+  width : 8
+  height : 8
+}
+
+coloring_rules{
+  alternate
+}
