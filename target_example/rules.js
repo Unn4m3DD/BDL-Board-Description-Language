@@ -39,6 +39,23 @@ export default {
         }
       }
       return true;
+    },
+    (context, current_x, current_y, target_x, target_y) => {
+      if (!context.board[current_x][current_y].piece ||
+        context.board[current_x][current_y].piece.name !== "pawn")
+        return true
+
+      if (target_x === current_x) {
+        if (Math.abs(current_y - target_y) < 2) return true
+        if (!context.board[target_x][target_y].piece)
+          return true
+      }
+
+      if (context.board[target_x][target_y].piece !== null)
+        if (context.board[target_x][target_y].piece.owner !==
+          context.board[current_x][current_y].piece.owner)
+          return true
+      return false
     }
   ]
 }

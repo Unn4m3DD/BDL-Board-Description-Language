@@ -225,10 +225,23 @@ const pieces = {
       let result = [
         {
           x: [0, 1],
-          y: (x) => [1, 2],
+          y: (x) => [1, 3],
           killing: false
+        },
+        {
+          x: [1, 2],
+          y: (x) => [1, 2],
+          killing: true
+        },
+        {
+          x: [-1, 0],
+          y: (x) => [1, 2],
+          killing: true
         }
       ]
+      if (mirrored)
+        reverse(result)
+      /*
       if ((!mirrored && current_y === 1)
         || (mirrored && current_y === context.height - 2))
         result = [{
@@ -256,12 +269,10 @@ const pieces = {
         && context.board[current_x - 1][current_y + (mirrored ? -1 : 1)].piece.owner !== context.board[current_x][current_y].owner)
         result.push({
           x: [-1, 0],
-          y: (x) => [1, 2] ,
+          y: (x) => [1, 2],
           killing: true
         })
-      if (mirrored)
-        reverse(result)
-
+      */
       return result
     },
     on_end_reached: (context, current_x, current_y) => {
