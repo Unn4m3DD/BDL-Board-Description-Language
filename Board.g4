@@ -2,7 +2,7 @@ grammar Board;
 
 game: pieces ; //initial_status rules invariant finish ;
 
-pieces: 'pieces{' pieceMove+ | explicit '}' ;
+pieces: 'pieces{' '}' ;
 
 initial_status: 'pieces{' (piecePos+ PROPERTY?) | explicit '}' ;
 
@@ -44,4 +44,4 @@ NAME: STRING ;
 STRING: [_a-zA-Z]+ ;
 VALUE: '-'? ([0-9]+ '.')? [0-9]+ ;
 WS: [ \t\n\r]+ -> skip ;
-ANY: .+ ; 
+//ANY: .+ ; 
