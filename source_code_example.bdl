@@ -1,0 +1,52 @@
+
+pieces{
+  horse{
+    moves{
+      x : 2, y : 1
+      x : 2, y : -1
+      x : -2, y : 1
+      x : -2, y : -1
+      x : 1, y : 2
+      x : 1, y : -2
+      x : -1, y : 2
+      x : -1, y : -2
+    }
+    can_jump
+  }
+  tower{
+    moves{
+      horizontal(,)
+      vertical(,)
+    }
+  }
+  bishop{
+    moves{
+      diagonal(,)
+    }
+  }
+  queen{
+    moves{
+      horizontal(,)
+      vertical(,)
+      diagonal(,)
+    }
+  }
+  king{
+    moves{
+      horizontal(-1,1)
+      vertical(-1,1)
+      diagonal(-1,1)
+    }
+  }
+  pawn{
+    moves{
+      vertical(1,2)
+      x : 1, y : 1
+      x : -1, y : 1
+    }
+  }
+}
+
+rules{
+
+}
