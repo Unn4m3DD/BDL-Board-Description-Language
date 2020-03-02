@@ -28,13 +28,13 @@ moves: 'moves{' move+ '}' ;
 
 move:  direction
      | coordenates
-     | explicit;
+     | explicit; 
 
-direction: ('vertical'|'horizontal'|'diagonal'|coordenates);
+direction: ('vertical' pair|'horizontal' pair|'diagonal' pair|coordenates);
 
 coordenates: 'x'':' x ',' 'y' ':' y ;
 
-
+pair: '(' VALUE? ',' VALUE? ')' ;
 x: VALUE | interval ;
 y: VALUE | interval ;
 interval: '[' VALUE ',' VALUE ']' ;
@@ -45,5 +45,5 @@ name: STRING;
 invariant: STRING;
 property: STRING; 
 STRING: [_a-zA-Z]+;
-VALUE: '-'? ([0-9]+ '.')? [0-9]+ ;
+VALUE: '-'? ([0-9]+ '.')? [0-9]+;
 WS: [ \t\n\r]+ -> skip ;
