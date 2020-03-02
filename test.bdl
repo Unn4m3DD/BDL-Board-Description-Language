@@ -1,3 +1,6 @@
-pieces{
-  
+finish{
+  trapped(king)
+  explicit«
+    (context) => {}
+  »
 }

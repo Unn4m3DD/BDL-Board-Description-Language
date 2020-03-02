@@ -51,6 +51,18 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPieces_inital(BoardParser.Pieces_initalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPieces_inital(BoardParser.Pieces_initalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterRules(BoardParser.RulesContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -75,13 +87,13 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInvariant(BoardParser.InvariantContext ctx) { }
+	@Override public void enterInvariant_replace_this(BoardParser.Invariant_replace_thisContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInvariant(BoardParser.InvariantContext ctx) { }
+	@Override public void exitInvariant_replace_this(BoardParser.Invariant_replace_thisContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -99,37 +111,37 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPieceMove(BoardParser.PieceMoveContext ctx) { }
+	@Override public void enterPiece(BoardParser.PieceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPieceMove(BoardParser.PieceMoveContext ctx) { }
+	@Override public void exitPiece(BoardParser.PieceContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPiecePos(BoardParser.PiecePosContext ctx) { }
+	@Override public void enterPiece_initial(BoardParser.Piece_initialContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPiecePos(BoardParser.PiecePosContext ctx) { }
+	@Override public void exitPiece_initial(BoardParser.Piece_initialContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPosition(BoardParser.PositionContext ctx) { }
+	@Override public void enterPositions(BoardParser.PositionsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPosition(BoardParser.PositionContext ctx) { }
+	@Override public void exitPositions(BoardParser.PositionsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -226,6 +238,42 @@ public class BoardBaseListener implements BoardListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExplicit(BoardParser.ExplicitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterName(BoardParser.NameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitName(BoardParser.NameContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInvariant(BoardParser.InvariantContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInvariant(BoardParser.InvariantContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterProperty(BoardParser.PropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitProperty(BoardParser.PropertyContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -37,6 +37,16 @@ public interface BoardListener extends ParseTreeListener {
 	 */
 	void exitInitial_status(BoardParser.Initial_statusContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link BoardParser#pieces_inital}.
+	 * @param ctx the parse tree
+	 */
+	void enterPieces_inital(BoardParser.Pieces_initalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#pieces_inital}.
+	 * @param ctx the parse tree
+	 */
+	void exitPieces_inital(BoardParser.Pieces_initalContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link BoardParser#rules}.
 	 * @param ctx the parse tree
 	 */
@@ -57,15 +67,15 @@ public interface BoardListener extends ParseTreeListener {
 	 */
 	void exitInvariants(BoardParser.InvariantsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link BoardParser#invariant}.
+	 * Enter a parse tree produced by {@link BoardParser#invariant_replace_this}.
 	 * @param ctx the parse tree
 	 */
-	void enterInvariant(BoardParser.InvariantContext ctx);
+	void enterInvariant_replace_this(BoardParser.Invariant_replace_thisContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link BoardParser#invariant}.
+	 * Exit a parse tree produced by {@link BoardParser#invariant_replace_this}.
 	 * @param ctx the parse tree
 	 */
-	void exitInvariant(BoardParser.InvariantContext ctx);
+	void exitInvariant_replace_this(BoardParser.Invariant_replace_thisContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BoardParser#finish}.
 	 * @param ctx the parse tree
@@ -77,35 +87,35 @@ public interface BoardListener extends ParseTreeListener {
 	 */
 	void exitFinish(BoardParser.FinishContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link BoardParser#pieceMove}.
+	 * Enter a parse tree produced by {@link BoardParser#piece}.
 	 * @param ctx the parse tree
 	 */
-	void enterPieceMove(BoardParser.PieceMoveContext ctx);
+	void enterPiece(BoardParser.PieceContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link BoardParser#pieceMove}.
+	 * Exit a parse tree produced by {@link BoardParser#piece}.
 	 * @param ctx the parse tree
 	 */
-	void exitPieceMove(BoardParser.PieceMoveContext ctx);
+	void exitPiece(BoardParser.PieceContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link BoardParser#piecePos}.
+	 * Enter a parse tree produced by {@link BoardParser#piece_initial}.
 	 * @param ctx the parse tree
 	 */
-	void enterPiecePos(BoardParser.PiecePosContext ctx);
+	void enterPiece_initial(BoardParser.Piece_initialContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link BoardParser#piecePos}.
+	 * Exit a parse tree produced by {@link BoardParser#piece_initial}.
 	 * @param ctx the parse tree
 	 */
-	void exitPiecePos(BoardParser.PiecePosContext ctx);
+	void exitPiece_initial(BoardParser.Piece_initialContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link BoardParser#position}.
+	 * Enter a parse tree produced by {@link BoardParser#positions}.
 	 * @param ctx the parse tree
 	 */
-	void enterPosition(BoardParser.PositionContext ctx);
+	void enterPositions(BoardParser.PositionsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link BoardParser#position}.
+	 * Exit a parse tree produced by {@link BoardParser#positions}.
 	 * @param ctx the parse tree
 	 */
-	void exitPosition(BoardParser.PositionContext ctx);
+	void exitPositions(BoardParser.PositionsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BoardParser#moves}.
 	 * @param ctx the parse tree
@@ -186,4 +196,34 @@ public interface BoardListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExplicit(BoardParser.ExplicitContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#name}.
+	 * @param ctx the parse tree
+	 */
+	void enterName(BoardParser.NameContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#name}.
+	 * @param ctx the parse tree
+	 */
+	void exitName(BoardParser.NameContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#invariant}.
+	 * @param ctx the parse tree
+	 */
+	void enterInvariant(BoardParser.InvariantContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#invariant}.
+	 * @param ctx the parse tree
+	 */
+	void exitInvariant(BoardParser.InvariantContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#property}.
+	 * @param ctx the parse tree
+	 */
+	void enterProperty(BoardParser.PropertyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#property}.
+	 * @param ctx the parse tree
+	 */
+	void exitProperty(BoardParser.PropertyContext ctx);
 }
