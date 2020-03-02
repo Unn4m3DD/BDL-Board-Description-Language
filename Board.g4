@@ -38,7 +38,7 @@ pair: '(' VALUE? ',' VALUE? ')' ;
 x: VALUE | interval ;
 y: VALUE | interval ;
 interval: '[' VALUE ',' VALUE ']' ;
-explicit: 'explicit«' ~('»')+ '»';
+explicit: 'explicit«' (~('»') | '=>')* '»';
 
 
 name: STRING;
