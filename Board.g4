@@ -1,6 +1,6 @@
 grammar Board;
 
-game: pieces initial_status rules invariants finish ;
+game: pieces* initial_status* rules* invariants* finish* ;
 //game: finish ;
 
 pieces: 'pieces{' piece+ '}' ;
@@ -38,7 +38,11 @@ pair: '(' VALUE? ',' VALUE? ')' ;
 x: VALUE | interval ;
 y: VALUE | interval ;
 interval: '[' VALUE ',' VALUE ']' ;
+<<<<<<< HEAD
 explicit: 'explicit«' (~('»') | '=>')* '»';
+=======
+explicit: 'explicit«' (~'»'|'='|'>')+ '»';
+>>>>>>> d10ba59b5b9c98258a5b96138c30889c5df141cc
 
 
 name: STRING;

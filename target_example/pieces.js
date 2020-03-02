@@ -286,7 +286,6 @@ const pieces = {
         }
         response = prompt(msg)
       }
-      console.log(context.board)
       context.board[current_x][current_y].piece.name = response
     },
     can_jump: false,
