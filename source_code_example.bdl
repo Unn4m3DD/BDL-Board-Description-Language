@@ -46,7 +46,7 @@ pieces{
         x: [-1, 0],
         y: (x) => [1, 2],
         killing: true
-      }
+      } 
     }
   }
 }
@@ -102,11 +102,14 @@ rules{
   coloring : alternate
 }
 
-invariant{
+invariants{
   cant_risk(king)
-  protect_king(king)
+  protect_piece(king)
 }
 
 finish{
   trapped(king)
+  explicit{
+    (context) => {}
+  }
 }
