@@ -99,8 +99,14 @@ rules{
   first_player : 0
   width : 8
   height : 8
+  coloring : alternate
 }
 
-coloring_rules{
-  alternate
+invariant{
+  cant_risk(king)
+  protect_king(king)
+}
+
+finish{
+  trapped(king)
 }
