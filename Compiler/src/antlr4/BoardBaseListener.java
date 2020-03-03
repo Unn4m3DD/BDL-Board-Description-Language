@@ -64,13 +64,13 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPiecesInitalStatus(BoardParser.PiecesInitalStatusContext ctx) { }
+	@Override public void enterPiecesInitialStatus(BoardParser.PiecesInitialStatusContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPiecesInitalStatus(BoardParser.PiecesInitalStatusContext ctx) { }
+	@Override public void exitPiecesInitialStatus(BoardParser.PiecesInitialStatusContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -263,6 +263,18 @@ public class BoardBaseListener implements BoardListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExplicit(BoardParser.ExplicitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLanguageKeywords(BoardParser.LanguageKeywordsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLanguageKeywords(BoardParser.LanguageKeywordsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

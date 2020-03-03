@@ -48,15 +48,15 @@ public interface BoardListener extends ParseTreeListener {
 	 */
 	void exitInitialStatus(BoardParser.InitialStatusContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link BoardParser#piecesInitalStatus}.
+	 * Enter a parse tree produced by {@link BoardParser#piecesInitialStatus}.
 	 * @param ctx the parse tree
 	 */
-	void enterPiecesInitalStatus(BoardParser.PiecesInitalStatusContext ctx);
+	void enterPiecesInitialStatus(BoardParser.PiecesInitialStatusContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link BoardParser#piecesInitalStatus}.
+	 * Exit a parse tree produced by {@link BoardParser#piecesInitialStatus}.
 	 * @param ctx the parse tree
 	 */
-	void exitPiecesInitalStatus(BoardParser.PiecesInitalStatusContext ctx);
+	void exitPiecesInitialStatus(BoardParser.PiecesInitialStatusContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BoardParser#pieceInitialStatus}.
 	 * @param ctx the parse tree
@@ -217,6 +217,16 @@ public interface BoardListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExplicit(BoardParser.ExplicitContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#languageKeywords}.
+	 * @param ctx the parse tree
+	 */
+	void enterLanguageKeywords(BoardParser.LanguageKeywordsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#languageKeywords}.
+	 * @param ctx the parse tree
+	 */
+	void exitLanguageKeywords(BoardParser.LanguageKeywordsContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BoardParser#name}.
 	 * @param ctx the parse tree

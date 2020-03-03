@@ -1,6 +1,6 @@
 grammar Board;
 
-game: piecesDescription initialStatus rules invariants finish EOF;
+game: rules piecesDescription initialStatus invariants finish EOF;
 
 //pieces{}
 piecesDescription: 'pieces{' pieceDescription+ '}' ;
@@ -8,9 +8,9 @@ piecesDescription: 'pieces{' pieceDescription+ '}' ;
 pieceDescription: name '{' ((moves property*) | explicit*) '}';
 
 //initial_status{}
-initialStatus: 'initial_status{' piecesInitalStatus '}';
+initialStatus: 'initial_status{' piecesInitialStatus '}';
 
-piecesInitalStatus : 'pieces{' (pieceInitialStatus+) '}';
+piecesInitialStatus : 'pieces{' (pieceInitialStatus+) '}';
 
 pieceInitialStatus: name '{' (positions property?|explicit*) '}' ;
 
@@ -38,7 +38,7 @@ move:  direction
      | coordinates
      | explicit;
 
-direction: ('vertical' pair|'horizontal' pair|'diagonal' pair|coordinates|explicit);
+direction: (languageKeywords pair|coordinates|explicit);
 
 coordinates: 'x'':' x ',' 'y' ':' y ;
 
@@ -48,6 +48,7 @@ y: VALUE | interval ;
 interval: '[' VALUE ',' VALUE ']' ;
 explicit: 'explicit{|' (~('|}')|'='|'>'|'<')*? '|}';
 
+languageKeywords: ('vertical'|'horizontal'|'diagonal') ;
 
 name: STRING;
 invariant: STRING;

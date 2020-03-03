@@ -35,11 +35,11 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInitialStatus(BoardParser.InitialStatusContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BoardParser#piecesInitalStatus}.
+	 * Visit a parse tree produced by {@link BoardParser#piecesInitialStatus}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPiecesInitalStatus(BoardParser.PiecesInitalStatusContext ctx);
+	T visitPiecesInitialStatus(BoardParser.PiecesInitialStatusContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardParser#pieceInitialStatus}.
 	 * @param ctx the parse tree
@@ -136,6 +136,12 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExplicit(BoardParser.ExplicitContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#languageKeywords}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLanguageKeywords(BoardParser.LanguageKeywordsContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardParser#name}.
 	 * @param ctx the parse tree

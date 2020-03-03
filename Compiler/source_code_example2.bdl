@@ -1,14 +1,16 @@
+rules{
+  first_player : 0
+  width : 8
+  height : 8
+  coloring : alternate
+}
+
 pieces{
   pawn{
     moves{
       vertical(1,2)
       x : 1, y : 1
       horizontal(,)
-      explicit{|
-        x: [-1, 0],
-        y: (x) => [1, 2],
-        killing: true
-      |}
     }
   }
 }
@@ -25,12 +27,6 @@ initial_status{
   }
 }
 
-rules{
-  first_player : 0
-  width : 8
-  height : 8
-  coloring : alternate
-}
 
 invariants{
   cant_risk(king)
