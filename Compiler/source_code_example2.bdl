@@ -1,0 +1,45 @@
+pieces{
+  pawn{
+    moves{
+      vertical(1,2)
+      x : 1, y : 1
+      horizontal(,)
+      explicit{|
+        x: [-1, 0],
+        y: (x) => [1, 2],
+        killing: true
+      |}
+    }
+  }
+}
+
+initial_status{
+  pieces{
+    tower{
+      positions{
+        x : 0, y : 0
+        x : 7, y : 0
+      }
+      mirrored
+    }
+  }
+}
+
+rules{
+  first_player : 0
+  width : 8
+  height : 8
+  coloring : alternate
+}
+
+invariants{
+  cant_risk(king)
+  protect_piece(king)
+}
+
+finish{
+  trapped(king)
+  explicit{|
+    (context) => {}
+  |}
+}
