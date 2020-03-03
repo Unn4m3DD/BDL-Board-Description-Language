@@ -1,38 +1,46 @@
 grammar Board;
 
-game: pieces* initial_status* rules* invariants* finish* ;
-//game: finish ;
+game: pieces_description* initial_status* rules* invariants* finish* ;
 
-pieces: 'pieces{' piece+ '}' ;
+//pieces{}
+pieces_description: 'pieces{' piece_description+ '}' ;
 
-initial_status: 'initial_status{' pieces_inital '}';
+piece_description: name '{' ((moves property*) | explicit*) '}';
 
-pieces_inital : 'pieces{' (piece_initial+) '}';
+//initial_status{}
+initial_status: 'initial_status{' pieces_inital_status '}';
 
-rules: 'rules{' (property ':' (VALUE|property))+ explicit? '}' ;
+pieces_inital_status : 'pieces{' (piece_initial_status+) '}';
 
-invariants: 'invariants{' (invariant_replace_this+ | explicit) '}' ;
+piece_initial_status: name '{' (positions property?|explicit*) '}' ;
 
-invariant_replace_this: ((invariant '(' name (',' name)* ')')+ | explicit);
+positions: 'positions{' coordinates+ '}';
 
-finish: 'finish{' (invariant_replace_this+ | explicit) '}' ;
+//rules{}
+rules: 'rules{' ((rule)+|explicit*) '}' ;
+
+rule: property ':' (VALUE|property|explicit) ;
+
+//invariants{}
+invariants: 'invariants{' (function+ | explicit) '}' ;
 
 
-piece: name '{' ((moves property*) | explicit) '}';
+//finish{}
+finish: 'finish{' (function+ | explicit) '}' ;
 
-piece_initial: name '{' (positions property?|explicit) '}' ;
 
-positions: 'positions{' move+ '}';
+function: ((invariant '(' name (',' name)* ')')+ | explicit);
+
 
 moves: 'moves{' move+ '}' ;
 
 move:  direction
-     | coordenates
+     | coordinates
      | explicit; 
 
-direction: ('vertical' pair|'horizontal' pair|'diagonal' pair|coordenates);
+direction: ('vertical' pair|'horizontal' pair|'diagonal' pair|coordinates);
 
-coordenates: 'x'':' x ',' 'y' ':' y ;
+coordinates: 'x'':' x ',' 'y' ':' y ;
 
 pair: '(' VALUE? ',' VALUE? ')' ;
 x: VALUE | interval ;
