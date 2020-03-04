@@ -7,7 +7,7 @@ rules{
 }
 
 pieces{
-  pawn{
+  tower{
     moves{
       vertical(1,2), kills: true
       x : 1, y : 1
@@ -37,9 +37,10 @@ initial_status{
 
 invariants{
   cant_risk(king)
-  protect_piece(king)
+  protect_piece(king, tower)
+  pawn_movement(pawn)
 }
 
 finish{
-  trapped(king)
+  no_moves_available
 }

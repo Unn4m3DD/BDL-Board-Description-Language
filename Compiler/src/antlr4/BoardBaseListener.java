@@ -340,6 +340,54 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterKnownInvariants(BoardParser.KnownInvariantsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitKnownInvariants(BoardParser.KnownInvariantsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPawnMovement(BoardParser.PawnMovementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPawnMovement(BoardParser.PawnMovementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCantRisk(BoardParser.CantRiskContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCantRisk(BoardParser.CantRiskContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterProtectPiece(BoardParser.ProtectPieceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitProtectPiece(BoardParser.ProtectPieceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFinish(BoardParser.FinishContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -352,13 +400,25 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction(BoardParser.FunctionContext ctx) { }
+	@Override public void enterKnownFinish(BoardParser.KnownFinishContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction(BoardParser.FunctionContext ctx) { }
+	@Override public void exitKnownFinish(BoardParser.KnownFinishContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterNoMovesAvailable(BoardParser.NoMovesAvailableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitNoMovesAvailable(BoardParser.NoMovesAvailableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

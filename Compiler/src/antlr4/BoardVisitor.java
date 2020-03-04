@@ -173,17 +173,47 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInvariants(BoardParser.InvariantsContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link BoardParser#knownInvariants}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitKnownInvariants(BoardParser.KnownInvariantsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#pawnMovement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPawnMovement(BoardParser.PawnMovementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#cantRisk}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCantRisk(BoardParser.CantRiskContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#protectPiece}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProtectPiece(BoardParser.ProtectPieceContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link BoardParser#finish}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFinish(BoardParser.FinishContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BoardParser#function}.
+	 * Visit a parse tree produced by {@link BoardParser#knownFinish}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunction(BoardParser.FunctionContext ctx);
+	T visitKnownFinish(BoardParser.KnownFinishContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#noMovesAvailable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNoMovesAvailable(BoardParser.NoMovesAvailableContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardParser#moves}.
 	 * @param ctx the parse tree

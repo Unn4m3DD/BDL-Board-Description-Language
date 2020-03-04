@@ -10,9 +10,16 @@ import java.io.PrintWriter;
 
 public class TreeListener implements BoardListener {
     int width = 8, height = 8;
-    PrintWriter piecesWriter = new PrintWriter(new File("generated/pieces.js"));
-    PrintWriter rulesWriter = new PrintWriter(new File("generated/rules.js"));
-    PrintWriter initialStatusWriter = new PrintWriter(new File("generated/initial_status.js"));
+//    PrintWriter piecesWriter = new PrintWriter(new File("generated/pieces.js"));
+//    PrintWriter rulesWriter = new PrintWriter(new File("generated/rules.js"));
+//    PrintWriter initialStatusWriter = new PrintWriter(new File("generated/initial_status.js"));
+//    PrintWriter invariantsWriter = new PrintWriter(new File("generated/invariants.js"));
+//    PrintWriter finishingWriter = new PrintWriter(new File("generated/finishing.js"));
+    PrintWriter piecesWriter = new PrintWriter(new File("../generated_target_example/pieces.js"));
+    PrintWriter rulesWriter = new PrintWriter(new File("../generated_target_example/rules.js"));
+    PrintWriter initialStatusWriter = new PrintWriter(new File("../generated_target_example/initial_status.js"));
+    PrintWriter invariantsWriter = new PrintWriter(new File("../generated_target_example/invariants.js"));
+    PrintWriter finishingWriter = new PrintWriter(new File("../generated_target_example/finishing.js"));
 
     public TreeListener() throws FileNotFoundException {
     }
@@ -218,6 +225,7 @@ public class TreeListener implements BoardListener {
 
     @Override
     public void enterWidth(BoardParser.WidthContext ctx) {
+        width = Integer.parseInt(ctx.VALUE().getText());
         rulesWriter.println("  width: " + ctx.VALUE().getText() + ",");
     }
 
@@ -228,6 +236,7 @@ public class TreeListener implements BoardListener {
 
     @Override
     public void enterHeight(BoardParser.HeightContext ctx) {
+        height = Integer.parseInt(ctx.VALUE().getText());
         rulesWriter.println("  height: " + ctx.VALUE().getText() + ",");
     }
 
@@ -285,26 +294,241 @@ public class TreeListener implements BoardListener {
 
     @Override
     public void enterInvariants(BoardParser.InvariantsContext ctx) {
+        invariantsWriter.println("import resolve_moves from \"./resolve_moves.js\";\n" +
+                "import pieces from \"./pieces.js\";\n" +
+                "export default [");
     }
 
     @Override
     public void exitInvariants(BoardParser.InvariantsContext ctx) {
+        invariantsWriter.println("]");
+        invariantsWriter.close();
+    }
+
+    @Override
+    public void enterKnownInvariants(BoardParser.KnownInvariantsContext ctx) {
+        if (ctx.cantRisk() != null) {
+            String condition = "";
+            String sep = "";
+            for (int i = 0; ctx.cantRisk().stringArray().STRING(i) != null; i++) {
+                condition += sep + "context.board[current_x][current_y].piece.name !== \"" +
+                        ctx.cantRisk().stringArray().STRING(i).getText() + "\"";
+                sep = " ||\n      ";
+            }
+            String template = "(context, current_x, current_y, target_x, target_y) => {\n" +
+                    "    if (!context.board[current_x][current_y].piece ||\n" +
+                    "      %s)\n" +
+                    "      return true\n" +
+                    "    for (let x = 0; x < context.width; x++) {\n" +
+                    "      for (let y = 0; y < context.width; y++) {\n" +
+                    "        if (x === current_x && y === current_y)\n" +
+                    "          continue\n" +
+                    "        if (context.board[x][y].piece\n" +
+                    "          && context.board[x][y].piece.owner !== context.board[current_x][current_y].piece.owner) {\n" +
+                    "          let temp_board = JSON.parse(JSON.stringify(context.board))\n" +
+                    "          temp_board[target_x][target_y].piece = { ...temp_board[current_x][current_y].piece }\n" +
+                    "          temp_board[current_x][current_y].piece = null\n" +
+                    "          resolve_moves(\n" +
+                    "            pieces[temp_board[x][y].piece.name].moves, \n" +
+                    "            x,\n" +
+                    "            y,\n" +
+                    "            {\n" +
+                    "              board: temp_board,\n" +
+                    "              height: context.height,\n" +
+                    "              width: context.width,\n" +
+                    "              current_player: context.current_player,\n" +
+                    "              focused: context.focused\n" +
+                    "            },\n" +
+                    "            false)()\n" +
+                    "          if (temp_board[target_x]\n" +
+                    "            && temp_board[target_x][target_y]\n" +
+                    "            && temp_board[target_x][target_y].target)\n" +
+                    "            return false\n" +
+                    "        }\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "    return true;\n" +
+                    "  },\n";
+            invariantsWriter.printf(template, condition);
+        }
+        if (ctx.protectPiece() != null) {
+            String condition = "";
+            String sep = "";
+            for (int i = 0; ctx.protectPiece().stringArray().STRING(i) != null; i++) {
+                condition += sep + "temp_board[i][j].piece.name === \"" +
+                        ctx.protectPiece().stringArray().STRING(i).getText() + "\"";
+                sep = " || \n                ";
+            }
+            String template = "  (context, current_x, current_y, target_x, target_y) => {\n" +
+                    "    if (!context.board[current_x][current_y].piece)\n" +
+                    "      return true\n" +
+                    "\n" +
+                    "    for (let x = 0; x < context.width; x++) {\n" +
+                    "      for (let y = 0; y < context.width; y++) {\n" +
+                    "        if (x === target_x && y === target_y)\n" +
+                    "          continue\n" +
+                    "        if (context.board[x][y].piece\n" +
+                    "          && context.board[x][y].piece.owner !== context.board[current_x][current_y].piece.owner) {\n" +
+                    "          let temp_board = JSON.parse(JSON.stringify(context.board))\n" +
+                    "          temp_board[target_x][target_y].piece = { ...temp_board[current_x][current_y].piece }\n" +
+                    "          temp_board[current_x][current_y].piece = null\n" +
+                    "          resolve_moves(\n" +
+                    "            pieces[temp_board[x][y].piece.name].moves,\n" +
+                    "            x,\n" +
+                    "            y,\n" +
+                    "            {\n" +
+                    "              board: temp_board,\n" +
+                    "              height: context.height,\n" +
+                    "              width: context.width,\n" +
+                    "              current_player: context.current_player,\n" +
+                    "              focused: context.focused\n" +
+                    "            },\n" +
+                    "            false)()\n" +
+                    "          const targets = temp_board.map((e) => e.map((e2) => e2.target))\n" +
+                    "          for (let i = 0; i < context.width; i++) {\n" +
+                    "            for (let j = 0; j < context.width; j++) {\n" +
+                    "              if (targets[i][j] &&\n" +
+                    "                temp_board[i][j].piece &&\n" +
+                    "                (%s))\n" +
+                    "                return false\n" +
+                    "            }\n" +
+                    "          }\n" +
+                    "        }\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "    return true\n" +
+                    "  },\n";
+            invariantsWriter.printf(template, condition);
+        }
+        if (ctx.pawnMovement() != null) {
+            String condition = "";
+            String sep = "";
+            for (int i = 0; ctx.pawnMovement().stringArray().STRING(i) != null; i++) {
+                condition += sep + "context.board[current_x][current_y].piece.name !== \"" +
+                        ctx.pawnMovement().stringArray().STRING(i).getText() + "\"";
+                sep = " ||\n      ";
+            }
+            String template = "(context, current_x, current_y, target_x, target_y) => {\n" +
+                    "    if (!context.board[current_x][current_y].piece ||\n" +
+                    "      %s)\n" +
+                    "      return true\n" +
+                    "\n" +
+                    "    if (target_x === current_x) {\n" +
+                    "      if (!context.board[target_x][target_y].piece) {\n" +
+                    "        if (Math.abs(current_y - target_y) < 2)\n" +
+                    "          return true\n" +
+                    "        if (!context.board[current_x][current_y].piece.mirrored ?\n" +
+                    "          current_y === 1 : current_y === context.height - 2)\n" +
+                    "          return true\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "\n" +
+                    "    if (context.board[target_x][target_y].piece !== null)\n" +
+                    "      if (context.board[target_x][target_y].piece.owner !==\n" +
+                    "        context.board[current_x][current_y].piece.owner)\n" +
+                    "        return true\n" +
+                    "    return false\n" +
+                    "  },\n";
+            invariantsWriter.printf(template, condition);
+        }
+
+    }
+
+    @Override
+    public void exitKnownInvariants(BoardParser.KnownInvariantsContext ctx) {
+
+    }
+
+    @Override
+    public void enterPawnMovement(BoardParser.PawnMovementContext ctx) {
+
+    }
+
+    @Override
+    public void exitPawnMovement(BoardParser.PawnMovementContext ctx) {
+
+    }
+
+
+    @Override
+    public void enterCantRisk(BoardParser.CantRiskContext ctx) {
+
+    }
+
+    @Override
+    public void exitCantRisk(BoardParser.CantRiskContext ctx) {
+
+    }
+
+    @Override
+    public void enterProtectPiece(BoardParser.ProtectPieceContext ctx) {
+
+    }
+
+    @Override
+    public void exitProtectPiece(BoardParser.ProtectPieceContext ctx) {
+
     }
 
     @Override
     public void enterFinish(BoardParser.FinishContext ctx) {
+        finishingWriter.println("import resolve_moves from \"./resolve_moves.js\"\n" +
+                "import pieces from \"./pieces.js\"\n" +
+                "export default [");
     }
 
     @Override
     public void exitFinish(BoardParser.FinishContext ctx) {
+        finishingWriter.println("]");
+        finishingWriter.close();
     }
 
     @Override
-    public void enterFunction(BoardParser.FunctionContext ctx) {
+    public void enterKnownFinish(BoardParser.KnownFinishContext ctx) {
+        if (ctx.noMovesAvailable() != null) {
+            finishingWriter.println("  (context) => {\n" +
+                    "    for (let x = 0; x < context.width; x++) {\n" +
+                    "      for (let y = 0; y < context.width; y++) {\n" +
+                    "        if (context.board[x][y].piece\n" +
+                    "          && context.board[x][y].piece.owner === context.current_player) {\n" +
+                    "          let temp_board = JSON.parse(JSON.stringify(context.board))\n" +
+                    "          resolve_moves(\n" +
+                    "            pieces[temp_board[x][y].piece.name].moves,\n" +
+                    "            x,\n" +
+                    "            y,\n" +
+                    "            {\n" +
+                    "              board: temp_board,\n" +
+                    "              height: context.height,\n" +
+                    "              width: context.width,\n" +
+                    "              current_player: context.current_player,\n" +
+                    "              focused: context.focused\n" +
+                    "            },\n" +
+                    "            true)()\n" +
+                    "          const targets = temp_board.map((e) => e.map((e2) => e2.target))\n" +
+                    "          for (let i = 0; i < context.width; i++)\n" +
+                    "            for (let j = 0; j < context.width; j++)\n" +
+                    "              if (targets[i][j]) return false\n" +
+                    "        }\n" +
+                    "      }\n" +
+                    "    }\n" +
+                    "    return true\n" +
+                    "  },");
+        }
     }
 
     @Override
-    public void exitFunction(BoardParser.FunctionContext ctx) {
+    public void exitKnownFinish(BoardParser.KnownFinishContext ctx) {
+
+    }
+
+    @Override
+    public void enterNoMovesAvailable(BoardParser.NoMovesAvailableContext ctx) {
+
+    }
+
+    @Override
+    public void exitNoMovesAvailable(BoardParser.NoMovesAvailableContext ctx) {
+
     }
 
     @Override

@@ -278,6 +278,46 @@ public interface BoardListener extends ParseTreeListener {
 	 */
 	void exitInvariants(BoardParser.InvariantsContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link BoardParser#knownInvariants}.
+	 * @param ctx the parse tree
+	 */
+	void enterKnownInvariants(BoardParser.KnownInvariantsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#knownInvariants}.
+	 * @param ctx the parse tree
+	 */
+	void exitKnownInvariants(BoardParser.KnownInvariantsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#pawnMovement}.
+	 * @param ctx the parse tree
+	 */
+	void enterPawnMovement(BoardParser.PawnMovementContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#pawnMovement}.
+	 * @param ctx the parse tree
+	 */
+	void exitPawnMovement(BoardParser.PawnMovementContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#cantRisk}.
+	 * @param ctx the parse tree
+	 */
+	void enterCantRisk(BoardParser.CantRiskContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#cantRisk}.
+	 * @param ctx the parse tree
+	 */
+	void exitCantRisk(BoardParser.CantRiskContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#protectPiece}.
+	 * @param ctx the parse tree
+	 */
+	void enterProtectPiece(BoardParser.ProtectPieceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#protectPiece}.
+	 * @param ctx the parse tree
+	 */
+	void exitProtectPiece(BoardParser.ProtectPieceContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link BoardParser#finish}.
 	 * @param ctx the parse tree
 	 */
@@ -288,15 +328,25 @@ public interface BoardListener extends ParseTreeListener {
 	 */
 	void exitFinish(BoardParser.FinishContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link BoardParser#function}.
+	 * Enter a parse tree produced by {@link BoardParser#knownFinish}.
 	 * @param ctx the parse tree
 	 */
-	void enterFunction(BoardParser.FunctionContext ctx);
+	void enterKnownFinish(BoardParser.KnownFinishContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link BoardParser#function}.
+	 * Exit a parse tree produced by {@link BoardParser#knownFinish}.
 	 * @param ctx the parse tree
 	 */
-	void exitFunction(BoardParser.FunctionContext ctx);
+	void exitKnownFinish(BoardParser.KnownFinishContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#noMovesAvailable}.
+	 * @param ctx the parse tree
+	 */
+	void enterNoMovesAvailable(BoardParser.NoMovesAvailableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#noMovesAvailable}.
+	 * @param ctx the parse tree
+	 */
+	void exitNoMovesAvailable(BoardParser.NoMovesAvailableContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BoardParser#moves}.
 	 * @param ctx the parse tree

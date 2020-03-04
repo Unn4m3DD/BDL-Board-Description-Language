@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        CharStream cs = CharStreams.fromFileName("source_code_example.bdl");  //load the file
+        CharStream cs = CharStreams.fromFileName("source_code_example2.bdl");  //load the file
         BoardLexer lexer = new BoardLexer(cs);  //instantiate a lexer
         CommonTokenStream tokens = new CommonTokenStream(lexer); //scan stream for tokens
         BoardParser parser = new BoardParser(tokens);  //parse the tokens

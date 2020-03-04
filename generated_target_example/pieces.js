@@ -8,7 +8,7 @@ function reverse(array) {
   }
 }
 const pieces = {
-  pawn: {
+  tower: {
     moves: ({ current_x, current_y, context }) => {
       const result = [
       {
@@ -50,7 +50,7 @@ const pieces = {
     can_jump: false,
     representation: {
       img: "",
-      letter: "P"
+      letter: "T"
     }
   },
   bishop: {

@@ -53,15 +53,18 @@ knownPlayerChanges: 'alternate';
 
 
 //invariants{}
-invariants: 'invariants{' (function+ | explicit) '}' ;
-
-
+invariants: 'invariants{' (knownInvariants+ | explicit) '}' ;
+knownInvariants: cantRisk|protectPiece|pawnMovement;
+pawnMovement: 'pawn_movement' '(' stringArray ')';
+cantRisk: 'cant_risk' '(' stringArray ')';
+protectPiece: 'protect_piece' '(' stringArray ')';
 //finish{}
-finish: 'finish{' (function+ | explicit) '}' ;
+finish: 'finish{' (knownFinish+ | explicit) '}' ;
 
 
-function: ((invariant '(' name (',' name)* ')')+ | explicit);
+knownFinish: noMovesAvailable;
 
+noMovesAvailable: 'no_moves_available';
 
 moves: 'moves{' move+ '}' ;
 
