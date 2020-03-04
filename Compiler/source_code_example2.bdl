@@ -15,12 +15,6 @@ pieces{
     }
     on_end_reached: spawn(pawn, tower)
   }
-  bishop{
-    moves{
-      diagonal(,8)
-    }
-    on_end_reached: spawn(pawn, tower)
-  }
 }
 
 initial_status{

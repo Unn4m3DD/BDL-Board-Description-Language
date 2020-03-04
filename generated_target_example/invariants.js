@@ -65,8 +65,7 @@ export default [
             for (let j = 0; j < context.width; j++) {
               if (targets[i][j] &&
                 temp_board[i][j].piece &&
-                (temp_board[i][j].piece.name === "king" || 
-                temp_board[i][j].piece.name === "tower"))
+                (temp_board[i][j].piece.name === "king"))
                 return false
             }
           }

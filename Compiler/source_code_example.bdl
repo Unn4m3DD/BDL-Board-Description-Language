@@ -3,6 +3,7 @@ rules{
   width : 8
   height : 8
   coloring : alternate
+  player_change : alternate
 }
 pieces{
   horse{
@@ -45,7 +46,7 @@ pieces{
   }
   pawn{
     moves{
-      vertical(1,2)
+      vertical(1,2), kills : false
       x : 1, y : 1
       x : -1, y : 1
     }
@@ -91,7 +92,7 @@ initial_status{
     }
     pawn{
       positions{
-        x : [0, 8], y : 1
+        x : [0, 7], y : 1
       }
       mirrored
     }
@@ -102,8 +103,9 @@ initial_status{
 invariants{
   cant_risk(king)
   protect_piece(king)
+  pawn_movement(pawn)
 }
 
 finish{
-  trapped(king)
+  no_moves_available
 }
