@@ -88,6 +88,16 @@ public interface BoardListener extends ParseTreeListener {
 	 */
 	void exitPieceInitialStatusProperty(BoardParser.PieceInitialStatusPropertyContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link BoardParser#owner}.
+	 * @param ctx the parse tree
+	 */
+	void enterOwner(BoardParser.OwnerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#owner}.
+	 * @param ctx the parse tree
+	 */
+	void exitOwner(BoardParser.OwnerContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link BoardParser#onEndReached}.
 	 * @param ctx the parse tree
 	 */

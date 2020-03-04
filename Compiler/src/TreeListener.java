@@ -11,6 +11,8 @@ import java.io.PrintWriter;
 public class TreeListener implements BoardListener {
     int width = 8, height = 8;
     PrintWriter piecesWriter = new PrintWriter(new File("generated/pieces.js"));
+    PrintWriter rulesWriter = new PrintWriter(new File("generated/rules.js"));
+    PrintWriter initialStatusWriter = new PrintWriter(new File("generated/initial_status.js"));
 
     public TreeListener() throws FileNotFoundException {
     }
@@ -84,31 +86,57 @@ public class TreeListener implements BoardListener {
 
     @Override
     public void enterInitialStatus(BoardParser.InitialStatusContext ctx) {
+        initialStatusWriter.println("export default {");
     }
 
     @Override
     public void exitInitialStatus(BoardParser.InitialStatusContext ctx) {
+        initialStatusWriter.println("}");
+        initialStatusWriter.close();
     }
 
     @Override
     public void enterPiecesInitialStatus(BoardParser.PiecesInitialStatusContext ctx) {
+        initialStatusWriter.println("  pieces: {");
     }
 
     @Override
     public void exitPiecesInitialStatus(BoardParser.PiecesInitialStatusContext ctx) {
+        initialStatusWriter.println("  }");
     }
 
     @Override
     public void enterPieceInitialStatus(BoardParser.PieceInitialStatusContext ctx) {
+        initialStatusWriter.printf("    %s: {\n", ctx.name().getText());
     }
 
     @Override
     public void exitPieceInitialStatus(BoardParser.PieceInitialStatusContext ctx) {
+
+        boolean definedMirrored = false;
+        for (int i = 0; ctx.pieceInitialStatusProperty(i) != null; i++) {
+            if (ctx.pieceInitialStatusProperty(i).mirrored() != null)
+                definedMirrored = true;
+        }
+        if (!definedMirrored)
+            initialStatusWriter.println("      mirrored: false,");
+
+
+        boolean definedOwner = false;
+        for (int i = 0; ctx.pieceInitialStatusProperty(i) != null; i++) {
+            if (ctx.pieceInitialStatusProperty(i).owner() != null)
+                definedOwner = true;
+        }
+        if (!definedOwner)
+            initialStatusWriter.println("      owner: 0,");
+        initialStatusWriter.println("    },");
     }
 
     @Override
     public void enterPieceInitialStatusProperty(BoardParser.PieceInitialStatusPropertyContext ctx) {
-
+        if (ctx.mirrored() != null) {
+            initialStatusWriter.println("      mirrored: " + (ctx.mirrored().bool() == null ? "true" : ctx.mirrored().bool().getText()) + ",");
+        }
     }
 
     @Override
@@ -117,21 +145,57 @@ public class TreeListener implements BoardListener {
     }
 
     @Override
+    public void enterOwner(BoardParser.OwnerContext ctx) {
+        initialStatusWriter.println("      owner: " + ctx.VALUE().getText() + ",");
+    }
+
+    @Override
+    public void exitOwner(BoardParser.OwnerContext ctx) {
+
+    }
+
+    @Override
     public void enterPositions(BoardParser.PositionsContext ctx) {
+        initialStatusWriter.println("      positions: [");
+        for (int i = 0; ctx.coordinates(i) != null; i++) {
+            int[] xBounds = new int[2];
+            int[] yBounds = new int[2];
+            if (ctx.coordinates(i).x().interval() != null) {
+                xBounds[0] = Integer.parseInt(ctx.coordinates(i).x().interval().VALUE(0).getText());
+                xBounds[1] = Integer.parseInt(ctx.coordinates(i).x().interval().VALUE(1).getText());
+            } else {
+                xBounds[0] = Integer.parseInt(ctx.coordinates(i).x().VALUE().getText());
+                xBounds[1] = Integer.parseInt(ctx.coordinates(i).x().VALUE().getText());
+            }
+            if (ctx.coordinates(i).y().interval() != null) {
+                yBounds[0] = Integer.parseInt(ctx.coordinates(i).y().interval().VALUE(0).getText());
+                yBounds[1] = Integer.parseInt(ctx.coordinates(i).y().interval().VALUE(1).getText());
+            } else {
+                yBounds[0] = Integer.parseInt(ctx.coordinates(i).y().VALUE().getText());
+                yBounds[1] = Integer.parseInt(ctx.coordinates(i).y().VALUE().getText());
+            }
+            for (int x = xBounds[0]; x <= xBounds[1]; x++) {
+                for (int y = yBounds[0]; y <= yBounds[1]; y++) {
+                    initialStatusWriter.printf("        { x: %s, y: %s },\n", x, y);
+                }
+            }
+        }
     }
 
     @Override
     public void exitPositions(BoardParser.PositionsContext ctx) {
+        initialStatusWriter.println("      ],");
     }
 
     @Override
     public void enterRules(BoardParser.RulesContext ctx) {
-        System.out.println("export default {");
+        rulesWriter.println("export default {");
     }
 
     @Override
     public void exitRules(BoardParser.RulesContext ctx) {
-        System.out.println("}");
+        rulesWriter.println("}");
+        rulesWriter.close();
     }
 
     @Override
@@ -144,7 +208,7 @@ public class TreeListener implements BoardListener {
 
     @Override
     public void enterFirstPlayer(BoardParser.FirstPlayerContext ctx) {
-        System.out.println("  first_player: " + ctx.VALUE().getText() + ",");
+        rulesWriter.println("  first_player: " + ctx.VALUE().getText() + ",");
     }
 
     @Override
@@ -154,7 +218,7 @@ public class TreeListener implements BoardListener {
 
     @Override
     public void enterWidth(BoardParser.WidthContext ctx) {
-        System.out.println("  width: " + ctx.VALUE().getText() + ",");
+        rulesWriter.println("  width: " + ctx.VALUE().getText() + ",");
     }
 
     @Override
@@ -164,7 +228,7 @@ public class TreeListener implements BoardListener {
 
     @Override
     public void enterHeight(BoardParser.HeightContext ctx) {
-        System.out.println("  height: " + ctx.VALUE().getText() + ",");
+        rulesWriter.println("  height: " + ctx.VALUE().getText() + ",");
     }
 
     @Override
@@ -174,18 +238,18 @@ public class TreeListener implements BoardListener {
 
     @Override
     public void enterColoring(BoardParser.ColoringContext ctx) {
-        System.out.print("  board_coloring_rule: ");
+        rulesWriter.print("  board_coloring_rule: ");
     }
 
     @Override
     public void exitColoring(BoardParser.ColoringContext ctx) {
-        System.out.println(",");
+        rulesWriter.println(",");
     }
 
     @Override
     public void enterKnownColorings(BoardParser.KnownColoringsContext ctx) {
         if (ctx.getText().equals("alternate"))
-            System.out.print("(x, y, last_color) => {\n" +
+            rulesWriter.print("(x, y, last_color) => {\n" +
                     "    if (y === 0) last_color = last_color === \"#ffffff\" ? \"#c90\" : \"#ffffff\"\n" +
                     "    last_color = last_color === \"#ffffff\" ? \"#c90\" : \"#ffffff\"\n" +
                     "    return last_color\n" +
@@ -198,18 +262,18 @@ public class TreeListener implements BoardListener {
 
     @Override
     public void enterPlayerChange(BoardParser.PlayerChangeContext ctx) {
-        System.out.print("  player_change_rule: ");
+        rulesWriter.print("  player_change_rule: ");
     }
 
     @Override
     public void exitPlayerChange(BoardParser.PlayerChangeContext ctx) {
-        System.out.println(",");
+        rulesWriter.println(",");
     }
 
     @Override
     public void enterKnownPlayerChanges(BoardParser.KnownPlayerChangesContext ctx) {
         if (ctx.getText().equals("alternate"))
-            System.out.print("(context) => {\n" +
+            rulesWriter.print("(context) => {\n" +
                     "    context.current_player = context.current_player === 0 ? 1 : 0\n" +
                     "  }");
     }

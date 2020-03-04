@@ -59,6 +59,12 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPieceInitialStatusProperty(BoardParser.PieceInitialStatusPropertyContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link BoardParser#owner}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOwner(BoardParser.OwnerContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link BoardParser#onEndReached}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

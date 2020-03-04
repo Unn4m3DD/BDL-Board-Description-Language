@@ -16,7 +16,9 @@ piecesInitialStatus : 'pieces{' (pieceInitialStatus+) '}';
 
 pieceInitialStatus: name '{' (positions pieceInitialStatusProperty*|explicit*) '}' ;
 
-pieceInitialStatusProperty: mirrored;
+pieceInitialStatusProperty: mirrored|owner;
+
+owner: 'owner' ':' VALUE;
 
 
 onEndReached: 'on_end_reached' ':' endReachedFunctions;
@@ -85,5 +87,5 @@ languageKeywords: ('vertical'|'horizontal'|'diagonal') ;
 name: STRING;
 invariant: STRING;
 STRING: [_a-zA-Z]+;
-VALUE: '-'? ([0-9]+ '.')? [0-9]+;
+VALUE: '-'? [0-9]+ ([0-9]+ '.')?;
 WS: [ \t\n\r]+ -> skip ;

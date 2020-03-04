@@ -1,8 +1,9 @@
 //import pieces from "./pieces.js";
-import pieces from "./generated_pieces.js";
+import pieces from "./pieces.js";
 import get_onclick_from_piece_moves from "./resolve_moves.js"
 import rules from "./rules.js"
-const { player_change_rule, finishing_rules, board_coloring_rule } = rules
+import finishing_rules from "./finishing.js"
+const { player_change_rule, board_coloring_rule } = rules
 const functions = {
   colorize_table: (table, context) => {
     let last_color = ""
