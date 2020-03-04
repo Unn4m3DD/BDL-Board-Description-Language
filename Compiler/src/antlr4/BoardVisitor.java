@@ -47,6 +47,54 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPieceInitialStatus(BoardParser.PieceInitialStatusContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link BoardParser#property}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProperty(BoardParser.PropertyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#onEndReached}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOnEndReached(BoardParser.OnEndReachedContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#endReachedFunctions}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEndReachedFunctions(BoardParser.EndReachedFunctionsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#endReachedKnownFunctions}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEndReachedKnownFunctions(BoardParser.EndReachedKnownFunctionsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#spawnFunction}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSpawnFunction(BoardParser.SpawnFunctionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#stringArray}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStringArray(BoardParser.StringArrayContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#canJump}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCanJump(BoardParser.CanJumpContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#bool}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBool(BoardParser.BoolContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link BoardParser#positions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -137,6 +185,12 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExplicit(BoardParser.ExplicitContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link BoardParser#explicitContent}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExplicitContent(BoardParser.ExplicitContentContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link BoardParser#languageKeywords}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -154,10 +208,4 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitInvariant(BoardParser.InvariantContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link BoardParser#property}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitProperty(BoardParser.PropertyContext ctx);
 }

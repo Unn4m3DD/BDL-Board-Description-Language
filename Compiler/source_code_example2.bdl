@@ -22,7 +22,7 @@ initial_status{
         x : 0, y : 0
         x : 7, y : 0
       }
-      mirrored
+      mirrored : true
     }
   }
 }

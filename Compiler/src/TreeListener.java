@@ -36,12 +36,26 @@ public class TreeListener implements BoardListener {
 
     @Override
     public void enterPieceDescription(BoardParser.PieceDescriptionContext ctx) {
-        System.out.println("  " + ctx.name().getText() + " : {");
+        System.out.println("  " + ctx.name().getText() + ": {");
     }
 
     @Override
     public void exitPieceDescription(BoardParser.PieceDescriptionContext ctx) {
-        System.out.println("  ");
+        boolean canJumpDefined = false;
+        for (int i = 0; ctx.property(i) != null; i++) {
+            if (ctx.property(i).getText().equals("can_jump")) canJumpDefined = true;
+        }
+        if (!canJumpDefined)
+            System.out.printf("    %s: %s,\n", "can_jump", false);
+
+        boolean onEndReached = false;
+        for (int i = 0; ctx.property(i) != null; i++) {
+            if (ctx.property(i).getText().equals("on_end_reached")) onEndReached = true;
+        }
+        if (!onEndReached)
+            System.out.println("    on_end_reached: (context, current_x, current_y) => { },");
+
+        System.out.println("  },");
     }
 
     @Override
@@ -136,6 +150,8 @@ public class TreeListener implements BoardListener {
 
     @Override
     public void enterDirection(BoardParser.DirectionContext ctx) {
+        boolean kills = true;
+
         String template = "      {\n" +
                 "        x: %s,\n" +
                 "        y: (x) => %s,\n" +
@@ -143,7 +159,6 @@ public class TreeListener implements BoardListener {
                 "      },\n";
         if (ctx.languageKeywords() != null) {
             int min = 0, max = 0;
-            boolean kills = true;
             String[] bounds = {"", ""};
             String keyword = ctx.languageKeywords().getText();
             if (keyword.equals("horizontal") || keyword.equals("diagonal")) {
@@ -166,11 +181,19 @@ public class TreeListener implements BoardListener {
                 if (!bound.equals(""))
                     System.out.printf(template,
                             !keyword.equals("vertical") ? bound : "[0, 1]",
-                            keyword.equals("vertical") ? bound : keyword.equals("horizontal") ? "[0, 1]" : "[x, x]",
-                            kills ? "true": "false"
+                            keyword.equals("vertical") ? bound : keyword.equals("horizontal") ? "[0, 1]" : "[x, x + 1]",
+                            kills ? "true" : "false"
                     );
 
             }
+        } else if (ctx.coordinates() != null) {
+            int x = Integer.parseInt(ctx.coordinates().x().getText());
+            int y = Integer.parseInt(ctx.coordinates().y().getText());
+            System.out.printf(template,
+                    "[" + x + ", " + (x + 1) + "]",
+                    "[" + y + ", " + (y + 1) + "]",
+                    kills ? "true" : "false"
+            );
         }
     }
 
@@ -227,6 +250,16 @@ public class TreeListener implements BoardListener {
     }
 
     @Override
+    public void enterExplicitContent(BoardParser.ExplicitContentContext ctx) {
+
+    }
+
+    @Override
+    public void exitExplicitContent(BoardParser.ExplicitContentContext ctx) {
+
+    }
+
+    @Override
     public void enterLanguageKeywords(BoardParser.LanguageKeywordsContext ctx) {
 
     }
@@ -254,10 +287,100 @@ public class TreeListener implements BoardListener {
 
     @Override
     public void enterProperty(BoardParser.PropertyContext ctx) {
+
     }
 
     @Override
     public void exitProperty(BoardParser.PropertyContext ctx) {
+    }
+
+    @Override
+    public void enterOnEndReached(BoardParser.OnEndReachedContext ctx) {
+        System.out.printf("    on_end_reached:");
+    }
+
+    @Override
+    public void exitOnEndReached(BoardParser.OnEndReachedContext ctx) {
+        System.out.println(",");
+    }
+
+    @Override
+    public void enterEndReachedFunctions(BoardParser.EndReachedFunctionsContext ctx) {
+
+    }
+
+    @Override
+    public void exitEndReachedFunctions(BoardParser.EndReachedFunctionsContext ctx) {
+
+    }
+
+    @Override
+    public void enterEndReachedKnownFunctions(BoardParser.EndReachedKnownFunctionsContext ctx) {
+    }
+
+    @Override
+    public void exitEndReachedKnownFunctions(BoardParser.EndReachedKnownFunctionsContext ctx) {
+
+    }
+
+    @Override
+    public void enterSpawnFunction(BoardParser.SpawnFunctionContext ctx) {
+        String array = "[";
+        String sep = "";
+        for (int i = 0; ctx.stringArray().STRING(i) != null; i++) {
+            array += sep + '"' + ctx.stringArray().STRING(i).getText() + '"';
+            sep = ", ";
+        }
+        array += "]";
+        String template = " (context, current_x, current_y) => {\n" +
+                "      let response = \"\"\n" +
+                "      while (!%s[response]) {\n" +
+                "        let msg = \"Select one: \"\n" +
+                "        let sep = \"\"\n" +
+                "        for (let i in %s) {\n" +
+                "          msg += sep + i\n" +
+                "          sep = \", \"\n" +
+                "        }\n" +
+                "        response = prompt(msg)\n" +
+                "      }\n" +
+                "      context.board[current_x][current_y].piece.name = response\n" +
+                "    }";
+        System.out.printf(template, array, array);
+    }
+
+    @Override
+    public void exitSpawnFunction(BoardParser.SpawnFunctionContext ctx) {
+
+    }
+
+    @Override
+    public void enterStringArray(BoardParser.StringArrayContext ctx) {
+
+    }
+
+    @Override
+    public void exitStringArray(BoardParser.StringArrayContext ctx) {
+
+    }
+
+    @Override
+    public void enterCanJump(BoardParser.CanJumpContext ctx) {
+        System.out.printf("    %s: %s,\n", "can_jump", ctx.bool().getText());
+    }
+
+    @Override
+    public void exitCanJump(BoardParser.CanJumpContext ctx) {
+
+    }
+
+    @Override
+    public void enterBool(BoardParser.BoolContext ctx) {
+
+    }
+
+    @Override
+    public void exitBool(BoardParser.BoolContext ctx) {
+
     }
 
     @Override

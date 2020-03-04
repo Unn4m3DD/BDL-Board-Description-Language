@@ -68,6 +68,86 @@ public interface BoardListener extends ParseTreeListener {
 	 */
 	void exitPieceInitialStatus(BoardParser.PieceInitialStatusContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link BoardParser#property}.
+	 * @param ctx the parse tree
+	 */
+	void enterProperty(BoardParser.PropertyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#property}.
+	 * @param ctx the parse tree
+	 */
+	void exitProperty(BoardParser.PropertyContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#onEndReached}.
+	 * @param ctx the parse tree
+	 */
+	void enterOnEndReached(BoardParser.OnEndReachedContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#onEndReached}.
+	 * @param ctx the parse tree
+	 */
+	void exitOnEndReached(BoardParser.OnEndReachedContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#endReachedFunctions}.
+	 * @param ctx the parse tree
+	 */
+	void enterEndReachedFunctions(BoardParser.EndReachedFunctionsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#endReachedFunctions}.
+	 * @param ctx the parse tree
+	 */
+	void exitEndReachedFunctions(BoardParser.EndReachedFunctionsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#endReachedKnownFunctions}.
+	 * @param ctx the parse tree
+	 */
+	void enterEndReachedKnownFunctions(BoardParser.EndReachedKnownFunctionsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#endReachedKnownFunctions}.
+	 * @param ctx the parse tree
+	 */
+	void exitEndReachedKnownFunctions(BoardParser.EndReachedKnownFunctionsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#spawnFunction}.
+	 * @param ctx the parse tree
+	 */
+	void enterSpawnFunction(BoardParser.SpawnFunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#spawnFunction}.
+	 * @param ctx the parse tree
+	 */
+	void exitSpawnFunction(BoardParser.SpawnFunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#stringArray}.
+	 * @param ctx the parse tree
+	 */
+	void enterStringArray(BoardParser.StringArrayContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#stringArray}.
+	 * @param ctx the parse tree
+	 */
+	void exitStringArray(BoardParser.StringArrayContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#canJump}.
+	 * @param ctx the parse tree
+	 */
+	void enterCanJump(BoardParser.CanJumpContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#canJump}.
+	 * @param ctx the parse tree
+	 */
+	void exitCanJump(BoardParser.CanJumpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void enterBool(BoardParser.BoolContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void exitBool(BoardParser.BoolContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link BoardParser#positions}.
 	 * @param ctx the parse tree
 	 */
@@ -218,6 +298,16 @@ public interface BoardListener extends ParseTreeListener {
 	 */
 	void exitExplicit(BoardParser.ExplicitContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link BoardParser#explicitContent}.
+	 * @param ctx the parse tree
+	 */
+	void enterExplicitContent(BoardParser.ExplicitContentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#explicitContent}.
+	 * @param ctx the parse tree
+	 */
+	void exitExplicitContent(BoardParser.ExplicitContentContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link BoardParser#languageKeywords}.
 	 * @param ctx the parse tree
 	 */
@@ -247,14 +337,4 @@ public interface BoardListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitInvariant(BoardParser.InvariantContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link BoardParser#property}.
-	 * @param ctx the parse tree
-	 */
-	void enterProperty(BoardParser.PropertyContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link BoardParser#property}.
-	 * @param ctx the parse tree
-	 */
-	void exitProperty(BoardParser.PropertyContext ctx);
 }

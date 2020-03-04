@@ -12,14 +12,30 @@ initialStatus: 'initial_status{' piecesInitialStatus '}';
 
 piecesInitialStatus : 'pieces{' (pieceInitialStatus+) '}';
 
-pieceInitialStatus: name '{' (positions property?|explicit*) '}' ;
+pieceInitialStatus: name '{' (positions property*|explicit*) '}' ;
+
+property: canJump|onEndReached;
+
+onEndReached: 'on_end_reached' ':' endReachedFunctions;
+
+endReachedFunctions: endReachedKnownFunctions | explicit;
+
+endReachedKnownFunctions: spawnFunction ;
+
+spawnFunction: 'spawn(' stringArray ')';
+
+stringArray: STRING (',' STRING)*;
+
+canJump: 'can_jump' ':' bool;
+
+bool: 'true'|'false';
 
 positions: 'positions{' coordinates+ '}';
 
 //rules{}
 rules: 'rules{' ((ruleDef)+|explicit*) '}' ;
 
-ruleDef: property ':' (VALUE|property|explicit) ;
+ruleDef: name ':' (VALUE|name|explicit) ;
 
 //invariants{}
 invariants: 'invariants{' (function+ | explicit) '}' ;
@@ -46,13 +62,12 @@ pair: '(' VALUE? ',' VALUE? ')' ;
 x: VALUE | interval ;
 y: VALUE | interval ;
 interval: '[' VALUE ',' VALUE ']' ;
-explicit: 'explicit{|' (~('|}')|'='|'>'|'<')*? '|}';
-
+explicit: 'explicit{|' explicitContent '|}';
+explicitContent:  (~('|}')|'='|'>'|'<')*;
 languageKeywords: ('vertical'|'horizontal'|'diagonal') ;
 
 name: STRING;
 invariant: STRING;
-property: STRING;
 STRING: [_a-zA-Z]+;
 VALUE: '-'? ([0-9]+ '.')? [0-9]+;
 WS: [ \t\n\r]+ -> skip ;
