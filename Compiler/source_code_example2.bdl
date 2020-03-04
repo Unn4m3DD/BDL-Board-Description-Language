@@ -3,6 +3,7 @@ rules{
   width : 8
   height : 8
   coloring : alternate
+  player_change : alternate
 }
 
 pieces{
@@ -11,6 +12,12 @@ pieces{
       vertical(1,2), kills: true
       x : 1, y : 1
       horizontal(,), kills: false
+    }
+    on_end_reached: spawn(pawn, tower)
+  }
+  bishop{
+    moves{
+      diagonal(,8)
     }
     on_end_reached: spawn(pawn, tower)
   }

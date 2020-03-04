@@ -1,21 +1,21 @@
 export default {
-  first_player: 1,
-  width: 8,
-  height: 8,
   pieces: {
     king: {
+      owner: 0,
       mirrored: true,
       positions: [{
         x: 4, y: 0,
       }]
     },
     queen: {
+      owner: 0,
       mirrored: true,
       positions: [{
         x: 3, y: 0,
       }]
     },
     bishop: {
+      owner: 0,
       mirrored: true,
       positions: [
         { x: 2, y: 0 },
@@ -23,6 +23,7 @@ export default {
       ]
     },
     horse: {
+      owner: 0,
       mirrored: true,
       positions: [
         { x: 1, y: 0 },
@@ -30,6 +31,7 @@ export default {
       ]
     },
     tower: {
+      owner: 0,
       mirrored: true,
       positions: [
         { x: 0, y: 0 },
@@ -37,6 +39,7 @@ export default {
       ]
     },
     pawn: {
+      owner: 0,
       mirrored: true,
       positions: [
         { x: 0, y: 1 },

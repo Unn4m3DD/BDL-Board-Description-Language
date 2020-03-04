@@ -1,3 +1,9 @@
+rules{
+  first_player : 0
+  width : 8
+  height : 8
+  coloring : alternate
+}
 pieces{
   horse{
     moves{
@@ -41,12 +47,10 @@ pieces{
     moves{
       vertical(1,2)
       x : 1, y : 1
-      explicit«
-        x: [-1, 0],
-        y: (x) => [1, 2],
-        killing: true
-      » 
+      x : -1, y : 1
     }
+    on_end_reached: spawn(queen, bishop, tower, horse)
+    mirrored
   }
 }
 
@@ -94,12 +98,6 @@ initial_status{
   }
 }
 
-rules{
-  first_player : 0
-  width : 8
-  height : 8
-  coloring : alternate
-}
 
 invariants{
   cant_risk(king)
@@ -108,7 +106,4 @@ invariants{
 
 finish{
   trapped(king)
-  explicit«
-    (context) => {}
-  »
 }

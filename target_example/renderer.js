@@ -1,4 +1,5 @@
-import pieces from "./pieces.js";
+//import pieces from "./pieces.js";
+import pieces from "./generated_pieces.js";
 import get_onclick_from_piece_moves from "./resolve_moves.js"
 import rules from "./rules.js"
 const { player_change_rule, finishing_rules, board_coloring_rule } = rules

@@ -1,5 +1,4 @@
-import rules from "./rules.js";
-const { targeting_invariants } = rules
+import targeting_invariants from "./invariants.js"
 export default (moves, current_x, current_y, context, resolve_recursively) => {
   return (event) => {
     for (let x = 0; x < context.board.length; x++)

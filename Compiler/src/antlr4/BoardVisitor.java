@@ -101,12 +101,6 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMirrored(BoardParser.MirroredContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BoardParser#bool}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBool(BoardParser.BoolContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link BoardParser#positions}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -124,6 +118,48 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitRuleDef(BoardParser.RuleDefContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#firstPlayer}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFirstPlayer(BoardParser.FirstPlayerContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#width}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWidth(BoardParser.WidthContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#height}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitHeight(BoardParser.HeightContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#coloring}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitColoring(BoardParser.ColoringContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#knownColorings}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitKnownColorings(BoardParser.KnownColoringsContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#playerChange}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPlayerChange(BoardParser.PlayerChangeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#knownPlayerChanges}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitKnownPlayerChanges(BoardParser.KnownPlayerChangesContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardParser#invariants}.
 	 * @param ctx the parse tree
@@ -178,6 +214,12 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCoordinates(BoardParser.CoordinatesContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#bool}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBool(BoardParser.BoolContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardParser#pair}.
 	 * @param ctx the parse tree

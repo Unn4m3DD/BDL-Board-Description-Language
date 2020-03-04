@@ -158,16 +158,6 @@ public interface BoardListener extends ParseTreeListener {
 	 */
 	void exitMirrored(BoardParser.MirroredContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link BoardParser#bool}.
-	 * @param ctx the parse tree
-	 */
-	void enterBool(BoardParser.BoolContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link BoardParser#bool}.
-	 * @param ctx the parse tree
-	 */
-	void exitBool(BoardParser.BoolContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link BoardParser#positions}.
 	 * @param ctx the parse tree
 	 */
@@ -197,6 +187,76 @@ public interface BoardListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRuleDef(BoardParser.RuleDefContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#firstPlayer}.
+	 * @param ctx the parse tree
+	 */
+	void enterFirstPlayer(BoardParser.FirstPlayerContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#firstPlayer}.
+	 * @param ctx the parse tree
+	 */
+	void exitFirstPlayer(BoardParser.FirstPlayerContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#width}.
+	 * @param ctx the parse tree
+	 */
+	void enterWidth(BoardParser.WidthContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#width}.
+	 * @param ctx the parse tree
+	 */
+	void exitWidth(BoardParser.WidthContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#height}.
+	 * @param ctx the parse tree
+	 */
+	void enterHeight(BoardParser.HeightContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#height}.
+	 * @param ctx the parse tree
+	 */
+	void exitHeight(BoardParser.HeightContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#coloring}.
+	 * @param ctx the parse tree
+	 */
+	void enterColoring(BoardParser.ColoringContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#coloring}.
+	 * @param ctx the parse tree
+	 */
+	void exitColoring(BoardParser.ColoringContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#knownColorings}.
+	 * @param ctx the parse tree
+	 */
+	void enterKnownColorings(BoardParser.KnownColoringsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#knownColorings}.
+	 * @param ctx the parse tree
+	 */
+	void exitKnownColorings(BoardParser.KnownColoringsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#playerChange}.
+	 * @param ctx the parse tree
+	 */
+	void enterPlayerChange(BoardParser.PlayerChangeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#playerChange}.
+	 * @param ctx the parse tree
+	 */
+	void exitPlayerChange(BoardParser.PlayerChangeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#knownPlayerChanges}.
+	 * @param ctx the parse tree
+	 */
+	void enterKnownPlayerChanges(BoardParser.KnownPlayerChangesContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#knownPlayerChanges}.
+	 * @param ctx the parse tree
+	 */
+	void exitKnownPlayerChanges(BoardParser.KnownPlayerChangesContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BoardParser#invariants}.
 	 * @param ctx the parse tree
@@ -287,6 +347,16 @@ public interface BoardListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCoordinates(BoardParser.CoordinatesContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void enterBool(BoardParser.BoolContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void exitBool(BoardParser.BoolContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BoardParser#pair}.
 	 * @param ctx the parse tree

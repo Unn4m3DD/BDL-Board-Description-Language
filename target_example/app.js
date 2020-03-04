@@ -3,13 +3,12 @@ import renderer from "./renderer.js";
 const { generate_table, render } = renderer
 import initial_status from "./initial_status.js";
 import gameLogic from "./gameLogic.js";
-const { create_context_from_initial_status } = gameLogic
-const context = create_context_from_initial_status(initial_status)
+import rules from "./rules.js"
+const { create_context_from_initial_status_and_rules } = gameLogic
+const context = create_context_from_initial_status_and_rules(initial_status, rules)
 
 
-let table = generate_table("board", initial_status.height, initial_status.width);
+let table = generate_table("board", rules.height, rules.width);
 
 render(context, table)
 
-
-import rules from "./rules.js";

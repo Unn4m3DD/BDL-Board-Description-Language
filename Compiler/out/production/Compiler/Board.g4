@@ -7,7 +7,7 @@ piecesDescription: 'pieces{' pieceDescription+ '}' ;
 
 pieceDescription: name '{' ((moves pieceDescriptionProperty*) | explicit*) '}';
 
-pieceDescriptionProperty: canJump|onEndReached;
+pieceDescriptionProperty: canJump|onEndReached|mirrored;
 
 //initial_status{}
 initialStatus: 'initial_status{' piecesInitialStatus '}';
@@ -29,9 +29,9 @@ spawnFunction: 'spawn(' stringArray ')';
 
 stringArray: STRING (',' STRING)*;
 
-canJump: 'can_jump' ':' bool;
+canJump: 'can_jump' (':' bool)?;
 
-mirrored: 'mirrored' ':' bool;
+mirrored: 'mirrored' (':' bool)?;
 
 
 positions: 'positions{' coordinates+ '}';
@@ -39,7 +39,16 @@ positions: 'positions{' coordinates+ '}';
 //rules{}
 rules: 'rules{' ((ruleDef)+|explicit*) '}' ;
 
-ruleDef: name ':' (VALUE|name|explicit) ;
+ruleDef:  firstPlayer|width|height|coloring|playerChange;
+
+firstPlayer: 'first_player' ':' VALUE;
+width: 'width' ':' VALUE;
+height: 'height' ':' VALUE;
+coloring: 'coloring' ':' knownColorings;
+knownColorings: 'alternate';
+playerChange: 'player_change' ':' knownPlayerChanges;
+knownPlayerChanges: 'alternate';
+
 
 //invariants{}
 invariants: 'invariants{' (function+ | explicit) '}' ;
@@ -58,7 +67,7 @@ move:  (direction|coordinates|explicit) (',' moveProperty)*;
 
 moveProperty: killing;
 
-killing: 'kills' ':' bool;
+killing: 'kills' (':' bool)?;
 
 direction: (languageKeywords pair|coordinates|explicit);
 
