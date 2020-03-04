@@ -8,10 +8,11 @@ rules{
 pieces{
   pawn{
     moves{
-      vertical(1,2)
+      vertical(1,2), kills: true
       x : 1, y : 1
-      horizontal(,)
+      horizontal(,), kills: false
     }
+    on_end_reached: spawn(pawn, tower)
   }
 }
 

@@ -52,6 +52,18 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPieceDescriptionProperty(BoardParser.PieceDescriptionPropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPieceDescriptionProperty(BoardParser.PieceDescriptionPropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInitialStatus(BoardParser.InitialStatusContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -88,13 +100,13 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProperty(BoardParser.PropertyContext ctx) { }
+	@Override public void enterPieceInitialStatusProperty(BoardParser.PieceInitialStatusPropertyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProperty(BoardParser.PropertyContext ctx) { }
+	@Override public void exitPieceInitialStatusProperty(BoardParser.PieceInitialStatusPropertyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -167,6 +179,18 @@ public class BoardBaseListener implements BoardListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCanJump(BoardParser.CanJumpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMirrored(BoardParser.MirroredContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMirrored(BoardParser.MirroredContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -275,6 +299,30 @@ public class BoardBaseListener implements BoardListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMove(BoardParser.MoveContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMoveProperty(BoardParser.MovePropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMoveProperty(BoardParser.MovePropertyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterKilling(BoardParser.KillingContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitKilling(BoardParser.KillingContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

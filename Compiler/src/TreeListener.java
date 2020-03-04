@@ -42,20 +42,30 @@ public class TreeListener implements BoardListener {
     @Override
     public void exitPieceDescription(BoardParser.PieceDescriptionContext ctx) {
         boolean canJumpDefined = false;
-        for (int i = 0; ctx.property(i) != null; i++) {
-            if (ctx.property(i).getText().equals("can_jump")) canJumpDefined = true;
+        for (int i = 0; ctx.pieceDescriptionProperty(i) != null; i++) {
+            if (ctx.pieceDescriptionProperty(i).canJump() != null) canJumpDefined = true;
         }
         if (!canJumpDefined)
             System.out.printf("    %s: %s,\n", "can_jump", false);
 
         boolean onEndReached = false;
-        for (int i = 0; ctx.property(i) != null; i++) {
-            if (ctx.property(i).getText().equals("on_end_reached")) onEndReached = true;
+        for (int i = 0; ctx.pieceDescriptionProperty(i) != null; i++) {
+            if (ctx.pieceDescriptionProperty(i).onEndReached() != null) onEndReached = true;
         }
         if (!onEndReached)
             System.out.println("    on_end_reached: (context, current_x, current_y) => { },");
 
         System.out.println("  },");
+    }
+
+    @Override
+    public void enterPieceDescriptionProperty(BoardParser.PieceDescriptionPropertyContext ctx) {
+
+    }
+
+    @Override
+    public void exitPieceDescriptionProperty(BoardParser.PieceDescriptionPropertyContext ctx) {
+
     }
 
     @Override
@@ -80,6 +90,16 @@ public class TreeListener implements BoardListener {
 
     @Override
     public void exitPieceInitialStatus(BoardParser.PieceInitialStatusContext ctx) {
+    }
+
+    @Override
+    public void enterPieceInitialStatusProperty(BoardParser.PieceInitialStatusPropertyContext ctx) {
+
+    }
+
+    @Override
+    public void exitPieceInitialStatusProperty(BoardParser.PieceInitialStatusPropertyContext ctx) {
+
     }
 
     @Override
@@ -149,9 +169,36 @@ public class TreeListener implements BoardListener {
     }
 
     @Override
+    public void enterMoveProperty(BoardParser.MovePropertyContext ctx) {
+
+    }
+
+    @Override
+    public void exitMoveProperty(BoardParser.MovePropertyContext ctx) {
+
+
+    }
+
+    @Override
+    public void enterKilling(BoardParser.KillingContext ctx) {
+    }
+
+    @Override
+    public void exitKilling(BoardParser.KillingContext ctx) {
+
+    }
+
+    @Override
     public void enterDirection(BoardParser.DirectionContext ctx) {
         boolean kills = true;
-
+        if (ctx.getParent() instanceof BoardParser.MoveContext) {
+            BoardParser.MoveContext parentCtx = (BoardParser.MoveContext) ctx.getParent();
+            for (int i = 0; parentCtx.moveProperty(i) != null; i++) {
+                if (parentCtx.moveProperty(i).killing() != null) {
+                    kills = parentCtx.moveProperty(i).killing().bool().getText().equals("true");
+                }
+            }
+        }
         String template = "      {\n" +
                 "        x: %s,\n" +
                 "        y: (x) => %s,\n" +
@@ -182,8 +229,7 @@ public class TreeListener implements BoardListener {
                     System.out.printf(template,
                             !keyword.equals("vertical") ? bound : "[0, 1]",
                             keyword.equals("vertical") ? bound : keyword.equals("horizontal") ? "[0, 1]" : "[x, x + 1]",
-                            kills ? "true" : "false"
-                    );
+                            kills);
 
             }
         } else if (ctx.coordinates() != null) {
@@ -192,8 +238,7 @@ public class TreeListener implements BoardListener {
             System.out.printf(template,
                     "[" + x + ", " + (x + 1) + "]",
                     "[" + y + ", " + (y + 1) + "]",
-                    kills ? "true" : "false"
-            );
+                    kills);
         }
     }
 
@@ -286,17 +331,8 @@ public class TreeListener implements BoardListener {
     }
 
     @Override
-    public void enterProperty(BoardParser.PropertyContext ctx) {
-
-    }
-
-    @Override
-    public void exitProperty(BoardParser.PropertyContext ctx) {
-    }
-
-    @Override
     public void enterOnEndReached(BoardParser.OnEndReachedContext ctx) {
-        System.out.printf("    on_end_reached:");
+        System.out.print("    on_end_reached:");
     }
 
     @Override
@@ -370,6 +406,16 @@ public class TreeListener implements BoardListener {
 
     @Override
     public void exitCanJump(BoardParser.CanJumpContext ctx) {
+
+    }
+
+    @Override
+    public void enterMirrored(BoardParser.MirroredContext ctx) {
+
+    }
+
+    @Override
+    public void exitMirrored(BoardParser.MirroredContext ctx) {
 
     }
 

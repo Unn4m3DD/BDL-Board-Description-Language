@@ -29,6 +29,12 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPieceDescription(BoardParser.PieceDescriptionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link BoardParser#pieceDescriptionProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPieceDescriptionProperty(BoardParser.PieceDescriptionPropertyContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link BoardParser#initialStatus}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -47,11 +53,11 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPieceInitialStatus(BoardParser.PieceInitialStatusContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BoardParser#property}.
+	 * Visit a parse tree produced by {@link BoardParser#pieceInitialStatusProperty}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitProperty(BoardParser.PropertyContext ctx);
+	T visitPieceInitialStatusProperty(BoardParser.PieceInitialStatusPropertyContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardParser#onEndReached}.
 	 * @param ctx the parse tree
@@ -88,6 +94,12 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCanJump(BoardParser.CanJumpContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#mirrored}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMirrored(BoardParser.MirroredContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardParser#bool}.
 	 * @param ctx the parse tree
@@ -142,6 +154,18 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitMove(BoardParser.MoveContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#moveProperty}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMoveProperty(BoardParser.MovePropertyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link BoardParser#killing}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitKilling(BoardParser.KillingContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardParser#direction}.
 	 * @param ctx the parse tree

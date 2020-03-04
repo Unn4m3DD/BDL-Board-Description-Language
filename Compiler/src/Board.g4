@@ -5,16 +5,19 @@ game: rules piecesDescription initialStatus invariants finish EOF;
 //pieces{}
 piecesDescription: 'pieces{' pieceDescription+ '}' ;
 
-pieceDescription: name '{' ((moves property*) | explicit*) '}';
+pieceDescription: name '{' ((moves pieceDescriptionProperty*) | explicit*) '}';
+
+pieceDescriptionProperty: canJump|onEndReached;
 
 //initial_status{}
 initialStatus: 'initial_status{' piecesInitialStatus '}';
 
 piecesInitialStatus : 'pieces{' (pieceInitialStatus+) '}';
 
-pieceInitialStatus: name '{' (positions property*|explicit*) '}' ;
+pieceInitialStatus: name '{' (positions pieceInitialStatusProperty*|explicit*) '}' ;
 
-property: canJump|onEndReached;
+pieceInitialStatusProperty: mirrored;
+
 
 onEndReached: 'on_end_reached' ':' endReachedFunctions;
 
@@ -28,7 +31,8 @@ stringArray: STRING (',' STRING)*;
 
 canJump: 'can_jump' ':' bool;
 
-bool: 'true'|'false';
+mirrored: 'mirrored' ':' bool;
+
 
 positions: 'positions{' coordinates+ '}';
 
@@ -50,13 +54,16 @@ function: ((invariant '(' name (',' name)* ')')+ | explicit);
 
 moves: 'moves{' move+ '}' ;
 
-move:  direction
-     | coordinates
-     | explicit;
+move:  (direction|coordinates|explicit) (',' moveProperty)*;
+
+moveProperty: killing;
+
+killing: 'kills' ':' bool;
 
 direction: (languageKeywords pair|coordinates|explicit);
 
 coordinates: 'x'':' x ',' 'y' ':' y ;
+bool: 'true'|'false';
 
 pair: '(' VALUE? ',' VALUE? ')' ;
 x: VALUE | interval ;

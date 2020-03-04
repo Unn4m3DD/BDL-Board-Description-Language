@@ -38,6 +38,16 @@ public interface BoardListener extends ParseTreeListener {
 	 */
 	void exitPieceDescription(BoardParser.PieceDescriptionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link BoardParser#pieceDescriptionProperty}.
+	 * @param ctx the parse tree
+	 */
+	void enterPieceDescriptionProperty(BoardParser.PieceDescriptionPropertyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#pieceDescriptionProperty}.
+	 * @param ctx the parse tree
+	 */
+	void exitPieceDescriptionProperty(BoardParser.PieceDescriptionPropertyContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link BoardParser#initialStatus}.
 	 * @param ctx the parse tree
 	 */
@@ -68,15 +78,15 @@ public interface BoardListener extends ParseTreeListener {
 	 */
 	void exitPieceInitialStatus(BoardParser.PieceInitialStatusContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link BoardParser#property}.
+	 * Enter a parse tree produced by {@link BoardParser#pieceInitialStatusProperty}.
 	 * @param ctx the parse tree
 	 */
-	void enterProperty(BoardParser.PropertyContext ctx);
+	void enterPieceInitialStatusProperty(BoardParser.PieceInitialStatusPropertyContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link BoardParser#property}.
+	 * Exit a parse tree produced by {@link BoardParser#pieceInitialStatusProperty}.
 	 * @param ctx the parse tree
 	 */
-	void exitProperty(BoardParser.PropertyContext ctx);
+	void exitPieceInitialStatusProperty(BoardParser.PieceInitialStatusPropertyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BoardParser#onEndReached}.
 	 * @param ctx the parse tree
@@ -137,6 +147,16 @@ public interface BoardListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCanJump(BoardParser.CanJumpContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#mirrored}.
+	 * @param ctx the parse tree
+	 */
+	void enterMirrored(BoardParser.MirroredContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#mirrored}.
+	 * @param ctx the parse tree
+	 */
+	void exitMirrored(BoardParser.MirroredContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BoardParser#bool}.
 	 * @param ctx the parse tree
@@ -227,6 +247,26 @@ public interface BoardListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMove(BoardParser.MoveContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#moveProperty}.
+	 * @param ctx the parse tree
+	 */
+	void enterMoveProperty(BoardParser.MovePropertyContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#moveProperty}.
+	 * @param ctx the parse tree
+	 */
+	void exitMoveProperty(BoardParser.MovePropertyContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link BoardParser#killing}.
+	 * @param ctx the parse tree
+	 */
+	void enterKilling(BoardParser.KillingContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link BoardParser#killing}.
+	 * @param ctx the parse tree
+	 */
+	void exitKilling(BoardParser.KillingContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link BoardParser#direction}.
 	 * @param ctx the parse tree
