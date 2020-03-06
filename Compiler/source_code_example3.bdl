@@ -1,0 +1,48 @@
+rules{
+  first_player : 0
+  width : 20
+  height : 20
+  coloring : alternate
+  player_change : alternate
+}
+pieces{
+  queen{
+    moves{
+      vertical(,)
+      diagonal(,)
+    }
+  }
+  pawn{
+    moves{
+      vertical(1,2), kills : false
+      x : 1, y : 1
+      x : -1, y : 1
+    }
+    on_end_reached: spawn(queen, bishop, tower, horse)
+    mirrored
+  }
+}
+
+initial_status{
+  pieces{
+    queen{
+      positions{
+        x: [0, 19], y: 19
+      }
+      owner: 1
+    }
+    pawn{
+      positions{
+        x : [0, 19], y : [0,9]
+      }
+      owner: 0
+    }
+  }
+}
+invariants{
+
+}
+
+finish{
+  no_moves_available
+}

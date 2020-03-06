@@ -1,3 +1,4 @@
+import antlr4.BoardBaseListener;
 import antlr4.BoardListener;
 import antlr4.BoardParser;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -8,9 +9,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
-public class TreeListener implements BoardListener {
+public class TreeListener extends BoardBaseListener {
     int width = 8, height = 8;
-//    PrintWriter piecesWriter = new PrintWriter(new File("generated/pieces.js"));
+    //    PrintWriter piecesWriter = new PrintWriter(new File("generated/pieces.js"));
 //    PrintWriter rulesWriter = new PrintWriter(new File("generated/rules.js"));
 //    PrintWriter initialStatusWriter = new PrintWriter(new File("generated/initial_status.js"));
 //    PrintWriter invariantsWriter = new PrintWriter(new File("generated/invariants.js"));
@@ -22,14 +23,6 @@ public class TreeListener implements BoardListener {
     PrintWriter finishingWriter = new PrintWriter(new File("../generated_target_example/finishing.js"));
 
     public TreeListener() throws FileNotFoundException {
-    }
-
-    @Override
-    public void enterGame(BoardParser.GameContext ctx) {
-    }
-
-    @Override
-    public void exitGame(BoardParser.GameContext ctx) {
     }
 
     @Override
@@ -82,16 +75,6 @@ public class TreeListener implements BoardListener {
     }
 
     @Override
-    public void enterPieceDescriptionProperty(BoardParser.PieceDescriptionPropertyContext ctx) {
-
-    }
-
-    @Override
-    public void exitPieceDescriptionProperty(BoardParser.PieceDescriptionPropertyContext ctx) {
-
-    }
-
-    @Override
     public void enterInitialStatus(BoardParser.InitialStatusContext ctx) {
         initialStatusWriter.println("export default {");
     }
@@ -127,8 +110,6 @@ public class TreeListener implements BoardListener {
         }
         if (!definedMirrored)
             initialStatusWriter.println("      mirrored: false,");
-
-
         boolean definedOwner = false;
         for (int i = 0; ctx.pieceInitialStatusProperty(i) != null; i++) {
             if (ctx.pieceInitialStatusProperty(i).owner() != null)
@@ -147,18 +128,8 @@ public class TreeListener implements BoardListener {
     }
 
     @Override
-    public void exitPieceInitialStatusProperty(BoardParser.PieceInitialStatusPropertyContext ctx) {
-
-    }
-
-    @Override
     public void enterOwner(BoardParser.OwnerContext ctx) {
         initialStatusWriter.println("      owner: " + ctx.VALUE().getText() + ",");
-    }
-
-    @Override
-    public void exitOwner(BoardParser.OwnerContext ctx) {
-
     }
 
     @Override
@@ -206,21 +177,8 @@ public class TreeListener implements BoardListener {
     }
 
     @Override
-    public void enterRuleDef(BoardParser.RuleDefContext ctx) {
-    }
-
-    @Override
-    public void exitRuleDef(BoardParser.RuleDefContext ctx) {
-    }
-
-    @Override
     public void enterFirstPlayer(BoardParser.FirstPlayerContext ctx) {
         rulesWriter.println("  first_player: " + ctx.VALUE().getText() + ",");
-    }
-
-    @Override
-    public void exitFirstPlayer(BoardParser.FirstPlayerContext ctx) {
-
     }
 
     @Override
@@ -230,19 +188,9 @@ public class TreeListener implements BoardListener {
     }
 
     @Override
-    public void exitWidth(BoardParser.WidthContext ctx) {
-
-    }
-
-    @Override
     public void enterHeight(BoardParser.HeightContext ctx) {
         height = Integer.parseInt(ctx.VALUE().getText());
         rulesWriter.println("  height: " + ctx.VALUE().getText() + ",");
-    }
-
-    @Override
-    public void exitHeight(BoardParser.HeightContext ctx) {
-
     }
 
     @Override
@@ -263,10 +211,6 @@ public class TreeListener implements BoardListener {
                     "    last_color = last_color === \"#ffffff\" ? \"#c90\" : \"#ffffff\"\n" +
                     "    return last_color\n" +
                     "  }");
-    }
-
-    @Override
-    public void exitKnownColorings(BoardParser.KnownColoringsContext ctx) {
     }
 
     @Override
@@ -435,42 +379,6 @@ public class TreeListener implements BoardListener {
     }
 
     @Override
-    public void exitKnownInvariants(BoardParser.KnownInvariantsContext ctx) {
-
-    }
-
-    @Override
-    public void enterPawnMovement(BoardParser.PawnMovementContext ctx) {
-
-    }
-
-    @Override
-    public void exitPawnMovement(BoardParser.PawnMovementContext ctx) {
-
-    }
-
-
-    @Override
-    public void enterCantRisk(BoardParser.CantRiskContext ctx) {
-
-    }
-
-    @Override
-    public void exitCantRisk(BoardParser.CantRiskContext ctx) {
-
-    }
-
-    @Override
-    public void enterProtectPiece(BoardParser.ProtectPieceContext ctx) {
-
-    }
-
-    @Override
-    public void exitProtectPiece(BoardParser.ProtectPieceContext ctx) {
-
-    }
-
-    @Override
     public void enterFinish(BoardParser.FinishContext ctx) {
         finishingWriter.println("import resolve_moves from \"./resolve_moves.js\"\n" +
                 "import pieces from \"./pieces.js\"\n" +
@@ -517,21 +425,6 @@ public class TreeListener implements BoardListener {
     }
 
     @Override
-    public void exitKnownFinish(BoardParser.KnownFinishContext ctx) {
-
-    }
-
-    @Override
-    public void enterNoMovesAvailable(BoardParser.NoMovesAvailableContext ctx) {
-
-    }
-
-    @Override
-    public void exitNoMovesAvailable(BoardParser.NoMovesAvailableContext ctx) {
-
-    }
-
-    @Override
     public void enterMoves(BoardParser.MovesContext ctx) {
         piecesWriter.println("    moves: ({ current_x, current_y, context }) => {\n" +
                 "      const result = [");
@@ -554,34 +447,6 @@ public class TreeListener implements BoardListener {
                                 "        reverse(result)\n") : "") +
                 "      return result\n" +
                 "    },");
-    }
-
-    @Override
-    public void enterMove(BoardParser.MoveContext ctx) {
-    }
-
-    @Override
-    public void exitMove(BoardParser.MoveContext ctx) {
-    }
-
-    @Override
-    public void enterMoveProperty(BoardParser.MovePropertyContext ctx) {
-
-    }
-
-    @Override
-    public void exitMoveProperty(BoardParser.MovePropertyContext ctx) {
-
-
-    }
-
-    @Override
-    public void enterKilling(BoardParser.KillingContext ctx) {
-    }
-
-    @Override
-    public void exitKilling(BoardParser.KillingContext ctx) {
-
     }
 
     @Override
@@ -622,10 +487,22 @@ public class TreeListener implements BoardListener {
                 bounds[1] += "[1, " + (max + 1) + "]";
             for (var bound : bounds) {
                 if (!bound.equals(""))
-                    piecesWriter.printf(template,
-                            !keyword.equals("vertical") ? bound : "[0, 1]",
-                            keyword.equals("vertical") ? bound : keyword.equals("horizontal") ? "[0, 1]" : "[x, x + 1]",
-                            kills);
+                    if (!keyword.equals("diagonal"))
+                        piecesWriter.printf(template,
+                                !keyword.equals("vertical") ? bound : "[0, 1]",
+                                keyword.equals("vertical") ? bound : "[0, 1]",
+                                kills);
+                    else {
+                        piecesWriter.printf(template,
+                                bound,
+                                "[x, x + 1]",
+                                kills);
+
+                        piecesWriter.printf(template,
+                                bound,
+                                "[-x, -x + 1]",
+                                kills);
+                    }
 
             }
         } else if (ctx.coordinates() != null) {
@@ -639,94 +516,6 @@ public class TreeListener implements BoardListener {
     }
 
     @Override
-    public void exitDirection(BoardParser.DirectionContext ctx) {
-    }
-
-    @Override
-    public void enterCoordinates(BoardParser.CoordinatesContext ctx) {
-    }
-
-    @Override
-    public void exitCoordinates(BoardParser.CoordinatesContext ctx) {
-    }
-
-    @Override
-    public void enterPair(BoardParser.PairContext ctx) {
-    }
-
-    @Override
-    public void exitPair(BoardParser.PairContext ctx) {
-    }
-
-    @Override
-    public void enterX(BoardParser.XContext ctx) {
-    }
-
-    @Override
-    public void exitX(BoardParser.XContext ctx) {
-    }
-
-    @Override
-    public void enterY(BoardParser.YContext ctx) {
-    }
-
-    @Override
-    public void exitY(BoardParser.YContext ctx) {
-    }
-
-    @Override
-    public void enterInterval(BoardParser.IntervalContext ctx) {
-    }
-
-    @Override
-    public void exitInterval(BoardParser.IntervalContext ctx) {
-    }
-
-    @Override
-    public void enterExplicit(BoardParser.ExplicitContext ctx) {
-    }
-
-    @Override
-    public void exitExplicit(BoardParser.ExplicitContext ctx) {
-    }
-
-    @Override
-    public void enterExplicitContent(BoardParser.ExplicitContentContext ctx) {
-
-    }
-
-    @Override
-    public void exitExplicitContent(BoardParser.ExplicitContentContext ctx) {
-
-    }
-
-    @Override
-    public void enterLanguageKeywords(BoardParser.LanguageKeywordsContext ctx) {
-
-    }
-
-    @Override
-    public void exitLanguageKeywords(BoardParser.LanguageKeywordsContext ctx) {
-
-    }
-
-    @Override
-    public void enterName(BoardParser.NameContext ctx) {
-    }
-
-    @Override
-    public void exitName(BoardParser.NameContext ctx) {
-    }
-
-    @Override
-    public void enterInvariant(BoardParser.InvariantContext ctx) {
-    }
-
-    @Override
-    public void exitInvariant(BoardParser.InvariantContext ctx) {
-    }
-
-    @Override
     public void enterOnEndReached(BoardParser.OnEndReachedContext ctx) {
         piecesWriter.print("    on_end_reached:");
     }
@@ -734,25 +523,6 @@ public class TreeListener implements BoardListener {
     @Override
     public void exitOnEndReached(BoardParser.OnEndReachedContext ctx) {
         piecesWriter.println(",");
-    }
-
-    @Override
-    public void enterEndReachedFunctions(BoardParser.EndReachedFunctionsContext ctx) {
-
-    }
-
-    @Override
-    public void exitEndReachedFunctions(BoardParser.EndReachedFunctionsContext ctx) {
-
-    }
-
-    @Override
-    public void enterEndReachedKnownFunctions(BoardParser.EndReachedKnownFunctionsContext ctx) {
-    }
-
-    @Override
-    public void exitEndReachedKnownFunctions(BoardParser.EndReachedKnownFunctionsContext ctx) {
-
     }
 
     @Override
@@ -781,63 +551,8 @@ public class TreeListener implements BoardListener {
     }
 
     @Override
-    public void exitSpawnFunction(BoardParser.SpawnFunctionContext ctx) {
-
-    }
-
-    @Override
-    public void enterStringArray(BoardParser.StringArrayContext ctx) {
-
-    }
-
-    @Override
-    public void exitStringArray(BoardParser.StringArrayContext ctx) {
-
-    }
-
-    @Override
     public void enterCanJump(BoardParser.CanJumpContext ctx) {
         String canJump = ctx.bool() == null ? "false" : ctx.bool().getText();
         piecesWriter.printf("    can_jump: %s,\n", canJump);
-    }
-
-    @Override
-    public void exitCanJump(BoardParser.CanJumpContext ctx) {
-
-    }
-
-    @Override
-    public void enterMirrored(BoardParser.MirroredContext ctx) {
-    }
-
-    @Override
-    public void exitMirrored(BoardParser.MirroredContext ctx) {
-
-    }
-
-    @Override
-    public void enterBool(BoardParser.BoolContext ctx) {
-
-    }
-
-    @Override
-    public void exitBool(BoardParser.BoolContext ctx) {
-
-    }
-
-    @Override
-    public void visitTerminal(TerminalNode terminalNode) {
-    }
-
-    @Override
-    public void visitErrorNode(ErrorNode errorNode) {
-    }
-
-    @Override
-    public void enterEveryRule(ParserRuleContext parserRuleContext) {
-    }
-
-    @Override
-    public void exitEveryRule(ParserRuleContext parserRuleContext) {
     }
 }

@@ -10,7 +10,7 @@ pieceDescription: name '{' ((moves pieceDescriptionProperty*) | explicit*) '}';
 pieceDescriptionProperty: canJump|onEndReached|mirrored;
 
 //initial_status{}
-initialStatus: 'initial_status{' piecesInitialStatus '}';
+initialStatus: 'initial_status' '{' piecesInitialStatus '}';
 
 piecesInitialStatus : 'pieces{' (pieceInitialStatus+) '}';
 
@@ -53,13 +53,13 @@ knownPlayerChanges: 'alternate';
 
 
 //invariants{}
-invariants: 'invariants{' (knownInvariants+ | explicit) '}' ;
+invariants: 'invariants' '{' (knownInvariants* | explicit) '}' ;
 knownInvariants: cantRisk|protectPiece|pawnMovement;
 pawnMovement: 'pawn_movement' '(' stringArray ')';
 cantRisk: 'cant_risk' '(' stringArray ')';
 protectPiece: 'protect_piece' '(' stringArray ')';
 //finish{}
-finish: 'finish{' (knownFinish+ | explicit) '}' ;
+finish: 'finish{' (knownFinish* | explicit) '}' ;
 
 
 knownFinish: noMovesAvailable;
@@ -88,7 +88,6 @@ explicitContent:  (~('|}')|'='|'>'|'<')*;
 languageKeywords: ('vertical'|'horizontal'|'diagonal') ;
 
 name: STRING;
-invariant: STRING;
 STRING: [_a-zA-Z]+;
 VALUE: '-'? [0-9]+ ([0-9]+ '.')?;
 WS: [ \t\n\r]+ -> skip ;

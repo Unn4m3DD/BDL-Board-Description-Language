@@ -304,10 +304,4 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitName(BoardParser.NameContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link BoardParser#invariant}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitInvariant(BoardParser.InvariantContext ctx);
 }

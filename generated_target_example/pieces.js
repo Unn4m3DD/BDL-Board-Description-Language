@@ -8,146 +8,37 @@ function reverse(array) {
   }
 }
 const pieces = {
-  horse: {
-    moves: ({ current_x, current_y, context }) => {
-      const result = [
-      {
-        x: [2, 3],
-        y: (x) => [1, 2],
-        killing: true
-      },
-      {
-        x: [2, 3],
-        y: (x) => [-1, 0],
-        killing: true
-      },
-      {
-        x: [-2, -1],
-        y: (x) => [1, 2],
-        killing: true
-      },
-      {
-        x: [-2, -1],
-        y: (x) => [-1, 0],
-        killing: true
-      },
-      {
-        x: [1, 2],
-        y: (x) => [2, 3],
-        killing: true
-      },
-      {
-        x: [1, 2],
-        y: (x) => [-2, -1],
-        killing: true
-      },
-      {
-        x: [-1, 0],
-        y: (x) => [2, 3],
-        killing: true
-      },
-      {
-        x: [-1, 0],
-        y: (x) => [-2, -1],
-        killing: true
-      },
-    ]
-      return result
-    },
-    can_jump: false,
-    on_end_reached: (context, current_x, current_y) => { },
-    representation: {
-      img: "",
-      letter: "H"
-    }
-  },
-  tower: {
-    moves: ({ current_x, current_y, context }) => {
-      const result = [
-      {
-        x: [-8, 0],
-        y: (x) => [0, 1],
-        killing: true
-      },
-      {
-        x: [1, 9],
-        y: (x) => [0, 1],
-        killing: true
-      },
-      {
-        x: [0, 1],
-        y: (x) => [-8, 0],
-        killing: true
-      },
-      {
-        x: [0, 1],
-        y: (x) => [1, 9],
-        killing: true
-      },
-    ]
-      return result
-    },
-    can_jump: false,
-    on_end_reached: (context, current_x, current_y) => { },
-    representation: {
-      img: "",
-      letter: "T"
-    }
-  },
-  bishop: {
-    moves: ({ current_x, current_y, context }) => {
-      const result = [
-      {
-        x: [-8, 0],
-        y: (x) => [x, x + 1],
-        killing: true
-      },
-      {
-        x: [1, 9],
-        y: (x) => [x, x + 1],
-        killing: true
-      },
-    ]
-      return result
-    },
-    can_jump: false,
-    on_end_reached: (context, current_x, current_y) => { },
-    representation: {
-      img: "",
-      letter: "B"
-    }
-  },
   queen: {
     moves: ({ current_x, current_y, context }) => {
       const result = [
       {
-        x: [-8, 0],
-        y: (x) => [0, 1],
-        killing: true
-      },
-      {
-        x: [1, 9],
-        y: (x) => [0, 1],
+        x: [0, 1],
+        y: (x) => [-20, 0],
         killing: true
       },
       {
         x: [0, 1],
-        y: (x) => [-8, 0],
+        y: (x) => [1, 21],
         killing: true
       },
       {
-        x: [0, 1],
-        y: (x) => [1, 9],
-        killing: true
-      },
-      {
-        x: [-8, 0],
+        x: [-20, 0],
         y: (x) => [x, x + 1],
         killing: true
       },
       {
-        x: [1, 9],
+        x: [-20, 0],
+        y: (x) => [-x, -x + 1],
+        killing: true
+      },
+      {
+        x: [1, 21],
         y: (x) => [x, x + 1],
+        killing: true
+      },
+      {
+        x: [1, 21],
+        y: (x) => [-x, -x + 1],
         killing: true
       },
     ]
@@ -158,49 +49,6 @@ const pieces = {
     representation: {
       img: "",
       letter: "Q"
-    }
-  },
-  king: {
-    moves: ({ current_x, current_y, context }) => {
-      const result = [
-      {
-        x: [-1, 0],
-        y: (x) => [0, 1],
-        killing: true
-      },
-      {
-        x: [1, 2],
-        y: (x) => [0, 1],
-        killing: true
-      },
-      {
-        x: [0, 1],
-        y: (x) => [-1, 0],
-        killing: true
-      },
-      {
-        x: [0, 1],
-        y: (x) => [1, 2],
-        killing: true
-      },
-      {
-        x: [-1, 0],
-        y: (x) => [x, x + 1],
-        killing: true
-      },
-      {
-        x: [1, 2],
-        y: (x) => [x, x + 1],
-        killing: true
-      },
-    ]
-      return result
-    },
-    can_jump: false,
-    on_end_reached: (context, current_x, current_y) => { },
-    representation: {
-      img: "",
-      letter: "K"
     }
   },
   pawn: {

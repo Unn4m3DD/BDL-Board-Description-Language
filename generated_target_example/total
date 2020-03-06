@@ -1,0 +1,426 @@
+export default {
+  pieces: {
+    tower: {
+      positions: [
+        { x: 0, y: 0 },
+        { x: 7, y: 0 },
+      ],
+      mirrored: true,
+      owner: 0,
+    },
+    horse: {
+      positions: [
+        { x: 1, y: 0 },
+        { x: 6, y: 0 },
+      ],
+      mirrored: true,
+      owner: 0,
+    },
+    bishop: {
+      positions: [
+        { x: 2, y: 0 },
+        { x: 5, y: 0 },
+      ],
+      mirrored: true,
+      owner: 0,
+    },
+    queen: {
+      positions: [
+        { x: 3, y: 0 },
+      ],
+      mirrored: true,
+      owner: 0,
+    },
+    king: {
+      positions: [
+        { x: 4, y: 0 },
+      ],
+      mirrored: true,
+      owner: 0,
+    },
+    pawn: {
+      positions: [
+        { x: 0, y: 1 },
+        { x: 1, y: 1 },
+        { x: 2, y: 1 },
+        { x: 3, y: 1 },
+        { x: 4, y: 1 },
+        { x: 5, y: 1 },
+        { x: 6, y: 1 },
+        { x: 7, y: 1 },
+        { x: 8, y: 1 },
+      ],
+      mirrored: true,
+      owner: 0,
+    },
+  }
+}
+import resolve_moves from "./resolve_moves.js";
+import pieces from "./pieces.js";
+export default [
+(context, current_x, current_y, target_x, target_y) => {
+    if (!context.board[current_x][current_y].piece ||
+      context.board[current_x][current_y].piece.name !== "king")
+      return true
+    for (let x = 0; x < context.width; x++) {
+      for (let y = 0; y < context.width; y++) {
+        if (x === current_x && y === current_y)
+          continue
+        if (context.board[x][y].piece
+          && context.board[x][y].piece.owner !== context.board[current_x][current_y].piece.owner) {
+          let temp_board = JSON.parse(JSON.stringify(context.board))
+          temp_board[target_x][target_y].piece = { ...temp_board[current_x][current_y].piece }
+          temp_board[current_x][current_y].piece = null
+          resolve_moves(
+            pieces[temp_board[x][y].piece.name].moves, 
+            x,
+            y,
+            {
+              board: temp_board,
+              height: context.height,
+              width: context.width,
+              current_player: context.current_player,
+              focused: context.focused
+            },
+            false)()
+          if (temp_board[target_x]
+            && temp_board[target_x][target_y]
+            && temp_board[target_x][target_y].target)
+            return false
+        }
+      }
+    }
+    return true;
+  },
+  (context, current_x, current_y, target_x, target_y) => {
+    if (!context.board[current_x][current_y].piece)
+      return true
+
+    for (let x = 0; x < context.width; x++) {
+      for (let y = 0; y < context.width; y++) {
+        if (x === target_x && y === target_y)
+          continue
+        if (context.board[x][y].piece
+          && context.board[x][y].piece.owner !== context.board[current_x][current_y].piece.owner) {
+          let temp_board = JSON.parse(JSON.stringify(context.board))
+          temp_board[target_x][target_y].piece = { ...temp_board[current_x][current_y].piece }
+          temp_board[current_x][current_y].piece = null
+          resolve_moves(
+            pieces[temp_board[x][y].piece.name].moves,
+            x,
+            y,
+            {
+              board: temp_board,
+              height: context.height,
+              width: context.width,
+              current_player: context.current_player,
+              focused: context.focused
+            },
+            false)()
+          const targets = temp_board.map((e) => e.map((e2) => e2.target))
+          for (let i = 0; i < context.width; i++) {
+            for (let j = 0; j < context.width; j++) {
+              if (targets[i][j] &&
+                temp_board[i][j].piece &&
+                (temp_board[i][j].piece.name === "king"))
+                return false
+            }
+          }
+        }
+      }
+    }
+    return true
+  },
+]
+function reverse(array) {
+  for (let i = 0; i < array.length; i++) {
+    const func = array[i].y
+    array[i].y = (x) => {
+      const tmp = func
+      return [-tmp(x)[1] + 1, -tmp(x)[0] + 1]
+    }
+  }
+}
+const pieces = {
+  horse: {
+    moves: ({ current_x, current_y, context }) => {
+      const result = [
+      {
+        x: [2, 3],
+        y: (x) => [1, 2],
+        killing: true
+      },
+      {
+        x: [2, 3],
+        y: (x) => [-1, 0],
+        killing: true
+      },
+      {
+        x: [-2, -1],
+        y: (x) => [1, 2],
+        killing: true
+      },
+      {
+        x: [-2, -1],
+        y: (x) => [-1, 0],
+        killing: true
+      },
+      {
+        x: [1, 2],
+        y: (x) => [2, 3],
+        killing: true
+      },
+      {
+        x: [1, 2],
+        y: (x) => [-2, -1],
+        killing: true
+      },
+      {
+        x: [-1, 0],
+        y: (x) => [2, 3],
+        killing: true
+      },
+      {
+        x: [-1, 0],
+        y: (x) => [-2, -1],
+        killing: true
+      },
+    ]
+      return result
+    },
+    can_jump: false,
+    on_end_reached: (context, current_x, current_y) => { },
+    representation: {
+      img: "",
+      letter: "H"
+    }
+  },
+  tower: {
+    moves: ({ current_x, current_y, context }) => {
+      const result = [
+      {
+        x: [-8, 0],
+        y: (x) => [0, 1],
+        killing: true
+      },
+      {
+        x: [1, 9],
+        y: (x) => [0, 1],
+        killing: true
+      },
+      {
+        x: [0, 1],
+        y: (x) => [-8, 0],
+        killing: true
+      },
+      {
+        x: [0, 1],
+        y: (x) => [1, 9],
+        killing: true
+      },
+    ]
+      return result
+    },
+    can_jump: false,
+    on_end_reached: (context, current_x, current_y) => { },
+    representation: {
+      img: "",
+      letter: "T"
+    }
+  },
+  bishop: {
+    moves: ({ current_x, current_y, context }) => {
+      const result = [
+      {
+        x: [-8, 0],
+        y: (x) => [x, x + 1],
+        killing: true
+      },
+      {
+        x: [1, 9],
+        y: (x) => [x, x + 1],
+        killing: true
+      },
+    ]
+      return result
+    },
+    can_jump: false,
+    on_end_reached: (context, current_x, current_y) => { },
+    representation: {
+      img: "",
+      letter: "B"
+    }
+  },
+  queen: {
+    moves: ({ current_x, current_y, context }) => {
+      const result = [
+      {
+        x: [-8, 0],
+        y: (x) => [0, 1],
+        killing: true
+      },
+      {
+        x: [1, 9],
+        y: (x) => [0, 1],
+        killing: true
+      },
+      {
+        x: [0, 1],
+        y: (x) => [-8, 0],
+        killing: true
+      },
+      {
+        x: [0, 1],
+        y: (x) => [1, 9],
+        killing: true
+      },
+      {
+        x: [-8, 0],
+        y: (x) => [x, x + 1],
+        killing: true
+      },
+      {
+        x: [1, 9],
+        y: (x) => [x, x + 1],
+        killing: true
+      },
+    ]
+      return result
+    },
+    can_jump: false,
+    on_end_reached: (context, current_x, current_y) => { },
+    representation: {
+      img: "",
+      letter: "Q"
+    }
+  },
+  king: {
+    moves: ({ current_x, current_y, context }) => {
+      const result = [
+      {
+        x: [-1, 0],
+        y: (x) => [0, 1],
+        killing: true
+      },
+      {
+        x: [1, 2],
+        y: (x) => [0, 1],
+        killing: true
+      },
+      {
+        x: [0, 1],
+        y: (x) => [-1, 0],
+        killing: true
+      },
+      {
+        x: [0, 1],
+        y: (x) => [1, 2],
+        killing: true
+      },
+      {
+        x: [-1, 0],
+        y: (x) => [x, x + 1],
+        killing: true
+      },
+      {
+        x: [1, 2],
+        y: (x) => [x, x + 1],
+        killing: true
+      },
+    ]
+      return result
+    },
+    can_jump: false,
+    on_end_reached: (context, current_x, current_y) => { },
+    representation: {
+      img: "",
+      letter: "K"
+    }
+  },
+  pawn: {
+    moves: ({ current_x, current_y, context }) => {
+      const result = [
+      {
+        x: [0, 1],
+        y: (x) => [1, 3],
+        killing: true
+      },
+      {
+        x: [1, 2],
+        y: (x) => [1, 2],
+        killing: true
+      },
+      {
+        x: [-1, 0],
+        y: (x) => [1, 2],
+        killing: true
+      },
+    ]
+      const mirrored = context.board[current_x][current_y].piece.mirrored
+      if (mirrored)
+        reverse(result)
+      return result
+    },
+    on_end_reached: (context, current_x, current_y) => {
+      let response = ""
+      while (!["queen", "bishop", "tower", "horse"][response]) {
+        let msg = "Select one: "
+        let sep = ""
+        for (let i in ["queen", "bishop", "tower", "horse"]) {
+          msg += sep + i
+          sep = ", "
+        }
+        response = prompt(msg)
+      }
+      context.board[current_x][current_y].piece.name = response
+    },
+    can_jump: false,
+    representation: {
+      img: "",
+      letter: "P"
+    }
+  },
+}
+
+export default pieces
+export default {
+  first_player: 0,
+  width: 8,
+  height: 8,
+  board_coloring_rule: (x, y, last_color) => {
+    if (y === 0) last_color = last_color === "#ffffff" ? "#c90" : "#ffffff"
+    last_color = last_color === "#ffffff" ? "#c90" : "#ffffff"
+    return last_color
+  },
+}
+import resolve_moves from "./resolve_moves.js"
+import pieces from "./pieces.js"
+export default [
+  (context) => {
+    for (let x = 0; x < context.width; x++) {
+      for (let y = 0; y < context.width; y++) {
+        if (context.board[x][y].piece
+          && context.board[x][y].piece.owner === context.current_player) {
+          let temp_board = JSON.parse(JSON.stringify(context.board))
+          resolve_moves(
+            pieces[temp_board[x][y].piece.name].moves,
+            x,
+            y,
+            {
+              board: temp_board,
+              height: context.height,
+              width: context.width,
+              current_player: context.current_player,
+              focused: context.focused
+            },
+            true)()
+          const targets = temp_board.map((e) => e.map((e2) => e2.target))
+          for (let i = 0; i < context.width; i++)
+            for (let j = 0; j < context.width; j++)
+              if (targets[i][j]) return false
+        }
+      }
+    }
+    return true
+  },
+]

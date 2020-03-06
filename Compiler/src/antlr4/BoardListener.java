@@ -497,14 +497,4 @@ public interface BoardListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitName(BoardParser.NameContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link BoardParser#invariant}.
-	 * @param ctx the parse tree
-	 */
-	void enterInvariant(BoardParser.InvariantContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link BoardParser#invariant}.
-	 * @param ctx the parse tree
-	 */
-	void exitInvariant(BoardParser.InvariantContext ctx);
 }

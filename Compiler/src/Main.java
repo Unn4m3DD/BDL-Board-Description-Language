@@ -12,12 +12,12 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        CharStream cs = CharStreams.fromFileName("source_code_example.bdl");  //load the file
-        BoardLexer lexer = new BoardLexer(cs);  //instantiate a lexer
-        CommonTokenStream tokens = new CommonTokenStream(lexer); //scan stream for tokens
-        BoardParser parser = new BoardParser(tokens);  //parse the tokens
+        CharStream cs = CharStreams.fromFileName(args[0]);
+        BoardLexer lexer = new BoardLexer(cs);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        BoardParser parser = new BoardParser(tokens);
 
-        ParseTree tree = parser.game(); // parse the content and get the tree
+        ParseTree tree = parser.game();
         TreeListener listener = new TreeListener();
 
         ParseTreeWalker walker = new ParseTreeWalker();
