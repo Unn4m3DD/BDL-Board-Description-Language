@@ -1,0 +1,39 @@
+{
+  "publisher": "Unn4m3DD",
+  "repository": {
+    "url": "https://github.com/Unn4m3DD/BDL-Board-Description-Language",
+    "email": "guerreiroapatacas@gmail.com"
+  },
+  "name": "board-description-language-support",
+  "displayName": "Board Description Language Support",
+  "description": "Board description language syntax highlight",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.42.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "bdl",
+        "aliases": [
+          "Board Description Language",
+          "bdl"
+        ],
+        "extensions": [
+          ".bdl"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "bdl",
+        "scopeName": "source.bdl",
+        "path": "./syntaxes/bdl.tmLanguage.json"
+      }
+    ]
+  }
+}

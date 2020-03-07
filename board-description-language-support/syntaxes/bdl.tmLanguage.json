@@ -1,0 +1,70 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Board Description Language",
+  "foldingStartMarker": "{",
+  "foldingStopMarker": "}",
+  "patterns": [
+    {
+      "include": "#keyword"
+    },
+    {
+      "include": "#inner_keyword"
+    },
+    {
+      "include": "#number"
+    },
+    {
+      "include": "#vector"
+    },
+    {
+      "include": "#var"
+    }
+  ],
+  "repository": {
+    "vector": {
+      "patterns": [
+        {
+          "name": "variable.language",
+          "match": "(x|y)"
+        }
+      ]
+    },
+    "var": {
+      "patterns": [
+        {
+          "name": "support.variable",
+          "match": "[_a-zA-Z]+"
+        }
+      ]
+    },
+    "keyword": {
+      "patterns": [
+        {
+          "name": "keyword",
+          "match": "\\b(rules|pieces|initial_status|invariants|finish|positions|moves)\\b"
+        }
+      ]
+    },
+    "inner_keyword": {
+      "patterns": [
+        {
+          "name": "entity.name",
+          "match": "\\b(first_player|width|height|coloring|player_change|moves|can_jump|horizontal|vertical|diagonal|on_end_reached|spawn|mirrored|cant_risk|protect_piece|pawn_movement|no_moves_available)\\b"
+        },
+        {
+          "name": "constant.language",
+          "match": "\\b(alternate)\\b"
+        }
+      ]
+    },
+    "number": {
+      "patterns": [
+        {
+          "name": "constant.numeric",
+          "match": "[\\-]?[0-9]+"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.bdl"
+}
