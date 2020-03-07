@@ -1,0 +1,40 @@
+rules{
+  first_player : 0
+  width : 8
+  height : 8
+  coloring : alternate
+  player_change : alternate
+}
+
+pieces{
+  tower{
+    moves{
+      vertical(1,2), kills: true
+      x : 1, y : 1
+      horizontal(,), kills: false
+    }
+    on_end_reached: spawn(pawn, tower)
+  }
+}
+
+initial_status{
+  pieces{
+    tower{
+      positions{
+        x : 0, y : 0
+        x : [0, 3], y : [1, 2]
+      }
+    }
+  }
+}
+
+
+invariants{
+  cant_risk(king)
+  protect_piece(king, tower)
+  pawn_movement(pawn)
+}
+
+finish{
+  no_moves_available
+}
