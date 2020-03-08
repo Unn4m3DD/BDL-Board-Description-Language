@@ -15,11 +15,22 @@ public class Main {
     }
 
     Main(String[] args) throws IOException {
-        File dir = new File(args[1]);
+        if (args.length != 1 || args.length != 2) {
+            System.err.println("Usage: java -jar BDLCompiler.jar source_file.bdl [destination_directory]");
+            System.exit(1);
+        }
+        String sourceName = args[0];
+        String destinationName;
+        if (args.length < 2)
+            destinationName = args[1];
+        else
+            destinationName = ".";
+        File dir = new File(destinationName);
+
         if (!dir.exists())
             dir.mkdir();
         if (!dir.isDirectory()) {
-            System.err.println(args[1] + " already exists");
+            System.err.println(args[1] + " already exists as file");
             System.exit(1);
         }
         for (var name : new String[]{"app.js", "app.html", "create_board.js", "gameLogic.js", "pieces.js", "renderer.js", "resolve_moves.js"}) {
