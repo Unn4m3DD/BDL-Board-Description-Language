@@ -15,13 +15,13 @@ public class Main {
     }
 
     Main(String[] args) throws IOException {
-        if (args.length != 1 || args.length != 2) {
+        if (args.length != 1 && args.length != 2) {
             System.err.println("Usage: java -jar BDLCompiler.jar source_file.bdl [destination_directory]");
             System.exit(1);
         }
         String sourceName = args[0];
         String destinationName;
-        if (args.length < 2)
+        if (args.length == 2)
             destinationName = args[1];
         else
             destinationName = ".";

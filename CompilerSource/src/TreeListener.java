@@ -532,13 +532,13 @@ public class TreeListener extends BoardBaseListener {
 
     @Override
     public void enterSpawnFunction(BoardParser.SpawnFunctionContext ctx) {
-        String array = "[";
+        String array = "{";
         String sep = "";
         for (int i = 0; ctx.stringArray().STRING(i) != null; i++) {
-            array += sep + '"' + ctx.stringArray().STRING(i).getText() + '"';
+            array += sep + '"' + ctx.stringArray().STRING(i).getText() + "\" : 1";
             sep = ", ";
         }
-        array += "]";
+        array += "}";
         String template = " (context, current_x, current_y) => {\n" +
                 "      let response = \"\"\n" +
                 "      while (!%s[response]) {\n" +
