@@ -16,13 +16,18 @@ public class TreeListener extends BoardBaseListener {
 //    PrintWriter initialStatusWriter = new PrintWriter(new File("generated/initial_status.js"));
 //    PrintWriter invariantsWriter = new PrintWriter(new File("generated/invariants.js"));
 //    PrintWriter finishingWriter = new PrintWriter(new File("generated/finishing.js"));
-    PrintWriter piecesWriter = new PrintWriter(new File("./generated_target/pieces.js"));
-    PrintWriter rulesWriter = new PrintWriter(new File("./generated_target/rules.js"));
-    PrintWriter initialStatusWriter = new PrintWriter(new File("./generated_target/initial_status.js"));
-    PrintWriter invariantsWriter = new PrintWriter(new File("./generated_target/invariants.js"));
-    PrintWriter finishingWriter = new PrintWriter(new File("./generated_target/finishing.js"));
+    PrintWriter piecesWriter;
+    PrintWriter rulesWriter;
+    PrintWriter initialStatusWriter;
+    PrintWriter invariantsWriter;
+    PrintWriter finishingWriter;
 
-    public TreeListener() throws FileNotFoundException {
+    public TreeListener(String path) throws FileNotFoundException {
+        piecesWriter = new PrintWriter(new File("./" + path + "/pieces.js"));
+        rulesWriter = new PrintWriter(new File("./" + path + "/rules.js"));
+        initialStatusWriter = new PrintWriter(new File("./" + path + "/initial_status.js"));
+        invariantsWriter = new PrintWriter(new File("./" + path + "/invariants.js"));
+        finishingWriter = new PrintWriter(new File("./" + path + "/finishing.js"));
     }
 
     @Override

@@ -65,8 +65,7 @@ export default [
             for (let j = 0; j < context.width; j++) {
               if (targets[i][j] &&
                 temp_board[i][j].piece &&
-                (temp_board[i][j].piece.name === "king" || 
-                temp_board[i][j].piece.name === "tower"))
+                (temp_board[i][j].piece.name === "king"))
                 return false
             }
           }
@@ -74,7 +73,8 @@ export default [
       }
     }
     return true
-  }(context, current_x, current_y, target_x, target_y) => {
+  },
+(context, current_x, current_y, target_x, target_y) => {
     if (!context.board[current_x][current_y].piece ||
       context.board[current_x][current_y].piece.name !== "pawn")
       return true
