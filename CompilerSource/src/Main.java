@@ -19,7 +19,7 @@ public class Main {
         if (!dir.exists())
             dir.mkdir();
         if (!dir.isDirectory()) {
-            System.err.println(args[1] + "already exists");
+            System.err.println(args[1] + " already exists");
             System.exit(1);
         }
         for (var name : new String[]{"app.js", "app.html", "create_board.js", "gameLogic.js", "pieces.js", "renderer.js", "resolve_moves.js"}) {
