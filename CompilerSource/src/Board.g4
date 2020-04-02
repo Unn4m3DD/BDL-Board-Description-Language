@@ -1,93 +1,68 @@
 grammar Board;
+game: ruleSet pieceDescriptions initialPiecePositions invariantList finish EOF;
 
-game: rules piecesDescription initialStatus invariants finish EOF;
-
-//pieces{}
-piecesDescription: 'pieces{' pieceDescription+ '}' ;
-
-pieceDescription: name '{' ((moves pieceDescriptionProperty*) | explicit*) '}';
-
-pieceDescriptionProperty: canJump|onEndReached|mirrored;
-
-//initial_status{}
-initialStatus: 'initial_status' '{' piecesInitialStatus '}';
-
-piecesInitialStatus : 'pieces{' (pieceInitialStatus+) '}';
-
-pieceInitialStatus: name '{' (positions pieceInitialStatusProperty*|explicit*) '}' ;
-
-pieceInitialStatusProperty: mirrored|owner;
-
-owner: 'owner' ':' VALUE;
+ruleSet: 'rules' '{' ruleDef* '}'; //aceita argumentos em qualquer ordem
+ruleDef:
+     'first_player' ':' INT                            #ruleProp
+    | 'width' ':' INT                                  #ruleProp
+    | 'height' ':' INT                                 #ruleProp
+    | 'coloring' ':' ('alternate' | explicitParsed)         #ruleColoring
+    | 'player_change' ':' ('alternate' | explicitParsed)    #rulePlayerChange;
 
 
-onEndReached: 'on_end_reached' ':' endReachedFunctions;
+pieceDescriptions: 'pieces' '{' pieceDescription* '}';
+pieceDescription:
+      ID '{' moves descriptionModifier* '}' #pieceIdPlusMoves
+    | explicitParsed                        #pieceDescriptionExplicit;
+moves: 'moves' '{' move* '}';
+move: vector kills?         #moveVector
+    | moveFunction kills?   #moveFunctionDescription
+    | explicitParsed        #moveExplicit;
 
-endReachedFunctions: endReachedKnownFunctions | explicit;
+moveFunction:
+      'horizontal' '(' e1 = INT? ',' e2 = INT? ')'    #moveFunctionHorizontal
+    | 'vertical' '(' e1 = INT? ',' e2 = INT? ')'      #moveFunctionVertical
+    | 'diagonal' '(' e1 = INT? ',' e2 = INT? ')'      #moveFunctionDiagonal
+    | explicitParsed                                  #moveFunctionExplicit;
 
-endReachedKnownFunctions: spawnFunction ;
+kills: ','? 'kills' ':' BOOL;
+descriptionModifier:
+      'can_jump' (':' BOOL)?                                            #descriptionModifierCanJump
+    | 'mirrored' (':' BOOL)?                                            #descriptionModifierMirrored
+    | 'on_end_reached' ':' (endReachedAlternatives | explicitParsed)    #descriptionModifierOnEndReached
+    | explicitParsed                                                    #descriptionModifierExplicit;
 
-spawnFunction: 'spawn(' stringArray ')';
+endReachedAlternatives: 'spawn' '(' ID (',' ID)* ')';
+initialPiecePositions: 'initial_piece_position' '{' initialPiecePosition* '}';
+initialPiecePosition:
+      ID '{' (positions | positionModifier)* '}' //snippet simples para ignorar ordem dos argumentos
+    | explicitParsed;
+positions: 'positions' '{' vector* '}';
+positionModifier:
+      'mirrored' (':' BOOL)?    #positionModifierMirrored
+    | 'owner' ':' INT           #positionModifierOwner;
 
-stringArray: STRING (',' STRING)*;
+invariantList: 'invariants' '{' invariant* '}';
+invariant:
+      'cant_risk' '(' ID (',' ID)* ')'      #invariantCantRisk
+    | 'protect_piece' '(' ID (',' ID)* ')'  #invariantProtectPiece
+    | 'pawn_movement' '(' ID (',' ID)* ')'  #invariantPawnMovement
+    | explicitParsed                        #invariantExplicit;
 
-canJump: 'can_jump' (':' bool)?;
+finish: 'finish' '{' finishingRules* '}';
+finishingRules:
+      'no_moves_available'  #finishingNoMovesAvailable
+    | explicitParsed        #finishingExplicit;
 
-mirrored: 'mirrored' (':' bool)?;
+vector: 'x' ':' e1 = interval ',' 'y' ':' e2 = interval;
 
+interval: ('[' INT ',' INT ']')     #fullInterval
+           | INT                    #degenInterval;
 
-positions: 'positions{' coordinates+ '}';
-
-//rules{}
-rules: 'rules{' ((ruleDef)+|explicit*) '}' ;
-
-ruleDef:  firstPlayer|width|height|coloring|playerChange;
-
-firstPlayer: 'first_player' ':' VALUE;
-width: 'width' ':' VALUE;
-height: 'height' ':' VALUE;
-coloring: 'coloring' ':' knownColorings;
-knownColorings: 'alternate';
-playerChange: 'player_change' ':' knownPlayerChanges;
-knownPlayerChanges: 'alternate';
-
-
-//invariants{}
-invariants: 'invariants' '{' (knownInvariants* | explicit) '}' ;
-knownInvariants: cantRisk|protectPiece|pawnMovement;
-pawnMovement: 'pawn_movement' '(' stringArray ')';
-cantRisk: 'cant_risk' '(' stringArray ')';
-protectPiece: 'protect_piece' '(' stringArray ')';
-//finish{}
-finish: 'finish{' (knownFinish* | explicit) '}' ;
-
-
-knownFinish: noMovesAvailable;
-
-noMovesAvailable: 'no_moves_available';
-
-moves: 'moves{' move+ '}' ;
-
-move:  (direction|coordinates|explicit) (',' moveProperty)*;
-
-moveProperty: killing;
-
-killing: 'kills' (':' bool)?;
-
-direction: (languageKeywords pair|coordinates|explicit);
-
-coordinates: 'x'':' x ',' 'y' ':' y ;
-bool: 'true'|'false';
-
-pair: '(' VALUE? ',' VALUE? ')' ;
-x: VALUE | interval ;
-y: VALUE | interval ;
-interval: '[' VALUE ',' VALUE ']' ;
-explicit: 'explicit{|' explicitContent '|}';
-explicitContent:  (~('|}')|'='|'>'|'<')*;
-languageKeywords: ('vertical'|'horizontal'|'diagonal') ;
-
-name: STRING;
-STRING: [_a-zA-Z]+;
-VALUE: '-'? [0-9]+ ([0-9]+ '.')?;
-WS: [ \t\n\r]+ -> skip ;
+INT: '-'? ('0'|[1-9][0-9]*);
+BOOL: 'false' | 'true';
+explicitParsed: EXPLICIT;
+EXPLICIT: 'explicit' ' '* EXPFRAG;
+fragment EXPFRAG: '{'(EXPFRAG |'\\}' | ~'}' )*?'}';
+ID:[_a-zA-Z][_a-zA-Z0-9]*;
+WS: [ \t\n\r] -> skip;
