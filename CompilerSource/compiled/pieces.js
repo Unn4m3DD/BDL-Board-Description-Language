@@ -1,13 +1,92 @@
-export default {
-  first_player: 0,
-  width: 20,
-  height: 20,
-  coloring: (x, y, last_color) => {
-    if (y === 0) last_color = last_color === "#ffffff" ? "#c90" : "#ffffff"
-    last_color = last_color === "#ffffff" ? "#c90" : "#ffffff"
-    return last_color
-  },
-  player_change: (context) => {
-    context.current_player = context.current_player === 0 ? 1 : 0
-  },
+function reverse(array) {
+  for (let i = 0; i < array.length; i++) {
+    const func = array[i].y
+    array[i].y = (x) => {
+      const tmp = func
+      return [-tmp(x)[1] + 1, -tmp(x)[0] + 1]
+    }
+  }
 }
+const pieces = {
+  queen: {
+    moves: ({ current_x, current_y, context }) => {
+      const result = [
+        {
+          x: [0, 1],
+          y: (x) => [-22, 0],
+          killing: true
+        },
+        {
+          x: [0, 1],
+          y: (x) => [1, 23],
+          killing: true
+        },
+        {
+          x: [-22, 0],
+          y: (x) => [x, x + 1],
+          killing: true
+        },
+        {
+          x: [1, 23],
+          y: (x) => [x, x + 1],
+          killing: true
+        },
+        {
+          x: [-22, 0],
+          y: (x) => [-x, -x + 1],
+          killing: true
+        },
+        {
+          x: [1, 23],
+          y: (x) => [-x, -x + 1],
+          killing: true
+        },
+      ]
+      return result
+    },
+    on_end_reached: (context, current_x, current_y) => { },
+    representation: {
+      img: "",
+      letter: "Q"
+    }
+  }, 
+  pawn: {
+    moves: ({ current_x, current_y, context }) => {
+      const result = [
+          {
+            x: [1, 2],
+            y: (x) => [1, 2],
+            killing: true
+          },
+          {
+            x: [-1, 0],
+            y: (x) => [1, 2],
+            killing: true
+          },
+      ]
+
+const mirrored = context.board[current_x][current_y].piece.mirrored
+      if (mirrored)
+        reverse(result)
+      return result
+    },
+    on_end_reached:  (context, current_x, current_y) => {
+      let response = ""
+      while (!{"queen" : 1, "bishop" : 1, "tower" : 1, "horse" : 1}[response]) {
+        let msg = "Select one: "
+        let sep = ""
+        for (let i in {"queen" : 1, "bishop" : 1, "tower" : 1, "horse" : 1}) {
+          msg += sep + i
+          sep = ", "
+        }
+        response = prompt(msg)
+      }
+      context.board[current_x][current_y].piece.name = response
+    },
+    representation: {
+      img: "",
+      letter: "P"
+    }
+  }, 
+}
+export default pieces;

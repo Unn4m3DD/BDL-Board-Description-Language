@@ -6,10 +6,10 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/src/Board.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="D:\dev\BDL-Board-Description-Language\Compiler\src" />
+          <option name="outputDir" value="C:\dev\BDL-Board-Description-Language\CompilerSource\gen" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
-          <option name="pkg" value="antlr4" />
+          <option name="pkg" value="" />
           <option name="language" value="" />
           <option name="generateVisitor" value="true" />
         </PerGrammarGenerationSettings>

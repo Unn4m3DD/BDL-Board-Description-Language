@@ -17,14 +17,12 @@ pieces{
   }
 }
 
-initial_status{
-  pieces{
-    pawn{
-      positions{
-        x : [0, 19], y : [0,9]
-      }
-      mirrored
+initial_piece_position{
+  pawn{
+    positions{
+      x : [0, 19], y : [0,9]
     }
+    mirrored
   }
 }
 invariants{

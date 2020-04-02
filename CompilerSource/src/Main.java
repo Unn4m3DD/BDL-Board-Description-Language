@@ -1,13 +1,11 @@
-import antlr4.BoardLexer;
-import antlr4.BoardParser;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.*;
 import java.nio.file.Path;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -43,11 +41,22 @@ public class Main {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         BoardParser parser = new BoardParser(tokens);
 
-        ParseTree tree = parser.game();
-        TreeListener listener = new TreeListener(dir.getPath());
+        BoardCustomVisitor visitor = new BoardCustomVisitor();//dir.getPath());
+        ParseTree parseTree = parser.game();
+        if (parser.getNumberOfSyntaxErrors() > 0) {
+            System.exit(1);
+        }
+        Map<String, String> files = (Map<String, String>) visitor.visit(parseTree);
+        files.forEach((name, content) -> {
+            try {
+                PrintWriter pw = new PrintWriter("./" + dir.getPath() + name);
+                pw.print(content);
+                pw.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
-        ParseTreeWalker walker = new ParseTreeWalker();
-        walker.walk(listener, tree);
+        });
     }
 
     private void createAuxFile(File dir, String fileName) throws IOException {

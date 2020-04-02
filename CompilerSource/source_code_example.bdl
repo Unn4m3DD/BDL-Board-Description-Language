@@ -55,47 +55,45 @@ pieces{
   }
 }
 
-initial_status{
-  pieces{
-    tower{
-      positions{
-        x : 0, y : 0
-        x : 7, y : 0
-      }
-      mirrored
+initial_piece_position{
+  tower{
+    positions{
+      x : 0, y : 0
+      x : 7, y : 0
     }
-    horse{
-      positions{
-        x : 1, y : 0
-        x : 6, y : 0
-      }
-      mirrored
+    mirrored
+  }
+  horse{
+    positions{
+      x : 1, y : 0
+      x : 6, y : 0
     }
-    bishop{
-      positions{
-        x : 2, y : 0
-        x : 5, y : 0
-      }
-      mirrored
+    mirrored
+  }
+  bishop{
+    positions{
+      x : 2, y : 0
+      x : 5, y : 0
     }
-    queen{
-      positions{
-        x : 3, y : 0
-      }
-      mirrored
+    mirrored
+  }
+  queen{
+    positions{
+      x : 3, y : 0
     }
-    king{
-      positions{
-        x : 4, y : 0
-      }
-      mirrored
+    mirrored
+  }
+  king{
+    positions{
+      x : 4, y : 0
     }
-    pawn{
-      positions{
-        x : [0, 7], y : 1
-      }
-      mirrored
+    mirrored
+  }
+  pawn{
+    positions{
+      x : [0, 7], y : 1
     }
+    mirrored
   }
 }
 

@@ -1,4 +1,4 @@
-// Generated from D:/dev/BDL-Board-Description-Language/CompilerSource/src\Board.g4 by ANTLR 4.8
+// Generated from C:/dev/BDL-Board-Description-Language/CompilerSource/src\Board.g4 by ANTLR 4.8
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -39,13 +39,37 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRuleDef(BoardParser.RuleDefContext ctx) { }
+	@Override public void enterRuleProp(BoardParser.RulePropContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRuleDef(BoardParser.RuleDefContext ctx) { }
+	@Override public void exitRuleProp(BoardParser.RulePropContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRuleColoring(BoardParser.RuleColoringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRuleColoring(BoardParser.RuleColoringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRulePlayerChange(BoardParser.RulePlayerChangeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRulePlayerChange(BoardParser.RulePlayerChangeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -63,13 +87,25 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPieceDescription(BoardParser.PieceDescriptionContext ctx) { }
+	@Override public void enterPieceIdPlusMoves(BoardParser.PieceIdPlusMovesContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPieceDescription(BoardParser.PieceDescriptionContext ctx) { }
+	@Override public void exitPieceIdPlusMoves(BoardParser.PieceIdPlusMovesContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPieceDescriptionExplicit(BoardParser.PieceDescriptionExplicitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPieceDescriptionExplicit(BoardParser.PieceDescriptionExplicitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -87,13 +123,37 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMove(BoardParser.MoveContext ctx) { }
+	@Override public void enterMoveVector(BoardParser.MoveVectorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMove(BoardParser.MoveContext ctx) { }
+	@Override public void exitMoveVector(BoardParser.MoveVectorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMoveFunctionDescription(BoardParser.MoveFunctionDescriptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMoveFunctionDescription(BoardParser.MoveFunctionDescriptionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMoveExplicit(BoardParser.MoveExplicitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMoveExplicit(BoardParser.MoveExplicitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -159,25 +219,49 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDescriptionModifier(BoardParser.DescriptionModifierContext ctx) { }
+	@Override public void enterDescriptionModifierCanJump(BoardParser.DescriptionModifierCanJumpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDescriptionModifier(BoardParser.DescriptionModifierContext ctx) { }
+	@Override public void exitDescriptionModifierCanJump(BoardParser.DescriptionModifierCanJumpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOnEndReached(BoardParser.OnEndReachedContext ctx) { }
+	@Override public void enterDescriptionModifierMirrored(BoardParser.DescriptionModifierMirroredContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOnEndReached(BoardParser.OnEndReachedContext ctx) { }
+	@Override public void exitDescriptionModifierMirrored(BoardParser.DescriptionModifierMirroredContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDescriptionModifierOnEndReached(BoardParser.DescriptionModifierOnEndReachedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDescriptionModifierOnEndReached(BoardParser.DescriptionModifierOnEndReachedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDescriptionModifierExplicit(BoardParser.DescriptionModifierExplicitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDescriptionModifierExplicit(BoardParser.DescriptionModifierExplicitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -231,13 +315,25 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPositionModifier(BoardParser.PositionModifierContext ctx) { }
+	@Override public void enterPositionModifierMirrored(BoardParser.PositionModifierMirroredContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPositionModifier(BoardParser.PositionModifierContext ctx) { }
+	@Override public void exitPositionModifierMirrored(BoardParser.PositionModifierMirroredContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPositionModifierOwner(BoardParser.PositionModifierOwnerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPositionModifierOwner(BoardParser.PositionModifierOwnerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -255,13 +351,49 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInvariant(BoardParser.InvariantContext ctx) { }
+	@Override public void enterInvariantCantRisk(BoardParser.InvariantCantRiskContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInvariant(BoardParser.InvariantContext ctx) { }
+	@Override public void exitInvariantCantRisk(BoardParser.InvariantCantRiskContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInvariantProtectPiece(BoardParser.InvariantProtectPieceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInvariantProtectPiece(BoardParser.InvariantProtectPieceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInvariantPawnMovement(BoardParser.InvariantPawnMovementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInvariantPawnMovement(BoardParser.InvariantPawnMovementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInvariantExplicit(BoardParser.InvariantExplicitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInvariantExplicit(BoardParser.InvariantExplicitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -279,13 +411,25 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFinishingRules(BoardParser.FinishingRulesContext ctx) { }
+	@Override public void enterFinishingNoMovesAvailable(BoardParser.FinishingNoMovesAvailableContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFinishingRules(BoardParser.FinishingRulesContext ctx) { }
+	@Override public void exitFinishingNoMovesAvailable(BoardParser.FinishingNoMovesAvailableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFinishingExplicit(BoardParser.FinishingExplicitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFinishingExplicit(BoardParser.FinishingExplicitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -303,13 +447,25 @@ public class BoardBaseListener implements BoardListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInterval(BoardParser.IntervalContext ctx) { }
+	@Override public void enterFullInterval(BoardParser.FullIntervalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInterval(BoardParser.IntervalContext ctx) { }
+	@Override public void exitFullInterval(BoardParser.FullIntervalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDegenInterval(BoardParser.DegenIntervalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDegenInterval(BoardParser.DegenIntervalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

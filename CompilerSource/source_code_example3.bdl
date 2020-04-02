@@ -14,7 +14,6 @@ pieces{
   }
   pawn{
     moves{
-      vertical(1,2), kills : false
       x : 1, y : 1
       x : -1, y : 1
     }
@@ -23,24 +22,22 @@ pieces{
   }
 }
 
-initial_status{
-  pieces{
-    queen{
-      positions{
-        x: [0, 19], y: 19
-      }
-      owner: 1
+initial_piece_position{
+  queen{
+    positions{
+      x: [0, 19], y: 19
     }
-    pawn{
-      positions{
-        x : [0, 19], y : [0,9]
-      }
-      owner: 0
+    owner: 1
+  }
+  pawn{
+    positions{
+      x : [0, 19], y : [0,9]
     }
+    owner: 0
   }
 }
 invariants{
-
+    cant_risk(queen)
 }
 
 finish{

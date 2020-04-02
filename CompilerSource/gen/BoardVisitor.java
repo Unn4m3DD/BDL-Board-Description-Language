@@ -1,4 +1,4 @@
-// Generated from D:/dev/BDL-Board-Description-Language/CompilerSource/src\Board.g4 by ANTLR 4.8
+// Generated from C:/dev/BDL-Board-Description-Language/CompilerSource/src\Board.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -22,11 +22,26 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRuleSet(BoardParser.RuleSetContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BoardParser#ruleDef}.
+	 * Visit a parse tree produced by the {@code ruleProp}
+	 * labeled alternative in {@link BoardParser#ruleDef}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRuleDef(BoardParser.RuleDefContext ctx);
+	T visitRuleProp(BoardParser.RulePropContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ruleColoring}
+	 * labeled alternative in {@link BoardParser#ruleDef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRuleColoring(BoardParser.RuleColoringContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code rulePlayerChange}
+	 * labeled alternative in {@link BoardParser#ruleDef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRulePlayerChange(BoardParser.RulePlayerChangeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardParser#pieceDescriptions}.
 	 * @param ctx the parse tree
@@ -34,11 +49,19 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPieceDescriptions(BoardParser.PieceDescriptionsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BoardParser#pieceDescription}.
+	 * Visit a parse tree produced by the {@code pieceIdPlusMoves}
+	 * labeled alternative in {@link BoardParser#pieceDescription}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPieceDescription(BoardParser.PieceDescriptionContext ctx);
+	T visitPieceIdPlusMoves(BoardParser.PieceIdPlusMovesContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code pieceDescriptionExplicit}
+	 * labeled alternative in {@link BoardParser#pieceDescription}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPieceDescriptionExplicit(BoardParser.PieceDescriptionExplicitContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardParser#moves}.
 	 * @param ctx the parse tree
@@ -46,11 +69,26 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMoves(BoardParser.MovesContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BoardParser#move}.
+	 * Visit a parse tree produced by the {@code moveVector}
+	 * labeled alternative in {@link BoardParser#move}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMove(BoardParser.MoveContext ctx);
+	T visitMoveVector(BoardParser.MoveVectorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code moveFunctionDescription}
+	 * labeled alternative in {@link BoardParser#move}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMoveFunctionDescription(BoardParser.MoveFunctionDescriptionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code moveExplicit}
+	 * labeled alternative in {@link BoardParser#move}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMoveExplicit(BoardParser.MoveExplicitContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code moveFunctionHorizontal}
 	 * labeled alternative in {@link BoardParser#moveFunction}.
@@ -86,17 +124,33 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitKills(BoardParser.KillsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BoardParser#descriptionModifier}.
+	 * Visit a parse tree produced by the {@code descriptionModifierCanJump}
+	 * labeled alternative in {@link BoardParser#descriptionModifier}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDescriptionModifier(BoardParser.DescriptionModifierContext ctx);
+	T visitDescriptionModifierCanJump(BoardParser.DescriptionModifierCanJumpContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BoardParser#onEndReached}.
+	 * Visit a parse tree produced by the {@code descriptionModifierMirrored}
+	 * labeled alternative in {@link BoardParser#descriptionModifier}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOnEndReached(BoardParser.OnEndReachedContext ctx);
+	T visitDescriptionModifierMirrored(BoardParser.DescriptionModifierMirroredContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code descriptionModifierOnEndReached}
+	 * labeled alternative in {@link BoardParser#descriptionModifier}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDescriptionModifierOnEndReached(BoardParser.DescriptionModifierOnEndReachedContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code descriptionModifierExplicit}
+	 * labeled alternative in {@link BoardParser#descriptionModifier}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDescriptionModifierExplicit(BoardParser.DescriptionModifierExplicitContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardParser#endReachedAlternatives}.
 	 * @param ctx the parse tree
@@ -122,11 +176,19 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPositions(BoardParser.PositionsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BoardParser#positionModifier}.
+	 * Visit a parse tree produced by the {@code positionModifierMirrored}
+	 * labeled alternative in {@link BoardParser#positionModifier}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPositionModifier(BoardParser.PositionModifierContext ctx);
+	T visitPositionModifierMirrored(BoardParser.PositionModifierMirroredContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code positionModifierOwner}
+	 * labeled alternative in {@link BoardParser#positionModifier}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPositionModifierOwner(BoardParser.PositionModifierOwnerContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardParser#invariantList}.
 	 * @param ctx the parse tree
@@ -134,11 +196,33 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInvariantList(BoardParser.InvariantListContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BoardParser#invariant}.
+	 * Visit a parse tree produced by the {@code invariantCantRisk}
+	 * labeled alternative in {@link BoardParser#invariant}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInvariant(BoardParser.InvariantContext ctx);
+	T visitInvariantCantRisk(BoardParser.InvariantCantRiskContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code invariantProtectPiece}
+	 * labeled alternative in {@link BoardParser#invariant}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInvariantProtectPiece(BoardParser.InvariantProtectPieceContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code invariantPawnMovement}
+	 * labeled alternative in {@link BoardParser#invariant}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInvariantPawnMovement(BoardParser.InvariantPawnMovementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code invariantExplicit}
+	 * labeled alternative in {@link BoardParser#invariant}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInvariantExplicit(BoardParser.InvariantExplicitContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardParser#finish}.
 	 * @param ctx the parse tree
@@ -146,11 +230,19 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFinish(BoardParser.FinishContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BoardParser#finishingRules}.
+	 * Visit a parse tree produced by the {@code finishingNoMovesAvailable}
+	 * labeled alternative in {@link BoardParser#finishingRules}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFinishingRules(BoardParser.FinishingRulesContext ctx);
+	T visitFinishingNoMovesAvailable(BoardParser.FinishingNoMovesAvailableContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code finishingExplicit}
+	 * labeled alternative in {@link BoardParser#finishingRules}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFinishingExplicit(BoardParser.FinishingExplicitContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardParser#vector}.
 	 * @param ctx the parse tree
@@ -158,11 +250,19 @@ public interface BoardVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVector(BoardParser.VectorContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link BoardParser#interval}.
+	 * Visit a parse tree produced by the {@code fullInterval}
+	 * labeled alternative in {@link BoardParser#interval}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInterval(BoardParser.IntervalContext ctx);
+	T visitFullInterval(BoardParser.FullIntervalContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code degenInterval}
+	 * labeled alternative in {@link BoardParser#interval}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDegenInterval(BoardParser.DegenIntervalContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link BoardParser#explicitParsed}.
 	 * @param ctx the parse tree
