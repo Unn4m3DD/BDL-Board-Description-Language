@@ -11,7 +11,7 @@ public class Main {
         AbdlParser parser = new AbdlParser(tokens);
 
         ParseTree tree = parser.program();
-        AbdlMyVisitor visitor = new AbdlMyVisitor();
-        visitor.visit(tree);
+        //AbdlMyVisitor visitor = new AbdlMyVisitor();
+        //visitor.visit(tree);
     }
 }
