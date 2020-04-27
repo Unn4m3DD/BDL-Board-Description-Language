@@ -16,16 +16,16 @@ statements: varDeclaration
 
 forStatement: 'for' var=ID 'from' bottom=(Int | ID) 'to' up=(Int | ID) 'do' statements* 'done;';
 whileStatement: 'while' expr 'do' statements* 'done;';
-ifStatement: 'if' expr 'then' statements* elseIf* else? 'endif;';
+ifStatement: 'if' expr 'then' statements* elseIf* elsE? 'endif;';
 elseIf: 'else' 'if' expr 'then' statements*;
-else: 'else' statements*;
+elsE: 'else' statements*;
 varDeclaration: 'let' ID (':' Type)? ('=' expr)? ';';
 varAttrib: var=ID '=' expr;
 functionCall: 'can_move' '(' point ',' point ')'
              |'move' '(' point ',' point ')'
              | ID '(' args ')';
 returnStat: 'return' expr ';';
-expr:  expr ('+' | '-' | '*' | '/' | '%' | '<' | '<=' | '>' | '>=' | '==' | '/=') expr #ExprOp
+expr:  expr op=('+' | '-' | '*' | '/' | '%' | '<' | '<=' | '>' | '>=' | '==' | '/=') expr #ExprOp
      | '(' expr ')' #Parent
      | Int #ExprInt
      | 'null' #ExprNull
@@ -35,7 +35,7 @@ expr:  expr ('+' | '-' | '*' | '/' | '%' | '<' | '<=' | '>' | '>=' | '==' | '/='
      | 'current_player' #ExprCurrPlayer
      | ID #ExprID
      | point #ExprPoint
-     | functionCall #EpxrFunctionCall
+     | functionCall #EpxrFunctionCall;
 
 
 args: expr? (',' expr)*;
