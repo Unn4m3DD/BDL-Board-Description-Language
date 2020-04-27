@@ -54,6 +54,20 @@ main:
     move([1, 2], [3, 4]);
   endif;
 
+  if board[1, 2].owner == 1 then
+    move([1, 1], [1, 2]);
+  else if board[2, 2].owner == 1 then
+    move([2, 1], [2, 2]);
+  endif;
+
+  for i from 0 to width do
+    if board[i, 2].owner == 1 then
+      if(current_player == 0) then
+        move([i, 1], [i, 2]);
+      endif;
+    endif;
+  done;
+
   for i from 0 to 10 do
     move([i, i - 1], [1, 2]);
   done;
