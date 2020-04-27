@@ -1,6 +1,7 @@
 /*
   globally defined vars:
   current_player = {0, 1} //current player, either 0 or 1
+  width, height
   board[x, y] //set of pieces in board
   board[x, y] == {
     piece_name: ,
@@ -13,7 +14,8 @@
     int     -> 1 (tambem serve para condicionais, tipo C)
     string  -> 'asd' | "asd"
     point   -> [1, 3]
-  
+  All types can be null
+
   Operations:
     int op int -> + - * / %
     int op string -> + (concat) * (mult, "a" * 3 == "aaa") comutativa 
@@ -26,18 +28,28 @@
 
 
 move_forward(i, j):
-  move([i, j + 1])
+  move([i, j + 1]);
 end move_forward;
 
 can_move_forward(i, j):
-  return can_move([i, j + 1])
+  return can_move([i, j + 1]);
 end move_forward;
 
+first_available_move(dir):
+  for x from 0 to width do
+    for y from 0 to height do
+      if can_move([x, y], [x, y] + dir) then
+        return [x, y];
+      endif;
+    done;
+  done;
+  return null;
+end first_available_move;
 
-main ():
-  let i = 0;
+main:
+  let i : int = 0;
   let j = i + 2 * 3 / 2 % 2;
-
+  let name : string = null;
   if j == 2 then
     move([1, 2], [3, 4]);
   endif;
