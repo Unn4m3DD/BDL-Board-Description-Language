@@ -23,6 +23,79 @@
     string op string -> + (concat)
     point op point -> [a, b] op [x, y] == [a op x, b op y]
   
+
+  Extensive:
+  int + int       ->  int
+  int + string    ->  string
+  int + point     ->  point
+  string + int    ->  string
+  string + string ->  string
+  string + point  ->  string
+  point + int     ->  point
+  point + string  ->  string
+  point + point   ->  point
+  
+  int - int       ->  int
+  int - string    ->  undefined
+  int - point     ->  point
+  string - int    ->  undefined
+  string - string ->  undefined
+  string - point  ->  undefined
+  point - int     ->  point
+  point - string  ->  undefined
+  point - point   ->  point
+
+  int * int       ->  int
+  int * string    ->  string
+  int * point     ->  point
+  string * int    ->  string
+  string * string ->  undefined
+  string * point  ->  undefined
+  point * int     ->  point
+  point * string  ->  undefined
+  point * point   ->  point
+  
+  int / int       ->  int
+  int / string    ->  undefined
+  int / point     ->  point
+  string / int    ->  undefined
+  string / string ->  undefined
+  string / point  ->  undefined
+  point / int     ->  point
+  point / string  ->  undefined
+  point / point   ->  point
+  
+  int % int       ->  int
+  int % string    ->  undefined
+  int % point     ->  point
+  string % int    ->  undefined
+  string % string ->  undefined
+  string % point  ->  undefined
+  point % int     ->  point
+  point % string  ->  undefined
+  point % point   ->  point
+  
+  int (== | !=) int       ->  int
+  int (== | !=) string    ->  undefined
+  int (== | !=) point     ->  undefined
+  string (== | !=) int    ->  undefined
+  string (== | !=) string ->  int
+  string (== | !=) point  ->  undefined
+  point (== | !=) int     ->  undefined
+  point (== | !=) string  ->  undefined
+  point (== | !=) point   ->  int
+  
+  int (< | <= | > | >=) int       ->  int
+  int (< | <= | > | >=) string    ->  undefined
+  int (< | <= | > | >=) point     ->  undefined
+  string (< | <= | > | >=) int    ->  undefined
+  string (< | <= | > | >=) string ->  undefined
+  string (< | <= | > | >=) point  ->  undefined
+  point (< | <= | > | >=) int     ->  undefined
+  point (< | <= | > | >=) string  ->  undefined
+  point (< | <= | > | >=) point   ->  undefined
+  
+  
 */
 
 
