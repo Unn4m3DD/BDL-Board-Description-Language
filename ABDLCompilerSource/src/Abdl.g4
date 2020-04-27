@@ -16,22 +16,26 @@ statements: varDeclaration
 
 forStatement: 'for' var=ID 'from' bottom=(Int | ID) 'to' up=(Int | ID) 'do' statements* 'done;';
 whileStatement: 'while' expr 'do' statements* 'done;';
-ifStatement: 'if' expr 'then' statements* 'endif;';
+ifStatement: 'if' expr 'then' statements* elseIf* else? 'endif;';
+elseIf: 'else' 'if' expr 'then' statements*;
+else: 'else' statements*;
 varDeclaration: 'let' ID (':' Type)? ('=' expr)? ';';
 varAttrib: var=ID '=' expr;
 functionCall: 'can_move' '(' point ',' point ')'
              |'move' '(' point ',' point ')'
              | ID '(' args ')';
 returnStat: 'return' expr ';';
-expr:  expr ('+' | '-' | '*' | '/' | '%') expr #ExprOp
+expr:  expr ('+' | '-' | '*' | '/' | '%' | '<' | '<=' | '>' | '>=' | '==' | '/=') expr #ExprOp
      | '(' expr ')' #Parent
      | Int #ExprInt
      | 'null' #ExprNull
      | String #ExprString
+     | 'width' #ExprWidth
+     | 'height' #ExprHeight
+     | 'current_player' #ExprCurrPlayer
      | ID #ExprID
      | point #ExprPoint
      | functionCall #EpxrFunctionCall
-     | e1=expr Compare e2=expr #ExprCondition;
 
 
 args: expr? (',' expr)*;
@@ -41,7 +45,6 @@ typedArgs: (ID ':' Type)? (',' (ID ':' Type))*;
 point: '['expr ','expr']';
 board: 'board' point '.' ('piece_name' | 'owner');
 Type: 'int' | 'point' | 'string';
-Compare: '<' | '<=' | '>' | '>=' | '==' | '/=';
 String: '"' ('\\"'|'\\'|.)*? '"'
        |'\'' ('\\\''|'\\'|.)*? '\'';
 ID: [_a-zA-Z][_a-zA-Z0-9]*;

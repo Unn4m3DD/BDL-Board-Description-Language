@@ -211,6 +211,18 @@ public interface AbdlListener extends ParseTreeListener {
 	 */
 	void exitExprOp(AbdlParser.ExprOpContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code ExprCurrPlayer}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprCurrPlayer(AbdlParser.ExprCurrPlayerContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExprCurrPlayer}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprCurrPlayer(AbdlParser.ExprCurrPlayerContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ExprNull}
 	 * labeled alternative in {@link AbdlParser#expr}.
 	 * @param ctx the parse tree
@@ -222,6 +234,30 @@ public interface AbdlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExprNull(AbdlParser.ExprNullContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ExprHeight}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprHeight(AbdlParser.ExprHeightContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExprHeight}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprHeight(AbdlParser.ExprHeightContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ExprWidth}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprWidth(AbdlParser.ExprWidthContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExprWidth}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprWidth(AbdlParser.ExprWidthContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ExprID}
 	 * labeled alternative in {@link AbdlParser#expr}.
@@ -264,4 +300,14 @@ public interface AbdlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPoint(AbdlParser.PointContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AbdlParser#board}.
+	 * @param ctx the parse tree
+	 */
+	void enterBoard(AbdlParser.BoardContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AbdlParser#board}.
+	 * @param ctx the parse tree
+	 */
+	void exitBoard(AbdlParser.BoardContext ctx);
 }

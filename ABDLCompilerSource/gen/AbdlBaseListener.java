@@ -243,6 +243,18 @@ public class AbdlBaseListener implements AbdlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExprCurrPlayer(AbdlParser.ExprCurrPlayerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprCurrPlayer(AbdlParser.ExprCurrPlayerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExprNull(AbdlParser.ExprNullContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -250,6 +262,30 @@ public class AbdlBaseListener implements AbdlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExprNull(AbdlParser.ExprNullContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprHeight(AbdlParser.ExprHeightContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprHeight(AbdlParser.ExprHeightContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprWidth(AbdlParser.ExprWidthContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprWidth(AbdlParser.ExprWidthContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -298,6 +334,18 @@ public class AbdlBaseListener implements AbdlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPoint(AbdlParser.PointContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBoard(AbdlParser.BoardContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBoard(AbdlParser.BoardContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
