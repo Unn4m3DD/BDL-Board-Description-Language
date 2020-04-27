@@ -1,14 +1,51 @@
 grammar Abdl;
 
-program: stats EOF;
-stats: ';';
+program: functDef* main functDef* EOF;
 
+main: 'main:' statements* 'end' 'main' ';';
 
-function: Type? func_name=String '(' args+=(String ':' Type)? (',' args+=(Type String))* '):'
+functDef: Type? func_name=ID '(' typedArgs ')' ':' statements* 'end' ID ';';
 //loop: FOR
 
-For: 'for';
+block: forStatement | whileStatement | ifStatement;
+statements: varDeclaration
+          | varAttrib
+          | functionCall ';'
+          | returnStat
+          | block;
+
+forStatement: 'for' var=ID 'from' bottom=(Int | ID) 'to' up=(Int | ID) 'do' statements* 'done;';
+whileStatement: 'while' expr 'do' statements* 'done;';
+ifStatement: 'if' expr 'then' statements* 'endif;';
+varDeclaration: 'let' ID (':' Type)? ('=' expr)? ';';
+varAttrib: var=ID '=' expr;
+functionCall: 'can_move' '(' point ',' point ')'
+             |'move' '(' point ',' point ')'
+             | ID '(' args ')';
+returnStat: 'return' expr ';';
+expr:  expr ('+' | '-' | '*' | '/' | '%') expr #ExprOp
+     | '(' expr ')' #Parent
+     | Int #ExprInt
+     | 'null' #ExprNull
+     | String #ExprString
+     | ID #ExprID
+     | point #ExprPoint
+     | functionCall #EpxrFunctionCall
+     | e1=expr Compare e2=expr #ExprCondition;
+
+
+args: expr? (',' expr)*;
+
+typedArgs: (ID ':' Type)? (',' (ID ':' Type))*;
+
+point: '['expr ','expr']';
+board: 'board' point '.' ('piece_name' | 'owner');
 Type: 'int' | 'point' | 'string';
-String: [a-zA-Z]+;
+Compare: '<' | '<=' | '>' | '>=' | '==' | '/=';
+String: '"' ('\\"'|'\\'|.)*? '"'
+       |'\'' ('\\\''|'\\'|.)*? '\'';
+ID: [_a-zA-Z][_a-zA-Z0-9]*;
+Int: [0-9]+;
+Comment: ('//' .*? '\r'? '\n' | '/*' .*? '*/') -> skip;
 WS: [ \n\r\t] -> skip;
 ERRORS: .;

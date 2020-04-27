@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="BDLCompiler">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/StandaloneCompiler/BDLCompiler.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

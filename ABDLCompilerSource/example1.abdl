@@ -27,15 +27,15 @@
 
 
 
-move_forward(int i, int j):
+move_forward(i : int, j : int):
   move([i, j + 1]);
 end move_forward;
 
-int can_move_forward(int i, int j):
+int can_move_forward(i : int, j : int):
   return can_move([i, j + 1]);
 end move_forward;
 
-point first_available_move(int dir):
+point first_available_move(dir : point):
   for x from 0 to width do
     for y from 0 to height do
       if can_move([x, y], [x, y] + dir) then

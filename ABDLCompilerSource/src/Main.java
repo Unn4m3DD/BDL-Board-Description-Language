@@ -9,7 +9,6 @@ public class Main {
         AbdlLexer lexer = new AbdlLexer(cs);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         AbdlParser parser = new AbdlParser(tokens);
-
         ParseTree tree = parser.program();
         //AbdlMyVisitor visitor = new AbdlMyVisitor();
         //visitor.visit(tree);
