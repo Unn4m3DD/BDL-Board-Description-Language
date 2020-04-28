@@ -87,6 +87,26 @@ public interface AbdlListener extends ParseTreeListener {
 	 */
 	void exitIfStatement(AbdlParser.IfStatementContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AbdlParser#elseIf}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseIf(AbdlParser.ElseIfContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AbdlParser#elseIf}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseIf(AbdlParser.ElseIfContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AbdlParser#elsE}.
+	 * @param ctx the parse tree
+	 */
+	void enterElsE(AbdlParser.ElsEContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AbdlParser#elsE}.
+	 * @param ctx the parse tree
+	 */
+	void exitElsE(AbdlParser.ElsEContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AbdlParser#varDeclaration}.
 	 * @param ctx the parse tree
 	 */
@@ -138,18 +158,6 @@ public interface AbdlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitEpxrFunctionCall(AbdlParser.EpxrFunctionCallContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ExprCondition}
-	 * labeled alternative in {@link AbdlParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterExprCondition(AbdlParser.ExprConditionContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ExprCondition}
-	 * labeled alternative in {@link AbdlParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitExprCondition(AbdlParser.ExprConditionContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Parent}
 	 * labeled alternative in {@link AbdlParser#expr}.

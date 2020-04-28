@@ -58,6 +58,18 @@ public interface AbdlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIfStatement(AbdlParser.IfStatementContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AbdlParser#elseIf}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseIf(AbdlParser.ElseIfContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AbdlParser#elsE}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElsE(AbdlParser.ElsEContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AbdlParser#varDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -88,13 +100,6 @@ public interface AbdlVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitEpxrFunctionCall(AbdlParser.EpxrFunctionCallContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExprCondition}
-	 * labeled alternative in {@link AbdlParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExprCondition(AbdlParser.ExprConditionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Parent}
 	 * labeled alternative in {@link AbdlParser#expr}.
