@@ -1,8 +1,21 @@
-header ::= <<
+program(stat) ::= <<
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
 export default async (context, table) => {
+  <stats(stat)>
+}
 >>
 
-funtion()::=
+statements(stat) ::= <<
+<if(stat)><stat; separator="\n"><endif>
+>>
+
+conditional(var,stat_true,stat_false) ::= <<
+if (<var>) {
+   <stats(stat_true)>
+}<if(stat_false)>
+else {
+   <stats(stat_false)>
+}<endif>
+>>
