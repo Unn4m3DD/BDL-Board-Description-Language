@@ -1,5 +1,9 @@
-class AbdlVar {
+export default class AbdlVar {
   constructor(value) {
+    if (typeof value == 'number')
+      value = Math.floor(value);
+    if (typeof value == 'object')
+      value = [Math.floor(value[0]), Math.floor(value[1])];
     this.value = value;
   }
   add(other) { // '+'
@@ -115,17 +119,20 @@ class AbdlVar {
   greater_than(other) { // '>'
     let e1 = this.getValue()
     let e2 = other.getValue()
-    return new AbdlVar(e1 > e2 ? 1 : 0);
+    if (this.getType() == 'number' && other.getType() == 'number')
+      return new AbdlVar(e1 > e2 ? 1 : 0);
   }
   less_or_equal(other) { // '<='
     let e1 = this.getValue()
     let e2 = other.getValue()
-    return new AbdlVar(e1 <= e2 ? 1 : 0);
+    if (this.getType() == 'number' && other.getType() == 'number')
+      return new AbdlVar(e1 <= e2 ? 1 : 0);
   }
   greater_or_equal(other) { // '>='
     let e1 = this.getValue()
     let e2 = other.getValue()
-    return new AbdlVar(e1 >= e2 ? 1 : 0);
+    if (this.getType() == 'number' && other.getType() == 'number')
+      return new AbdlVar(e1 >= e2 ? 1 : 0);
   }
   equal(other) { // '=='
     let e1 = this.getValue()
@@ -162,502 +169,52 @@ const testAbdlVars = () => {
   let int = new AbdlVar(3)
   let string = new AbdlVar("s")
   let point = new AbdlVar([1, 2])
+  /* Python3
+for t1, t2 in zip(["int", "string", "point"], ["int", "string", "point"]):
+  for op, op_text in zip(\
+    ["+","-","*","/","%","==","/=","<","<=",">=",">"], \
+    ["add","sub","mul","div","rem","equal","not_equal","less_than","less_or_equal","greater_or_equal","greater_than"], \
+    ):
+    print(\
+    'console.log({}.toString() + " {} " + {}.toString() + " = " + ({}.{}({}) ? {}.{}({}).toString() : "null"))'.format(\
+    t1, op, t2, t1, op_text, t2, t1, op_text, t2))
+  */
   //int + int       ->  int
-  try {
-    console.log(int.toString() + " + " + int.toString() + " = " + int.add(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " - " + int.toString() + " = " + int.sub(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " * " + int.toString() + " = " + int.mul(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " / " + int.toString() + " = " + int.div(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " % " + int.toString() + " = " + int.rem(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " < " + int.toString() + " = " + int.less_than(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " <= " + int.toString() + " = " + int.less_or_equal(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " == " + int.toString() + " = " + int.equal(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " /= " + int.toString() + " = " + int.not_equal(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " >= " + int.toString() + " = " + int.greater_or_equal(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " > " + int.toString() + " = " + int.greater_than(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " + " + string.toString() + " = " + int.add(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " - " + string.toString() + " = " + int.sub(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " * " + string.toString() + " = " + int.mul(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " / " + string.toString() + " = " + int.div(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " % " + string.toString() + " = " + int.rem(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " < " + string.toString() + " = " + int.less_than(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " <= " + string.toString() + " = " + int.less_or_equal(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " == " + string.toString() + " = " + int.equal(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " /= " + string.toString() + " = " + int.not_equal(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " >= " + string.toString() + " = " + int.greater_or_equal(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " > " + string.toString() + " = " + int.greater_than(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " + " + point.toString() + " = " + int.add(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " - " + point.toString() + " = " + int.sub(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " * " + point.toString() + " = " + int.mul(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " / " + point.toString() + " = " + int.div(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " % " + point.toString() + " = " + int.rem(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " < " + point.toString() + " = " + int.less_than(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " <= " + point.toString() + " = " + int.less_or_equal(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " == " + point.toString() + " = " + int.equal(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " /= " + point.toString() + " = " + int.not_equal(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " >= " + point.toString() + " = " + int.greater_or_equal(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(int.toString() + " > " + point.toString() + " = " + int.greater_than(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " + " + int.toString() + " = " + string.add(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " - " + int.toString() + " = " + string.sub(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " * " + int.toString() + " = " + string.mul(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " / " + int.toString() + " = " + string.div(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " % " + int.toString() + " = " + string.rem(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " < " + int.toString() + " = " + string.less_than(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " <= " + int.toString() + " = " + string.less_or_equal(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " == " + int.toString() + " = " + string.equal(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " /= " + int.toString() + " = " + string.not_equal(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " >= " + int.toString() + " = " + string.greater_or_equal(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " > " + int.toString() + " = " + string.greater_than(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " + " + string.toString() + " = " + string.add(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " - " + string.toString() + " = " + string.sub(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " * " + string.toString() + " = " + string.mul(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " / " + string.toString() + " = " + string.div(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " % " + string.toString() + " = " + string.rem(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " < " + string.toString() + " = " + string.less_than(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " <= " + string.toString() + " = " + string.less_or_equal(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " == " + string.toString() + " = " + string.equal(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " /= " + string.toString() + " = " + string.not_equal(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " >= " + string.toString() + " = " + string.greater_or_equal(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " > " + string.toString() + " = " + string.greater_than(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " + " + point.toString() + " = " + string.add(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " - " + point.toString() + " = " + string.sub(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " * " + point.toString() + " = " + string.mul(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " / " + point.toString() + " = " + string.div(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " % " + point.toString() + " = " + string.rem(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " < " + point.toString() + " = " + string.less_than(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " <= " + point.toString() + " = " + string.less_or_equal(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " == " + point.toString() + " = " + string.equal(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " /= " + point.toString() + " = " + string.not_equal(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " >= " + point.toString() + " = " + string.greater_or_equal(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(string.toString() + " > " + point.toString() + " = " + string.greater_than(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " + " + int.toString() + " = " + point.add(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " - " + int.toString() + " = " + point.sub(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " * " + int.toString() + " = " + point.mul(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " / " + int.toString() + " = " + point.div(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " % " + int.toString() + " = " + point.rem(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " < " + int.toString() + " = " + point.less_than(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " <= " + int.toString() + " = " + point.less_or_equal(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " == " + int.toString() + " = " + point.equal(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " /= " + int.toString() + " = " + point.not_equal(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " >= " + int.toString() + " = " + point.greater_or_equal(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " > " + int.toString() + " = " + point.greater_than(int).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " + " + string.toString() + " = " + point.add(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " - " + string.toString() + " = " + point.sub(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " * " + string.toString() + " = " + point.mul(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " / " + string.toString() + " = " + point.div(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " % " + string.toString() + " = " + point.rem(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " < " + string.toString() + " = " + point.less_than(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " <= " + string.toString() + " = " + point.less_or_equal(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " == " + string.toString() + " = " + point.equal(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " /= " + string.toString() + " = " + point.not_equal(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " >= " + string.toString() + " = " + point.greater_or_equal(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " > " + string.toString() + " = " + point.greater_than(string).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " + " + point.toString() + " = " + point.add(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " - " + point.toString() + " = " + point.sub(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " * " + point.toString() + " = " + point.mul(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " / " + point.toString() + " = " + point.div(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " % " + point.toString() + " = " + point.rem(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " < " + point.toString() + " = " + point.less_than(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " <= " + point.toString() + " = " + point.less_or_equal(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " == " + point.toString() + " = " + point.equal(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " /= " + point.toString() + " = " + point.not_equal(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " >= " + point.toString() + " = " + point.greater_or_equal(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
-  try {
-    console.log(point.toString() + " > " + point.toString() + " = " + point.greater_than(point).toString())
-  } catch (e) {
-    console.log(null)
-  }
+
+  console.log(int.toString() + " + " + int.toString() + " = " + (int.add(int) ? int.add(int).toString() : "null"))
+  console.log(int.toString() + " - " + int.toString() + " = " + (int.sub(int) ? int.sub(int).toString() : "null"))
+  console.log(int.toString() + " * " + int.toString() + " = " + (int.mul(int) ? int.mul(int).toString() : "null"))
+  console.log(int.toString() + " / " + int.toString() + " = " + (int.div(int) ? int.div(int).toString() : "null"))
+  console.log(int.toString() + " % " + int.toString() + " = " + (int.rem(int) ? int.rem(int).toString() : "null"))
+  console.log(int.toString() + " == " + int.toString() + " = " + (int.equal(int) ? int.equal(int).toString() :
+    "null"))
+  console.log(int.toString() + " /= " + int.toString() + " = " + (int.not_equal(int) ? int.not_equal(int).toString() : "null"))
+  console.log(int.toString() + " < " + int.toString() + " = " + (int.less_than(int) ? int.less_than(int).toString() : "null"))
+  console.log(int.toString() + " <= " + int.toString() + " = " + (int.less_or_equal(int) ? int.less_or_equal(int).toString() : "null"))
+  console.log(int.toString() + " >= " + int.toString() + " = " + (int.greater_or_equal(int) ? int.greater_or_equal(int).toString() : "null"))
+  console.log(int.toString() + " > " + int.toString() + " = " + (int.greater_than(int) ? int.greater_than(int).toString() : "null"))
+  console.log(string.toString() + " + " + string.toString() + " = " + (string.add(string) ? string.add(string).toString() : "null"))
+  console.log(string.toString() + " - " + string.toString() + " = " + (string.sub(string) ? string.sub(string).toString() : "null"))
+  console.log(string.toString() + " * " + string.toString() + " = " + (string.mul(string) ? string.mul(string).toString() : "null"))
+  console.log(string.toString() + " / " + string.toString() + " = " + (string.div(string) ? string.div(string).toString() : "null"))
+  console.log(string.toString() + " % " + string.toString() + " = " + (string.rem(string) ? string.rem(string).toString() : "null"))
+  console.log(string.toString() + " == " + string.toString() + " = " + (string.equal(string) ? string.equal(string).toString() : "null"))
+  console.log(string.toString() + " /= " + string.toString() + " = " + (string.not_equal(string) ? string.not_equal(string).toString() : "null"))
+  console.log(string.toString() + " < " + string.toString() + " = " + (string.less_than(string) ? string.less_than(string).toString() : "null"))
+  console.log(string.toString() + " <= " + string.toString() + " = " + (string.less_or_equal(string) ? string.less_or_equal(string).toString() : "null"))
+  console.log(string.toString() + " >= " + string.toString() + " = " + (string.greater_or_equal(string) ? string.greater_or_equal(string).toString() : "null"))
+  console.log(string.toString() + " > " + string.toString() + " = " + (string.greater_than(string) ? string.greater_than(string).toString() : "null"))
+  console.log(point.toString() + " + " + point.toString() + " = " + (point.add(point) ? point.add(point).toString() : "null"))
+  console.log(point.toString() + " - " + point.toString() + " = " + (point.sub(point) ? point.sub(point).toString() : "null"))
+  console.log(point.toString() + " * " + point.toString() + " = " + (point.mul(point) ? point.mul(point).toString() : "null"))
+  console.log(point.toString() + " / " + point.toString() + " = " + (point.div(point) ? point.div(point).toString() : "null"))
+  console.log(point.toString() + " % " + point.toString() + " = " + (point.rem(point) ? point.rem(point).toString() : "null"))
+  console.log(point.toString() + " == " + point.toString() + " = " + (point.equal(point) ? point.equal(point).toString() : "null"))
+  console.log(point.toString() + " /= " + point.toString() + " = " + (point.not_equal(point) ? point.not_equal(point).toString() : "null"))
+  console.log(point.toString() + " < " + point.toString() + " = " + (point.less_than(point) ? point.less_than(point).toString() : "null"))
+  console.log(point.toString() + " <= " + point.toString() + " = " + (point.less_or_equal(point) ? point.less_or_equal(point).toString() : "null"))
+  console.log(point.toString() + " >= " + point.toString() + " = " + (point.greater_or_equal(point) ? point.greater_or_equal(point).toString() : "null"))
+  console.log(point.toString() + " > " + point.toString() + " = " + (point.greater_than(point) ? point.greater_than(point).toString() : "null"))
 }
 
 testAbdlVars()
