@@ -1,4 +1,4 @@
-// Generated from D:/lfa/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
+// Generated from D:/dev/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -114,6 +114,13 @@ public interface AbdlVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExprString(AbdlParser.ExprStringContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprBoard}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprBoard(AbdlParser.ExprBoardContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ExprPoint}
 	 * labeled alternative in {@link AbdlParser#expr}.

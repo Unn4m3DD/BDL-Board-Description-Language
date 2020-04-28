@@ -14,28 +14,31 @@ statements: varDeclaration
           | returnStat
           | block;
 
-forStatement: 'for' var=ID 'from' bottom=(Int | ID) 'to' up=(Int | ID) 'do' statements* 'done;';
+forStatement: 'for' var=ID 'from' bottom=expr 'to' up=expr 'do' statements* 'done;';
 whileStatement: 'while' expr 'do' statements* 'done;';
 ifStatement: 'if' expr 'then' statements* elseIf* elsE? 'endif;';
 elseIf: 'else' 'if' expr 'then' statements*;
 elsE: 'else' statements*;
 varDeclaration: 'let' ID (':' Type)? ('=' expr)? ';';
 varAttrib: var=ID '=' expr;
-functionCall: 'can_move' '(' point ',' point ')'
-             |'move' '(' point ',' point ')'
+functionCall: 'can_move' '(' expr ',' expr ')'
+             |'move' '(' expr ',' expr ')'
              | ID '(' args ')';
 returnStat: 'return' expr ';';
-expr:  expr op=('+' | '-' | '*' | '/' | '%' | '<' | '<=' | '>' | '>=' | '==' | '/=') expr #ExprOp
+expr: expr op=('*' | '/' | '%' ) expr #ExprOp
+     | expr op=('+' | '-' ) expr #ExprOp
+     | expr op=( '<' | '<=' | '>' | '>=' | '==' | '/=') expr #ExprOp
+     | functionCall #EpxrFunctionCall
+     | board #ExprBoard
      | '(' expr ')' #Parent
      | Int #ExprInt
-     | 'null' #ExprNull
      | String #ExprString
+     | point #ExprPoint
+     | 'null' #ExprNull
      | 'width' #ExprWidth
      | 'height' #ExprHeight
      | 'current_player' #ExprCurrPlayer
-     | ID #ExprID
-     | point #ExprPoint
-     | functionCall #EpxrFunctionCall;
+     | ID #ExprID;
 
 
 args: expr? (',' expr)*;

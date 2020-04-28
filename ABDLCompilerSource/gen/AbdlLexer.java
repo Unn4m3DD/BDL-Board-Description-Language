@@ -1,4 +1,4 @@
-// Generated from D:/lfa/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
+// Generated from D:/dev/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
@@ -49,7 +49,7 @@ public class AbdlLexer extends Lexer {
 			null, "'main:'", "'end'", "'main'", "';'", "'('", "')'", "':'", "'for'", 
 			"'from'", "'to'", "'do'", "'done;'", "'while'", "'if'", "'then'", "'endif;'", 
 			"'else'", "'let'", "'='", "'can_move'", "','", "'move'", "'return'", 
-			"'+'", "'-'", "'*'", "'/'", "'%'", "'<'", "'<='", "'>'", "'>='", "'=='", 
+			"'*'", "'/'", "'%'", "'+'", "'-'", "'<'", "'<='", "'>'", "'>='", "'=='", 
 			"'/='", "'null'", "'width'", "'height'", "'current_player'", "'['", "']'", 
 			"'board'", "'.'", "'piece_name'", "'owner'"
 		};
@@ -194,10 +194,10 @@ public class AbdlLexer extends Lexer {
 		"\u00c1\7o\2\2\u00c1\u00c2\7q\2\2\u00c2\u00c3\7x\2\2\u00c3\u00c4\7g\2\2"+
 		"\u00c4.\3\2\2\2\u00c5\u00c6\7t\2\2\u00c6\u00c7\7g\2\2\u00c7\u00c8\7v\2"+
 		"\2\u00c8\u00c9\7w\2\2\u00c9\u00ca\7t\2\2\u00ca\u00cb\7p\2\2\u00cb\60\3"+
-		"\2\2\2\u00cc\u00cd\7-\2\2\u00cd\62\3\2\2\2\u00ce\u00cf\7/\2\2\u00cf\64"+
-		"\3\2\2\2\u00d0\u00d1\7,\2\2\u00d1\66\3\2\2\2\u00d2\u00d3\7\61\2\2\u00d3"+
-		"8\3\2\2\2\u00d4\u00d5\7\'\2\2\u00d5:\3\2\2\2\u00d6\u00d7\7>\2\2\u00d7"+
-		"<\3\2\2\2\u00d8\u00d9\7>\2\2\u00d9\u00da\7?\2\2\u00da>\3\2\2\2\u00db\u00dc"+
+		"\2\2\2\u00cc\u00cd\7,\2\2\u00cd\62\3\2\2\2\u00ce\u00cf\7\61\2\2\u00cf"+
+		"\64\3\2\2\2\u00d0\u00d1\7\'\2\2\u00d1\66\3\2\2\2\u00d2\u00d3\7-\2\2\u00d3"+
+		"8\3\2\2\2\u00d4\u00d5\7/\2\2\u00d5:\3\2\2\2\u00d6\u00d7\7>\2\2\u00d7<"+
+		"\3\2\2\2\u00d8\u00d9\7>\2\2\u00d9\u00da\7?\2\2\u00da>\3\2\2\2\u00db\u00dc"+
 		"\7@\2\2\u00dc@\3\2\2\2\u00dd\u00de\7@\2\2\u00de\u00df\7?\2\2\u00dfB\3"+
 		"\2\2\2\u00e0\u00e1\7?\2\2\u00e1\u00e2\7?\2\2\u00e2D\3\2\2\2\u00e3\u00e4"+
 		"\7\61\2\2\u00e4\u00e5\7?\2\2\u00e5F\3\2\2\2\u00e6\u00e7\7p\2\2\u00e7\u00e8"+
