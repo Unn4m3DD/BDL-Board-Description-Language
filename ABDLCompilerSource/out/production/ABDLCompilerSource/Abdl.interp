@@ -116,7 +116,7 @@ forStatement
 whileStatement
 ifStatement
 elseIf
-elsE
+elseStatement
 varDeclaration
 varAttrib
 functionCall

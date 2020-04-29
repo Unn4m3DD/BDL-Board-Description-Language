@@ -1,3 +1,6 @@
+import CompilerTools.BaseScope;
+import CompilerTools.GlobalScope;
+import CompilerTools.SymbolTable;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
@@ -11,7 +14,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     int varCount = 0;
     STGroup templates = new STGroupDir(".");
     BaseScope current = new GlobalScope();
-    SymbolTable symtab = new SybolTable();
+    SymbolTable symbolTable = new SymbolTable();
     Map<String, String> vars = new HashMap<>();
     Map<String, String> operations = new HashMap<>(){{
         put("+", "add");

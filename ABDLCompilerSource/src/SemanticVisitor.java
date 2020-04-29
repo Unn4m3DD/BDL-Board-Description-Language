@@ -17,10 +17,10 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitFunctDef(AbdlParser.FunctDefContext ctx) {
-        definedFunctions.add(
-                new Function(ctx.func_name.getText(),
-                        ctx.typedArgs().Type().stream().map((item) -> item.getText()).collect(Collectors.toList()),
-                        ctx.Type().getText()));
+//        definedFunctions.add(
+//                new Function(ctx.func_name.getText(),
+//                        ctx.typedArgs().Type().stream().map((item) -> item.getText()).collect(Collectors.toList()),
+//                        ctx.Type().getText()));
         return super.visitFunctDef(ctx);
     }
 

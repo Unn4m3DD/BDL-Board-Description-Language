@@ -16,9 +16,9 @@ statements: varDeclaration
 
 forStatement: 'for' var=ID 'from' bottom=expr 'to' up=expr 'do' statements* 'done;';
 whileStatement: 'while' expr 'do' statements* 'done;';
-ifStatement: 'if' expr 'then' statements* elseIf* elsE? 'endif;';
+ifStatement: 'if' expr 'then' statements* elseIf* elseStatement? 'endif;';
 elseIf: 'else' 'if' expr 'then' statements*;
-elsE: 'else' statements*;
+elseStatement: 'else' statements*;
 varDeclaration: 'let' ID (':' Type)? ('=' expr)? ';';
 varAttrib: var=ID '=' expr;
 functionCall: 'can_move' '(' expr ',' expr ')'
