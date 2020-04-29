@@ -1,4 +1,4 @@
-// Generated from D:/dev/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
+// Generated from D:/lfa/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -26,13 +26,13 @@ public class AbdlParser extends Parser {
 	public static final int
 		RULE_program = 0, RULE_main = 1, RULE_functDef = 2, RULE_block = 3, RULE_statements = 4, 
 		RULE_forStatement = 5, RULE_whileStatement = 6, RULE_ifStatement = 7, 
-		RULE_elseIf = 8, RULE_elsE = 9, RULE_varDeclaration = 10, RULE_varAttrib = 11, 
+		RULE_elseIf = 8, RULE_elseStatement = 9, RULE_varDeclaration = 10, RULE_varAttrib = 11, 
 		RULE_functionCall = 12, RULE_returnStat = 13, RULE_expr = 14, RULE_args = 15, 
 		RULE_typedArgs = 16, RULE_point = 17, RULE_board = 18;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"program", "main", "functDef", "block", "statements", "forStatement", 
-			"whileStatement", "ifStatement", "elseIf", "elsE", "varDeclaration", 
+			"whileStatement", "ifStatement", "elseIf", "elseStatement", "varDeclaration", 
 			"varAttrib", "functionCall", "returnStat", "expr", "args", "typedArgs", 
 			"point", "board"
 		};
@@ -692,8 +692,8 @@ public class AbdlParser extends Parser {
 		public ElseIfContext elseIf(int i) {
 			return getRuleContext(ElseIfContext.class,i);
 		}
-		public ElsEContext elsE() {
-			return getRuleContext(ElsEContext.class,0);
+		public ElseStatementContext elseStatement() {
+			return getRuleContext(ElseStatementContext.class,0);
 		}
 		public IfStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -764,7 +764,7 @@ public class AbdlParser extends Parser {
 			if (_la==T__16) {
 				{
 				setState(137);
-				elsE();
+				elseStatement();
 				}
 			}
 
@@ -854,35 +854,35 @@ public class AbdlParser extends Parser {
 		return _localctx;
 	}
 
-	public static class ElsEContext extends ParserRuleContext {
+	public static class ElseStatementContext extends ParserRuleContext {
 		public List<StatementsContext> statements() {
 			return getRuleContexts(StatementsContext.class);
 		}
 		public StatementsContext statements(int i) {
 			return getRuleContext(StatementsContext.class,i);
 		}
-		public ElsEContext(ParserRuleContext parent, int invokingState) {
+		public ElseStatementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_elsE; }
+		@Override public int getRuleIndex() { return RULE_elseStatement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AbdlListener ) ((AbdlListener)listener).enterElsE(this);
+			if ( listener instanceof AbdlListener ) ((AbdlListener)listener).enterElseStatement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AbdlListener ) ((AbdlListener)listener).exitElsE(this);
+			if ( listener instanceof AbdlListener ) ((AbdlListener)listener).exitElseStatement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AbdlVisitor ) return ((AbdlVisitor<? extends T>)visitor).visitElsE(this);
+			if ( visitor instanceof AbdlVisitor ) return ((AbdlVisitor<? extends T>)visitor).visitElseStatement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final ElsEContext elsE() throws RecognitionException {
-		ElsEContext _localctx = new ElsEContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_elsE);
+	public final ElseStatementContext elseStatement() throws RecognitionException {
+		ElseStatementContext _localctx = new ElseStatementContext(_ctx, getState());
+		enterRule(_localctx, 18, RULE_elseStatement);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);

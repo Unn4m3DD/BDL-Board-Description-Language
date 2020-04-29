@@ -1,4 +1,4 @@
-// Generated from D:/dev/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
+// Generated from D:/lfa/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -64,11 +64,11 @@ public interface AbdlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitElseIf(AbdlParser.ElseIfContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AbdlParser#elsE}.
+	 * Visit a parse tree produced by {@link AbdlParser#elseStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitElsE(AbdlParser.ElsEContext ctx);
+	T visitElseStatement(AbdlParser.ElseStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AbdlParser#varDeclaration}.
 	 * @param ctx the parse tree

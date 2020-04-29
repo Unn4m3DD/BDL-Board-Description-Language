@@ -1,4 +1,4 @@
-// Generated from D:/dev/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
+// Generated from D:/lfa/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -97,15 +97,15 @@ public interface AbdlListener extends ParseTreeListener {
 	 */
 	void exitElseIf(AbdlParser.ElseIfContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AbdlParser#elsE}.
+	 * Enter a parse tree produced by {@link AbdlParser#elseStatement}.
 	 * @param ctx the parse tree
 	 */
-	void enterElsE(AbdlParser.ElsEContext ctx);
+	void enterElseStatement(AbdlParser.ElseStatementContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AbdlParser#elsE}.
+	 * Exit a parse tree produced by {@link AbdlParser#elseStatement}.
 	 * @param ctx the parse tree
 	 */
-	void exitElsE(AbdlParser.ElsEContext ctx);
+	void exitElseStatement(AbdlParser.ElseStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AbdlParser#varDeclaration}.
 	 * @param ctx the parse tree
