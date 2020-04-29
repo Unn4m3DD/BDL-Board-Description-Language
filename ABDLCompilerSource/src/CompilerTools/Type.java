@@ -1,3 +1,4 @@
+package CompilerTools;
 /***
  * Excerpted from "Language Implementation Patterns",
  * published by The Pragmatic Bookshelf.

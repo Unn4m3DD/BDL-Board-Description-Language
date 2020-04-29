@@ -180,7 +180,6 @@ for t1, t2 in zip(["int", "string", "point"], ["int", "string", "point"]):
     t1, op, t2, t1, op_text, t2, t1, op_text, t2))
   */
   //int + int       ->  int
-
   console.log(int.toString() + " + " + int.toString() + " = " + (int.add(int) ? int.add(int).toString() : "null"))
   console.log(int.toString() + " - " + int.toString() + " = " + (int.sub(int) ? int.sub(int).toString() : "null"))
   console.log(int.toString() + " * " + int.toString() + " = " + (int.mul(int) ? int.mul(int).toString() : "null"))
