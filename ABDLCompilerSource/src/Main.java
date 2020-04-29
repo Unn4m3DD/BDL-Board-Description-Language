@@ -12,7 +12,6 @@ public class Main {
         ParseTree tree = parser.program();
         SemanticVisitor visitor = new SemanticVisitor();
         visitor.visit(tree);
-        System.out.println(visitor.definedFunctions);
 
     }
 
