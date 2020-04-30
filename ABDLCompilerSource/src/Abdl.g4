@@ -1,5 +1,7 @@
 grammar Abdl;
 
+@header{import CompilerTools;}
+
 program: functDef* main functDef* EOF;
 
 main: 'main:' statements* 'end' 'main' ';';

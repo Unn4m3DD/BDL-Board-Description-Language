@@ -1,6 +1,3 @@
-import CompilerTools.BaseScope;
-import CompilerTools.GlobalScope;
-import CompilerTools.SymbolTable;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
@@ -13,8 +10,8 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     ParseTreeProperty<String> ruleVars = new ParseTreeProperty<>();
     int varCount = 0;
     STGroup templates = new STGroupDir(".");
-    BaseScope current = new GlobalScope();
-    SymbolTable symbolTable = new SymbolTable();
+    //BaseScope current = new GlobalScope();
+    //SymbolTable symbolTable = new SymbolTable();
     Map<String, String> vars = new HashMap<>();
     Map<String, String> operations = new HashMap<>(){{
         put("+", "add");
@@ -56,8 +53,17 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override public Object visitIfStatement(AbdlParser.IfStatementContext ctx) { return visitChildren(ctx); }
     @Override public Object visitVarDeclaration(AbdlParser.VarDeclarationContext ctx) {
         StringBuilder res = new StringBuilder();
-        vars.put(ctx.ID().getText(), "v" + varCount);
-        res.append("let v" + varCount++ + " = " + visit(ctx.expr()));
+        String var = createVar();
+        res.append("let v" + var + " = " + visit(ctx.expr()));
+        if(ctx.Type() != null) {
+            //current.define(new VariableSymbol(var, (BuiltInTypeSymbol) current.resolve(ctx.Type().getText())));
+        }
+        else if(ctx.expr() != null) {
+            //Buscar ao contexto de expr
+        }
+        else{
+            System.out.println("Type not defined");
+        }
         return res.toString();
     }
     @Override public Object visitVarAttrib(AbdlParser.VarAttribContext ctx) { return visitChildren(ctx); }
@@ -100,5 +106,9 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override public Object visitPoint(AbdlParser.PointContext ctx) {
         ruleVars.put(ctx, "v" + varCount);
         return "let v" + varCount++ + " = [" + ruleVars.get(ctx.expr(0)) + ", " + ruleVars.get(ctx.expr(1)) + "]";
+    }
+
+    public String createVar() {
+        return "v" + varCount++;
     }
 }

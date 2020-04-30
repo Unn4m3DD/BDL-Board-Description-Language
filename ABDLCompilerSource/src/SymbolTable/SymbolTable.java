@@ -20,4 +20,9 @@ public class SymbolTable {
     public void popScope() {
 
     }
+
+    public void pushVar(Symbol var) {
+
+
+    }
 }
