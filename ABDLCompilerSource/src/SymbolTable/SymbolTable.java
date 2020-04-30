@@ -21,7 +21,7 @@ public class SymbolTable {
 
     }
 
-    public void pushVar(Symbol var) {
+    public void pushSymbol(Symbol var) {
 
 
     }
