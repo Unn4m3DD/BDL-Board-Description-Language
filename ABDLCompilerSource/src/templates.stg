@@ -11,15 +11,13 @@ statements(stat) ::= <<
 <if(stat)><stat; separator="\n"><endif>
 >>
 
-binaryOperation(var,e1,op,e2) ::= "<decl(var,[e1,\" \",op,\" \",e2])>"
-
 decl(var,val) ::= "let <var> = <val>;"
 
 conditional(var,stat_true,stat_false) ::= <<
 if (<var>) {
-   <stats(stat_true)>
+   <statements(stat_true)>
 }<if(stat_false)>
 else {
-   <stats(stat_false)>
+   <statements(stat_false)>
 }<endif>
 >>
