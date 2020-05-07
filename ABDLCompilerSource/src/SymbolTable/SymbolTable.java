@@ -7,8 +7,16 @@ public class SymbolTable {
 
     public Symbol resolve(String name) {
         for (int i = list.size() - 1; i >= 0; i--) {
-            if(list.get(i).containsKey(name))
+            if (list.get(i).containsKey(name))
                 return list.get(i).get(name);
+        }
+        return null;
+    }
+
+    public String resolveName(String name) {
+        for (int i = list.size() - 1; i >= 0; i--) {
+            if (list.get(i).containsKey(name))
+                return list.get(i).get(name).getName();
         }
         return null;
     }
@@ -21,8 +29,7 @@ public class SymbolTable {
         list.remove(list.size() - 1);
     }
 
-    public void pushSymbol(Symbol var) {
-
-
+    public void pushSymbol(String nameInCode, Symbol var) {
+        list.get(list.size() - 1).put(nameInCode, var);
     }
 }
