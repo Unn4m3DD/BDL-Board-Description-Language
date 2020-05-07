@@ -5,12 +5,13 @@ import org.stringtemplate.v4.STGroupDir;
 import java.util.HashMap;
 import java.util.Map;
 import SymbolTable.*;
+import org.stringtemplate.v4.STGroupFile;
 
 
 public class AbdlCompiler extends AbdlBaseVisitor<Object> {
+    static int varCounter = 0;
     ParseTreeProperty<String> ruleVars = new ParseTreeProperty<>();
-    int varCount = 0;
-    STGroup templates = new STGroupDir(".");
+    STGroup templates = new STGroupFile("templates.stg");
     SymbolTable symbolTable = new SymbolTable();
     ST program = templates.getInstanceOf("program");
     Map<String, String> operations = new HashMap<>(){{
@@ -29,11 +30,14 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override public Object visitProgram(AbdlParser.ProgramContext ctx) {
         visit(ctx.main());
         for(var function : ctx.functDef()) {
-            //res.append(visit(function));
+            //(visit(function));
         }
-        return null;
+        return program;
     }
-    @Override public Object visitMain(AbdlParser.MainContext ctx) { return visitChildren(ctx); }
+    @Override public Object visitMain(AbdlParser.MainContext ctx) {
+        symbolTable.pushScope();
+        return visitChildren(ctx);
+    }
     @Override public Object visitFunctDef(AbdlParser.FunctDefContext ctx) {
         StringBuilder res = new StringBuilder();
         res.append("function " + ctx.func_name.getText() + visit(ctx.typedArgs()) + "{\n");
@@ -49,19 +53,59 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override public Object visitWhileStatement(AbdlParser.WhileStatementContext ctx) { return visitChildren(ctx); }
     @Override public Object visitIfStatement(AbdlParser.IfStatementContext ctx) { return visitChildren(ctx); }
     @Override public Object visitVarDeclaration(AbdlParser.VarDeclarationContext ctx) {
-        StringBuilder res = new StringBuilder();
-        String var = createVar();
-        res.append("let " + var);
-        if(ctx.Type() != null) {
-            //symbolTable.pushSymbol(new VariableSymbol(var, symbolTable.resolve(ctx.Type().getText())));
-        }
-        else if(ctx.expr() != null) {
-            //symbolTable.pushSymbol(new VariableSymbol(var, visit(ctx.expr()).getType()));
+        ST varDecl = templates.getInstanceOf("decl");
+        Variable newVar = new Variable(createVar());
+        if(ctx.expr() == null) {
+            if(ctx.Type() == null) {
+                System.err.println("Type not defined");
+            }
+            else{
+                symbolTable.pushSymbol(ctx.ID().getText(), newVar);
+                varDecl.add("var", newVar.getName());
+                String value = "";
+                switch (ctx.Type().getText()) {
+                    case "int":
+                        value = "0";
+                        break;
+                    case "string":
+                        value = "\"\"";
+                        break;
+                    case "point":
+                        value = "{}";
+                        break;
+                }
+                varDecl.add("value", value);
+            }
         }
         else{
-            System.out.println("Type not defined");
+            symbolTable.pushSymbol(ctx.ID().getText(), newVar);
+            Object expr = visit(ctx.expr());
+            varDecl.add("var", newVar.getName());
+            String value = "";
+            if(expr == null) {
+                if(ctx.Type() != null) {
+                    switch (ctx.Type().getText()) {
+                        case "int":
+                            value = "0";
+                            break;
+                        case "string":
+                            value = "\"\"";
+                            break;
+                        case "point":
+                            value = "{}";
+                            break;
+                    }
+                }
+                else{
+                    System.err.println("No type or expression...");
+                }
+            }
+            else value = (String) expr;
+            varDecl.add("val", value);
+
         }
-        return res.toString();
+        program.add("stat", varDecl.render());
+        return newVar.getName();
     }
     @Override public Object visitVarAttrib(AbdlParser.VarAttribContext ctx) { return visitChildren(ctx); }
     @Override public Object visitFunctionCall(AbdlParser.FunctionCallContext ctx) { return visitChildren(ctx); }
@@ -74,18 +118,26 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override public Object visitExprString(AbdlParser.ExprStringContext ctx) { return visitChildren(ctx); }
     @Override public Object visitExprPoint(AbdlParser.ExprPointContext ctx) { return visitChildren(ctx); }
     @Override public Object visitExprInt(AbdlParser.ExprIntContext ctx) {
-        String var = createVar();
-        //symbolTable.pushSymbol(new VariableSymbol(var, ));
-        return "let " + createVar() + " = " + ctx.Int().getText() + ";";
+        ST varDecl = templates.getInstanceOf("decl");
+        String resVar = createVar();
+        varDecl.add("var", resVar);
+        varDecl.add("val", ctx.Int().getText());
+        program.add("stat", varDecl.render());
+        return resVar;
     }
     @Override public Object visitExprOp(AbdlParser.ExprOpContext ctx) {
+        ST varDecl = templates.getInstanceOf("decl");
+        String resVar = createVar();
         String expr0 = (String) visit(ctx.expr(0));
         String expr1 = (String) visit(ctx.expr(1));
-        return "let v" + varCount++ + " = " + ruleVars.get(ctx.expr(0)) + "." + operations.get(ctx.op.getText()) + "(" + ruleVars.get(ctx.expr(1)) + ");";
+        varDecl.add("var", resVar);
+        varDecl.add("val", expr0 + "." + operations.get(ctx.op.getText()) + "(" + expr1 + ")");
+        program.add("stat", varDecl.render());
+        return resVar;
     }
     @Override public Object visitExprNull(AbdlParser.ExprNullContext ctx) { return null; }
     @Override public Object visitExprID(AbdlParser.ExprIDContext ctx) {
-        return null;
+        return symbolTable.resolve(ctx.ID().getText()).getName();
     }
     @Override public Object visitArgs(AbdlParser.ArgsContext ctx) {
         StringBuilder res = new StringBuilder(ruleVars.get(ctx.expr(0)));
@@ -101,12 +153,10 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         }
         return res.toString();
     }
-    @Override public Object visitPoint(AbdlParser.PointContext ctx) {
-        ruleVars.put(ctx, "v" + varCount);
-        return "let v" + varCount++ + " = [" + ruleVars.get(ctx.expr(0)) + ", " + ruleVars.get(ctx.expr(1)) + "]";
-    }
+    @Override public Object visitPoint(AbdlParser.PointContext ctx) {return visitChildren(ctx);}
 
     public String createVar() {
-        return "v" + varCount++;
+        return "v" + varCounter++;
     }
+
 }
