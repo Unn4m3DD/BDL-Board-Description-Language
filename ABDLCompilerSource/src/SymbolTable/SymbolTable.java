@@ -29,7 +29,10 @@ public class SymbolTable {
         list.remove(list.size() - 1);
     }
 
-    public void pushSymbol(String nameInCode, Symbol var) {
+    public boolean pushSymbol(String nameInCode, Symbol var) {
+        if(list.get(list.size() - 1).containsKey(nameInCode))
+            return false;
         list.get(list.size() - 1).put(nameInCode, var);
+        return true;
     }
 }
