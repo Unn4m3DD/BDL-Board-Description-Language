@@ -1,21 +1,18 @@
-import CompilerTools.BaseScope;
-import CompilerTools.GlobalScope;
-import CompilerTools.SymbolTable;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 import org.stringtemplate.v4.STGroupDir;
 import java.util.HashMap;
 import java.util.Map;
+import SymbolTable.*;
 
 
 public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     ParseTreeProperty<String> ruleVars = new ParseTreeProperty<>();
     int varCount = 0;
     STGroup templates = new STGroupDir(".");
-    BaseScope current = new GlobalScope();
     SymbolTable symbolTable = new SymbolTable();
-    Map<String, String> vars = new HashMap<>();
+    ST program = templates.getInstanceOf("program");
     Map<String, String> operations = new HashMap<>(){{
         put("+", "add");
         put("-", "sub");
@@ -30,14 +27,11 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         put("/=", "not_equal");
     }};
     @Override public Object visitProgram(AbdlParser.ProgramContext ctx) {
-        StringBuilder res = new StringBuilder();
-        ST header = templates.getInstanceOf("header");
-        res.append(header.render());
-        res.append((String) visit(ctx.main()) + "}");
+        visit(ctx.main());
         for(var function : ctx.functDef()) {
-            res.append(visit(function));
+            //res.append(visit(function));
         }
-        return res.toString();
+        return null;
     }
     @Override public Object visitMain(AbdlParser.MainContext ctx) { return visitChildren(ctx); }
     @Override public Object visitFunctDef(AbdlParser.FunctDefContext ctx) {
@@ -56,8 +50,17 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override public Object visitIfStatement(AbdlParser.IfStatementContext ctx) { return visitChildren(ctx); }
     @Override public Object visitVarDeclaration(AbdlParser.VarDeclarationContext ctx) {
         StringBuilder res = new StringBuilder();
-        vars.put(ctx.ID().getText(), "v" + varCount);
-        res.append("let v" + varCount++ + " = " + visit(ctx.expr()));
+        String var = createVar();
+        res.append("let " + var);
+        if(ctx.Type() != null) {
+            //symbolTable.pushSymbol(new VariableSymbol(var, symbolTable.resolve(ctx.Type().getText())));
+        }
+        else if(ctx.expr() != null) {
+            //symbolTable.pushSymbol(new VariableSymbol(var, visit(ctx.expr()).getType()));
+        }
+        else{
+            System.out.println("Type not defined");
+        }
         return res.toString();
     }
     @Override public Object visitVarAttrib(AbdlParser.VarAttribContext ctx) { return visitChildren(ctx); }
@@ -71,8 +74,9 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override public Object visitExprString(AbdlParser.ExprStringContext ctx) { return visitChildren(ctx); }
     @Override public Object visitExprPoint(AbdlParser.ExprPointContext ctx) { return visitChildren(ctx); }
     @Override public Object visitExprInt(AbdlParser.ExprIntContext ctx) {
-        ruleVars.put(ctx, "v" + varCount);
-        return "let v" + varCount++ + " = " + ctx.Int().getText() + ";";
+        String var = createVar();
+        //symbolTable.pushSymbol(new VariableSymbol(var, ));
+        return "let " + createVar() + " = " + ctx.Int().getText() + ";";
     }
     @Override public Object visitExprOp(AbdlParser.ExprOpContext ctx) {
         String expr0 = (String) visit(ctx.expr(0));
@@ -81,7 +85,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     }
     @Override public Object visitExprNull(AbdlParser.ExprNullContext ctx) { return null; }
     @Override public Object visitExprID(AbdlParser.ExprIDContext ctx) {
-        return vars.get(ctx.getText());
+        return null;
     }
     @Override public Object visitArgs(AbdlParser.ArgsContext ctx) {
         StringBuilder res = new StringBuilder(ruleVars.get(ctx.expr(0)));
@@ -100,5 +104,9 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override public Object visitPoint(AbdlParser.PointContext ctx) {
         ruleVars.put(ctx, "v" + varCount);
         return "let v" + varCount++ + " = [" + ruleVars.get(ctx.expr(0)) + ", " + ruleVars.get(ctx.expr(1)) + "]";
+    }
+
+    public String createVar() {
+        return "v" + varCount++;
     }
 }

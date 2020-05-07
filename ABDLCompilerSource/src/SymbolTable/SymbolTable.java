@@ -20,4 +20,9 @@ public class SymbolTable {
     public void popScope() {
         list.remove(list.size() - 1);
     }
+
+    public void pushSymbol(Symbol var) {
+
+
+    }
 }
