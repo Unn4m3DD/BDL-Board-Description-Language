@@ -20,10 +20,10 @@ ifStatement: 'if' expr 'then' statements* elseIf* elseStatement? 'endif' ';';
 elseIf: 'else' 'if' expr 'then' statements*;
 elseStatement: 'else' statements*;
 varDeclaration: 'let' ID (':' Type)? ('=' expr)? ';';
-varAttrib: var=ID '=' expr ';';
-functionCall: 'can_move' '(' expr ',' expr ')'
-             |'move' '(' expr ',' expr ')'
-             | ID '(' args ')';
+varAttrib: var=ID '=' expr;
+functionCall: funcName='can_move' '(' expr ',' expr ')'
+             | funcName='move' '(' expr ',' expr ')'
+             | funcName=ID '(' args ')';
 returnStat: 'return' expr ';';
 expr: expr op=('*' | '/' | '%' ) expr #ExprOp
      | expr op=('+' | '-' ) expr #ExprOp
@@ -46,7 +46,7 @@ args: expr? (',' expr)*;
 typedArgs: (ID ':' Type)? (',' (ID ':' Type))*;
 
 point: '['expr ','expr']';
-board: 'board' point '.' ('piece_name' | 'owner');
+board: 'board' point '.' prop=('piece_name' | 'owner');
 Type: 'int' | 'point' | 'string';
 String: '"' ('\\"'|'\\'|.)*? '"'
        |'\'' ('\\\''|'\\'|.)*? '\'';
