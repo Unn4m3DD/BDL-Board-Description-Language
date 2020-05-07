@@ -80,7 +80,6 @@ file = [
   "point < int     ->  undefined",
   "point < string  ->  undefined",
   "point < point   ->  undefined",
-  
   "int <= int       ->  int",
   "int <= string    ->  undefined",
   "int <= point     ->  undefined",
@@ -99,7 +98,6 @@ file = [
   "point <= int     ->  undefined",
   "point <= string  ->  undefined",
   "point <= point   ->  undefined",
-  
   "int > int       ->  int",
   "int > string    ->  undefined",
   "int > point     ->  undefined",
@@ -118,7 +116,6 @@ file = [
   "point > int     ->  undefined",
   "point > string  ->  undefined",
   "point > point   ->  undefined",
-  
   "int >= int       ->  int",
   "int >= string    ->  undefined",
   "int >= point     ->  undefined",
