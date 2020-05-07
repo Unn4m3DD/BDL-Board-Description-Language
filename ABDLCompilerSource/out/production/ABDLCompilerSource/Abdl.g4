@@ -1,7 +1,5 @@
 grammar Abdl;
 
-@header{import CompilerTools;}
-
 program: functDef* main functDef* EOF;
 
 main: 'main:' statements* 'end' 'main' ';';
@@ -16,9 +14,9 @@ statements: varDeclaration
           | returnStat
           | block;
 
-forStatement: 'for' var=ID 'from' bottom=expr 'to' up=expr 'do' statements* 'done;';
-whileStatement: 'while' expr 'do' statements* 'done;';
-ifStatement: 'if' expr 'then' statements* elseIf* elseStatement? 'endif;';
+forStatement: 'for' var=ID 'from' bottom=expr 'to' up=expr 'do' statements* 'done' ';';
+whileStatement: 'while' expr 'do' statements* 'done' ';';
+ifStatement: 'if' expr 'then' statements* elseIf* elseStatement? 'endif' ';';
 elseIf: 'else' 'if' expr 'then' statements*;
 elseStatement: 'else' statements*;
 varDeclaration: 'let' ID (':' Type)? ('=' expr)? ';';
