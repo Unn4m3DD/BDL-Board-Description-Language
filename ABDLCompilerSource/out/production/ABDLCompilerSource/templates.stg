@@ -3,13 +3,17 @@ const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
 export default async (context, table) => {
-  <stats(stat)>
+  <statements(stat)>
 }
 >>
 
 statements(stat) ::= <<
 <if(stat)><stat; separator="\n"><endif>
 >>
+
+binaryOperation(var,e1,op,e2) ::= "<decl(var,[e1,\" \",op,\" \",e2])>"
+
+decl(var,val) ::= "let <var> = <val>;"
 
 conditional(var,stat_true,stat_false) ::= <<
 if (<var>) {
