@@ -1,6 +1,12 @@
 main:
   let i : int = 0;
-  let j = i + 2 * 3 / 2 % 2;
-  let name : string = null;
-
+  i = 10;
+  let name : string;
+  if i then
+    let x : int = 3;
+  else if i-1 then
+    name = "kekw";
+  else
+    name = "reee";
+  endif;
 end main;

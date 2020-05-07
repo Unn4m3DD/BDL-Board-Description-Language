@@ -60,11 +60,11 @@ ERRORS=51
 'from'=9
 'to'=10
 'do'=11
-'done;'=12
+'done'=12
 'while'=13
 'if'=14
 'then'=15
-'endif;'=16
+'endif'=16
 'else'=17
 'let'=18
 '='=19
