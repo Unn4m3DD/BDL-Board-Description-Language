@@ -46,7 +46,11 @@ args: expr? (',' expr)*;
 typedArgs: (ID ':' Type)? (',' (ID ':' Type))*;
 
 point: '['expr ','expr']';
+<<<<<<< HEAD
 board: 'board' asddsa=point '.' prop=('piece_name' | 'owner');
+=======
+board: 'board' poin=point '.' prop=('piece_name' | 'owner');
+>>>>>>> 1498961a15636573a39b6e781bb25d72b46edabf
 Type: 'int' | 'point' | 'string';
 String: '"' ('\\"'|'\\'|.)*? '"'
        |'\'' ('\\\''|'\\'|.)*? '\'';
