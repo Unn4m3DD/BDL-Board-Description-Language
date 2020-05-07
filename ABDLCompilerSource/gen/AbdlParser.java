@@ -1852,6 +1852,7 @@ public class AbdlParser extends Parser {
 	}
 
 	public static class BoardContext extends ParserRuleContext {
+		public PointContext poin;
 		public Token prop;
 		public PointContext point() {
 			return getRuleContext(PointContext.class,0);
@@ -1885,7 +1886,7 @@ public class AbdlParser extends Parser {
 			setState(264);
 			match(T__40);
 			setState(265);
-			point();
+			((BoardContext)_localctx).poin = point();
 			setState(266);
 			match(T__41);
 			setState(267);
