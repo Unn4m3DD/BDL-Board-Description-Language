@@ -100,4 +100,5 @@ main:
   i = [0, 0] + not_defined_var;
   s = [0, 0] + not_defined_var;
   p = [0, 0] + not_defined_var;
+
 end main;

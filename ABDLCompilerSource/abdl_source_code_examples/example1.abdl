@@ -1,0 +1,50 @@
+move_forward(i : int, j : int):
+  move([i, j], [i, j + 1]);
+end move_forward;
+
+int can_move_forward(i : int, j : int):
+  return can_move([i, j], [i, j + 1]);
+end move_forward;
+
+point first_available_move(dir : point):
+  for x from 0 to width do
+    for y from 0 to height do
+      if can_move([x, y], [x, y] + dir) then
+        return [x, y];
+      endif;
+    done;
+  done;
+  return null;
+end first_available_move;
+
+main:
+  let i;
+  let j : int = i + 2 * 3 / 2 % 2 + "";
+  let name : string = null;
+  if j == 2 then
+    i = 2;
+    move([1, 2], [3, 4]);
+  endif;
+  i = "";
+  if board[1, 2].owner == 1 then
+    move([1, 1], [1, 2]);
+  else if board[2, 2].owner == 1 then
+    move([2, 1], [2, 2]);
+  endif;
+
+  for i from 0 to width do
+    if board[i, 2].owner == 1 then
+      if(current_player == 0) then
+        move([i, 1], [i, 2]);
+      endif;
+    endif;
+  done;
+
+  for i from 0 to 10 do
+    move([i, i - 1], [1, 2]);
+  done;
+
+  while i < 2 do
+    print("done");
+  done;
+end main;

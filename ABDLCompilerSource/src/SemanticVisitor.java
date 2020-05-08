@@ -42,20 +42,29 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitFunctionCall(AbdlParser.FunctionCallContext ctx) {
-        if (ctx.funcName.getText().equals("print"))
+        TypeInfer typeInfer = new TypeInfer(st);
+        if (ctx.funcName.getText().equals("print")) {
+            if (ctx.args().expr() == null
+                    || ctx.args().expr().size() != 1
+                    || typeInfer.visit(ctx.args().expr(0)).equals("")) {
+                error = true;
+                //tested
+                System.err.println("Invalid call to print statement " + getLineFormated(ctx.start));
+            }
             return super.visitFunctionCall(ctx);
-
+        }
         Function func = (Function) st.resolve(ctx.funcName.getText());
         if (func == null) {
-            System.err.println("Function " + ctx.funcName.getText() + " is not defined" + getLineFormated(ctx.start));
+            //tested
+            System.err.println("Function not defined " + getLineFormated(ctx.start) + ": " + ctx.funcName.getText());
             error = true;
         } else {
             List<String> passedVarTypes = new ArrayList<String>(ctx.args() != null ? ctx.args().expr().size() : 0);
-            TypeInfer typeInfer = new TypeInfer(st);
             if (ctx.args() != null)
                 for (var expr : ctx.args().expr())
                     passedVarTypes.add(typeInfer.visit(expr));
             if (!passedVarTypes.equals(func.getArgs())) {
+                //tested
                 System.err.println(
                         "Function argument types and passed parameters do not match " + getLineFormated(ctx.start) + ": " +
                                 func.getArgs() + " != " + passedVarTypes
@@ -106,13 +115,16 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
         Variable variable = (Variable) st.resolve(ctx.ID().getText());
         String inferredType = typeInfer.visit(ctx.expr());
         if (variable == null) {
-            System.err.println("Variable not defined " + getLineFormated(ctx.start) + ": " + ctx.ID().getText());
+            //tested
+            System.err.println("Variable not declared " + getLineFormated(ctx.start) + ": " + ctx.ID().getText());
             error = true;
         } else if (inferredType.equals("")) {
+            //tested
             System.err.println("It was not possible to infer expression type " + getLineFormated(ctx.expr().start) + ": " + ctx.expr().getText());
             error = true;
         } else if (!variable.getType().equals(inferredType)) {
-            System.err.println("Attribution types do not match " + getLineFormated(ctx.start) + ": " +
+            //tested
+            System.err.println("Variable and attribution types mismatch " + getLineFormated(ctx.start) + ": " +
                     ctx.ID().getText() + " (" + variable.getType() + ") and " +
                     ctx.expr().getText() + " (" + inferredType + ")");
             error = true;
@@ -136,6 +148,7 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
         else if (declaredType.equals(inferredType))
             type = declaredType;
         else {
+            //tested
             System.err.println("Declared and inferred type do not match " + getLineFormated(ctx.start) + ": " +
                     inferredType + " != " + declaredType
             );
@@ -152,7 +165,6 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
     public Object visitMain(AbdlParser.MainContext ctx) {
         st.pushScope();
         Object result = visitChildren(ctx);
-        System.out.println(st);
         st.popScope();
         return result;
     }

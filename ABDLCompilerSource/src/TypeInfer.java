@@ -104,6 +104,7 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
     public String visitExprID(AbdlParser.ExprIDContext ctx) {
         Symbol resolved = st.resolve(ctx.ID().getText());
         if (!(resolved instanceof Variable)) {
+            //tested
             System.err.println("Undefined variable " + getLineFormated(ctx.start) + ": " + ctx.ID().getText());
             return "";
         }
@@ -119,6 +120,7 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
         if (result.equals("")) {
             type1 = type1.equals("") ? "undefined" : type1;
             type2 = type2.equals("") ? "undefined" : type2;
+            //tested
             System.err.println("Operation undefined between types " +
                     getLineFormated(ctx.start) + ": " + type1 + " " + op + " " + type2
             );

@@ -1,0 +1,24 @@
+main:
+    let v1 = 0;
+    let v2 = "";
+    let v3 = [0, 0];
+
+    if 1 < 2 then
+        let v2 = 0;
+        v3 = v1 - v2; // should print an error
+        let v3 : int;
+        v3 = v1 - v2;
+        let v4 = 2;
+    end if;
+
+    print(v4); // should print 2 errors
+    for i from 0 to width do
+        i = 2;
+        let a = i;
+        a = 2;
+    done;
+
+    i = 2; //should print error
+
+    not_defined_function();
+end main;
