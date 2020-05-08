@@ -30,10 +30,12 @@ main:
   i = 0;
   i = "";
   i = [1, 1];
+
   let s : string;
   s = 0;
   s = "";
   s = [1, 1];
+
   let p : point;
   p = 0;
   p = "";
@@ -87,5 +89,15 @@ main:
   s = return_point();
   p = return_point();
 
+  i = 0 + not_defined_var;
+  s = 0 + not_defined_var;
+  p = 0 + not_defined_var;
 
+  i = "" + not_defined_var;
+  s = "" + not_defined_var;
+  p = "" + not_defined_var;
+
+  i = [0, 0] + not_defined_var;
+  s = [0, 0] + not_defined_var;
+  p = [0, 0] + not_defined_var;
 end main;

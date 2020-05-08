@@ -106,15 +106,15 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
         Variable variable = (Variable) st.resolve(ctx.ID().getText());
         String inferredType = typeInfer.visit(ctx.expr());
         if (variable == null) {
-            System.err.println("Variable " + ctx.ID().getText() + " not defined" + getLineFormated(ctx.start));
+            System.err.println("Variable not defined " + getLineFormated(ctx.start) + ": " + ctx.ID().getText());
             error = true;
         } else if (inferredType.equals("")) {
-            System.err.println("It was not possible to infer the type " + getLineFormated(ctx.expr().start) + ": " + ctx.expr().getText());
+            System.err.println("It was not possible to infer expression type " + getLineFormated(ctx.expr().start) + ": " + ctx.expr().getText());
             error = true;
         } else if (!variable.getType().equals(inferredType)) {
             System.err.println("Attribution types do not match " + getLineFormated(ctx.start) + ": " +
-                    ctx.ID().getText() + "(" + variable.getType() + ") and " +
-                    ctx.expr().getText() + "(" + inferredType + ")");
+                    ctx.ID().getText() + " (" + variable.getType() + ") and " +
+                    ctx.expr().getText() + " (" + inferredType + ")");
             error = true;
         }
         return super.visitVarAttrib(ctx);
@@ -159,10 +159,12 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitExprID(AbdlParser.ExprIDContext ctx) {
+        /* TODO verificar que isto pode estar comentado
         if (st.resolve(ctx.ID().getText()) == null) {
-            System.err.println(ctx.ID().getText() + " is not defined " + getLineFormated(ctx.start));
+            System.err.println("Undefined variable " + getLineFormated(ctx.start) + ":" + ctx.ID().getText());
             error = true;
         }
+        */
         return visitChildren(ctx);
     }
 
