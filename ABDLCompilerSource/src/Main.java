@@ -11,11 +11,16 @@ public class Main {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         AbdlParser parser = new AbdlParser(tokens);
         ParseTree tree = parser.program();
+
         SemanticVisitor visitor = new SemanticVisitor();
         visitor.visit(tree);
+
+        System.out.println("Descomenta no main para correres o teu codigo");
+        /*
         AbdlCompiler visitor1 = new AbdlCompiler();
         ST srcCode = (ST) visitor1.visit(tree);
         System.out.println(srcCode.render());
+        */
     }
 
 }

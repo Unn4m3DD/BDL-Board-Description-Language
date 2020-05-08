@@ -5,10 +5,11 @@ import java.util.List;
 public class Function implements Symbol {
     String name;
     List<String> args;
-
-    public Function(String name, List<String> args) {
+    String returnType;
+    public Function(String name, List<String> args, String returnType) {
         this.name = name;
         this.args = args;
+        this.returnType = returnType;
     }
 
     public boolean pushArg(String arg){
@@ -22,5 +23,9 @@ public class Function implements Symbol {
     @Override
     public String getName() {
         return name;
+    }
+
+    public String getReturnType() {
+        return returnType;
     }
 }

@@ -21,8 +21,9 @@ elseIf: 'else' 'if' expr 'then' statements*;
 elseStatement: 'else' statements*;
 varDeclaration: 'let' ID (':' Type)? ('=' expr)? ';';
 varAttrib: var=ID '=' expr;
-functionCall: funcName='can_move' '(' expr ',' expr ')'
-             | funcName='move' '(' expr ',' expr ')'
+functionCall: funcName='can_move' '(' args ')'
+             | funcName='move' '(' args ')'
+             | funcName='print' '(' args ')'
              | funcName=ID '(' args ')';
 returnStat: 'return' expr ';';
 expr: expr op=('*' | '/' | '%' ) expr #ExprOp

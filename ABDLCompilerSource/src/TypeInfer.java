@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class TypeInfer extends AbdlBaseVisitor<String> {
     SymbolTable st;
+
     public TypeInfer(SymbolTable st) {
         this.st = st;
     }
@@ -120,6 +121,14 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
                     "(" + ctx.start.getLine() + ":" + ctx.start.getCharPositionInLine() + ")");
         }
         return result;
+    }
+
+    @Override
+    public String visitEpxrFunctionCall(AbdlParser.EpxrFunctionCallContext ctx) {
+        Function function = ((Function) st.resolve(ctx.functionCall().funcName.getText()));
+        if (function == null)
+            return "";
+        return function.getReturnType();
     }
 }
 /*

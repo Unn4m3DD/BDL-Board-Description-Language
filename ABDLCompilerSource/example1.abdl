@@ -9,6 +9,7 @@
   }
   can_move([x_prev, y_prev], [x_next, y_next]) // returns 1 or 0
   move([x_prev, y_prev], [x_next, y_next]) // returns 1 or 0 (success or failure)
+  print(expr); //return void
 
   Types (todos os tipos são deduzidos da declaraçao let):
     int     -> 1 (tambem serve para condicionais, tipo C)
