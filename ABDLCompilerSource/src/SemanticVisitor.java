@@ -1,6 +1,7 @@
 import SymbolTable.*;
 
 
+import java.lang.reflect.Type;
 import java.util.LinkedList;
 
 public class SemanticVisitor extends AbdlBaseVisitor<Object> {
@@ -9,6 +10,7 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitProgram(AbdlParser.ProgramContext ctx) {
+        st.pushScope();
         for (var func : ctx.functDef()) {
             LinkedList<String> args = new LinkedList<>();
             for (var type : func.typedArgs().Type()) {
@@ -61,22 +63,33 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
     @Override
     public Object visitVarDeclaration(AbdlParser.VarDeclarationContext ctx) {
         String type = "";
-        if (ctx.Type() != null) {
-            type = ctx.Type().getText();
-        } else {
-            //TODO
-            //if (ctx.expr())
-        }
-        st.pushSymbol(ctx.ID().getText(), new Variable(ctx.ID().getText(), type));
+        String declaredType = ctx.Type() != null ? ctx.Type().getText() : "";
+        TypeInfer ti = new TypeInfer(st);
+        String inferredType = ti.visit(ctx.expr());
+        if (declaredType.equals("") && inferredType.equals(""))
+            System.err.println("It was not possible to infer " + ctx.ID().getText() +
+                    " type (" + ctx.start.getLine() + ":" + ctx.start.getCharPositionInLine() + ")");
+        else if (declaredType.equals(""))
+            type = inferredType;
+        else if (inferredType.equals(""))
+            type = declaredType;
+        else if (declaredType.equals(inferredType))
+            type = declaredType;
+        else
+            System.err.println("Declared and inferred type do not match (" + inferredType + " != " + declaredType + ")" +
+                    "(" + ctx.start.getLine() + ":" + ctx.start.getCharPositionInLine() + ")");
+
+        if(!type.equals(""))
+            st.pushSymbol(ctx.ID().getText(), new Variable(ctx.ID().getText(), type));
         return visitChildren(ctx);
     }
-
 
 
     @Override
     public Object visitMain(AbdlParser.MainContext ctx) {
         st.pushScope();
         Object result = visitChildren(ctx);
+        System.out.println(st);
         st.popScope();
         return result;
     }

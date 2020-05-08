@@ -5,7 +5,7 @@ public class SymbolTableTest {
         SymbolTable st = new SymbolTable();
         st.pushScope();
         for (int i = 0; i < 5; i++) {
-            System.out.println("t" + i + (st.pushSymbol("t" + i, new Variable("v" + i)) ? "" : " not") + " added");
+            System.out.println("t" + i + (st.pushSymbol("t" + i, new Variable("v" + i, "")) ? "" : " not") + " added"); //TODO
         }
 
         for (int i = 0; i < 6; i++) {

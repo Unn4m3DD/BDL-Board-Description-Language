@@ -89,7 +89,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override public Object visitElseStatement(AbdlParser.ElseStatementContext ctx) { return visitChildren(ctx); }
     @Override public Object visitVarDeclaration(AbdlParser.VarDeclarationContext ctx) {
         ST varDecl = templates.getInstanceOf("decl");
-        Variable newVar = new Variable(createVar());
+        Variable newVar = new Variable(createVar(), ""); //TODO
         if(ctx.expr() == null) {
             if(ctx.Type() == null) {
                 System.err.println("Type not defined");

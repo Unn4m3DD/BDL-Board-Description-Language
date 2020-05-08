@@ -114,7 +114,7 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
         String type1 = visit(ctx.expr(0));
         String type2 = visit(ctx.expr(1));
         String op = ctx.op.getText();
-        String result = opMap.getOrDefault(new Triple<>(type1, type2, op), "");
+        String result = opMap.getOrDefault(new Triple<>(type1, op, type2), "");
         if (result.equals("")) {
             System.err.println("Operation undefined between " + type1 + " and " + type2 +
                     "(" + ctx.start.getLine() + ":" + ctx.start.getCharPositionInLine() + ")");

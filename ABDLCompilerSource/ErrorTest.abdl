@@ -45,6 +45,6 @@ main:
   done;
 
   while i < 2 do
-    print(done);
+    print("done");
   done;
 end main;

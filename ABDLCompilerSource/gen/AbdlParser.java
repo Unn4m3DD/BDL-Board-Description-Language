@@ -1,4 +1,4 @@
-// Generated from D:/lfa/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
+// Generated from D:/dev/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -1852,7 +1852,6 @@ public class AbdlParser extends Parser {
 	}
 
 	public static class BoardContext extends ParserRuleContext {
-		public PointContext poin;
 		public Token prop;
 		public PointContext point() {
 			return getRuleContext(PointContext.class,0);
@@ -1886,7 +1885,7 @@ public class AbdlParser extends Parser {
 			setState(264);
 			match(T__40);
 			setState(265);
-			((BoardContext)_localctx).poin = point();
+			point();
 			setState(266);
 			match(T__41);
 			setState(267);
