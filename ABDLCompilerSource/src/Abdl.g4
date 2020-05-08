@@ -20,7 +20,7 @@ ifStatement: 'if' expr 'then' statements* elseIf* elseStatement? 'endif' ';';
 elseIf: 'else' 'if' expr 'then' statements*;
 elseStatement: 'else' statements*;
 varDeclaration: 'let' ID (':' Type)? ('=' expr)? ';';
-varAttrib: var=ID '=' expr;
+varAttrib: var=ID '=' expr ';';
 functionCall: funcName='can_move' '(' args ')'
              | funcName='move' '(' args ')'
              | funcName='print' '(' args ')'

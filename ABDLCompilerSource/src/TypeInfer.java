@@ -1,4 +1,5 @@
 import SymbolTable.*;
+import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Triple;
 
@@ -103,8 +104,7 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
     public String visitExprID(AbdlParser.ExprIDContext ctx) {
         Symbol resolved = st.resolve(ctx.ID().getText());
         if (!(resolved instanceof Variable)) {
-            System.err.println("Variable " + ctx.ID().getText() + " undefined " +
-                    "(" + ctx.start.getLine() + ":" + ctx.start.getCharPositionInLine() + ")");
+            System.err.println("Undefined variable " + getLineFormated(ctx.start) + ": " + ctx.ID().getText());
             return "";
         }
         return ((Variable) resolved).getType();
@@ -117,8 +117,9 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
         String op = ctx.op.getText();
         String result = opMap.getOrDefault(new Triple<>(type1, op, type2), "");
         if (result.equals("")) {
-            System.err.println("Operation undefined between " + type1 + " and " + type2 +
-                    "(" + ctx.start.getLine() + ":" + ctx.start.getCharPositionInLine() + ")");
+            System.err.println("Operation undefined between types " +
+                    getLineFormated(ctx.start) + ": " + type1 + " " + op + " " + type2
+            );
         }
         return result;
     }
@@ -129,6 +130,10 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
         if (function == null)
             return "";
         return function.getReturnType();
+    }
+
+    String getLineFormated(Token start) {
+        return "(" + start.getLine() + ":" + start.getCharPositionInLine() + ")";
     }
 }
 /*

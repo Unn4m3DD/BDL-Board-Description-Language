@@ -1,0 +1,91 @@
+require_int(i : int):
+end require_int;
+
+require_string(i : string):
+end require_string;
+
+require_point(i : point):
+end require_point;
+
+require_ints(i1 : int, i2 : int):
+end require_ints;
+
+require_strings(i1 : string, i2: string):
+end require_strings;
+
+require_points(i1 : point, i2 : point):
+end require_points;
+
+int return_int():
+end return_int;
+
+string return_string():
+end return_string;
+
+point return_point():
+end return_point;
+
+main:
+  let i : int;
+  i = 0;
+  i = "";
+  i = [1, 1];
+  let s : string;
+  s = 0;
+  s = "";
+  s = [1, 1];
+  let p : point;
+  p = 0;
+  p = "";
+  p = [1, 1];
+
+  let i1 : int = 0;
+  let i2 : string = 0;
+  let i3 : point = 0;
+
+  let s1 : int = "";
+  let s2 : string = "";
+  let s3 : point = "";
+
+  let p1 : int = [1,2];
+  let p2 : string = [1,2];
+  let p3 : point = [1,2];
+
+  require_int(i);
+  require_int(s);
+  require_int(p);
+
+  require_string(i);
+  require_string(s);
+  require_string(p);
+
+  require_point(i);
+  require_point(s);
+  require_point(p);
+
+  require_ints(i);
+  require_ints(s);
+  require_ints(p);
+
+  require_strings(i);
+  require_strings(s);
+  require_strings(p);
+
+  require_points(i);
+  require_points(s);
+  require_points(p);
+
+  i = return_int();
+  s = return_int();
+  p = return_int();
+
+  i = return_string();
+  s = return_string();
+  p = return_string();
+
+  i = return_point();
+  s = return_point();
+  p = return_point();
+
+
+end main;

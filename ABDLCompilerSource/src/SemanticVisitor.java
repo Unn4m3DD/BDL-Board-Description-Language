@@ -17,7 +17,16 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
             for (var type : func.typedArgs().Type()) {
                 args.add(type.getText());
             }
-            st.pushSymbol(func.func_name.getText(), new Function(func.func_name.getText(), args, func.Type().getText()));
+            st.pushSymbol(
+                    func.func_name.getText(),
+                    new Function(
+                            func.func_name.getText(),
+                            args,
+                            func.Type() != null ?
+                                    func.Type().getText() :
+                                    ""
+                    )
+            );
         }
         List<String> argList = new ArrayList<>(2) {{
             add("point");
@@ -48,9 +57,8 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
                     passedVarTypes.add(typeInfer.visit(expr));
             if (!passedVarTypes.equals(func.getArgs())) {
                 System.err.println(
-                        "Function argument types " + func.getArgs() +
-                                " passed parameter " + passedVarTypes +
-                                " do not match " + getLineFormated(ctx.start)
+                        "Function argument types and passed parameters do not match " + getLineFormated(ctx.start) + ": " +
+                                func.getArgs() + " != " + passedVarTypes
                 );
                 error = true;
             }
@@ -93,14 +101,33 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
     }
 
     @Override
+    public Object visitVarAttrib(AbdlParser.VarAttribContext ctx) {
+        TypeInfer typeInfer = new TypeInfer(st);
+        Variable variable = (Variable) st.resolve(ctx.ID().getText());
+        String inferredType = typeInfer.visit(ctx.expr());
+        if (variable == null) {
+            System.err.println("Variable " + ctx.ID().getText() + " not defined" + getLineFormated(ctx.start));
+            error = true;
+        } else if (inferredType.equals("")) {
+            System.err.println("It was not possible to infer the type " + getLineFormated(ctx.expr().start) + ": " + ctx.expr().getText());
+            error = true;
+        } else if (!variable.getType().equals(inferredType)) {
+            System.err.println("Attribution types do not match " + getLineFormated(ctx.start) + ": " +
+                    ctx.ID().getText() + "(" + variable.getType() + ") and " +
+                    ctx.expr().getText() + "(" + inferredType + ")");
+            error = true;
+        }
+        return super.visitVarAttrib(ctx);
+    }
+
+    @Override
     public Object visitVarDeclaration(AbdlParser.VarDeclarationContext ctx) {
         String type = "";
         String declaredType = ctx.Type() != null ? ctx.Type().getText() : "";
         TypeInfer ti = new TypeInfer(st);
-        String inferredType = ti.visit(ctx.expr());
+        String inferredType = ctx.expr() != null ? ti.visit(ctx.expr()) : "";
         if (declaredType.equals("") && inferredType.equals("")) {
-            System.err.println("It was not possible to infer " + ctx.ID().getText() +
-                    " type " + getLineFormated(ctx.start));
+            System.err.println("It was not possible to infer the type " + getLineFormated(ctx.expr().start) + ": " + ctx.ID().getText());
             error = true;
         } else if (declaredType.equals(""))
             type = inferredType;
@@ -109,8 +136,9 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
         else if (declaredType.equals(inferredType))
             type = declaredType;
         else {
-            System.err.println("Declared and inferred type do not match (" + inferredType + " != " + declaredType + ")" +
-                    getLineFormated(ctx.start));
+            System.err.println("Declared and inferred type do not match " + getLineFormated(ctx.start) + ": " +
+                    inferredType + " != " + declaredType
+            );
             error = true;
         }
 
