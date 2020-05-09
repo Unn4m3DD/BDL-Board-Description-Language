@@ -43,7 +43,11 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         return null;
     }
     @Override public Object visitFunctDef(AbdlParser.FunctDefContext ctx) { return visitChildren(ctx); }
-    @Override public Object visitStatements(AbdlParser.StatementsContext ctx) { return visitChildren(ctx); }
+    @Override public Object visitStatements(AbdlParser.StatementsContext ctx) {
+        Object res  =visitChildren(ctx);
+        System.out.println(res);
+        return res;
+    }
     @Override public Object visitBlock(AbdlParser.BlockContext ctx) { return visitChildren(ctx); }
     @Override public Object visitForStatement(AbdlParser.ForStatementContext ctx) { return visitChildren(ctx); }
     @Override public Object visitWhileStatement(AbdlParser.WhileStatementContext ctx) {

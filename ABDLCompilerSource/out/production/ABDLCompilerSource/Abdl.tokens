@@ -66,8 +66,8 @@ ERRORS=50
 'let'=16
 '='=17
 'can_move'=18
-'move'=19
-','=20
+','=19
+'move'=20
 'print'=21
 'return'=22
 '*'=23

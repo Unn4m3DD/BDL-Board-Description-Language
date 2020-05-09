@@ -21,7 +21,7 @@ elseIf: 'else' 'if' expr 'then' statements*;
 elseStatement: 'else' statements*;
 varDeclaration: 'let' ID (':' Type)? ('=' expr)? ';';
 varAttrib: var=ID '=' expr ';';
-functionCall: funcName='can_move' '(' args ')' #CanMoveCall
+functionCall: funcName='can_move' '(' point ',' point ')' #CanMoveCall
              | funcName='move' '(' point ',' point ')' #MoveCall
              | funcName='print' '(' args ')' #PrintCall
              | funcName=ID '(' args ')' #FuncCall;
