@@ -39,7 +39,7 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
 
         return visitChildren(ctx);
     }
-
+    /*
     @Override
     public Object visitFunctionCall(AbdlParser.FunctionCallContext ctx) {
         TypeInfer typeInfer = new TypeInfer(st);
@@ -75,7 +75,7 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
 
         return super.visitFunctionCall(ctx);
     }
-
+    */
     @Override
     public Object visitFunctDef(AbdlParser.FunctDefContext ctx) {
         st.pushScope();

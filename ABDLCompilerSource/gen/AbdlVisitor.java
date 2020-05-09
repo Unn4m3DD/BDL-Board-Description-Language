@@ -1,4 +1,4 @@
-// Generated from D:/dev/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
+// Generated from D:/lfa/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -82,11 +82,33 @@ public interface AbdlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVarAttrib(AbdlParser.VarAttribContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AbdlParser#functionCall}.
+	 * Visit a parse tree produced by the {@code CanMoveCall}
+	 * labeled alternative in {@link AbdlParser#functionCall}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunctionCall(AbdlParser.FunctionCallContext ctx);
+	T visitCanMoveCall(AbdlParser.CanMoveCallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code MoveCall}
+	 * labeled alternative in {@link AbdlParser#functionCall}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMoveCall(AbdlParser.MoveCallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PrintCall}
+	 * labeled alternative in {@link AbdlParser#functionCall}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPrintCall(AbdlParser.PrintCallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FuncCall}
+	 * labeled alternative in {@link AbdlParser#functionCall}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncCall(AbdlParser.FuncCallContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AbdlParser#returnStat}.
 	 * @param ctx the parse tree

@@ -127,7 +127,7 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
         }
         return result;
     }
-
+    /*
     @Override
     public String visitEpxrFunctionCall(AbdlParser.EpxrFunctionCallContext ctx) {
         Function function = ((Function) st.resolve(ctx.functionCall().funcName.getText()));
@@ -135,7 +135,7 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
             return "";
         return function.getReturnType();
     }
-
+    */
     String getLineFormated(Token start) {
         return "(" + start.getLine() + ":" + start.getCharPositionInLine() + ")";
     }

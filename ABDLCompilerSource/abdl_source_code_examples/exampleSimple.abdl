@@ -1,12 +1,14 @@
 main:
+  let target : point = null;
   let i : int = 0;
-  i = 10;
-  let name : string;
-  if i then
-    let x : int = 3;
-  else if i-1 then
-    name = "kekw";
-  else
-    name = "reee";
-  endif;
+  while i < 2 do
+      if i then
+        move([i+2, 3],[4,5]);
+        i = 2;
+      else if i-1 then
+        let name : string = "kekw";
+      else
+        target = null;
+      end if;
+  done;
 end main;

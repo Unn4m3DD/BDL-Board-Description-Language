@@ -1,4 +1,4 @@
-// Generated from D:/dev/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
+// Generated from D:/lfa/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -127,15 +127,53 @@ public interface AbdlListener extends ParseTreeListener {
 	 */
 	void exitVarAttrib(AbdlParser.VarAttribContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AbdlParser#functionCall}.
+	 * Enter a parse tree produced by the {@code CanMoveCall}
+	 * labeled alternative in {@link AbdlParser#functionCall}.
 	 * @param ctx the parse tree
 	 */
-	void enterFunctionCall(AbdlParser.FunctionCallContext ctx);
+	void enterCanMoveCall(AbdlParser.CanMoveCallContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AbdlParser#functionCall}.
+	 * Exit a parse tree produced by the {@code CanMoveCall}
+	 * labeled alternative in {@link AbdlParser#functionCall}.
 	 * @param ctx the parse tree
 	 */
-	void exitFunctionCall(AbdlParser.FunctionCallContext ctx);
+	void exitCanMoveCall(AbdlParser.CanMoveCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MoveCall}
+	 * labeled alternative in {@link AbdlParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void enterMoveCall(AbdlParser.MoveCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MoveCall}
+	 * labeled alternative in {@link AbdlParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitMoveCall(AbdlParser.MoveCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code PrintCall}
+	 * labeled alternative in {@link AbdlParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void enterPrintCall(AbdlParser.PrintCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PrintCall}
+	 * labeled alternative in {@link AbdlParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitPrintCall(AbdlParser.PrintCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FuncCall}
+	 * labeled alternative in {@link AbdlParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncCall(AbdlParser.FuncCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FuncCall}
+	 * labeled alternative in {@link AbdlParser#functionCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncCall(AbdlParser.FuncCallContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AbdlParser#returnStat}.
 	 * @param ctx the parse tree

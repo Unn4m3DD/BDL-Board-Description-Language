@@ -12,15 +12,15 @@ public class Main {
         AbdlParser parser = new AbdlParser(tokens);
         ParseTree tree = parser.program();
 
-        SemanticVisitor visitor = new SemanticVisitor();
-        visitor.visit(tree);
+        //SemanticVisitor visitor = new SemanticVisitor();
+        //visitor.visit(tree);
+        //Type infer comentei a linha 130 a 138 functionCall tem diferentes contextos
+        //Semantica da linha 42 a 78
 
-        System.out.println("Descomenta no main para correres o teu codigo");
-        /*
         AbdlCompiler visitor1 = new AbdlCompiler();
         ST srcCode = (ST) visitor1.visit(tree);
         System.out.println(srcCode.render());
-        */
+
     }
 
 }

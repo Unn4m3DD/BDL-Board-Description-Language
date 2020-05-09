@@ -46,12 +46,21 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override public Object visitStatements(AbdlParser.StatementsContext ctx) { return visitChildren(ctx); }
     @Override public Object visitBlock(AbdlParser.BlockContext ctx) { return visitChildren(ctx); }
     @Override public Object visitForStatement(AbdlParser.ForStatementContext ctx) { return visitChildren(ctx); }
-    @Override public Object visitWhileStatement(AbdlParser.WhileStatementContext ctx) { return visitChildren(ctx); }
+    @Override public Object visitWhileStatement(AbdlParser.WhileStatementContext ctx) {
+        ST whileStat = templates.getInstanceOf("whileStat");
+        whileStat.add("var", (String) visit(ctx.expr()));
+        for(var stat: ctx.statements()) {
+            whileStat.add("stat", (String) visit(stat));
+        }
+        return whileStat.render();
+    }
     @Override public Object visitIfStatement(AbdlParser.IfStatementContext ctx) {
         ST ifStat = templates.getInstanceOf("conditional");
         ifStat.add("var", (String) visit(ctx.expr()));
         for(var stat : ctx.statements()) {
-            ifStat.add("stat_true", (String) visit(stat));
+            String test = (String) visit(stat);
+            ifStat.add("stat_true", test);
+            System.out.println(stat.getText() + " -> " + test);
         }
         if(ctx.elseIf().size() != 0) {
             ST nextElseIf = (ST) visit(ctx.elseIf(ctx.elseIf().size() - 1));
@@ -75,7 +84,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
                 }
             }
         }
-        //program.add("stat", ifStat.render());
+
         return ifStat.render();
     }
     @Override public Object visitElseIf(AbdlParser.ElseIfContext ctx) {
@@ -147,7 +156,19 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String expr = (String) visit(ctx.expr());
         return var + " = " + expr + ";";
     }
-    @Override public Object visitFunctionCall(AbdlParser.FunctionCallContext ctx) { return visitChildren(ctx); }
+    @Override public Object visitCanMoveCall(AbdlParser.CanMoveCallContext ctx) { return visitChildren(ctx); }
+    @Override public Object visitMoveCall(AbdlParser.MoveCallContext ctx) {
+        ST tryCatch = templates.getInstanceOf("tryCatch");
+        ST move = templates.getInstanceOf("move");
+        move.add("x1", (String) visit(ctx.point(0).expr(0)));
+        move.add("y1", (String) visit(ctx.point(0).expr(1)));
+        move.add("x2", (String) visit(ctx.point(1).expr(0)));
+        move.add("y2", (String) visit(ctx.point(1).expr(1)));
+        tryCatch.add("stat", move.render());
+        return tryCatch.render();
+    }
+    @Override public Object visitPrintCall(AbdlParser.PrintCallContext ctx) { return visitChildren(ctx); }
+    @Override public Object visitFuncCall(AbdlParser.FuncCallContext ctx) { return visitChildren(ctx); }
     @Override public Object visitReturnStat(AbdlParser.ReturnStatContext ctx) { return visitChildren(ctx); }
     @Override public Object visitEpxrFunctionCall(AbdlParser.EpxrFunctionCallContext ctx) { return visitChildren(ctx); }
     @Override public Object visitParent(AbdlParser.ParentContext ctx) { return visitChildren(ctx); }
@@ -162,16 +183,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         program.add("stat", varDecl.render());
         return resVar;
     }
-    @Override public Object visitExprPoint(AbdlParser.ExprPointContext ctx) {
-        ST varDecl = templates.getInstanceOf("decl");
-        String resVar = createVar();
-        String expr0 = (String) visit(ctx.point().expr(0));
-        String expr1 = (String) visit(ctx.point().expr(1));
-        varDecl.add("var", resVar);
-        varDecl.add("val", "new ABDLVar({" + expr0 + ", " + expr1 + "})");
-        program.add("stat", varDecl.render());
-        return resVar;
-    }
+
     @Override public Object visitExprInt(AbdlParser.ExprIntContext ctx) {
         ST varDecl = templates.getInstanceOf("decl");
         String resVar = createVar();
@@ -190,7 +202,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         program.add("stat", varDecl.render());
         return resVar;
     }
-    @Override public Object visitExprNull(AbdlParser.ExprNullContext ctx) { return null; }
+    @Override public Object visitExprNull(AbdlParser.ExprNullContext ctx) { return "null"; }
     @Override public Object visitExprID(AbdlParser.ExprIDContext ctx) {
         return symbolTable.resolve(ctx.ID().getText()).getName();
     }
@@ -208,7 +220,16 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         }
         return args;
     }
-    @Override public Object visitPoint(AbdlParser.PointContext ctx) {return visitChildren(ctx);}
+    @Override public Object visitPoint(AbdlParser.PointContext ctx) {
+        ST varDecl = templates.getInstanceOf("decl");
+        String resVar = createVar();
+        String expr0 = (String) visit(ctx.expr(0));
+        String expr1 = (String) visit(ctx.expr(1));
+        varDecl.add("var", resVar);
+        varDecl.add("val", "new ABDLVar([" + expr0 + ", " + expr1 + "])");
+        program.add("stat", varDecl.render());
+        return resVar;
+    }
 
     public String createVar() {
         return "v" + varCounter++;
