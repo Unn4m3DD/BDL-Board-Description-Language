@@ -40,6 +40,12 @@ public interface AbdlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStatements(AbdlParser.StatementsContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AbdlParser#functionCallStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionCallStatement(AbdlParser.FunctionCallStatementContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AbdlParser#forStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

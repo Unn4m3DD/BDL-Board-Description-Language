@@ -10,10 +10,10 @@ functDef: Type? func_name=ID '(' typedArgs ')' ':' statements* 'end' ID ';';
 block: forStatement | whileStatement | ifStatement;
 statements: varDeclaration
           | varAttrib
-          | functionCall
+          | functionCallStatement
           | returnStat
           | block;
-
+functionCallStatement: functionCall ';';
 forStatement: 'for' var=ID 'from' bottom=expr 'to' up=expr 'do' statements* 'done' ';';
 whileStatement: 'while' expr 'do' statements* 'done' ';';
 ifStatement: 'if' expr 'then' statements* elseIf* elseStatement? 'end' 'if' ';';
@@ -21,10 +21,10 @@ elseIf: 'else' 'if' expr 'then' statements*;
 elseStatement: 'else' statements*;
 varDeclaration: 'let' ID (':' Type)? ('=' expr)? ';';
 varAttrib: var=ID '=' expr ';';
-functionCall: funcName='can_move' '(' point ',' point ')' ';'#CanMoveCall
-             | funcName='move' '(' point ',' point ')' ';' #MoveCall
-             | funcName='print' '(' args ')' ';' #PrintCall
-             | funcName=ID '(' args ')' ';' #FuncCall;
+functionCall: funcName='can_move' '(' point ',' point ')' #CanMoveCall
+             | funcName='move' '(' point ',' point ')' #MoveCall
+             | funcName='print' '(' args ')' #PrintCall
+             | funcName=ID '(' args ')' #FuncCall;
 returnStat: 'return' expr ';';
 expr: expr op=('*' | '/' | '%' ) expr #ExprOp
      | expr op=('+' | '-' ) expr #ExprOp

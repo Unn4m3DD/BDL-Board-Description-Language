@@ -75,6 +75,18 @@ public class AbdlBaseListener implements AbdlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunctionCallStatement(AbdlParser.FunctionCallStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionCallStatement(AbdlParser.FunctionCallStatementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterForStatement(AbdlParser.ForStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}

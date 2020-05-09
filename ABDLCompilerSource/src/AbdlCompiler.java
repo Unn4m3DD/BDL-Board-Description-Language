@@ -54,6 +54,11 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     }
 
     @Override
+    public Object visitFunctionCallStatement(AbdlParser.FunctionCallStatementContext ctx) {
+        return visit(ctx.functionCall());
+    }
+
+    @Override
     public Object visitStatements(AbdlParser.StatementsContext ctx) {
         return visitChildren(ctx);
     }
