@@ -29,7 +29,7 @@ returnStat: 'return' expr ';';
 expr: expr op=('*' | '/' | '%' ) expr #ExprOp
      | expr op=('+' | '-' ) expr #ExprOp
      | expr op=( '<' | '<=' | '>' | '>=' | '==' | '/=') expr #ExprOp
-     | functionCall #EpxrFunctionCall
+     | funcName=ID '(' args ')' #EpxrFunctionCall
      | board #ExprBoard
      | '(' expr ')' #Parent
      | Int #ExprInt

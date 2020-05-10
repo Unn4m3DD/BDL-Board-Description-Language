@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import SymbolTable.*;
 import org.stringtemplate.v4.STGroupFile;
@@ -14,6 +15,7 @@ import org.stringtemplate.v4.STGroupFile;
 
 public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     static int varCounter = 0;
+    private int functionCount = 0;
     ParseTreeProperty<String> ruleVars = new ParseTreeProperty<>();
     STGroup templates = new STGroupFile("templates.stg");
     SymbolTable symbolTable = new SymbolTable();
@@ -34,23 +36,41 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitProgram(AbdlParser.ProgramContext ctx) {
+        symbolTable.pushScope();
         visit(ctx.main());
         for (var function : ctx.functDef()) {
-            //(visit(function));
+            functionCount++;
+            visit(function);
         }
         return program;
     }
 
     @Override
     public Object visitMain(AbdlParser.MainContext ctx) {
-        symbolTable.pushScope();
         for (var stat : ctx.statements()) program.add("stat", (String) visit(stat));
         return null;
     }
 
     @Override
     public Object visitFunctDef(AbdlParser.FunctDefContext ctx) {
-        return visitChildren(ctx);
+        symbolTable.pushScope();
+        String funcName = ctx.func_name.getText();
+        List<String> args = new ArrayList<>();
+        String resType = ctx.Type().getText();
+        if (resType == null) resType = "void";
+        args.addAll((List<String>) visit(ctx.typedArgs()));
+        Function funct = new Function(funcName, args, resType);
+        symbolTable.pushSymbol(funcName, funct);
+        ST func = templates.getInstanceOf("function");
+        func.add("returnType", resType);
+        func.add("funcName", funcName);
+        for (String arg : args) {
+            symbolTable.pushSymbol(arg, new Variable(createVar(), ""));
+            func.add("arg", arg);
+        }
+        for (var stat : ctx.statements()) func.add("stat", (String) visit(stat));
+        program.add("functs", func.render());
+        return func.render();
     }
 
     @Override
@@ -88,9 +108,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         ST ifStat = templates.getInstanceOf("conditional");
         ifStat.add("var", (String) visit(ctx.expr()));
         for (var stat : ctx.statements()) {
-            String test = (String) visit(stat);
-            ifStat.add("stat_true", test);
-            System.out.println(stat.getText() + " -> " + test);
+            ifStat.add("stat_true", (String) visit(stat));
         }
         if (ctx.elseIf().size() != 0) {
             ST nextElseIf = (ST) visit(ctx.elseIf(ctx.elseIf().size() - 1));
@@ -194,7 +212,12 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitCanMoveCall(AbdlParser.CanMoveCallContext ctx) {
-        return visitChildren(ctx);
+        ST res = new ST("can_move([<x1>, <y1>], [<x2>, ,<y2>]);");
+        res.add("x1", (String) visit(ctx.point(0).expr(0)));
+        res.add("y1", (String) visit(ctx.point(0).expr(1)));
+        res.add("x2", (String) visit(ctx.point(1).expr(0)));
+        res.add("y2", (String) visit(ctx.point(1).expr(1)));
+        return res.render();
     }
 
     @Override
@@ -211,22 +234,46 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitPrintCall(AbdlParser.PrintCallContext ctx) {
-        return visitChildren(ctx);
+        ST print = templates.getInstanceOf("statements");
+        for (var expr : (List<String>) visit(ctx.args())) {
+            print.add("stat", "console.log(" + expr + ");");
+        }
+        return print.render();
     }
 
     @Override
     public Object visitFuncCall(AbdlParser.FuncCallContext ctx) {
-        return visitChildren(ctx);
+        ST varDecl = templates.getInstanceOf("decl");
+        String resVar = createVar();
+        List<String> args = (List<String>) visit(ctx.args());
+        varDecl.add("var", resVar);
+        args.stream().forEach(new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                s = symbolTable.resolveName(s);
+            }
+        });
+        varDecl.add("val", "new ABDLVar(" + ctx.funcName.getText() + "(" + args.toString() + ")");
+        if(functionCount == 0) program.add("stat", varDecl.render());
+        else program.add("functs", varDecl.render());
+        return symbolTable.resolveName(ctx.getText());
     }
 
     @Override
     public Object visitReturnStat(AbdlParser.ReturnStatContext ctx) {
-        return visitChildren(ctx);
+        return "return " + (String) visit(ctx.expr()) + ";";
     }
 
     @Override
     public Object visitEpxrFunctionCall(AbdlParser.EpxrFunctionCallContext ctx) {
-        return visitChildren(ctx);
+        List<String> args = (List<String>) visit(ctx.args());
+        args.stream().forEach(new Consumer<String>() {
+            @Override
+            public void accept(String s) {
+                s = symbolTable.resolveName(s);
+            }
+        });
+        return "new ABDLVar(" + ctx.funcName.getText() + "(" + args.toString() + ")";
     }
 
     @Override
@@ -255,18 +302,23 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String resVar = createVar();
         varDecl.add("var", resVar);
         varDecl.add("val", "new ABDLVar(" + ctx.String().getText() + ")");
-        program.add("stat", varDecl.render());
+        if(functionCount == 0) program.add("stat", varDecl.render());
+        else program.add("functs", varDecl.render());
         return resVar;
     }
 
     @Override
     public Object visitExprInt(AbdlParser.ExprIntContext ctx) {
-        ST varDecl = templates.getInstanceOf("decl");
-        String resVar = createVar();
-        varDecl.add("var", resVar);
-        varDecl.add("val", "new ABDLVar(" + ctx.Int().getText() + ")");
-        program.add("stat", varDecl.render());
-        return resVar;
+        if(functionCount == 0) {
+            ST varDecl = templates.getInstanceOf("decl");
+            String resVar = createVar();
+            varDecl.add("var", resVar);
+            varDecl.add("val", "new ABDLVar(" + ctx.Int().getText() + ")");
+            program.add("stat", varDecl.render());
+            return resVar;
+        }
+        return "new ABDLVar(" + ctx.Int().getText() + ")";
+
     }
 
     @Override
@@ -277,7 +329,8 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String expr1 = (String) visit(ctx.expr(1));
         varDecl.add("var", resVar);
         varDecl.add("val", expr0 + "." + operations.get(ctx.op.getText()) + "(" + expr1 + ")");
-        program.add("stat", varDecl.render());
+        if(functionCount == 0) program.add("stat", varDecl.render());
+        else program.add("functs", varDecl.render());
         return resVar;
     }
 
@@ -317,7 +370,8 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String expr1 = (String) visit(ctx.expr(1));
         varDecl.add("var", resVar);
         varDecl.add("val", "new ABDLVar([" + expr0 + ", " + expr1 + "])");
-        program.add("stat", varDecl.render());
+        if(functionCount == 0) program.add("stat", varDecl.render());
+        else program.add("functs", varDecl.render());
         return resVar;
     }
 

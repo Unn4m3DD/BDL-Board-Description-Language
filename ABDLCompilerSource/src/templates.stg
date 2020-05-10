@@ -1,10 +1,11 @@
-program(stat) ::= <<
+program(functs, stat) ::= <<
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
 export default async (context, table) => {
   <statements(stat)>
 }
+<statements(functs)>
 >>
 
 decl(var,val) ::= "let <var> = <val>;"
@@ -34,6 +35,16 @@ render(context, table)
 table[<x2>][<y2>].onclick();
 render(context, table)
 await sleep(1000);
+>>
+
+function(returnType, funcName, arg, stat) ::= <<
+<returnType> <funcName>(<args(arg)>){
+    <statements(stat)>
+}
+>>
+
+args(arg) ::= <<
+<if(arg)> <arg; separator="\n"><endif>
 >>
 
 whileStat(var, stat) ::= <<
