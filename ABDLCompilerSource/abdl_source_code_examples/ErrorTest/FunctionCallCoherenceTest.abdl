@@ -1,0 +1,37 @@
+f(i : int, s : string, p : point):
+
+end f;
+
+
+main:
+  let i : int = 0;
+  let s : string = "";
+  let p : point = [1, 2];
+
+  f(i, s, p);
+  f(i, p, s);
+  f(p, i, s);
+  f(p, s, i);
+  f(s, p, i);
+  f(s, i, p);
+  f(i, i, i);
+  f(s, s, s);
+  f(p, p, p);
+
+  f();
+  f(i);
+  f(i, i);
+  f(i, i, i, i);
+
+  f(s);
+  f(s, s);
+  f(s, s, s, s);
+
+  f(p);
+  f(p, p);
+  f(p, p, p, p);
+
+  f(i, s, p, i);
+  f(i, s, p, s);
+  f(i, s, p, p);
+end main;

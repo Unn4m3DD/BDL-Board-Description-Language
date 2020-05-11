@@ -26,7 +26,8 @@ functionCall: funcName='can_move' '('args ')' #CanMoveCall
              | funcName='print' '(' args ')' #PrintCall
              | funcName=ID '(' args ')' #FuncCall;
 returnStat: 'return' expr ';';
-expr: expr op=('*' | '/' | '%') expr #ExprOp //TODO pow
+expr: <assoc=right> expr op='^' expr #ExprOp
+     | expr op=('*' | '/' | '%') expr #ExprOp //TODO pow
      | expr op=('+' | '-' ) expr #ExprOp
      | expr op=( '<' | '<=' | '>' | '>=' | '==' | '/=') expr #ExprOp
      | funcName=(ID|'can_move'|'move') '(' args ')' #ExprFunctionCall

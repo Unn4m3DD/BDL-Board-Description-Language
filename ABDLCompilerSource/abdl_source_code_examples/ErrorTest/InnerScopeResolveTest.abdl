@@ -1,0 +1,6 @@
+main:
+    if(0) then
+        let i = 0;
+    end if;
+    i = 0;
+end main;

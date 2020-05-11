@@ -52,6 +52,7 @@ public class SemanticTest {
                     System.out.println(result[i]);
                     System.out.println("and got:");
                     System.out.println(output);
+                    System.out.println();
                 }
             }
             if (!error) {
