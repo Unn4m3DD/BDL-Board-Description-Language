@@ -1,10 +1,13 @@
-// Generated from D:/lfa/BDL-Board-Description-Language/ABDLCompilerSource/src\Abdl.g4 by ANTLR 4.8
+// Generated from D:/lfa/BDL-Board-Description-Language/ABDLCompilerSource/src/Compiler\Abdl.g4 by ANTLR 4.8
 package antlr4Gen;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
 import org.antlr.v4.runtime.tree.*;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class AbdlParser extends Parser {
@@ -92,7 +95,7 @@ public class AbdlParser extends Parser {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Compiler/Abdl.g4"; }
+	public String getGrammarFileName() { return "Abdl.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

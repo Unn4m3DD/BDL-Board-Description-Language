@@ -335,7 +335,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String expr0 = (String) visit(ctx.expr(0));
         String expr1 = (String) visit(ctx.expr(1));
         varDecl.add("var", resVar);
-        varDecl.add("val", expr0 + "" + operations.get(ctx.op.getText()) + "(" + expr1 + ")");
+        varDecl.add("val", expr0 + "." + operations.get(ctx.op.getText()) + "(" + expr1 + ")");
         addVar(varDecl.render());
         return resVar;
     }

@@ -25,7 +25,6 @@ main:
     i = 2;
     move([1, 2], [3, 4]);
   endif;
-  i = "";
   if board[1, 2].owner == 1 then
     move([1, 1], [1, 2]);
   else if board[2, 2].owner == 1 then
