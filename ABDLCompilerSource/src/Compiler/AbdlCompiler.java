@@ -1,14 +1,13 @@
+package Compiler;
+
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
-import org.stringtemplate.v4.STGroupDir;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import SymbolTable.*;
 import org.stringtemplate.v4.STGroupFile;
@@ -18,7 +17,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     static int varCounter = 0;
     private int functionCount = 0;
     ParseTreeProperty<String> ruleVars = new ParseTreeProperty<>();
-    STGroup templates = new STGroupFile("templates.stg");
+    STGroup templates = new STGroupFile("Compiler/templates.stg");
     SymbolTable symbolTable = new SymbolTable();
     ST program = templates.getInstanceOf("program");
     ST currFunct;
@@ -336,7 +335,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String expr0 = (String) visit(ctx.expr(0));
         String expr1 = (String) visit(ctx.expr(1));
         varDecl.add("var", resVar);
-        varDecl.add("val", expr0 + "." + operations.get(ctx.op.getText()) + "(" + expr1 + ")");
+        varDecl.add("val", expr0 + "" + operations.get(ctx.op.getText()) + "(" + expr1 + ")");
         addVar(varDecl.render());
         return resVar;
     }

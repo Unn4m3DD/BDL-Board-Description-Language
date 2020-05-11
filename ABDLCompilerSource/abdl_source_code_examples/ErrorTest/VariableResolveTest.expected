@@ -1,6 +1,5 @@
 Variable and attribution types mismatch (8:8): v3 (point) and v1-v2 (int)
 Undefined variable (14:10): v4
 Invalid call to print statement (14:4)
-Function not defined (14:4): print
 Variable not declared (21:4): i
 Function not defined (23:4): not_defined_function

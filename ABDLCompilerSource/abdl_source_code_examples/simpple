@@ -1,6 +1,5 @@
 
 
 main:
-    move([1, 2], [1, 2]);
-
+    print(2);
 end main;

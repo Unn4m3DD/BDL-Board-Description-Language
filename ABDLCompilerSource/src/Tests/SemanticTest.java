@@ -19,6 +19,7 @@ public class SemanticTest {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             AbdlParser parser = new AbdlParser(tokens);
             ParseTree tree = parser.program();
+
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PrintStream ps = new PrintStream(baos);
             System.setOut(ps);

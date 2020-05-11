@@ -1,3 +1,5 @@
+package Compiler;
+
 import SymbolTable.*;
 import antlr4Gen.*;
 import org.antlr.v4.runtime.Token;

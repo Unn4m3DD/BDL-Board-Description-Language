@@ -1,3 +1,5 @@
+package Compiler;
+
 import SymbolTable.*;
 import antlr4Gen.*;
 import org.antlr.v4.runtime.Token;
@@ -89,6 +91,7 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
                 //tested
                 System.err.println("Invalid call to print statement " + getLineFormated(start));
             }
+            return;
         }
         Function func = (Function) st.resolve(funcName.getText());
         if (func == null) {
