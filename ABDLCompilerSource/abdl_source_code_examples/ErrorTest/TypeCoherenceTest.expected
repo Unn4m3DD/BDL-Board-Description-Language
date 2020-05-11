@@ -1,0 +1,60 @@
+Variable and attribution types mismatch (31:2): i (int) and "" (string)
+Variable and attribution types mismatch (32:2): i (int) and [1,1] (point)
+Variable and attribution types mismatch (35:2): s (string) and 0 (int)
+Variable and attribution types mismatch (37:2): s (string) and [1,1] (point)
+Variable and attribution types mismatch (40:2): p (point) and 0 (int)
+Variable and attribution types mismatch (41:2): p (point) and "" (string)
+Declared and inferred type do not match (45:2): int != string
+Declared and inferred type do not match (46:2): int != point
+Declared and inferred type do not match (48:2): string != int
+Declared and inferred type do not match (50:2): string != point
+Declared and inferred type do not match (52:2): point != int
+Declared and inferred type do not match (53:2): point != string
+Function argument types and passed parameters do not match (57:2): [int] != [string]
+Function argument types and passed parameters do not match (58:2): [int] != [point]
+Function argument types and passed parameters do not match (60:2): [string] != [int]
+Function argument types and passed parameters do not match (62:2): [string] != [point]
+Function argument types and passed parameters do not match (64:2): [point] != [int]
+Function argument types and passed parameters do not match (65:2): [point] != [string]
+Function argument types and passed parameters do not match (68:2): [int, int] != [int]
+Function argument types and passed parameters do not match (69:2): [int, int] != [string]
+Function argument types and passed parameters do not match (70:2): [int, int] != [point]
+Function argument types and passed parameters do not match (72:2): [string, string] != [int]
+Function argument types and passed parameters do not match (73:2): [string, string] != [string]
+Function argument types and passed parameters do not match (74:2): [string, string] != [point]
+Function argument types and passed parameters do not match (76:2): [point, point] != [int]
+Function argument types and passed parameters do not match (77:2): [point, point] != [string]
+Function argument types and passed parameters do not match (78:2): [point, point] != [point]
+Variable and attribution types mismatch (81:2): s (string) and return_int() (int)
+Variable and attribution types mismatch (82:2): p (point) and return_int() (int)
+Variable and attribution types mismatch (84:2): i (int) and return_string() (string)
+Variable and attribution types mismatch (86:2): p (point) and return_string() (string)
+Variable and attribution types mismatch (88:2): i (int) and return_point() (point)
+Variable and attribution types mismatch (89:2): s (string) and return_point() (point)
+Undefined variable (92:10): not_defined_var
+Operation undefined between types (92:6): int + undefined
+It was not possible to infer expression type (92:6): 0+not_defined_var
+Undefined variable (93:10): not_defined_var
+Operation undefined between types (93:6): int + undefined
+It was not possible to infer expression type (93:6): 0+not_defined_var
+Undefined variable (94:10): not_defined_var
+Operation undefined between types (94:6): int + undefined
+It was not possible to infer expression type (94:6): 0+not_defined_var
+Undefined variable (96:11): not_defined_var
+Operation undefined between types (96:6): string + undefined
+It was not possible to infer expression type (96:6): ""+not_defined_var
+Undefined variable (97:11): not_defined_var
+Operation undefined between types (97:6): string + undefined
+It was not possible to infer expression type (97:6): ""+not_defined_var
+Undefined variable (98:11): not_defined_var
+Operation undefined between types (98:6): string + undefined
+It was not possible to infer expression type (98:6): ""+not_defined_var
+Undefined variable (100:15): not_defined_var
+Operation undefined between types (100:6): point + undefined
+It was not possible to infer expression type (100:6): [0,0]+not_defined_var
+Undefined variable (101:15): not_defined_var
+Operation undefined between types (101:6): point + undefined
+It was not possible to infer expression type (101:6): [0,0]+not_defined_var
+Undefined variable (102:15): not_defined_var
+Operation undefined between types (102:6): point + undefined
+It was not possible to infer expression type (102:6): [0,0]+not_defined_var

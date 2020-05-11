@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import SymbolTable.*;
 import org.stringtemplate.v4.STGroupFile;
+import antlr4Gen.*;
 
 
 public class AbdlCompiler extends AbdlBaseVisitor<Object> {
@@ -337,7 +338,6 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitExprID(AbdlParser.ExprIDContext ctx) {
-        System.out.println(ctx.ID().getText());
         return symbolTable.resolve(ctx.ID().getText()).getName();
     }
 

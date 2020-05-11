@@ -4,6 +4,8 @@ import org.stringtemplate.v4.ST;
 
 import java.io.IOException;
 
+import antlr4Gen.*;
+
 public class Main {
     public static void main(String[] args) throws IOException {
         CharStream cs = CharStreams.fromFileName(args[0]);
@@ -12,8 +14,12 @@ public class Main {
         AbdlParser parser = new AbdlParser(tokens);
         ParseTree tree = parser.program();
 
-        //SemanticVisitor visitor = new SemanticVisitor();
-        //visitor.visit(tree);
+        SemanticVisitor visitor = new SemanticVisitor();
+        visitor.visit(tree);
+        if (visitor.error) {
+            System.err.println("Semantic errors occurred and compilation will stop");
+            System.exit(1);
+        }
         //Type infer comentei a linha 130 a 138 functionCall tem diferentes contextos
         //Semantica da linha 42 a 78
 

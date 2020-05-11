@@ -1,6 +1,6 @@
 import SymbolTable.*;
+import antlr4Gen.*;
 import org.antlr.v4.runtime.Token;
-import org.antlr.v4.runtime.misc.Pair;
 import org.antlr.v4.runtime.misc.Triple;
 
 import java.util.HashMap;
@@ -14,47 +14,47 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
     }
 
     Map<Triple<String, String, String>, String> opMap = new HashMap<>() {{
-        put(new Triple("int", "+", "int"), ("int"));
-        put(new Triple("int", "+", "string"), ("string"));
-        put(new Triple("int", "+", "point"), ("point"));
-        put(new Triple("string", "+", "int"), ("string"));
-        put(new Triple("string", "+", "string"), ("string"));
-        put(new Triple("string", "+", "point"), ("string"));
-        put(new Triple("point", "+", "int"), ("point"));
-        put(new Triple("point", "+", "string"), ("string"));
-        put(new Triple("point", "+", "point"), ("point"));
-        put(new Triple("int", "-", "int"), ("int"));
-        put(new Triple("int", "-", "point"), ("point"));
-        put(new Triple("point", "-", "int"), ("point"));
-        put(new Triple("point", "-", "point"), ("point"));
-        put(new Triple("int", "*", "int"), ("int"));
-        put(new Triple("int", "*", "string"), ("string"));
-        put(new Triple("int", "*", "point"), ("point"));
-        put(new Triple("string", "*", "int"), ("string"));
-        put(new Triple("point", "*", "int"), ("point"));
-        put(new Triple("point", "*", "point"), ("point"));
-        put(new Triple("int", "/", "int"), ("int"));
-        put(new Triple("int", "/", "point"), ("point"));
-        put(new Triple("point", "/", "int"), ("point"));
-        put(new Triple("point", "/", "point"), ("point"));
-        put(new Triple("int", "%", "int"), ("int"));
-        put(new Triple("int", "%", "point"), ("point"));
-        put(new Triple("point", "%", "int"), ("point"));
-        put(new Triple("point", "%", "point"), ("point"));
-        put(new Triple("int", "!=", "int"), ("int"));
-        put(new Triple("int", "==", "int"), ("int"));
-        put(new Triple("string", "==", "string"), ("int"));
-        put(new Triple("string", "!=", "string"), ("int"));
-        put(new Triple("point", "==", "point"), ("int"));
-        put(new Triple("point", "!=", "point"), ("int"));
-        put(new Triple("int", "<", "int"), ("int"));
-        put(new Triple("int", "<", "int"), ("int"));
-        put(new Triple("int", "<=", "int"), ("int"));
-        put(new Triple("int", "<=", "int"), ("int"));
-        put(new Triple("int", ">", "int"), ("int"));
-        put(new Triple("int", ">", "int"), ("int"));
-        put(new Triple("int", ">=", "int"), ("int"));
-        put(new Triple("int", ">=", "int"), ("int"));
+        put(new Triple<>("int", "+", "int"), ("int"));
+        put(new Triple<>("int", "+", "string"), ("string"));
+        put(new Triple<>("int", "+", "point"), ("point"));
+        put(new Triple<>("string", "+", "int"), ("string"));
+        put(new Triple<>("string", "+", "string"), ("string"));
+        put(new Triple<>("string", "+", "point"), ("string"));
+        put(new Triple<>("point", "+", "int"), ("point"));
+        put(new Triple<>("point", "+", "string"), ("string"));
+        put(new Triple<>("point", "+", "point"), ("point"));
+        put(new Triple<>("int", "-", "int"), ("int"));
+        put(new Triple<>("int", "-", "point"), ("point"));
+        put(new Triple<>("point", "-", "int"), ("point"));
+        put(new Triple<>("point", "-", "point"), ("point"));
+        put(new Triple<>("int", "*", "int"), ("int"));
+        put(new Triple<>("int", "*", "string"), ("string"));
+        put(new Triple<>("int", "*", "point"), ("point"));
+        put(new Triple<>("string", "*", "int"), ("string"));
+        put(new Triple<>("point", "*", "int"), ("point"));
+        put(new Triple<>("point", "*", "point"), ("point"));
+        put(new Triple<>("int", "/", "int"), ("int"));
+        put(new Triple<>("int", "/", "point"), ("point"));
+        put(new Triple<>("point", "/", "int"), ("point"));
+        put(new Triple<>("point", "/", "point"), ("point"));
+        put(new Triple<>("int", "%", "int"), ("int"));
+        put(new Triple<>("int", "%", "point"), ("point"));
+        put(new Triple<>("point", "%", "int"), ("point"));
+        put(new Triple<>("point", "%", "point"), ("point"));
+        put(new Triple<>("int", "!=", "int"), ("int"));
+        put(new Triple<>("int", "==", "int"), ("int"));
+        put(new Triple<>("string", "==", "string"), ("int"));
+        put(new Triple<>("string", "!=", "string"), ("int"));
+        put(new Triple<>("point", "==", "point"), ("int"));
+        put(new Triple<>("point", "!=", "point"), ("int"));
+        put(new Triple<>("int", "<", "int"), ("int"));
+        put(new Triple<>("int", "<", "int"), ("int"));
+        put(new Triple<>("int", "<=", "int"), ("int"));
+        put(new Triple<>("int", "<=", "int"), ("int"));
+        put(new Triple<>("int", ">", "int"), ("int"));
+        put(new Triple<>("int", ">", "int"), ("int"));
+        put(new Triple<>("int", ">=", "int"), ("int"));
+        put(new Triple<>("int", ">=", "int"), ("int"));
     }};
 
     @Override
@@ -127,15 +127,15 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
         }
         return result;
     }
-    /*
+
     @Override
-    public String visitEpxrFunctionCall(AbdlParser.EpxrFunctionCallContext ctx) {
-        Function function = ((Function) st.resolve(ctx.functionCall().funcName.getText()));
+    public String visitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx) {
+        Function function = ((Function) st.resolve(ctx.funcName.getText()));
         if (function == null)
             return "";
         return function.getReturnType();
     }
-    */
+
     String getLineFormated(Token start) {
         return "(" + start.getLine() + ":" + start.getCharPositionInLine() + ")";
     }
