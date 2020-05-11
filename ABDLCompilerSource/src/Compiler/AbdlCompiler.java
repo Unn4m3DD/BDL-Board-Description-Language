@@ -27,6 +27,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         put("*", "mul");
         put("/", "div");
         put("%", "rem");
+        put("^", "pow");
         put("<", "less_than");
         put(">", "greater_then");
         put("<=", "less_or_equal");
