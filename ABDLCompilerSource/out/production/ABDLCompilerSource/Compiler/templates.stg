@@ -1,0 +1,50 @@
+program(functs, stat) ::= <<
+const sleep = (milliseconds) => {
+  return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+export default async (context, table) => {
+  <statements(stat)>
+}
+<statements(functs)>
+>>
+
+decl(var,val) ::= "let <var> = <val>;"
+
+statements(stat) ::= <<
+<if(stat)><stat; separator="\n"><endif>
+>>
+
+conditional(var,stat_true,stat_false) ::= <<
+if (<var>.not_equal(0)) {
+   <statements(stat_true)>
+}<if(stat_false)>
+else {
+   <statements(stat_false)>
+}<endif>
+>>
+
+tryCatch(stat) ::= <<
+try{
+    <statements(stat)>
+} catch(e) {}
+>>
+
+move(e1, e2) ::= <<
+  move(<e1>, <e2>);
+>>
+
+function(funcName, arg, stat) ::= <<
+function <funcName>(<args(arg)>){
+    <statements(stat)>
+}
+>>
+
+args(arg) ::= <<
+<if(arg)><arg; separator=", "><endif>
+>>
+
+whileStat(var, stat) ::= <<
+while (<var>) {
+    <statements(stat)>
+}
+>>

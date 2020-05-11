@@ -368,7 +368,6 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitExprID(AbdlParser.ExprIDContext ctx) {
-        System.out.println(ctx.ID().getText());
         return symbolTable.resolve(ctx.ID().getText()).getName();
     }
 

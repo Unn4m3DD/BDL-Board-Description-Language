@@ -1,0 +1,15 @@
+main:
+    let i = 2;
+    let j = 2;
+    let k = j + i;
+    if(k == 4) then
+        let i = 2;
+        let b = k;
+    else if(k == 5) then
+        let i = 2;
+        let b = k;
+    else
+        let i = 2;
+        let b = k;
+    end if;
+end main;

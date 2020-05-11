@@ -1,0 +1,32 @@
+const sleep = (milliseconds) => {
+  return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+export default async (context, table) => {
+  let v1 = new ABDLVar(2);
+  let v0 = v1;
+  let v3 = new ABDLVar(2);
+  let v2 = v3;
+  let v5 = v2.add(v0);
+  let v4 = v5;
+  let v7 = new ABDLVar(4);
+  let v6 = v4.equal(v7);
+  let v12 = new ABDLVar(5);
+  let v11 = v4.equal(v12);
+  if (v6.not_equal(0)) {
+     let v9 = new ABDLVar(2);
+     let v8 = v9;
+     let v10 = v4;
+  }
+  else {
+     if (v11.not_equal(0)) {
+        let v14 = new ABDLVar(2);
+        let v13 = v14;
+        let v15 = v4;
+     }
+     else {
+        let v17 = new ABDLVar(2);
+        let v16 = v17;
+        let v18 = v4;
+     }
+  }
+}
