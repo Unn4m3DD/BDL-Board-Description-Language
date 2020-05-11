@@ -43,12 +43,12 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
         put(new Triple<>("int", "%", "point"), ("point"));
         put(new Triple<>("point", "%", "int"), ("point"));
         put(new Triple<>("point", "%", "point"), ("point"));
-        put(new Triple<>("int", "!=", "int"), ("int"));
+        put(new Triple<>("int", "/=", "int"), ("int"));
         put(new Triple<>("int", "==", "int"), ("int"));
         put(new Triple<>("string", "==", "string"), ("int"));
-        put(new Triple<>("string", "!=", "string"), ("int"));
+        put(new Triple<>("string", "/=", "string"), ("int"));
         put(new Triple<>("point", "==", "point"), ("int"));
-        put(new Triple<>("point", "!=", "point"), ("int"));
+        put(new Triple<>("point", "/=", "point"), ("int"));
         put(new Triple<>("int", "<", "int"), ("int"));
         put(new Triple<>("int", "<", "int"), ("int"));
         put(new Triple<>("int", "<=", "int"), ("int"));

@@ -135,8 +135,11 @@ file = [
   "point >= string  ->  undefined",
   "point >= point   ->  undefined",
 ]
+counter = 0;
 for line in file:
     items = line.split()
-    if(items[4] != "undefined"):
-      print('put(new Triple("' + items[0] + '", "' + items[1] + '", "' + items[2] + '"), ("' + items[4] + '"));')
+    print("let v" + str(counter) + " = " + items[0][0] + " " + items[1] + " " + items[2][0] + "; //" + items[4])
+    counter += 1
+    #if(items[4] != "undefined"):
+    #  print('put(new Triple("' + items[0] + '", "' + items[1] + '", "' + items[2] + '"), ("' + items[4] + '"));')
     
