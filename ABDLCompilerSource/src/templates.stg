@@ -37,14 +37,14 @@ render(context, table)
 await sleep(1000);
 >>
 
-function(returnType, funcName, arg, stat) ::= <<
-<returnType> <funcName>(<args(arg)>){
+function(funcName, arg, stat) ::= <<
+function <funcName>(<args(arg)>){
     <statements(stat)>
 }
 >>
 
 args(arg) ::= <<
-<if(arg)> <arg; separator="\n"><endif>
+<if(arg)> <arg; separator=","><endif>
 >>
 
 whileStat(var, stat) ::= <<

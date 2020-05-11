@@ -2,7 +2,7 @@ grammar Abdl;
 
 program: functDef* main functDef* EOF;
 
-main: 'main' ':' statements* 'end' 'main' ';';
+main: 'main' ':' statements* ('end' 'main'|'endmain') ';';
 
 functDef: Type? func_name=ID '(' typedArgs ')' ':' statements* 'end' ID ';';
 //loop: FOR
@@ -16,7 +16,7 @@ statements: varDeclaration
 functionCallStatement: functionCall ';';
 forStatement: 'for' var=ID 'from' bottom=expr 'to' up=expr 'do' statements* 'done' ';';
 whileStatement: 'while' expr 'do' statements* 'done' ';';
-ifStatement: 'if' expr 'then' statements* elseIf* elseStatement? 'end' 'if' ';';
+ifStatement: 'if' expr 'then' statements* elseIf* elseStatement? ('end' 'if'|'endif') ';';
 elseIf: 'else' 'if' expr 'then' statements*;
 elseStatement: 'else' statements*;
 varDeclaration: 'let' ID (':' Type)? ('=' expr)? ';';
@@ -29,7 +29,7 @@ returnStat: 'return' expr ';';
 expr: expr op=('*' | '/' | '%' ) expr #ExprOp
      | expr op=('+' | '-' ) expr #ExprOp
      | expr op=( '<' | '<=' | '>' | '>=' | '==' | '/=') expr #ExprOp
-     | funcName=ID '(' args ')' #EpxrFunctionCall
+     | funcName=(ID|'can_move'|'move') '(' args ')' #EpxrFunctionCall
      | board #ExprBoard
      | '(' expr ')' #Parent
      | Int #ExprInt

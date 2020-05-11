@@ -9,16 +9,16 @@ end move_forward;
 point first_available_move(dir : point):
   for x from 0 to width do
     for y from 0 to height do
-      if can_move([x, y], [x, y] + dir) then
-        return [x, y];
-      endif;
+      //if can_move([x, y], [x, y] + dir) then
+        //return [x, y];
+      //end if;
     done;
   done;
   return null;
 end first_available_move;
 
 main:
-  let i;
+  let i : int;
   let j : int = i + 2 * 3 / 2 % 2 + "";
   let name : string = null;
   if j == 2 then
@@ -33,15 +33,15 @@ main:
   endif;
 
   for i from 0 to width do
-    if board[i, 2].owner == 1 then
-      if(current_player == 0) then
-        move([i, 1], [i, 2]);
-      endif;
-    endif;
+//if board[i, 2].owner == 1 then
+//  if(current_player == 0) then
+//    move([i, 1], [i, 2]);
+//  endif;
+//endif;
   done;
 
   for i from 0 to 10 do
-    move([i, i - 1], [1, 2]);
+    //move([i, i - 1], [1, 2]);
   done;
 
   while i < 2 do
