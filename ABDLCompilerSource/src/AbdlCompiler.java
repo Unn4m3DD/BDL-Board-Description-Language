@@ -12,8 +12,7 @@ import java.util.stream.Collectors;
 
 import SymbolTable.*;
 import org.stringtemplate.v4.STGroupFile;
-import antlr4Gen.*;
-
+import antlr4Gen;
 
 public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     static int varCounter = 0;
@@ -158,7 +157,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override
     public Object visitVarDeclaration(AbdlParser.VarDeclarationContext ctx) {
         ST varDecl = templates.getInstanceOf("decl");
-        Variable newVar = new Variable(createVar(), ""); //TODO
+        Variable newVar = new Variable(createVar(), ""); 
         if (ctx.expr() == null) {
             if (ctx.Type() == null) {
                 System.err.println("Type not defined");
@@ -215,6 +214,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         return var + " = " + expr + ";";
     }
 
+    
     @Override
     public Object visitCanMoveCall(AbdlParser.CanMoveCallContext ctx) {
         ST res = new ST("can_move(<e1>, <e2>);");
@@ -287,12 +287,22 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitExprHeight(AbdlParser.ExprHeightContext ctx) {
-        return "context.height";//TODO
+        ST varDecl = templates.getInstanceOf("decl");
+        String result = createVar();
+        varDecl.add("var", result);
+        varDecl.add("val", "new ABDLVar(context.height)");
+        addVar(varDecl.render());
+        return result;
     }
 
     @Override
     public Object visitExprWidth(AbdlParser.ExprWidthContext ctx) {
-        return "context.width";//TODO
+        ST varDecl = templates.getInstanceOf("decl");
+        String result = createVar();
+        varDecl.add("var", result);
+        varDecl.add("val", "new ABDLVar(context.width)");
+        addVar(varDecl.render());
+        return result;
     }
 
     @Override
@@ -333,11 +343,17 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitExprNull(AbdlParser.ExprNullContext ctx) {
-        return "null";//TODO abdlvar vazia e retornar
+        ST varDecl = templates.getInstanceOf("decl");
+        String result = createVar();
+        varDecl.add("var", result);
+        varDecl.add("val", "new ABDLVar()");
+        addVar(varDecl.render());
+        return result;
     }
 
     @Override
     public Object visitExprID(AbdlParser.ExprIDContext ctx) {
+        System.out.println(ctx.ID().getText());
         return symbolTable.resolve(ctx.ID().getText()).getName();
     }
 
