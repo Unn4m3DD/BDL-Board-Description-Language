@@ -20,7 +20,7 @@ public class Main {
         visitor.visit(tree);
         if (visitor.error) {
             System.err.println("Semantic errors occurred and compilation will stop");
-            System.exit(1);
+            //System.exit(1);
         }
         //Type infer comentei a linha 130 a 138 functionCall tem diferentes contextos
         //Semantica da linha 42 a 78
