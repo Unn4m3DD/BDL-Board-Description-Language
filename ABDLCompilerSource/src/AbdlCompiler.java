@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 import SymbolTable.*;
 import org.stringtemplate.v4.STGroupFile;
-import antlr4Gen;
+import antlr4Gen.*;
 
 public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     static int varCounter = 0;
