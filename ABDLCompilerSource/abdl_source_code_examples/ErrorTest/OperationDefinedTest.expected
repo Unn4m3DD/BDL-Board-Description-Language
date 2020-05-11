@@ -1,0 +1,188 @@
+Operation undefined between types (15:12): int - string
+It was not possible to infer the type (15:12): v10
+Operation undefined between types (17:12): string - int
+It was not possible to infer the type (17:12): v12
+Operation undefined between types (18:12): string - string
+It was not possible to infer the type (18:12): v13
+Operation undefined between types (19:12): string - point
+It was not possible to infer the type (19:12): v14
+Operation undefined between types (21:12): point - string
+It was not possible to infer the type (21:12): v16
+Operation undefined between types (27:12): string * string
+It was not possible to infer the type (27:12): v22
+Operation undefined between types (28:12): string * point
+It was not possible to infer the type (28:12): v23
+Operation undefined between types (30:12): point * string
+It was not possible to infer the type (30:12): v25
+Operation undefined between types (33:12): int / string
+It was not possible to infer the type (33:12): v28
+Operation undefined between types (35:12): string / int
+It was not possible to infer the type (35:12): v30
+Operation undefined between types (36:12): string / string
+It was not possible to infer the type (36:12): v31
+Operation undefined between types (37:12): string / point
+It was not possible to infer the type (37:12): v32
+Operation undefined between types (39:12): point / string
+It was not possible to infer the type (39:12): v34
+Operation undefined between types (42:12): int % string
+It was not possible to infer the type (42:12): v37
+Operation undefined between types (44:12): string % int
+It was not possible to infer the type (44:12): v39
+Operation undefined between types (45:12): string % string
+It was not possible to infer the type (45:12): v40
+Operation undefined between types (46:12): string % point
+It was not possible to infer the type (46:12): v41
+Operation undefined between types (48:12): point % string
+It was not possible to infer the type (48:12): v43
+Operation undefined between types (51:12): int /= string
+It was not possible to infer the type (51:12): v46
+Operation undefined between types (52:12): int /= point
+It was not possible to infer the type (52:12): v47
+Operation undefined between types (54:12): int == string
+It was not possible to infer the type (54:12): v49
+Operation undefined between types (55:12): int == point
+It was not possible to infer the type (55:12): v50
+Operation undefined between types (56:12): string == int
+It was not possible to infer the type (56:12): v51
+Operation undefined between types (58:12): string == point
+It was not possible to infer the type (58:12): v53
+Operation undefined between types (59:12): string /= int
+It was not possible to infer the type (59:12): v54
+Operation undefined between types (61:12): string /= point
+It was not possible to infer the type (61:12): v56
+Operation undefined between types (62:12): point == int
+It was not possible to infer the type (62:12): v57
+Operation undefined between types (63:12): point == string
+It was not possible to infer the type (63:12): v58
+Operation undefined between types (65:12): point /= int
+It was not possible to infer the type (65:12): v60
+Operation undefined between types (66:12): point /= string
+It was not possible to infer the type (66:12): v61
+Operation undefined between types (69:12): int < string
+It was not possible to infer the type (69:12): v64
+Operation undefined between types (70:12): int < point
+It was not possible to infer the type (70:12): v65
+Operation undefined between types (71:12): string < int
+It was not possible to infer the type (71:12): v66
+Operation undefined between types (72:12): string < string
+It was not possible to infer the type (72:12): v67
+Operation undefined between types (73:12): string < point
+It was not possible to infer the type (73:12): v68
+Operation undefined between types (74:12): point < int
+It was not possible to infer the type (74:12): v69
+Operation undefined between types (75:12): point < string
+It was not possible to infer the type (75:12): v70
+Operation undefined between types (76:12): point < point
+It was not possible to infer the type (76:12): v71
+Operation undefined between types (78:12): int < string
+It was not possible to infer the type (78:12): v73
+Operation undefined between types (79:12): int < point
+It was not possible to infer the type (79:12): v74
+Operation undefined between types (80:12): string < int
+It was not possible to infer the type (80:12): v75
+Operation undefined between types (81:12): string < string
+It was not possible to infer the type (81:12): v76
+Operation undefined between types (82:12): string < point
+It was not possible to infer the type (82:12): v77
+Operation undefined between types (83:12): point < int
+It was not possible to infer the type (83:12): v78
+Operation undefined between types (84:12): point < string
+It was not possible to infer the type (84:12): v79
+Operation undefined between types (85:12): point < point
+It was not possible to infer the type (85:12): v80
+Operation undefined between types (87:12): int <= string
+It was not possible to infer the type (87:12): v82
+Operation undefined between types (88:12): int <= point
+It was not possible to infer the type (88:12): v83
+Operation undefined between types (89:12): string <= int
+It was not possible to infer the type (89:12): v84
+Operation undefined between types (90:12): string <= string
+It was not possible to infer the type (90:12): v85
+Operation undefined between types (91:12): string <= point
+It was not possible to infer the type (91:12): v86
+Operation undefined between types (92:12): point <= int
+It was not possible to infer the type (92:12): v87
+Operation undefined between types (93:12): point <= string
+It was not possible to infer the type (93:12): v88
+Operation undefined between types (94:12): point <= point
+It was not possible to infer the type (94:12): v89
+Operation undefined between types (96:12): int <= string
+It was not possible to infer the type (96:12): v91
+Operation undefined between types (97:12): int <= point
+It was not possible to infer the type (97:12): v92
+Operation undefined between types (98:12): string <= int
+It was not possible to infer the type (98:12): v93
+Operation undefined between types (99:12): string <= string
+It was not possible to infer the type (99:12): v94
+Operation undefined between types (100:12): string <= point
+It was not possible to infer the type (100:12): v95
+Operation undefined between types (101:12): point <= int
+It was not possible to infer the type (101:12): v96
+Operation undefined between types (102:12): point <= string
+It was not possible to infer the type (102:12): v97
+Operation undefined between types (103:12): point <= point
+It was not possible to infer the type (103:12): v98
+Operation undefined between types (105:13): int > string
+It was not possible to infer the type (105:13): v100
+Operation undefined between types (106:13): int > point
+It was not possible to infer the type (106:13): v101
+Operation undefined between types (107:13): string > int
+It was not possible to infer the type (107:13): v102
+Operation undefined between types (108:13): string > string
+It was not possible to infer the type (108:13): v103
+Operation undefined between types (109:13): string > point
+It was not possible to infer the type (109:13): v104
+Operation undefined between types (110:13): point > int
+It was not possible to infer the type (110:13): v105
+Operation undefined between types (111:13): point > string
+It was not possible to infer the type (111:13): v106
+Operation undefined between types (112:13): point > point
+It was not possible to infer the type (112:13): v107
+Operation undefined between types (114:13): int > string
+It was not possible to infer the type (114:13): v109
+Operation undefined between types (115:13): int > point
+It was not possible to infer the type (115:13): v110
+Operation undefined between types (116:13): string > int
+It was not possible to infer the type (116:13): v111
+Operation undefined between types (117:13): string > string
+It was not possible to infer the type (117:13): v112
+Operation undefined between types (118:13): string > point
+It was not possible to infer the type (118:13): v113
+Operation undefined between types (119:13): point > int
+It was not possible to infer the type (119:13): v114
+Operation undefined between types (120:13): point > string
+It was not possible to infer the type (120:13): v115
+Operation undefined between types (121:13): point > point
+It was not possible to infer the type (121:13): v116
+Operation undefined between types (123:13): int >= string
+It was not possible to infer the type (123:13): v118
+Operation undefined between types (124:13): int >= point
+It was not possible to infer the type (124:13): v119
+Operation undefined between types (125:13): string >= int
+It was not possible to infer the type (125:13): v120
+Operation undefined between types (126:13): string >= string
+It was not possible to infer the type (126:13): v121
+Operation undefined between types (127:13): string >= point
+It was not possible to infer the type (127:13): v122
+Operation undefined between types (128:13): point >= int
+It was not possible to infer the type (128:13): v123
+Operation undefined between types (129:13): point >= string
+It was not possible to infer the type (129:13): v124
+Operation undefined between types (130:13): point >= point
+It was not possible to infer the type (130:13): v125
+Operation undefined between types (132:13): int >= string
+It was not possible to infer the type (132:13): v127
+Operation undefined between types (133:13): int >= point
+It was not possible to infer the type (133:13): v128
+Operation undefined between types (134:13): string >= int
+It was not possible to infer the type (134:13): v129
+Operation undefined between types (135:13): string >= string
+It was not possible to infer the type (135:13): v130
+Operation undefined between types (136:13): string >= point
+It was not possible to infer the type (136:13): v131
+Operation undefined between types (137:13): point >= int
+It was not possible to infer the type (137:13): v132
+Operation undefined between types (138:13): point >= string
+It was not possible to infer the type (138:13): v133
+Operation undefined between types (139:13): point >= point
+It was not possible to infer the type (139:13): v134
