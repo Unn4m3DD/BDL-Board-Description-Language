@@ -15,7 +15,7 @@ statements(stat) ::= <<
 >>
 
 conditional(var,stat_true,stat_false) ::= <<
-if (<var>) {
+if (<var>.not_equal(0)) {
    <statements(stat_true)>
 }<if(stat_false)>
 else {
@@ -44,7 +44,7 @@ function <funcName>(<args(arg)>){
 >>
 
 args(arg) ::= <<
-<if(arg)> <arg; separator=","><endif>
+<if(arg)><arg; separator=", "><endif>
 >>
 
 whileStat(var, stat) ::= <<

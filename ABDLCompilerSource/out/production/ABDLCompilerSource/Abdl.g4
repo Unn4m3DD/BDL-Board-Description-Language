@@ -26,10 +26,10 @@ functionCall: funcName='can_move' '(' point ',' point ')' #CanMoveCall
              | funcName='print' '(' args ')' #PrintCall
              | funcName=ID '(' args ')' #FuncCall;
 returnStat: 'return' expr ';';
-expr: expr op=('*' | '/' | '%' ) expr #ExprOp
+expr: expr op=('*' | '/' | '%') expr #ExprOp //TODO pow
      | expr op=('+' | '-' ) expr #ExprOp
      | expr op=( '<' | '<=' | '>' | '>=' | '==' | '/=') expr #ExprOp
-     | funcName=(ID|'can_move'|'move') '(' args ')' #EpxrFunctionCall
+     | funcName=(ID|'can_move'|'move') '(' args ')' #ExprFunctionCall
      | board #ExprBoard
      | '(' expr ')' #Parent
      | Int #ExprInt

@@ -67,8 +67,9 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         currFunct = func;
         func.add("funcName", funcName);
         for (String arg : args) {
-            symbolTable.pushSymbol(arg, new Variable(createVar(), ""));
-            func.add("arg", arg);
+            String varName = createVar();
+            symbolTable.pushSymbol(arg, new Variable(varName, ""));
+            func.add("arg", varName);
         }
         for (var stat : ctx.statements()) func.add("stat", (String) visit(stat));
         program.add("functs", func.render());
@@ -108,7 +109,8 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override
     public Object visitIfStatement(AbdlParser.IfStatementContext ctx) {
         ST ifStat = templates.getInstanceOf("conditional");
-        ifStat.add("var", (String) visit(ctx.expr()));
+        String s = (String) visit(ctx.expr());
+        ifStat.add("var", (String) s);
         for (var stat : ctx.statements()) {
             ifStat.add("stat_true", (String) visit(stat));
         }
@@ -238,7 +240,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     public Object visitPrintCall(AbdlParser.PrintCallContext ctx) {
         ST print = templates.getInstanceOf("statements");
         for (var expr : (List<String>) visit(ctx.args())) {
-            print.add("stat", "console.log(" + expr + ");");
+            print.add("stat", "console.log(" + expr + ".toString());");
         }
         return print.render();
     }
@@ -249,15 +251,10 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String resVar = createVar();
         List<String> args = (List<String>) visit(ctx.args());
         varDecl.add("var", resVar);
-        args.stream().forEach(new Consumer<String>() {
-            @Override
-            public void accept(String s) {
-                s = symbolTable.resolveName(s);
-            }
-        });
         varDecl.add("val", "new ABDLVar(" + ctx.funcName.getText() + "(" + args.toString() + ")");
-        if (functionCount == 0) program.add("stat", varDecl.render());
-        else program.add("functs", varDecl.render());
+
+        addVar(varDecl.render());
+
         return symbolTable.resolveName(ctx.getText());
     }
 
@@ -267,30 +264,36 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     }
 
     @Override
-    public Object visitEpxrFunctionCall(AbdlParser.EpxrFunctionCallContext ctx) {
+    public Object visitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx) {
         List<String> args = (List<String>) visit(ctx.args());
-        List<String> resolvedArgs = args.stream().map((s) -> symbolTable.resolveName(s)).collect(Collectors.toList());
-        return "new ABDLVar(" + ctx.funcName.getText() + "(" + resolvedArgs.toString().substring(1, resolvedArgs.toString().length() - 1) + "))";
+        return "new ABDLVar(" + ctx.funcName.getText() + "(" +
+                args.toString().substring(1, args.toString().length() - 1) +
+                "))";
     }
 
     @Override
     public Object visitParent(AbdlParser.ParentContext ctx) {
-        return visitChildren(ctx);
+        return visit(ctx.expr());
     }
 
     @Override
     public Object visitExprCurrPlayer(AbdlParser.ExprCurrPlayerContext ctx) {
-        return "context.current_player";
+        ST varDecl = templates.getInstanceOf("decl");
+        String result = createVar();
+        varDecl.add("var", result);
+        varDecl.add("val", "new ABDLVar(context.current_player)");
+        addVar(varDecl.render());
+        return result;
     }
 
     @Override
     public Object visitExprHeight(AbdlParser.ExprHeightContext ctx) {
-        return "context.height";
+        return "context.height";//TODO
     }
 
     @Override
     public Object visitExprWidth(AbdlParser.ExprWidthContext ctx) {
-        return "context.width";
+        return "context.width";//TODO
     }
 
     @Override
@@ -299,8 +302,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String resVar = createVar();
         varDecl.add("var", resVar);
         varDecl.add("val", "new ABDLVar(" + ctx.String().getText() + ")");
-        if (functionCount == 0) program.add("stat", varDecl.render());
-        else currFunct.add("stat", varDecl.render());
+        addVar(varDecl.render());
         return resVar;
     }
 
@@ -326,14 +328,13 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String expr1 = (String) visit(ctx.expr(1));
         varDecl.add("var", resVar);
         varDecl.add("val", expr0 + "." + operations.get(ctx.op.getText()) + "(" + expr1 + ")");
-        if (functionCount == 0) program.add("stat", varDecl.render());
-        else currFunct.add("stat", varDecl.render());
+        addVar(varDecl.render());
         return resVar;
     }
 
     @Override
     public Object visitExprNull(AbdlParser.ExprNullContext ctx) {
-        return "null";
+        return "null";//TODO abdlvar vazia e retornar
     }
 
     @Override
@@ -355,7 +356,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     public Object visitTypedArgs(AbdlParser.TypedArgsContext ctx) {
         List<String> args = new ArrayList<>();
         for (var arg : ctx.ID()) {
-            args.add((String) visit(arg));
+            args.add(arg.getText());
         }
         return args;
     }
@@ -368,9 +369,15 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String expr1 = (String) visit(ctx.expr(1));
         varDecl.add("var", resVar);
         varDecl.add("val", "new ABDLVar([" + expr0 + ", " + expr1 + "])");
-        if (functionCount == 0) program.add("stat", varDecl.render());
-        else currFunct.add("stat", varDecl.render());
+        addVar(varDecl.render());
         return resVar;
+    }
+
+    private void addVar(String declaration) {
+        if (functionCount == 0)
+            program.add("stat", declaration);
+        else
+            currFunct.add("stat", declaration);
     }
 
     public String createVar() {

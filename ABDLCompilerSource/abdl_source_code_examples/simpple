@@ -1,0 +1,6 @@
+
+
+main:
+  if(current_player == 0) then
+  end if;
+end main;
