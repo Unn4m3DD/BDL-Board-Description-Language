@@ -1,7 +1,6 @@
 
 
 main:
-  if(1) then
-    let a : int = 2;
-  end if;
+    move([1, 2], [1, 2]);
+
 end main;

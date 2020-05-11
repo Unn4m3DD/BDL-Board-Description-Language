@@ -39,43 +39,77 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
 
         return visitChildren(ctx);
     }
-    /*
+
     @Override
-    public Object visitFunctionCall(AbdlParser.FunctionCallContext ctx) {
+    public Object visitFuncCall(AbdlParser.FuncCallContext ctx) {
+        visitFunctionCall(ctx.funcName, ctx.args(), ctx.start);
+        return super.visitFuncCall(ctx);
+    }
+
+    @Override
+    public Object visitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx) {
+        visitFunctionCall(ctx.funcName, ctx.args(), ctx.start);
+        return super.visitExprFunctionCall(ctx);
+    }
+
+    @Override
+    public Object visitCanMoveCall(AbdlParser.CanMoveCallContext ctx) {
+        visitFunctionCall(ctx.funcName, ctx.args(), ctx.start);
+        return super.visitCanMoveCall(ctx);
+    }
+
+    @Override
+    public Object visitMoveCall(AbdlParser.MoveCallContext ctx) {
+        visitFunctionCall(ctx.funcName, ctx.args(), ctx.start);
+        return super.visitMoveCall(ctx);
+    }
+
+    @Override
+    public Object visitPrintCall(AbdlParser.PrintCallContext ctx) {
+        visitFunctionCall(ctx.funcName, ctx.args(), ctx.start);
+        return super.visitPrintCall(ctx);
+    }
+
+    public void visitFunctionCall(
+            Token funcName,
+            AbdlParser.ArgsContext args,
+            Token start
+    ) {
+        /*
+         * Este codigo estava feito antes da divisao de functionCall em subcontextos por isso
+         * a multiplexagem é feita via codigo em vez de parse
+         * */
         TypeInfer typeInfer = new TypeInfer(st);
-        if (ctx.funcName.getText().equals("print")) {
-            if (ctx.args().expr() == null
-                    || ctx.args().expr().size() != 1
-                    || typeInfer.visit(ctx.args().expr(0)).equals("")) {
+        if (funcName.getText().equals("print")) {
+            if (args.expr() == null
+                    || args.expr().size() != 1
+                    || typeInfer.visit(args.expr(0)).equals("")) {
                 error = true;
                 //tested
-                System.err.println("Invalid call to print statement " + getLineFormated(ctx.start));
+                System.err.println("Invalid call to print statement " + getLineFormated(start));
             }
-            return super.visitFunctionCall(ctx);
         }
-        Function func = (Function) st.resolve(ctx.funcName.getText());
+        Function func = (Function) st.resolve(funcName.getText());
         if (func == null) {
             //tested
-            System.err.println("Function not defined " + getLineFormated(ctx.start) + ": " + ctx.funcName.getText());
+            System.err.println("Function not defined " + getLineFormated(start) + ": " + funcName.getText());
             error = true;
         } else {
-            List<String> passedVarTypes = new ArrayList<String>(ctx.args() != null ? ctx.args().expr().size() : 0);
-            if (ctx.args() != null)
-                for (var expr : ctx.args().expr())
+            List<String> passedVarTypes = new ArrayList<String>(args != null ? args.expr().size() : 0);
+            if (args != null)
+                for (var expr : args.expr())
                     passedVarTypes.add(typeInfer.visit(expr));
             if (!passedVarTypes.equals(func.getArgs())) {
                 //tested
                 System.err.println(
-                        "Function argument types and passed parameters do not match " + getLineFormated(ctx.start) + ": " +
+                        "Function argument types and passed parameters do not match " + getLineFormated(start) + ": " +
                                 func.getArgs() + " != " + passedVarTypes
                 );
                 error = true;
             }
         }
-
-        return super.visitFunctionCall(ctx);
     }
-    */
+
     @Override
     public Object visitFunctDef(AbdlParser.FunctDefContext ctx) {
         st.pushScope();

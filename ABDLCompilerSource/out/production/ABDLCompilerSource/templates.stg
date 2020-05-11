@@ -29,12 +29,8 @@ try{
 } catch(e) {}
 >>
 
-move(x1, y1, x2, y2) ::= <<
-table[<x1>][<y1>].onclick();
-render(context, table)
-table[<x2>][<y2>].onclick();
-render(context, table)
-await sleep(1000);
+move(e1, e2) ::= <<
+  move(<e1>, <e2>);
 >>
 
 function(funcName, arg, stat) ::= <<

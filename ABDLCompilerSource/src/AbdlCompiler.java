@@ -216,11 +216,10 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitCanMoveCall(AbdlParser.CanMoveCallContext ctx) {
-        ST res = new ST("can_move([<x1>, <y1>], [<x2>, ,<y2>]);");
-        res.add("x1", (String) visit(ctx.point(0).expr(0)));
-        res.add("y1", (String) visit(ctx.point(0).expr(1)));
-        res.add("x2", (String) visit(ctx.point(1).expr(0)));
-        res.add("y2", (String) visit(ctx.point(1).expr(1)));
+        ST res = new ST("can_move(<e1>, <e2>);");
+        List<String> args = (List<String>) visit(ctx.args());
+        res.add("e1", args.get(0));
+        res.add("e2", args.get(1));
         return res.render();
     }
 
@@ -228,10 +227,9 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     public Object visitMoveCall(AbdlParser.MoveCallContext ctx) {
         ST tryCatch = templates.getInstanceOf("tryCatch");
         ST move = templates.getInstanceOf("move");
-        move.add("x1", (String) visit(ctx.point(0).expr(0)));
-        move.add("y1", (String) visit(ctx.point(0).expr(1)));
-        move.add("x2", (String) visit(ctx.point(1).expr(0)));
-        move.add("y2", (String) visit(ctx.point(1).expr(1)));
+        List<String> args = (List<String>) visit(ctx.args());
+        move.add("e1", args.get(0));
+        move.add("e2", args.get(1));
         tryCatch.add("stat", move.render());
         return tryCatch.render();
     }

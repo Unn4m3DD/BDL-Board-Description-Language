@@ -1,5 +1,5 @@
 grammar Abdl;
-
+//TODO fukin nested shit, declaraçoes dentro de if e tals
 program: functDef* main functDef* EOF;
 
 main: 'main' ':' statements* ('end' 'main'|'endmain') ';';
@@ -21,8 +21,8 @@ elseIf: 'else' 'if' expr 'then' statements*;
 elseStatement: 'else' statements*;
 varDeclaration: 'let' ID (':' Type)? ('=' expr)? ';';
 varAttrib: var=ID '=' expr ';';
-functionCall: funcName='can_move' '(' point ',' point ')' #CanMoveCall
-             | funcName='move' '(' point ',' point ')' #MoveCall
+functionCall: funcName='can_move' '('args ')' #CanMoveCall
+             | funcName='move' '('args ')' #MoveCall
              | funcName='print' '(' args ')' #PrintCall
              | funcName=ID '(' args ')' #FuncCall;
 returnStat: 'return' expr ';';
