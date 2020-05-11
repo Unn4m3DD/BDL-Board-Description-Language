@@ -1,5 +1,5 @@
 grammar Abdl;
-
+//TODO fukin nested shit, declaraçoes dentro de if e tals
 program: functDef* main functDef* EOF;
 
 main: 'main' ':' statements* ('end' 'main'|'endmain') ';';
