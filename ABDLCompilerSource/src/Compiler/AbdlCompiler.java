@@ -15,7 +15,7 @@ import antlr4Gen.*;
 import org.stringtemplate.v4.misc.STCompiletimeMessage;
 
 public class AbdlCompiler extends AbdlBaseVisitor<Object> {
-    static int varCounter = 0;
+    int varCounter = 0;
     private int functionCount = 0;
     STGroup templates = new STGroupFile("Compiler/templates.stg");
     SymbolTable symbolTable = new SymbolTable();
@@ -96,16 +96,37 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitForStatement(AbdlParser.ForStatementContext ctx) {
-        return visitChildren(ctx);
+        String id = ctx.var.getText();
+        String low = (String) visit(ctx.bottom);
+        String high = (String) visit(ctx.up);
+        String result = createVar();
+        ST forStat = templates.getInstanceOf("forStat");
+        currScope = forStat;
+        symbolTable.pushScope();
+        symbolTable.pushSymbol(id, new Variable(result, ""));
+        forStat.add("var", result);
+        forStat.add("low", low);
+        forStat.add("high", high);
+        for(var stat: ctx.statements()) forStat.add("stat", (String) visit(stat));
+        currScope = outerScope;
+        symbolTable.popScope();
+        return forStat.render();
     }
 
     @Override
     public Object visitWhileStatement(AbdlParser.WhileStatementContext ctx) {
         ST whileStat = templates.getInstanceOf("whileStat");
         whileStat.add("var", (String) visit(ctx.expr()));
+        ST.AttributeList test = (ST.AttributeList) currScope.getAttribute("stat");
+        String condRepeat = test.get(test.size() - 1).toString().substring(4);
+        currScope = whileStat;
+        symbolTable.pushScope();
         for (var stat : ctx.statements()) {
             whileStat.add("stat", (String) visit(stat));
         }
+        whileStat.add("stat", condRepeat);
+        currScope = outerScope;
+        symbolTable.popScope();
         return whileStat.render();
     }
 
@@ -116,6 +137,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         ifStat.add("var", (String) s);
         currScope = ifStat;
         StControl = "stat_true";
+        symbolTable.pushScope();
         for (var stat : ctx.statements()) {
             ifStat.add("stat_true", (String) visit(stat));
         }
@@ -147,6 +169,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         }
         currScope = outerScope;
         StControl = "stat";
+        symbolTable.popScope();
         return ifStat.render();
     }
 
@@ -171,12 +194,12 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitVarDeclaration(AbdlParser.VarDeclarationContext ctx) {
-        ST varDecl = templates.getInstanceOf("decl");
-        Variable newVar = new Variable(createVar(), ""); 
         if (ctx.expr() == null) {
             if (ctx.Type() == null) {
                 System.err.println("Type not defined");
             } else {
+                ST varDecl = templates.getInstanceOf("decl");
+                Variable newVar = new Variable(createVar(), "");
                 symbolTable.pushSymbol(ctx.ID().getText(), newVar);
                 varDecl.add("var", newVar.getName());
                 String value = "";
@@ -192,34 +215,20 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
                         break;
                 }
                 varDecl.add("val", "new ABDLVar(" + value + ")");
+                return varDecl;
             }
         } else {
-            symbolTable.pushSymbol(ctx.ID().getText(), newVar);
-            Object expr = visit(ctx.expr());
-            varDecl.add("var", newVar.getName());
-            String value = "";
-            if (expr == null) {
-                if (ctx.Type() != null) {
-                    switch (ctx.Type().getText()) {
-                        case "int":
-                            value = "0";
-                            break;
-                        case "string":
-                            value = "\"\"";
-                            break;
-                        case "point":
-                            value = "{}";
-                            break;
-                    }
-                    value = "new ABDLVar(" + value + ")";
-                } else {
-                    System.err.println("No type or expression...");
-                }
-            } else value = (String) expr;
-            varDecl.add("val", value);
-
+            String expr = (String) visit(ctx.expr());
+            symbolTable.pushSymbol(ctx.ID().getText(), new Variable(expr, ""));
+            if(ctx.expr().getClass() == AbdlParser.ExprIDContext.class) {
+                ST varDecl = templates.getInstanceOf("decl");
+                Variable newVar = new Variable(createVar(), "");
+                varDecl.add("var", newVar.getName());
+                varDecl.add("val", expr);
+                return varDecl.render();
+            }
         }
-        return varDecl.render();
+        return null;
     }
 
     @Override

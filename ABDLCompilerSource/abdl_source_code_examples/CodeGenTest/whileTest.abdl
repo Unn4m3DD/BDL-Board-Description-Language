@@ -1,0 +1,9 @@
+main:
+    let i = 2;
+    let x = 1;
+    while x < 10 do
+        let i = 3;
+        x = i + x;
+    done;
+    i = 10;
+end main;

@@ -1,5 +1,7 @@
 int can_move_forward(i : int, j : int):
-  let k = 2;
+  while i < 3 do
+      let k = 2;
+  done;
   return k;
 end can_move_forward;
 main:

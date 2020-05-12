@@ -44,7 +44,13 @@ args(arg) ::= <<
 >>
 
 whileStat(var, stat) ::= <<
-while (<var>) {
+while (<var>.not_equal(0)) {
+    <statements(stat)>
+}
+>>
+
+forStat(var, low, high, stat) ::= <<
+for(let <var> of range(<low>,<high>)) {
     <statements(stat)>
 }
 >>

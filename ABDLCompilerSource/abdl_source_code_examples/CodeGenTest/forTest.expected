@@ -1,0 +1,15 @@
+const sleep = (milliseconds) => {
+  return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
+export default async (context, table) => {
+  let v0 = new ABDLVar(2);
+  let v1 = new ABDLVar(0);
+  let v2 = new ABDLVar(context.width);
+  for(let v3 of range(v1,v2)) {
+      let v4 = new ABDLVar(3);
+      let v5 = v4.add(v3);
+      v4 = v5;
+  }
+  let v6 = new ABDLVar(10);
+  v0 = v6;
+}
