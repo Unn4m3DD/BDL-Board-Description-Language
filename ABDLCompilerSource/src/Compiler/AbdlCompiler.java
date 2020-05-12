@@ -215,7 +215,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
                         break;
                 }
                 varDecl.add("val", "new ABDLVar(" + value + ")");
-                return varDecl;
+                return varDecl.render();
             }
         } else {
             String expr = (String) visit(ctx.expr());

@@ -94,6 +94,23 @@ export default class AbdlVar {
       return new AbdlVar([e1[0] / e2[0], e1[1] / e2[1]]);
     return null;
   }
+  pow(other) { // '^'
+    let e1 = this.getValue()
+    let e2 = other.getValue()
+    //int ^ int       ->  int
+    if (this.getType() == 'number' && other.getType() == 'number')
+      return new AbdlVar(Math.pow(e1, e2));
+    //int ^ point -> point    
+    if (this.getType() == 'number' && other.getType() == 'object')
+      return new AbdlVar([Math.pow(e1, e2[0]), Math.pow(e1, e2[1])]);
+    //point ^ int     ->  point
+    if (this.getType() == 'object' && other.getType() == 'number')
+      return new AbdlVar([Math.pow(e1[0], e2), Math.pow(e1[1], e2)]);
+    //point ^ point   ->  point
+    if (this.getType() == 'object' && other.getType() == 'object')
+      return new AbdlVar([Math.pow(e1[0], e2[0]), Math.pow(e1[1], e2[1])]);
+    return null;
+  }
   rem(other) { // '%'
     let e1 = this.getValue()
     let e2 = other.getValue()
@@ -169,15 +186,15 @@ const testAbdlVars = () => {
   let int = new AbdlVar(3)
   let string = new AbdlVar("s")
   let point = new AbdlVar([1, 2])
-  /* Python3
-for t1, t2 in zip(["int", "string", "point"], ["int", "string", "point"]):
-  for op, op_text in zip(\
-    ["+","-","*","/","%","==","/=","<","<=",">=",">"], \
-    ["add","sub","mul","div","rem","equal","not_equal","less_than","less_or_equal","greater_or_equal","greater_than"], \
-    ):
-    print(\
-    'console.log({}.toString() + " {} " + {}.toString() + " = " + ({}.{}({}) ? {}.{}({}).toString() : "null"))'.format(\
-    t1, op, t2, t1, op_text, t2, t1, op_text, t2))
+  /*# Python3
+  for t1, t2 in zip(["int", "string", "point"], ["int", "string", "point"]):
+    for op, op_text in zip(\
+      ["+","-","*","/","%","==","/=","<","<=",">=",">"], \
+      ["add","sub","mul","div","rem","equal","not_equal","less_than","less_or_equal","greater_or_equal","greater_than"], \
+      ):
+      print(\
+      'console.log({}.toString() + " {} " + {}.toString() + " = " + ({}.{}({}) ? {}.{}({}).toString() : "null"))'.format(\
+      t1, op, t2, t1, op_text, t2, t1, op_text, t2))
   */
   //int + int       ->  int
   console.log(int.toString() + " + " + int.toString() + " = " + (int.add(int) ? int.add(int).toString() : "null"))
