@@ -20,7 +20,7 @@ public class Main {
         visitor.visit(tree);
         if (visitor.error) {
             System.err.println("Semantic errors occurred and compilation will stop");
-            //System.exit(1);
+            System.exit(1);
         }
 
         AbdlCompiler visitor1 = new AbdlCompiler();

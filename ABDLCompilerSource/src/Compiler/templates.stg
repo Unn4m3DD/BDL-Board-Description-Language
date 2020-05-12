@@ -5,7 +5,7 @@ const sleep = (milliseconds) => {
 }
 const range = (a, b) => {
   const result = [];
-  for (let i = a; i \<= b; i++) result.push(i);
+  for (let i = a.getValue(); i \<= b.getValue(); i++) result.push(new ABDLVar(i));
   return result;
 }
 const move = async (origin, destination, table) => {

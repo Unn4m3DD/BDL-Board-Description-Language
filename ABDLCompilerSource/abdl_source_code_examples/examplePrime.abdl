@@ -1,3 +1,4 @@
+/*
 int isPrime(n : int):
   let i = 2;
   while(i < n / 2) do
@@ -16,5 +17,22 @@ main:
       print(i);
     end if;
     i = i + 1;
+  done;
+end main;
+*/
+int isPrime(n : int):
+  for i from 2 to n / 2 do
+    if(n % i == 0) then
+      return 0;
+    end if;
+  done;
+  return 1;
+end isPrime;
+
+main:
+  for i from 2 to 10 do
+    if(isPrime(i)) then
+      print(i);
+    end if;
   done;
 end main;
