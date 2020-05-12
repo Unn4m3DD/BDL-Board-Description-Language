@@ -7,7 +7,7 @@ const range = (a, b) => {
   for (let i = a; i <= b; i++) result.push(i);
   return result;
 }
-const move = (origin, destination) => {
+const move = (origin, destination, table) => {
   try {
     table[origin.getValue()[0]][origin.getValue()[1]].onclick();
     render(context, table)
@@ -19,7 +19,7 @@ const move = (origin, destination) => {
     return new ABDLVar(0);
   }
 }
-const can_move = (origin, destination) => {
+const can_move = (origin, destination, table) => {
   if (!table[origin.getValue()[0]][origin.getValue()[1]]) return new ABDLVar(0);
   table[origin.getValue()[0]][origin.getValue()[1]].onclick();
   render(context, table)
