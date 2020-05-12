@@ -287,9 +287,9 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override
     public Object visitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx) {
         List<String> args = (List<String>) visit(ctx.args());
-        return "new ABDLVar(" + ctx.funcName.getText() + "(" +
+        return ctx.funcName.getText() + "(" +
                 args.toString().substring(1, args.toString().length() - 1) +
-                "))";
+                ")";
     }
 
     @Override
