@@ -241,7 +241,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     
     @Override
     public Object visitCanMoveCall(AbdlParser.CanMoveCallContext ctx) {
-        ST res = new ST("can_move(<e1>, <e2>);");
+        ST res = new ST("can_move(<e1>, <e2>, table);");
         List<String> args = (List<String>) visit(ctx.args());
         res.add("e1", args.get(0));
         res.add("e2", args.get(1));
@@ -250,13 +250,11 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitMoveCall(AbdlParser.MoveCallContext ctx) {
-        ST tryCatch = templates.getInstanceOf("tryCatch");
         ST move = templates.getInstanceOf("move");
         List<String> args = (List<String>) visit(ctx.args());
         move.add("e1", args.get(0));
         move.add("e2", args.get(1));
-        tryCatch.add("stat", move.render());
-        return tryCatch.render();
+        return move.render();
     }
 
     @Override

@@ -1,13 +1,34 @@
 program(functs, stat) ::= <<
+import ABDLVar from "./AbdlVar"
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
 const range = (a, b) => {
-    const result = [];
-    for(let i = a; i \<= b; i++) result.push(i);
-    return result;
+  const result = [];
+  for (let i = a; i \<= b; i++) result.push(i);
+  return result;
 }
-
+const move = (origin, destination) => {
+  try {
+    table[origin.getValue()[0]][origin.getValue()[1]].onclick();
+    render(context, table)
+    table[destination.getValue()[0]][destination.getValue()[1]].onclick();
+    render(context, table)
+    await sleep(1000);
+    return new ABDLVar(1);
+  } catch (e) {
+    return new ABDLVar(0);
+  }
+}
+const can_move = (origin, destination) => {
+  if (!table[origin.getValue()[0]][origin.getValue()[1]]) return new ABDLVar(0);
+  table[origin.getValue()[0]][origin.getValue()[1]].onclick();
+  render(context, table)
+  if (!!table[destination.getValue()[0]][destination.getValue()[1]].onclick)
+    return new ABDLVar(1);
+  else
+    return new ABDLVar(0);
+}
 export default async (context, table) => {
   <statements(stat)>
 }

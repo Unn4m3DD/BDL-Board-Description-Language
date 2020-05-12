@@ -49,9 +49,9 @@ public class SemanticTest {
                     error = true;
                     System.err.println("An error occurred on " + test);
                     System.out.println("Expected:");
-                    System.out.println(result[i]);
-                    System.out.println("and got:");
                     System.out.println(output);
+                    System.out.println("and got:");
+                    System.out.println(result[i]);
                     System.out.println();
                 }
             }
