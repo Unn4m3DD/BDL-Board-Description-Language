@@ -1,0 +1,20 @@
+int isPrime(n : int):
+  let i = 2;
+  while(i < n / 2) do
+    if(n % i == 0) then
+      return 0;
+    end if;
+    i = i + 1;
+  done;
+  return 1;
+end isPrime;
+
+main:
+  let i = 0;
+  while i < 10 do
+    if(isPrime(i)) then
+      print(i);
+    end if;
+    i = i + 1;
+  done;
+end main;

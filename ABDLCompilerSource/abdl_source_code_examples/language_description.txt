@@ -64,6 +64,16 @@ Semi Extensive:
   point / int     ->  point
   point / string  ->  undefined
   point / point   ->  point
+  
+  int ^ int       ->  int
+  int ^ string    ->  undefined
+  int ^ point     ->  point
+  string ^ int    ->  undefined
+  string ^ string ->  undefined
+  string ^ point  ->  undefined
+  point ^ int     ->  point
+  point ^ string  ->  undefined
+  point ^ point   ->  point
 
   int % int       ->  int
   int % string    ->  undefined

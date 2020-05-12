@@ -1,5 +1,5 @@
 program(functs, stat) ::= <<
-import ABDLVar from "./AbdlVar"
+import ABDLVar from "./AbdlVar.js"
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
@@ -8,7 +8,7 @@ const range = (a, b) => {
   for (let i = a; i \<= b; i++) result.push(i);
   return result;
 }
-const move = (origin, destination, table) => {
+const move = async (origin, destination, table) => {
   try {
     table[origin.getValue()[0]][origin.getValue()[1]].onclick();
     render(context, table)
@@ -20,7 +20,7 @@ const move = (origin, destination, table) => {
     return new ABDLVar(0);
   }
 }
-const can_move = (origin, destination, table) => {
+const can_move = async (origin, destination, table) => {
   if (!table[origin.getValue()[0]][origin.getValue()[1]]) return new ABDLVar(0);
   table[origin.getValue()[0]][origin.getValue()[1]].onclick();
   render(context, table)
@@ -42,7 +42,7 @@ statements(stat) ::= <<
 >>
 
 conditional(var,stat_true,stat_false) ::= <<
-if (<var>.not_equal(0)) {
+if (<var>.getValue() != 0) {
    <statements(stat_true)>
 }<if(stat_false)>
 else {
@@ -71,7 +71,7 @@ args(arg) ::= <<
 >>
 
 whileStat(var, stat) ::= <<
-while (<var>.not_equal(0)) {
+while (<var>.getValue() != 0) {
     <statements(stat)>
 }
 >>

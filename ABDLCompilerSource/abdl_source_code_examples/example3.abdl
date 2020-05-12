@@ -1,0 +1,6 @@
+main:
+ let i : int = 2;
+ while(i < 2) do
+   i = i + 1;
+ done;
+end main;

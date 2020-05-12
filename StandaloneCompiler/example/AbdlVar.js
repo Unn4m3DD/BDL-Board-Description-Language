@@ -232,5 +232,3 @@ const testAbdlVars = () => {
   console.log(point.toString() + " >= " + point.toString() + " = " + (point.greater_or_equal(point) ? point.greater_or_equal(point).toString() : "null"))
   console.log(point.toString() + " > " + point.toString() + " = " + (point.greater_than(point) ? point.greater_than(point).toString() : "null"))
 }
-
-testAbdlVars()

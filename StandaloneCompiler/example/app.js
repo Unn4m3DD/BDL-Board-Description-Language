@@ -12,7 +12,5 @@ let table = generate_table("board", rules.height, rules.width);
 
 render(context, table)
 
-console.log(context.board[0][0]);
-
 import auto_bdl_plugin from "./abdl.js"
 auto_bdl_plugin(context, table);
