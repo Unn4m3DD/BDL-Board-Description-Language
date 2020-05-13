@@ -228,7 +228,6 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
             }
         } else {
             String expr = (String) visit(ctx.expr());
-            System.out.println(ctx.ID().getText()+ " = " + expr);
             ST varDecl = templates.getInstanceOf("decl");
             Variable newVar = new Variable(createVar(), "");
             varDecl.add("var", newVar.getName());
