@@ -135,11 +135,29 @@ file = [
   "point >= string  ->  undefined",
   "point >= point   ->  undefined",
 ]
+#
 counter = 0;
-for line in file:
-    items = line.split()
-    print("let v" + str(counter) + " = " + items[0][0] + " " + items[1] + " " + items[2][0] + "; //" + items[4])
-    counter += 1
+#for line in file:
+    #items = line.split()
+    #print("let v" + str(counter) + " = " + items[0][0] + " " + items[1] + " " + items[2][0] + "; //" + items[4])
+    #counter += 1
     #if(items[4] != "undefined"):
     #  print('put(new Triple("' + items[0] + '", "' + items[1] + '", "' + items[2] + '"), ("' + items[4] + '"));')
-    
+header = ["int", "string", "point"]
+tabela =  [[0 for x in range(3)] for y in range(3)] 
+for line in file:
+  items = line.split()
+  if counter % 9 == 0:
+    if counter == 0:
+      print("| " + items[1] + " | " + header[0] + " | " + header[1] + " | " + header[2])
+    else:
+      print("|-----|---------|------|-----|")
+      print("| " + header[0] + " | " + tabela[0][0] + " | " + tabela[0][1] + " | " + tabela[0][2] + " |")
+      print("| " + header[1] + " | " + tabela[1][0] + " | " + tabela[1][1] + " | " + tabela[1][2] + " |")
+      print("| " + header[2] + " | " + tabela[2][0] + " | " + tabela[2][1] + " | " + tabela[2][2] + " |")
+      print("")
+      print("| " + items[1] + " | " + header[0] + " | " + header[1] + " | " + header[2])
+  tabela[int(counter/3) % 3][counter%3] = items[4]
+  
+  counter += 1 
+   

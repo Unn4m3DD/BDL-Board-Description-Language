@@ -29,15 +29,15 @@ end main;
 **<a name="stats"></a>Statements:**
 | Statements          | Syntax             | 
 |---------------|------------------|
-| Var declaration  | let varName : varType = expr; |
-| Var atribution   | varName = expr;     |
-| For loop        | for varName from expr to expr do statements; done; |  
-| While loop        | while expr do statements; done; |  
-| If statement | if expr then statements; end if; |
-| ElseIf statement | else if expr then statements; |
-| Else statement | else statements; |
-| Return statement | return expr; |
-| Function Call | functionName(args); |
+| Var declaration  | ```let varName : varType = expr;```|
+| Var atribution   | ```varName = expr;```     |
+| For loop        | ```for varName from expr to expr do statements; done;``` |  
+| While loop        | ```while expr do statements; done;``` |  
+| If statement | ```if expr then statements; end if;``` |
+| ElseIf statement | ```else if expr then statements;``` |
+| Else statement | ```else statements;``` |
+| Return statement | ```return expr;``` |
+| Function Call | ```functionName(args);``` |
 
 The language supports three variable types:
 
@@ -49,17 +49,95 @@ The language supports three variable types:
 
 **Variable declaration:**
 
+
 Every variable that is declared must either have an explicit type or an initialization with an expr from which the type is infered.
 
 Operations available between types:
-|| int | string | point |
-|-|---------------|------------------|-|
-|int| [all](#all) | + * | + - * / ^ % |
-|string|+ *|+ == != | + |
-|point|+ - * / ^ %| + | + - * / ^ % == != |
 
-***<a name="all"></a>all:***
-\+ \- \* / ^ % == != < <= > >= 
+| + | int | string | point
+|-----|---------|------|-----|
+| int | int | string | point |
+| string | string | string | string |
+| point | point | string | point |
+
+| - | int | string | point
+|-----|---------|------|-----|
+| int | int | undefined | point |
+| string | undefined | undefined | undefined |
+| point | point | undefined | point |
+
+| * | int | string | point
+|-----|---------|------|-----|
+| int | int | string | point |
+| string | string | undefined | undefined |
+| point | point | undefined | point |
+
+| / | int | string | point
+|-----|---------|------|-----|
+| int | int | undefined | point |
+| string | undefined | undefined | undefined |
+| point | point | undefined | point |
+
+| % | int | string | point
+|-----|---------|------|-----|
+| int | int | undefined | point |
+| string | undefined | undefined | undefined |
+| point | point | undefined | point |
+
+| != | int | string | point
+|-----|---------|------|-----|
+| int | int | undefined | undefined |
+| string | int | undefined | undefined |
+| point | undefined | int | undefined |
+
+| != | int | string | point
+|-----|---------|------|-----|
+| int | undefined | int | undefined |
+| string | undefined | undefined | int |
+| point | undefined | undefined | int |
+
+| < | int | string | point
+|-----|---------|------|-----|
+| int | int | undefined | undefined |
+| string | undefined | undefined | undefined |
+| point | undefined | undefined | undefined |
+
+| < | int | string | point
+|-----|---------|------|-----|
+| int | int | undefined | undefined |
+| string | undefined | undefined | undefined |
+| point | undefined | undefined | undefined |
+
+| <= | int | string | point
+|-----|---------|------|-----|
+| int | int | undefined | undefined |
+| string | undefined | undefined | undefined |
+| point | undefined | undefined | undefined |
+
+| <= | int | string | point
+|-----|---------|------|-----|
+| int | int | undefined | undefined |
+| string | undefined | undefined | undefined |
+| point | undefined | undefined | undefined |
+
+| > | int | string | point
+|-----|---------|------|-----|
+| int | int | undefined | undefined |
+| string | undefined | undefined | undefined |
+| point | undefined | undefined | undefined |
+
+| > | int | string | point
+|-----|---------|------|-----|
+| int | int | undefined | undefined |
+| string | undefined | undefined | undefined |
+| point | undefined | undefined | undefined |
+
+| >= | int | string | point
+|-----|---------|------|-----|
+| int | int | undefined | undefined |
+| string | undefined | undefined | undefined |
+| point | undefined | undefined | undefined |
+
 
 **Globally defined Variables:**
 
