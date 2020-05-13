@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Stack;
 import SymbolTable.*;
 import org.stringtemplate.v4.STGroupFile;
 import antlr4Gen.*;
@@ -20,8 +20,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     STGroup templates = new STGroupFile("Compiler/templates.stg");
     SymbolTable symbolTable = new SymbolTable();
     ST program = templates.getInstanceOf("program");
-    ST outerScope = program;
-    ST currScope =  outerScope;
+    Stack<ST> scopesST = new Stack<>();
     String StControl = "stat";
     Map<String, String> operations = new HashMap<>() {{
         put("+", "add");
@@ -41,6 +40,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override
     public Object visitProgram(AbdlParser.ProgramContext ctx) {
         symbolTable.pushScope();
+        scopesST.push(program);
         visit(ctx.main());
         for (var function : ctx.functDef()) {
             functionCount++;
@@ -66,8 +66,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         Function funct = new Function(funcName, args, resType);
         symbolTable.pushSymbol(funcName, funct);
         ST func = templates.getInstanceOf("function");
-        outerScope = func;
-        currScope = func;
+        scopesST.push(func);
         func.add("funcName", funcName);
         for (String arg : args) {
             String varName = createVar();
@@ -76,6 +75,8 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         }
         for (var stat : ctx.statements()) func.add("stat", (String) visit(stat));
         program.add("functs", func.render());
+        symbolTable.popScope();
+        scopesST.pop();
         return func.render();
     }
 
@@ -101,14 +102,14 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String high = (String) visit(ctx.up);
         String result = createVar();
         ST forStat = templates.getInstanceOf("forStat");
-        currScope = forStat;
+        scopesST.push(forStat);
         symbolTable.pushScope();
         symbolTable.pushSymbol(id, new Variable(result, ""));
         forStat.add("var", result);
         forStat.add("low", low);
         forStat.add("high", high);
         for(var stat: ctx.statements()) forStat.add("stat", (String) visit(stat));
-        currScope = outerScope;
+        scopesST.pop();
         symbolTable.popScope();
         return forStat.render();
     }
@@ -117,15 +118,15 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     public Object visitWhileStatement(AbdlParser.WhileStatementContext ctx) {
         ST whileStat = templates.getInstanceOf("whileStat");
         whileStat.add("var", (String) visit(ctx.expr()));
-        ST.AttributeList test = (ST.AttributeList) currScope.getAttribute("stat");
+        ST.AttributeList test = (ST.AttributeList) scopesST.peek().getAttribute("stat");
         String condRepeat = test.get(test.size() - 1).toString().substring(4);
-        currScope = whileStat;
+        scopesST.push(whileStat);
         symbolTable.pushScope();
         for (var stat : ctx.statements()) {
             whileStat.add("stat", (String) visit(stat));
         }
         whileStat.add("stat", condRepeat);
-        currScope = outerScope;
+        scopesST.pop();
         symbolTable.popScope();
         return whileStat.render();
     }
@@ -135,7 +136,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         ST ifStat = templates.getInstanceOf("conditional");
         String s = (String) visit(ctx.expr());
         ifStat.add("var", (String) s);
-        currScope = ifStat;
+        scopesST.push(ifStat);
         StControl = "stat_true";
         symbolTable.pushScope();
         for (var stat : ctx.statements()) {
@@ -145,11 +146,12 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
             ST nextElseIf = (ST) visit(ctx.elseIf(ctx.elseIf().size() - 1));
             ST elseifStat;
             if (ctx.elseStatement() != null) {
-                currScope = nextElseIf;
+                scopesST.push(nextElseIf);
                 StControl = "stat_false";
                 for (var stat : ctx.elseStatement().statements()) {
                     nextElseIf.add("stat_false", (String) visit(stat));
                 }
+                scopesST.pop();
             }
             for (int i = ctx.elseIf().size() - 2; i >= 0; i--) {
                 elseifStat = (ST) visit(ctx.elseIf(i));
@@ -160,14 +162,13 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
             ifStat.add("stat_false", nextElseIf.render());
         } else {
             if (ctx.elseStatement() != null) {
-                currScope = ifStat;
                 StControl = "stat_false";
                 for (var stat : ctx.elseStatement().statements()) {
                     ifStat.add("stat_false", (String) visit(stat));
                 }
             }
         }
-        currScope = outerScope;
+        scopesST.pop();
         StControl = "stat";
         symbolTable.popScope();
         return ifStat.render();
@@ -176,14 +177,16 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override
     public Object visitElseIf(AbdlParser.ElseIfContext ctx) {
         ST elseifStat = templates.getInstanceOf("conditional");
-        currScope = outerScope;
         StControl = "stat";
+        ST ifStat = scopesST.pop();
         elseifStat.add("var", (String) visit(ctx.expr()));
-        currScope = elseifStat;
+        scopesST.push(ifStat);
+        scopesST.push(elseifStat);
         StControl = "stat_true";
         for (var stat : ctx.statements()) {
             elseifStat.add("stat_true", (String) visit(stat));
         }
+        scopesST.pop();
         return elseifStat;
     }
 
@@ -219,14 +222,14 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
             }
         } else {
             String expr = (String) visit(ctx.expr());
-            symbolTable.pushSymbol(ctx.ID().getText(), new Variable(expr, ""));
-            if(ctx.expr().getClass() == AbdlParser.ExprIDContext.class) {
-                ST varDecl = templates.getInstanceOf("decl");
-                Variable newVar = new Variable(createVar(), "");
-                varDecl.add("var", newVar.getName());
-                varDecl.add("val", expr);
-                return varDecl.render();
-            }
+            System.out.println(ctx.ID().getText()+ " = " + expr);
+            ST varDecl = templates.getInstanceOf("decl");
+            Variable newVar = new Variable(createVar(), "");
+            varDecl.add("var", newVar.getName());
+            varDecl.add("val", expr);
+            symbolTable.pushSymbol(ctx.ID().getText(), newVar);
+            return varDecl.render();
+
         }
         return null;
     }
@@ -409,7 +412,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     }
 
     private void addVar(String declaration) {
-        currScope.add(StControl, declaration);
+        scopesST.peek().add(StControl, declaration);
     }
 
     public String createVar() {
