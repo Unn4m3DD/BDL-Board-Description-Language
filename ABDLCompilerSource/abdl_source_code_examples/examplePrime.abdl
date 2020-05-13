@@ -1,13 +1,9 @@
 /*
 int isPrime(n : int):
-  let i = 2;
-  while(i < n / 2) do
-    while (n % i == 0) do
-      if n / 2 == 0 then
-        return 0;
-      end if;
-    done;
-    i = i + 1;
+  for i from 2 to n / 2 do
+    if(n % i == 0) then
+      return 0;
+    end if;
   done;
   return 1;
 end isPrime;
@@ -23,13 +19,18 @@ main:
 end main;
 */
 int isPrime(n : int):
-  for i from 2 to n / 2 do
-    if(n % i == 0) then
-      return 0;
-    end if;
+  let i = 2;
+  while(i < n / 2) do
+    while (n % i == 0) do
+      if n / 2 == 0 then
+        return 0;
+      end if;
+    done;
+    i = i + 1;
   done;
   return 1;
 end isPrime;
+
 main:
   for i from 2 to 10 do
     if(isPrime(i)) then

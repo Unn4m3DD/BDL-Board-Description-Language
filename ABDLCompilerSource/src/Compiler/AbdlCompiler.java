@@ -116,10 +116,16 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitWhileStatement(AbdlParser.WhileStatementContext ctx) {
+        scopesST.push(templates.getInstanceOf("statements"));
+        String resVar = (String) visit(ctx.expr());
+        ST.AttributeList test = (ST.AttributeList) scopesST.pop().getAttribute("stat");
+        String condRepeat = "";
+        for(int i = 0; i < test.size(); i++) {
+            scopesST.peek().add("stat", test.get(i));
+            condRepeat += test.get(i).toString().substring(4) + "\n";
+        }
         ST whileStat = templates.getInstanceOf("whileStat");
-        whileStat.add("var", (String) visit(ctx.expr()));
-        ST.AttributeList test = (ST.AttributeList) scopesST.peek().getAttribute("stat");
-        String condRepeat = test.get(test.size() - 1).toString().substring(4);
+        whileStat.add("var", resVar);
         scopesST.push(whileStat);
         symbolTable.pushScope();
         for (var stat : ctx.statements()) {
