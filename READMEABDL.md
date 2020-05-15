@@ -26,11 +26,12 @@ main:
   statements;
 end main;
 ```
+
 **<a name="stats"></a>Statements:**
 | Statements          | Syntax             | 
 |---------------|------------------|
 | Var declaration  | let varName : varType = expr; |
-| Var atribution   | varName = expr;     |
+| Var atribution   | varName = expr; |
 | For loop        | for varName from expr to expr do statements; done; |  
 | While loop        | while expr do statements; done; |  
 | If statement | if expr then statements; end if; |
@@ -58,6 +59,12 @@ Operations available between types:
 |string|+ *|+ == != | + |
 |point|+ - * / ^ %| + | + - * / ^ % == != |
 
+|+| int | string | point |
+|-|---------------|------------------|-|
+|int| int | string | point |
+|string|string|string | string |
+|point|point| string | point |
+
 ***<a name="all"></a>all:***
 \+ \- \* / ^ % == != < <= > >= 
 
@@ -75,9 +82,9 @@ Operations available between types:
 
 | Name | Return |
 |-|-|
-|can_move(point, point);| returns 1 if the move is possible, 0 otherwise
-|move(point, point);| returns 1 if the move was successful, 0 otherwise
-|print([args](#args));| returns void
+|can_move(point, point); | returns 1 if the move is possible, 0 otherwise
+|move(point, point); | returns 1 if the move was successful, 0 otherwise
+|print([args](#args)); | returns void
 
 ***<a name="args"></a>args:***
 One or more comma separated expr.
@@ -85,13 +92,15 @@ One or more comma separated expr.
 **Functions:**
 
 Function defenition:
-```abdl
+
+``` abdl
 returnType functionName(fArgs):
   statements;
 end functionName;
 ```
+
 ***<a name="fArgs"></a>fArgs:***
 One or more comma separated pairs of type varName : varType.
 
 The return type is optional and not being present is equivalent to it being void.
-The statements are the same as refered [here](#stats);
+The statements are the same as refered [here](#stats); 

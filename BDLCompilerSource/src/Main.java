@@ -57,11 +57,11 @@ public class Main {
             }
 
         });
+        System.out.println("Compilation Successful");
     }
 
     private void createAuxFile(File dir, String fileName) throws IOException {
         File app = new File(dir.getPath() + File.separator + fileName);
-        OutputStream os = new FileOutputStream(app);
         InputStream is = this.getClass().getClassLoader().getResourceAsStream("auxResources/" + fileName);
         copyInputStreamToFile(is, app);
     }

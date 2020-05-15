@@ -62,7 +62,7 @@ move(e1, e2) ::= <<
 
 function(funcName, arg, stat) ::= <<
 function <funcName>(<args(arg)>){
-    <statements(stat)>
+  <statements(stat)>
 }
 >>
 
@@ -72,12 +72,12 @@ args(arg) ::= <<
 
 whileStat(var, stat) ::= <<
 while (<var>.getValue() != 0) {
-    <statements(stat)>
+  <statements(stat)>
 }
 >>
 
 forStat(var, low, high, stat) ::= <<
 for(let <var> of range(<low>,<high>)) {
-    <statements(stat)>
+  <statements(stat)>
 }
 >>

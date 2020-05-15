@@ -1,7 +1,7 @@
+int fact(n : int):
+  if(n == 1) then return 1; endif;
+  return fact(n - 1) * n;
+end fact;
 main:
- let i = 2;
- let n = 7;
- while(i < n / 2) do
-   i = i + 1;
- done;
+  print(fact(4));
 end main;

@@ -29,23 +29,23 @@ const can_move = async (origin, destination, table) => {
     return new ABDLVar(0);
 }
 export default async (context, table) => {
-  let v0 = new ABDLVar(0);
+  let v0 = new ABDLVar(1);
+  console.log(fact(v0).toString());
   let v1 = new ABDLVar(2);
-  let v2 = new ABDLVar(10);
-  for (let v3 of range(v1, v2)) {
-    if (isPrime(v3).getValue() != 0) {
-      console.log(v3.toString());
-    }
-  }
+  console.log(fact(v1).toString());
+  let v2 = new ABDLVar(3);
+  console.log(fact(v2).toString());
+  let v3 = new ABDLVar(4);
+  console.log(fact(v3).toString());
+  let v4 = new ABDLVar(5);
+  console.log(fact(v4).toString());
 }
-function isPrime(v4) {
-  let v5 = v4.div(new ABDLVar(2));
-  for (let v6 of range(new ABDLVar(2), v5)) {
-    let v8 = v4.rem(v6);
-    let v7 = v8.equal(new ABDLVar(0));
-    if (v7.getValue() != 0) {
-      return new ABDLVar(0);
-    }
+function fact(v5){
+  let v6 = v5.equal(new ABDLVar(1));
+  if (v6.getValue() != 0) {
+     return new ABDLVar(1);
   }
-  return new ABDLVar(1);
+  let v8 = v5.sub(new ABDLVar(1));
+  let v7 = fact(v8).mul(v5);
+  return v7;
 }

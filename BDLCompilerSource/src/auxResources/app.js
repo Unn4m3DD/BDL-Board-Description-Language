@@ -11,4 +11,8 @@ const context = create_context_from_initial_status_and_rules(initial_status, rul
 let table = generate_table("board", rules.height, rules.width);
 
 render(context, table)
-
+import("./abdl.js")
+  .then(module => {
+    module.default(context, table)
+  })
+  .catch((e) => console.log("No plugin detected"))
