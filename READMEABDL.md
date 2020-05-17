@@ -30,17 +30,6 @@ end main;
 **<a name="stats"></a>Statements:**
 | Statements          | Syntax             | 
 |---------------|------------------|
-<<<<<<< HEAD
-| Var declaration  | let varName : varType = expr; |
-| Var atribution   | varName = expr; |
-| For loop        | for varName from expr to expr do statements; done; |  
-| While loop        | while expr do statements; done; |  
-| If statement | if expr then statements; end if; |
-| ElseIf statement | else if expr then statements; |
-| Else statement | else statements; |
-| Return statement | return expr; |
-| Function Call | functionName(args); |
-=======
 | Var declaration  | ```let varName : varType = expr;```|
 | Var atribution   | ```varName = expr;```     |
 | For loop        | ```for varName from expr to expr do statements; done;``` |  
@@ -50,7 +39,6 @@ end main;
 | Else statement | ```else statements;``` |
 | Return statement | ```return expr;``` |
 | Function Call | ```functionName(args);``` |
->>>>>>> 2b1744ec4bc8e34a58f8d7b226c7af713a5ff4ea
 
 The language supports three variable types:
 
