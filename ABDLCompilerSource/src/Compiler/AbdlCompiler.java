@@ -202,6 +202,17 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         return visitChildren(ctx);
     }
 
+    public Object visitBoard(AbdlParser.BoardContext ctx) {
+        String point = (String) visit(ctx.point());
+        switch (ctx.prop.getText()) {
+            case "piece_name":
+                return "(getName(" + point + "))";
+            case "owner":
+                return "(getOwner(" + point + "))";
+        }
+        return null;
+    }
+
     @Override
     public Object visitVarDeclaration(AbdlParser.VarDeclarationContext ctx) {
         if (ctx.expr() == null) {
@@ -297,9 +308,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     public Object visitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx) {
         List<String> args = (List<String>) visit(ctx.args());
         return "(" + (ctx.funcName.getText().equals("move") ? "await " : "") + ctx.funcName.getText() + "(" +
-                args.toString().substring(1, args.toString().length() - 1) +
-                (ctx.funcName.getText().equals("move") || ctx.funcName.getText().equals("can_move") ? ", table, render, context" : "") +
-                "))";
+                args.toString().substring(1, args.toString().length() - 1) + "))";
     }
 
     @Override

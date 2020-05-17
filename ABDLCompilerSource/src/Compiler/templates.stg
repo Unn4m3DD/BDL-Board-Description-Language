@@ -1,5 +1,8 @@
 program(functs, stat) ::= <<
 import ABDLVar from "./AbdlVar.js"
+var context;
+var table;
+var render;
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
@@ -8,7 +11,21 @@ const range = (a, b) => {
   for (let i = a.getValue(); i \<= b.getValue(); i++) result.push(new ABDLVar(i));
   return result;
 }
-const move = async (origin, destination, table, render, context) => {
+const getName = (a) => {
+  try{
+    return new ABDLVar(context.board[a.getValue()[0]][a.getValue()[1]].piece.name)
+  } catch(e){
+    return new ABDLVar("");
+  }
+}
+const getOwner = (a) => {
+  try{
+    return new ABDLVar(context.board[a.getValue()[0]][a.getValue()[1]].piece.owner)
+  } catch(e){
+    return new ABDLVar(0);
+  }
+}
+const move = async (origin, destination) => {
   try {
     table[origin.getValue()[0]][origin.getValue()[1]].onclick();
     render(context, table)
@@ -20,7 +37,7 @@ const move = async (origin, destination, table, render, context) => {
     return new ABDLVar(0);
   }
 }
-const can_move = (origin, destination, table, render, context) => {
+const can_move = (origin, destination) => {
   if (!table[origin.getValue()[0]][origin.getValue()[1]].onclick) return new ABDLVar(0);
   table[origin.getValue()[0]][origin.getValue()[1]].onclick();
   render(context, table)
@@ -29,7 +46,10 @@ const can_move = (origin, destination, table, render, context) => {
   else
     return new ABDLVar(0);
 }
-export default async (context, table, render) => {
+export default async (arg_context, arg_table, arg_render) => {
+  context = arg_context;
+  table = arg_table;
+  render = arg_render;
   <statements(stat)>
 }
 <statements(functs)>
@@ -57,11 +77,11 @@ try{
 >>
 
 canMove(e1, e2) ::= <<
-can_move(<e1>, <e2>, table, render, context);
+can_move(<e1>, <e2>);
 >>
 
 move(e1, e2) ::= <<
-await move(<e1>, <e2>, table, render, context);
+await move(<e1>, <e2>);
 >>
 
 function(funcName, arg, stat) ::= <<

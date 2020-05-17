@@ -1,5 +1,5 @@
 package Compiler;
-
+//TODO lista de argumento no print
 import SymbolTable.*;
 import antlr4Gen.*;
 import org.antlr.v4.runtime.Token;
@@ -11,7 +11,7 @@ import java.util.List;
 public class SemanticVisitor extends AbdlBaseVisitor<Object> {
     SymbolTable st = new SymbolTable();
     boolean error = false;
-
+    //TODO typeinfer do getName e getOwner
     @Override
     public Object visitProgram(AbdlParser.ProgramContext ctx) {
         st.pushScope();

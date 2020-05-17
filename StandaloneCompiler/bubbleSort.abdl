@@ -1,0 +1,13 @@
+int get(idx: int):
+  for i from 0 to height - 1 do
+    if(board[idx, i].piece_name /= "") then
+      return i;
+    end if;
+  done;
+end get;
+
+main:
+for i from 0 to width - 1 do 
+  print(i + " -> " + get(i));
+done;
+end main;

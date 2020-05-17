@@ -1,4 +1,5 @@
 grammar Abdl;
+//TODO sem predicate para function names
 program: functDef* main functDef* EOF;
 
 main: 'main' ':' statements* ('end' 'main'|'endmain') ';';
