@@ -249,7 +249,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     
     @Override
     public Object visitCanMoveCall(AbdlParser.CanMoveCallContext ctx) {
-        ST res = new ST("can_move(<e1>, <e2>, table);");
+        ST res = templates.getInstanceOf("canMove");
         List<String> args = (List<String>) visit(ctx.args());
         res.add("e1", args.get(0));
         res.add("e2", args.get(1));

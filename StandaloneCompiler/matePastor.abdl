@@ -1,0 +1,5 @@
+main:
+    print(current_player);
+    print(can_move([6,0], [5,0]));
+    move([6,0], [5,0]);
+end main;

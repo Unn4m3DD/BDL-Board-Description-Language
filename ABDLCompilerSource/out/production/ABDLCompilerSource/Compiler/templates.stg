@@ -56,8 +56,12 @@ try{
 } catch(e) {}
 >>
 
+canMove(e1, e2) ::= <<
+  await can_move(<e1>, <e2>, table);
+>>
+
 move(e1, e2) ::= <<
-  move(<e1>, <e2>, table);
+  await move(<e1>, <e2>, table);
 >>
 
 function(funcName, arg, stat) ::= <<

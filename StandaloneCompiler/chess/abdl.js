@@ -1,11 +1,10 @@
-program(functs, stat) ::= <<
 import ABDLVar from "./AbdlVar.js"
 const sleep = (milliseconds) => {
   return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
 const range = (a, b) => {
   const result = [];
-  for (let i = a.getValue(); i \<= b.getValue(); i++) result.push(new ABDLVar(i));
+  for (let i = a.getValue(); i <= b.getValue(); i++) result.push(new ABDLVar(i));
   return result;
 }
 const move = async (origin, destination, table) => {
@@ -30,58 +29,20 @@ const can_move = async (origin, destination, table) => {
     return new ABDLVar(0);
 }
 export default async (context, table) => {
-  <statements(stat)>
+  let v0 = new ABDLVar(context.current_player);
+  console.log(v0.toString());
+  let v2 = new ABDLVar(6);
+  let v3 = new ABDLVar(0);
+  let v1 = new ABDLVar([v2, v3]);
+  let v5 = new ABDLVar(5);
+  let v6 = new ABDLVar(0);
+  let v4 = new ABDLVar([v5, v6]);
+  console.log(can_move(v1, v4).toString());
+  let v8 = new ABDLVar(6);
+  let v9 = new ABDLVar(0);
+  let v7 = new ABDLVar([v8, v9]);
+  let v11 = new ABDLVar(5);
+  let v12 = new ABDLVar(0);
+  let v10 = new ABDLVar([v11, v12]);
+    await move(v7, v10, table);
 }
-<statements(functs)>
->>
-
-decl(var,val) ::= "let <var> = <val>;"
-
-statements(stat) ::= <<
-<if(stat)><stat; separator="\n"><endif>
->>
-
-conditional(var,stat_true,stat_false) ::= <<
-if (<var>.getValue() != 0) {
-   <statements(stat_true)>
-}<if(stat_false)>
-else {
-   <statements(stat_false)>
-}<endif>
->>
-
-tryCatch(stat) ::= <<
-try{
-    <statements(stat)>
-} catch(e) {}
->>
-
-canMove(e1, e2) ::= <<
-await can_move(<e1>, <e2>, table);
->>
-
-move(e1, e2) ::= <<
-await move(<e1>, <e2>, table);
->>
-
-function(funcName, arg, stat) ::= <<
-function <funcName>(<args(arg)>){
-  <statements(stat)>
-}
->>
-
-args(arg) ::= <<
-<if(arg)><arg; separator=", "><endif>
->>
-
-whileStat(var, stat) ::= <<
-while (<var>.getValue() != 0) {
-  <statements(stat)>
-}
->>
-
-forStat(var, low, high, stat) ::= <<
-for(let <var> of range(<low>,<high>)) {
-  <statements(stat)>
-}
->>
