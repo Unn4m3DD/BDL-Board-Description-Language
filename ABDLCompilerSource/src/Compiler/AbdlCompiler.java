@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+
 import SymbolTable.*;
 import org.stringtemplate.v4.STGroupFile;
 import antlr4Gen.*;
@@ -108,7 +109,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         forStat.add("var", result);
         forStat.add("low", low);
         forStat.add("high", high);
-        for(var stat: ctx.statements()) forStat.add("stat", (String) visit(stat));
+        for (var stat : ctx.statements()) forStat.add("stat", (String) visit(stat));
         scopesST.pop();
         symbolTable.popScope();
         return forStat.render();
@@ -120,7 +121,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String resVar = (String) visit(ctx.expr());
         ST.AttributeList test = (ST.AttributeList) scopesST.pop().getAttribute("stat");
         String condRepeat = "";
-        for(int i = 0; i < test.size(); i++) {
+        for (int i = 0; i < test.size(); i++) {
             scopesST.peek().add("stat", test.get(i));
             condRepeat += test.get(i).toString().substring(4) + "\n";
         }
@@ -246,7 +247,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         return var + " = " + expr + ";";
     }
 
-    
+
     @Override
     public Object visitCanMoveCall(AbdlParser.CanMoveCallContext ctx) {
         ST res = templates.getInstanceOf("canMove");
@@ -295,9 +296,10 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override
     public Object visitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx) {
         List<String> args = (List<String>) visit(ctx.args());
-        return ctx.funcName.getText() + "(" +
+        return "(" + (ctx.funcName.getText().equals("move") ? "await " : "") + ctx.funcName.getText() + "(" +
                 args.toString().substring(1, args.toString().length() - 1) +
-                ")";
+                (ctx.funcName.getText().equals("move") || ctx.funcName.getText().equals("can_move") ? ", table, render, context" : "") +
+                "))";
     }
 
     @Override

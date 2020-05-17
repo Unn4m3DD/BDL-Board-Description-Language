@@ -8,20 +8,20 @@ const range = (a, b) => {
   for (let i = a.getValue(); i \<= b.getValue(); i++) result.push(new ABDLVar(i));
   return result;
 }
-const move = async (origin, destination, table) => {
+const move = async (origin, destination, table, render, context) => {
   try {
     table[origin.getValue()[0]][origin.getValue()[1]].onclick();
     render(context, table)
+    await sleep(1000);
     table[destination.getValue()[0]][destination.getValue()[1]].onclick();
     render(context, table)
-    await sleep(1000);
     return new ABDLVar(1);
   } catch (e) {
     return new ABDLVar(0);
   }
 }
-const can_move = async (origin, destination, table) => {
-  if (!table[origin.getValue()[0]][origin.getValue()[1]]) return new ABDLVar(0);
+const can_move = (origin, destination, table, render, context) => {
+  if (!table[origin.getValue()[0]][origin.getValue()[1]].onclick) return new ABDLVar(0);
   table[origin.getValue()[0]][origin.getValue()[1]].onclick();
   render(context, table)
   if (!!table[destination.getValue()[0]][destination.getValue()[1]].onclick)
@@ -29,7 +29,7 @@ const can_move = async (origin, destination, table) => {
   else
     return new ABDLVar(0);
 }
-export default async (context, table) => {
+export default async (context, table, render) => {
   <statements(stat)>
 }
 <statements(functs)>
@@ -57,11 +57,11 @@ try{
 >>
 
 canMove(e1, e2) ::= <<
-  await can_move(<e1>, <e2>, table);
+can_move(<e1>, <e2>, table, render, context);
 >>
 
 move(e1, e2) ::= <<
-  await move(<e1>, <e2>, table);
+await move(<e1>, <e2>, table, render, context);
 >>
 
 function(funcName, arg, stat) ::= <<

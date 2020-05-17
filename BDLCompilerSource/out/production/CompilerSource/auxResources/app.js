@@ -12,7 +12,7 @@ let table = generate_table("board", rules.height, rules.width);
 
 render(context, table)
 import("./abdl.js")
-  .then(module => {
-    module.default(context, table)
+  .then(module => {    
+	module.default(context, table, renderer.render)
   })
   .catch((e) => console.log("No plugin detected"))
