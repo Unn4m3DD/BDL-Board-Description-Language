@@ -1,0 +1,25 @@
+rules{
+  first_player : 1
+  width : 10
+  height : 10
+  coloring : alternate
+  player_change : explicit {
+    (e) => e
+  }
+}
+
+pieces{
+
+}
+
+initial_status{
+
+}
+
+invariants{
+
+}
+
+finish{
+
+}
