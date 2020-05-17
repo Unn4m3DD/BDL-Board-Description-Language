@@ -31,7 +31,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         put("%", "rem");
         put("^", "pow");
         put("<", "less_than");
-        put(">", "greater_then");
+        put(">", "greater_than");
         put("<=", "less_or_equal");
         put(">=", "greater_or_equal");
         put("==", "equal");
@@ -292,7 +292,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String resVar = createVar();
         List<String> args = (List<String>) visit(ctx.args());
         varDecl.add("var", resVar);
-        varDecl.add("val", "new ABDLVar(" + ctx.funcName.getText() + "(" + args.toString() + ")");
+        varDecl.add("val", "new ABDLVar( await " + ctx.funcName.getText() + "(" + args.toString().substring(1, args.toString().length() - 1) + "))");
 
         addVar(varDecl.render());
 
@@ -307,7 +307,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override
     public Object visitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx) {
         List<String> args = (List<String>) visit(ctx.args());
-        return "(" + (ctx.funcName.getText().equals("move") ? "await " : "") + ctx.funcName.getText() + "(" +
+        return "(await " + ctx.funcName.getText() + "(" +
                 args.toString().substring(1, args.toString().length() - 1) + "))";
     }
 

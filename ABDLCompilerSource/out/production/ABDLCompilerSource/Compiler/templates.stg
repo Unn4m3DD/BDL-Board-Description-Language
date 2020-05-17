@@ -85,7 +85,7 @@ await move(<e1>, <e2>);
 >>
 
 function(funcName, arg, stat) ::= <<
-function <funcName>(<args(arg)>){
+async function <funcName>(<args(arg)>){
   <statements(stat)>
 }
 >>

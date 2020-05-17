@@ -7,7 +7,22 @@ int get(idx: int):
 end get;
 
 main:
-for i from 0 to width - 1 do 
-  print(i + " -> " + get(i));
+let ordered = 0;
+while ordered == 0 do
+  ordered = 1;
+  for i from 0 to width - 2 do 
+    if get(i) < get(i+1) then
+      print(i);
+      swap(i, i+1);
+      ordered = 0;
+    end if;
+  done;
 done;
 end main;
+
+swap(idx1 : int, idx2 : int):
+  let height1 = get(idx1);
+  let height2 = get(idx2);
+  move([idx1, height1], [idx1, height2]);
+  move([idx2, height2], [idx2, height1]);
+end swap;

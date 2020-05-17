@@ -15,4 +15,3 @@ import("./abdl.js")
   .then(module => {    
 	module.default(context, table, renderer.render)
   })
-  .catch((e) => console.log("No plugin detected"))
