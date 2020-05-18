@@ -1,5 +1,9 @@
 main:
-    print(current_player);
-    //print(can_move([1, width - 2], [1, width - 3]));
-    print(move([1, width - 2], [1, width - 3]));
+    move([4, height - 2], [4, height - 4]);
+    move([4, 1], [4, 3]);
+    move([3, height - 1], [width - 1, 3]);   
+    move([1, 0], [2, 2]);
+    move([5, height - 1], [2, height - 4]);
+    move([width - 2, 0], [width - 3,  2]);
+    move([width - 1, 3], [width - 3,  1]);
 end main;
