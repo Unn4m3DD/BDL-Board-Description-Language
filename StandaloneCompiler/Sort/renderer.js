@@ -45,11 +45,12 @@ const functions = {
     functions.colorize_table(table, context)
     for (let x = 0; x < board.length; x++) {
       for (let y = 0; y < board[x].length; y++) {
+
         if (board[x][y].target) {
+          context.move_count++;
+          if (context.on_move) context.on_move(context, table, functions.render)
           table[x][y].style.backgroundColor = "rgba(100, 200, 100, 100)"
           table[x][y].onclick = (event) => {
-            context.move_count++;
-            if (context.on_move) context.on_move(context, table, functions.render)
             player_change_rule(context)
             for (let x = 0; x < context.board.length; x++) {
               for (let y = 0; y < context.board[x].length; y++) {

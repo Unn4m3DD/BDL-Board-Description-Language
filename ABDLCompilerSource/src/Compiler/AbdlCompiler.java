@@ -1,6 +1,5 @@
 package Compiler;
 
-import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.stringtemplate.v4.ST;
 import org.stringtemplate.v4.STGroup;
 
@@ -13,7 +12,6 @@ import java.util.Stack;
 import SymbolTable.*;
 import org.stringtemplate.v4.STGroupFile;
 import antlr4Gen.*;
-import org.stringtemplate.v4.misc.STCompiletimeMessage;
 
 public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     int varCounter = 0;
@@ -22,7 +20,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     SymbolTable symbolTable = new SymbolTable();
     ST program = templates.getInstanceOf("program");
     Stack<ST> scopesST = new Stack<>();
-    String StControl = "stat";
+    String stControl = "stat";
     Map<String, String> operations = new HashMap<>() {{
         put("+", "add");
         put("-", "sub");
@@ -58,7 +56,13 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitOnMove(AbdlParser.OnMoveContext ctx) {
+        symbolTable.pushScope();
+        scopesST.push(program);
+        stControl = "onMoveStat";
         for (var stat : ctx.statements()) program.add("onMoveStat", (String) visit(stat));
+        stControl = "stat";
+        scopesST.pop();
+        symbolTable.popScope();
         return null;
     }
 
@@ -152,7 +156,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String s = (String) visit(ctx.expr());
         ifStat.add("var", (String) s);
         scopesST.push(ifStat);
-        StControl = "stat_true";
+        stControl = "stat_true";
         symbolTable.pushScope();
         for (var stat : ctx.statements()) {
             ifStat.add("stat_true", (String) visit(stat));
@@ -162,7 +166,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
             ST elseifStat;
             if (ctx.elseStatement() != null) {
                 scopesST.push(nextElseIf);
-                StControl = "stat_false";
+                stControl = "stat_false";
                 for (var stat : ctx.elseStatement().statements()) {
                     nextElseIf.add("stat_false", (String) visit(stat));
                 }
@@ -177,14 +181,14 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
             ifStat.add("stat_false", nextElseIf.render());
         } else {
             if (ctx.elseStatement() != null) {
-                StControl = "stat_false";
+                stControl = "stat_false";
                 for (var stat : ctx.elseStatement().statements()) {
                     ifStat.add("stat_false", (String) visit(stat));
                 }
             }
         }
         scopesST.pop();
-        StControl = "stat";
+        stControl = "stat";
         symbolTable.popScope();
         return ifStat.render();
     }
@@ -192,12 +196,12 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override
     public Object visitElseIf(AbdlParser.ElseIfContext ctx) {
         ST elseifStat = templates.getInstanceOf("conditional");
-        StControl = "stat";
+        stControl = "stat";
         ST ifStat = scopesST.pop();
         elseifStat.add("var", (String) visit(ctx.expr()));
         scopesST.push(ifStat);
         scopesST.push(elseifStat);
-        StControl = "stat_true";
+        stControl = "stat_true";
         for (var stat : ctx.statements()) {
             elseifStat.add("stat_true", (String) visit(stat));
         }
@@ -433,7 +437,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     }
 
     private void addVar(String declaration) {
-        scopesST.peek().add(StControl, declaration);
+        scopesST.peek().add(stControl, declaration);
     }
 
     public String createVar() {

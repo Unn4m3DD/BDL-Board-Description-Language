@@ -16,3 +16,4 @@ import("./abdl.js")
     module.default.main(context, table, renderer.render)
     context.on_move = module.default.on_move;
   })
+  .catch((e) => console.log("No plugin detected"))

@@ -47,12 +47,10 @@ const can_move = (origin, destination) => {
 }
 export default {
   on_move: async (arg_context, arg_table, arg_render) => {
-      if (v62.getValue() != 0) {
-         let v66 = new ABDLVar("player");
-         let v67 = new ABDLVar(context.current_player);
-         let v65 = v66.add(v67);
-         console.log(v65.toString());
-      }
+      let v63 = new ABDLVar("player");
+      let v64 = new ABDLVar(context.current_player);
+      let v62 = v63.add(v64);
+      console.log(v62.toString());
     },
   main: async (arg_context, arg_table, arg_render) => {
     context = arg_context;
@@ -127,8 +125,5 @@ export default {
     let v61 = new ABDLVar(1);
     let v57 = new ABDLVar([v58, v61]);
     await move(v52, v57);
-    let v63 = new ABDLVar(context.current_player);
-    let v64 = new ABDLVar(0);
-    let v62 = v63.equal(v64);
   }
 }

@@ -10,7 +10,5 @@ end main;
 
 
 on_move:
-  if(current_player == 0) then
-    print("player" + current_player);
-  end if;
+  print("player" + current_player);
 end on_move;
