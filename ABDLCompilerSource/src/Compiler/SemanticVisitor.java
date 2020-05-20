@@ -13,6 +13,7 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
     boolean error = false;
     //TODO typeinfer do getName e getOwner
     //TODO redefinicao do sleep
+    //TODO semantica visitExprMoveCount
     @Override
     public Object visitProgram(AbdlParser.ProgramContext ctx) {
         st.pushScope();

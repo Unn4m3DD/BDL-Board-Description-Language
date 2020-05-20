@@ -41,6 +41,7 @@ expr: <assoc=right> expr op='^' expr #ExprOp
      | 'width' #ExprWidth
      | 'height' #ExprHeight
      | 'current_player' #ExprCurrPlayer
+     | 'move_count' #ExprMoveCount
      | ID #ExprID;
 
 

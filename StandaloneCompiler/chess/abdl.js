@@ -47,9 +47,7 @@ const can_move = (origin, destination) => {
 }
 export default {
   on_move: async (arg_context, arg_table, arg_render) => {
-      let v63 = new ABDLVar("player");
-      let v64 = new ABDLVar(context.current_player);
-      let v62 = v63.add(v64);
+      let v62 = new ABDLVar(context.height);
       console.log(v62.toString());
     },
   main: async (arg_context, arg_table, arg_render) => {
