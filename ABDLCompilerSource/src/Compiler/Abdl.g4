@@ -1,11 +1,12 @@
 grammar Abdl;
 //TODO sem predicate para function names
-program: functDef* main onMove? functDef* EOF;
+program: (functDef | onMove | main)* EOF;
 
 main: 'main' ':' statements* ('end' 'main'|'endmain') ';';
 
 functDef: Type? func_name=ID '(' typedArgs ')' ':' statements* 'end' ID ';';
-//loop: FOR
+
+onMove: 'on_move' ':' statements* 'end' 'on_move' ';';
 
 block: forStatement | whileStatement | ifStatement;
 statements: varDeclaration

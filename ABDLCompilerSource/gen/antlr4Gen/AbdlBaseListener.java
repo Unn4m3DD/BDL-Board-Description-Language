@@ -52,6 +52,18 @@ public class AbdlBaseListener implements AbdlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterOnMove(AbdlParser.OnMoveContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOnMove(AbdlParser.OnMoveContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterBlock(AbdlParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}

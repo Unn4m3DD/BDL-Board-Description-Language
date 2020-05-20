@@ -1,4 +1,4 @@
-program(functs, stat) ::= <<
+program(functs, stat, onMoveStat) ::= <<
 import ABDLVar from "./AbdlVar.js"
 var context;
 var table;
@@ -46,11 +46,17 @@ const can_move = (origin, destination) => {
   else
     return new ABDLVar(0);
 }
-export default async (arg_context, arg_table, arg_render) => {
-  context = arg_context;
-  table = arg_table;
-  render = arg_render;
-  <statements(stat)>
+export default {
+  <if(onMoveStat)>on_move: async (arg_context, arg_table, arg_render) => {
+    <statements(onMoveStat)>
+  },
+  <endif>
+  main: async (arg_context, arg_table, arg_render) => {
+    context = arg_context;
+    table = arg_table;
+    render = arg_render;
+    <statements(stat)>
+  }
 }
 <statements(functs)>
 >>

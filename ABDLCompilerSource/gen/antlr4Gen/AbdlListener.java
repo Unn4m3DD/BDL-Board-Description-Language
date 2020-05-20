@@ -38,6 +38,16 @@ public interface AbdlListener extends ParseTreeListener {
 	 */
 	void exitFunctDef(AbdlParser.FunctDefContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AbdlParser#onMove}.
+	 * @param ctx the parse tree
+	 */
+	void enterOnMove(AbdlParser.OnMoveContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AbdlParser#onMove}.
+	 * @param ctx the parse tree
+	 */
+	void exitOnMove(AbdlParser.OnMoveContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AbdlParser#block}.
 	 * @param ctx the parse tree
 	 */

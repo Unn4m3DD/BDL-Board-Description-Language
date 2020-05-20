@@ -29,6 +29,12 @@ public interface AbdlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctDef(AbdlParser.FunctDefContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AbdlParser#onMove}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOnMove(AbdlParser.OnMoveContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AbdlParser#block}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

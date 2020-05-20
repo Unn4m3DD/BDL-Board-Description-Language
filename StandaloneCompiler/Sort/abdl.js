@@ -11,16 +11,16 @@ const range = (a, b) => {
   return result;
 }
 const getName = (a) => {
-  try {
+  try{
     return new ABDLVar(context.board[a.getValue()[0]][a.getValue()[1]].piece.name)
-  } catch (e) {
+  } catch(e){
     return new ABDLVar("");
   }
 }
 const getOwner = (a) => {
-  try {
+  try{
     return new ABDLVar(context.board[a.getValue()[0]][a.getValue()[1]].piece.owner)
-  } catch (e) {
+  } catch(e){
     return new ABDLVar(0);
   }
 }
@@ -46,62 +46,61 @@ const can_move = (origin, destination) => {
     return new ABDLVar(0);
 }
 export default {
-  on_move: async (arg_context, arg_table, arg_render) => {
-    
-  },
   main: async (arg_context, arg_table, arg_render) => {
     context = arg_context;
     table = arg_table;
     render = arg_render;
-    let v0 = new ABDLVar(0);
-    let v1 = v0;
-    let v3 = new ABDLVar(0);
-    let v2 = v1.equal(v3);
-    while (v2.getValue() != 0) {
-      let v4 = new ABDLVar(1);
-      v1 = v4;
-      let v5 = new ABDLVar(0);
-      let v7 = new ABDLVar(context.width);
-      let v8 = new ABDLVar(2);
-      let v6 = v7.sub(v8);
-      for (let v9 of range(v5, v6)) {
-        let v12 = new ABDLVar(1);
-        let v11 = v9.add(v12);
-        let v10 = (await get(v9)).less_than((await get(v11)));
-        if (v10.getValue() != 0) {
-          console.log(v9.toString());
-          let v15 = new ABDLVar(1);
-          let v14 = v9.add(v15);
-          let v13 = new ABDLVar(await swap(v9, v14));
-          let v16 = new ABDLVar(0);
-          v1 = v16;
+    let v17 = new ABDLVar(0);
+    let v18 = v17;
+    let v20 = new ABDLVar(0);
+    let v19 = v18.equal(v20);
+    while (v19.getValue() != 0) {
+      let v21 = new ABDLVar(1);
+      v18 = v21;
+      let v22 = new ABDLVar(0);
+      let v24 = new ABDLVar(context.width);
+      let v25 = new ABDLVar(2);
+      let v23 = v24.sub(v25);
+      for(let v26 of range(v22,v23)) {
+        let v29 = new ABDLVar(1);
+        let v28 = v26.add(v29);
+        let v27 = (await f0(v26)).less_than((await f0(v28)));
+        if (v27.getValue() != 0) {
+           console.log(v26.toString());
+           let v32 = new ABDLVar(1);
+           let v31 = v26.add(v32);
+           let v30 = new ABDLVar( await f1(v26, v31));
+           let v33 = new ABDLVar(0);
+           v18 = v33;
         }
       }
-      v3 = new ABDLVar(0);
-      v2 = v1.equal(v3);
+      v20 = new ABDLVar(0);
+      v19 = v18.equal(v20);
 
     }
   }
 }
-async function get(v17) {
-  let v19 = new ABDLVar(context.height);
-  let v18 = v19.sub(new ABDLVar(1));
-  for (let v20 of range(new ABDLVar(0), v18)) {
-    let v22 = new ABDLVar([v17, v20]);
-    let v23 = new ABDLVar("");
-    let v21 = (getName(v22)).not_equal(v23);
-    if (v21.getValue() != 0) {
-      return v20;
+async function f0(v0){
+  let v1 = new ABDLVar(0);
+  let v3 = new ABDLVar(context.height);
+  let v4 = new ABDLVar(1);
+  let v2 = v3.sub(v4);
+  for(let v5 of range(v1,v2)) {
+    let v7 = new ABDLVar([v0, v5]);
+    let v8 = new ABDLVar("");
+    let v6 = (getName(v7)).not_equal(v8);
+    if (v6.getValue() != 0) {
+       return v5;
     }
   }
 }
-async function swap(v24, v25) {
-  let v26 = (await get(v24));
-  let v27 = (await get(v25));
-  let v28 = new ABDLVar([v24, v26]);
-  let v29 = new ABDLVar([v24, v27]);
-  await move(v28, v29);
-  let v30 = new ABDLVar([v25, v27]);
-  let v31 = new ABDLVar([v25, v26]);
-  await move(v30, v31);
+async function f1(v9, v10){
+  let v11 = (await f0(v9));
+  let v12 = (await f0(v10));
+  let v13 = new ABDLVar([v9, v11]);
+  let v14 = new ABDLVar([v9, v12]);
+  await move(v13, v14);
+  let v15 = new ABDLVar([v10, v12]);
+  let v16 = new ABDLVar([v10, v11]);
+  await move(v15, v16);
 }

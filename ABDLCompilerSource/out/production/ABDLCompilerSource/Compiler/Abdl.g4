@@ -1,11 +1,12 @@
 grammar Abdl;
 //TODO sem predicate para function names
-program: functDef* main functDef* EOF;
+program: (functDef | onMove | main)* EOF;
 
 main: 'main' ':' statements* ('end' 'main'|'endmain') ';';
 
 functDef: Type? func_name=ID '(' typedArgs ')' ':' statements* 'end' ID ';';
-//loop: FOR
+
+onMove: 'on_move' ':' statements* 'end' 'on_move' ';';
 
 block: forStatement | whileStatement | ifStatement;
 statements: varDeclaration
@@ -52,7 +53,7 @@ board: 'board' point '.' prop=('piece_name' | 'owner');
 Type: 'int' | 'point' | 'string';
 String: '"' ('\\"'|'\\'|.)*? '"'
        |'\'' ('\\\''|'\\'|.)*? '\'';
-ID: [_a-zA-Z][_a-zA-Z0-9]*;
+ID: [_a-zA-Z][_a-zA-Z0-9]*; 
 Int: [0-9]+;
 Comment: ('//' .*? '\r'? '\n' | '/*' .*? '*/') -> skip;
 WS: [ \n\r\t] -> skip;

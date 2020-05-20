@@ -45,13 +45,20 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         for (var function : ctx.functDef()) {
             visit(function);
         }
-        visit(ctx.main());
+        visit(ctx.main(0));
+        if (ctx.onMove().size() == 1) visit(ctx.onMove(0));
         return program;
     }
 
     @Override
     public Object visitMain(AbdlParser.MainContext ctx) {
         for (var stat : ctx.statements()) program.add("stat", (String) visit(stat));
+        return null;
+    }
+
+    @Override
+    public Object visitOnMove(AbdlParser.OnMoveContext ctx) {
+        for (var stat : ctx.statements()) program.add("onMoveStat", (String) visit(stat));
         return null;
     }
 
@@ -79,6 +86,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         symbolTable.popScope();
         scopesST.pop();
         return func.render();
+
     }
 
     @Override
@@ -432,5 +440,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         return "v" + varCounter++;
     }
 
-    public String createFunc() { return "f" + funcCounter++; }
+    public String createFunc() {
+        return "f" + funcCounter++;
+    }
 }
