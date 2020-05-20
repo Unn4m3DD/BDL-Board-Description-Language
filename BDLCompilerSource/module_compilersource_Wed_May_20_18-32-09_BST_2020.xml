@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_compilersource" default="compile.module.compilersource">
+  <dirname property="module.compilersource.basedir" file="${ant.file.module_compilersource}"/>
+  
+  <property name="module.jdk.home.compilersource" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.compilersource" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.compilersource" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.compilersource" value="-encoding UTF-8 -source 11 -target 11 ${compiler.args}"/>
+  
+  <property name="compilersource.output.dir" value="${module.compilersource.basedir}/out/production/CompilerSource"/>
+  <property name="compilersource.testoutput.dir" value="${module.compilersource.basedir}/out/test/CompilerSource"/>
+  
+  <path id="compilersource.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="compilersource.module.production.classpath">
+    <path refid="${module.jdk.classpath.compilersource}"/>
+    <pathelement location="${basedir}/antlr-4.8-complete.jar"/>
+  </path>
+  
+  <path id="compilersource.runtime.production.module.classpath">
+    <pathelement location="${compilersource.output.dir}"/>
+    <pathelement location="${basedir}/antlr-4.8-complete.jar"/>
+  </path>
+  
+  <path id="compilersource.module.classpath">
+    <path refid="${module.jdk.classpath.compilersource}"/>
+    <pathelement location="${compilersource.output.dir}"/>
+    <pathelement location="${basedir}/antlr-4.8-complete.jar"/>
+  </path>
+  
+  <path id="compilersource.runtime.module.classpath">
+    <pathelement location="${compilersource.testoutput.dir}"/>
+    <pathelement location="${compilersource.output.dir}"/>
+    <pathelement location="${basedir}/antlr-4.8-complete.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.compilersource">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.compilersource">
+    <patternset refid="excluded.from.module.compilersource"/>
+  </patternset>
+  
+  <path id="compilersource.module.sourcepath">
+    <dirset dir="${module.compilersource.basedir}">
+      <include name="src"/>
+      <include name="gen"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.compilersource" depends="compile.module.compilersource.production,compile.module.compilersource.tests" description="Compile module CompilerSource"/>
+  
+  <target name="compile.module.compilersource.production" depends="register.custom.compilers" description="Compile module CompilerSource; production classes">
+    <mkdir dir="${compilersource.output.dir}"/>
+    <javac2 destdir="${compilersource.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.compilersource}/javac">
+      <compilerarg line="${compiler.args.compilersource}"/>
+      <bootclasspath refid="compilersource.module.bootclasspath"/>
+      <classpath refid="compilersource.module.production.classpath"/>
+      <src refid="compilersource.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.compilersource"/>
+    </javac2>
+    
+    <copy todir="${compilersource.output.dir}">
+      <fileset dir="${module.compilersource.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.compilersource.basedir}/gen">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.compilersource.tests" depends="register.custom.compilers,compile.module.compilersource.production" description="compile module CompilerSource; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.compilersource" description="cleanup module">
+    <delete dir="${compilersource.output.dir}"/>
+    <delete dir="${compilersource.testoutput.dir}"/>
+  </target>
+</project>
