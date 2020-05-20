@@ -12,7 +12,6 @@ while ordered == 0 do
   ordered = 1;
   for i from 0 to width - 2 do 
     if get(i) < get(i+1) then
-      print(i);
       swap(i, i+1);
       ordered = 0;
     end if;

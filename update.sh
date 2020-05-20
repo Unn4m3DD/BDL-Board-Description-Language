@@ -1,1 +1,2 @@
-cp ./ABDLCompilerSource/out/artifacts/ABDLCompilerSource_jar/ABDLCompilerSource.jar ./StandaloneCompiler/ABDLCompilerSource.jar
+cp ./ABDLCompilerSource/out/artifacts/ABDLCompilerSource_jar/ABDLCompilerSource.jar ./StandaloneCompiler/ABDLCompiler.jar
+cp ./BDLCompilerSource/out/artifacts/Compiler_jar/Compiler.jar ./StandaloneCompiler/BDLCompiler.jar
