@@ -1,6 +1,6 @@
 grammar Abdl;
 //TODO sem predicate para function names
-program: functDef* main functDef* EOF;
+program: functDef* main onMove? functDef* EOF;
 
 main: 'main' ':' statements* ('end' 'main'|'endmain') ';';
 
@@ -52,7 +52,7 @@ board: 'board' point '.' prop=('piece_name' | 'owner');
 Type: 'int' | 'point' | 'string';
 String: '"' ('\\"'|'\\'|.)*? '"'
        |'\'' ('\\\''|'\\'|.)*? '\'';
-ID: [_a-zA-Z][_a-zA-Z0-9]*;
+ID: [_a-zA-Z][_a-zA-Z0-9]*; 
 Int: [0-9]+;
 Comment: ('//' .*? '\r'? '\n' | '/*' .*? '*/') -> skip;
 WS: [ \n\r\t] -> skip;

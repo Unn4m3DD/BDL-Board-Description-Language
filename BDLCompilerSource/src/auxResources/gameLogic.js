@@ -31,6 +31,7 @@ export default {
       height: rules.height,
       width: rules.width,
       current_player: rules.first_player,
+      move_count: 0,
       board,
     }
   }

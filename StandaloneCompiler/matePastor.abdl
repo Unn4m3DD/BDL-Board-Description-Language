@@ -1,3 +1,4 @@
+let move_count: int = 0;
 main:
     move([4, height - 2], [4, height - 4]);
     move([4, 1], [4, 3]);
@@ -7,3 +8,12 @@ main:
     move([width - 2, 0], [width - 3,  2]);
     move([width - 1, 3], [width - 3,  1]);
 end main;
+
+
+on_move:
+
+  if(current_player == 0) then
+    board
+  end if;
+
+end on_move;

@@ -49,6 +49,7 @@ const functions = {
         if (board[x][y].target) {
           table[x][y].style.backgroundColor = "rgba(100, 200, 100, 100)"
           table[x][y].onclick = (event) => {
+            context.move_count++;
             player_change_rule(context)
             for (let x = 0; x < context.board.length; x++) {
               for (let y = 0; y < context.board[x].length; y++) {
