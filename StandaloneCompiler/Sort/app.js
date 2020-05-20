@@ -12,6 +12,7 @@ let table = generate_table("board", rules.height, rules.width);
 
 render(context, table)
 import("./abdl.js")
-  .then(module => {    
-	module.default(context, table, renderer.render)
+  .then(module => {
+    module.default.main(context, table, renderer.render)
+    context.on_move = module.default.on_move;
   })
