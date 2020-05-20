@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ -z $0 ] 
+if [ ! $1 == "" ]
 then
 ant -f ./ABDLCompilerSource/abdlcompilersource.xml
 ant -f ./BDLCompilerSource/bdlcompilersource.xml
