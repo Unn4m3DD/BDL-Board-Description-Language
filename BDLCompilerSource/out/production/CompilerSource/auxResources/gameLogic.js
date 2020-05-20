@@ -31,6 +31,8 @@ export default {
       height: rules.height,
       width: rules.width,
       current_player: rules.first_player,
+      move_count: 0,
+      on_move: (arg_context, arg_table, arg_render) => { },
       board,
     }
   }
