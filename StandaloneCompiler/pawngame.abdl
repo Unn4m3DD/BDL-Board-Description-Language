@@ -1,11 +1,7 @@
 main:
   move([0, width -1], [0, width - 2]);
-  sleep(1000);
 end main;
 
-sleep(time : int):
-  print("its not you bra <3");
-  if(2 == 0) then 
-    let i = 2;
-  end if;
-end sleep;
+on_move:
+
+end on_move;

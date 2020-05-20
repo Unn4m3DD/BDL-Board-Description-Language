@@ -244,13 +244,13 @@ public class AbdlBaseListener implements AbdlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx) { }
+	@Override public void enterExprMoveCount(AbdlParser.ExprMoveCountContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx) { }
+	@Override public void exitExprMoveCount(AbdlParser.ExprMoveCountContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -316,6 +316,30 @@ public class AbdlBaseListener implements AbdlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExprWidth(AbdlParser.ExprWidthContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprWidth(AbdlParser.ExprWidthContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExprOp(AbdlParser.ExprOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -359,18 +383,6 @@ public class AbdlBaseListener implements AbdlListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExprHeight(AbdlParser.ExprHeightContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExprWidth(AbdlParser.ExprWidthContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExprWidth(AbdlParser.ExprWidthContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

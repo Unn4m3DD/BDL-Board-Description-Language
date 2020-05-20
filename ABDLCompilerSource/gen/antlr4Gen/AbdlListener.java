@@ -206,17 +206,17 @@ public interface AbdlListener extends ParseTreeListener {
 	 */
 	void exitReturnStat(AbdlParser.ReturnStatContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code ExprFunctionCall}
+	 * Enter a parse tree produced by the {@code ExprMoveCount}
 	 * labeled alternative in {@link AbdlParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx);
+	void enterExprMoveCount(AbdlParser.ExprMoveCountContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code ExprFunctionCall}
+	 * Exit a parse tree produced by the {@code ExprMoveCount}
 	 * labeled alternative in {@link AbdlParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx);
+	void exitExprMoveCount(AbdlParser.ExprMoveCountContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Parent}
 	 * labeled alternative in {@link AbdlParser#expr}.
@@ -278,6 +278,30 @@ public interface AbdlListener extends ParseTreeListener {
 	 */
 	void exitExprInt(AbdlParser.ExprIntContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code ExprWidth}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprWidth(AbdlParser.ExprWidthContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExprWidth}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprWidth(AbdlParser.ExprWidthContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ExprFunctionCall}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExprFunctionCall}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ExprOp}
 	 * labeled alternative in {@link AbdlParser#expr}.
 	 * @param ctx the parse tree
@@ -325,18 +349,6 @@ public interface AbdlListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExprHeight(AbdlParser.ExprHeightContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ExprWidth}
-	 * labeled alternative in {@link AbdlParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterExprWidth(AbdlParser.ExprWidthContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ExprWidth}
-	 * labeled alternative in {@link AbdlParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitExprWidth(AbdlParser.ExprWidthContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ExprID}
 	 * labeled alternative in {@link AbdlParser#expr}.

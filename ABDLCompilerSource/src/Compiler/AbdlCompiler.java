@@ -330,6 +330,16 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     }
 
     @Override
+    public Object visitExprMoveCount(AbdlParser.ExprMoveCountContext ctx) {
+        ST varDecl = templates.getInstanceOf("decl");
+        String result = createVar();
+        varDecl.add("var", result);
+        varDecl.add("val", "new ABDLVar(context.move_count)");
+        addVar(varDecl.render());
+        return result;
+    }
+
+    @Override
     public Object visitExprCurrPlayer(AbdlParser.ExprCurrPlayerContext ctx) {
         ST varDecl = templates.getInstanceOf("decl");
         String result = createVar();

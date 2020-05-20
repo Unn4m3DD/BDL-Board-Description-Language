@@ -129,12 +129,12 @@ public interface AbdlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitReturnStat(AbdlParser.ReturnStatContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ExprFunctionCall}
+	 * Visit a parse tree produced by the {@code ExprMoveCount}
 	 * labeled alternative in {@link AbdlParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx);
+	T visitExprMoveCount(AbdlParser.ExprMoveCountContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Parent}
 	 * labeled alternative in {@link AbdlParser#expr}.
@@ -171,6 +171,20 @@ public interface AbdlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprInt(AbdlParser.ExprIntContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ExprWidth}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprWidth(AbdlParser.ExprWidthContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ExprFunctionCall}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ExprOp}
 	 * labeled alternative in {@link AbdlParser#expr}.
 	 * @param ctx the parse tree
@@ -198,13 +212,6 @@ public interface AbdlVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExprHeight(AbdlParser.ExprHeightContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExprWidth}
-	 * labeled alternative in {@link AbdlParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExprWidth(AbdlParser.ExprWidthContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ExprID}
 	 * labeled alternative in {@link AbdlParser#expr}.
