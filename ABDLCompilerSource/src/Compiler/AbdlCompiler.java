@@ -17,7 +17,7 @@ import org.stringtemplate.v4.misc.STCompiletimeMessage;
 
 public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     int varCounter = 0;
-    private int functionCount = 0;
+    int funcCounter = 0;
     STGroup templates = new STGroupFile("Compiler/templates.stg");
     SymbolTable symbolTable = new SymbolTable();
     ST program = templates.getInstanceOf("program");
@@ -42,11 +42,10 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     public Object visitProgram(AbdlParser.ProgramContext ctx) {
         symbolTable.pushScope();
         scopesST.push(program);
-        visit(ctx.main());
         for (var function : ctx.functDef()) {
-            functionCount++;
             visit(function);
         }
+        visit(ctx.main());
         return program;
     }
 
@@ -58,17 +57,18 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitFunctDef(AbdlParser.FunctDefContext ctx) {
-        symbolTable.pushScope();
-        String funcName = ctx.func_name.getText();
+        String sourceFuncName = ctx.func_name.getText();
         List<String> args = new ArrayList<>();
         String resType = ctx.Type() != null ? ctx.Type().getText() : null;
         if (resType == null) resType = "void";
         args.addAll((List<String>) visit(ctx.typedArgs()));
-        Function funct = new Function(funcName, args, resType);
-        symbolTable.pushSymbol(funcName, funct);
+        String targetFuncName = createFunc();
+        Function funct = new Function(targetFuncName, args, resType);
+        symbolTable.pushSymbol(sourceFuncName, funct);
         ST func = templates.getInstanceOf("function");
         scopesST.push(func);
-        func.add("funcName", funcName);
+        func.add("funcName", targetFuncName);
+        symbolTable.pushScope();
         for (String arg : args) {
             String varName = createVar();
             symbolTable.pushSymbol(arg, new Variable(varName, ""));
@@ -292,7 +292,8 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String resVar = createVar();
         List<String> args = (List<String>) visit(ctx.args());
         varDecl.add("var", resVar);
-        varDecl.add("val", "new ABDLVar( await " + ctx.funcName.getText() + "(" + args.toString().substring(1, args.toString().length() - 1) + "))");
+        varDecl.add("val", "new ABDLVar( await " + symbolTable.resolveName(ctx.funcName.getText())
+                + "(" + args.toString().substring(1, args.toString().length() - 1) + "))");
 
         addVar(varDecl.render());
 
@@ -307,7 +308,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     @Override
     public Object visitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx) {
         List<String> args = (List<String>) visit(ctx.args());
-        return "(await " + ctx.funcName.getText() + "(" +
+        return "(await " + symbolTable.resolveName(ctx.funcName.getText()) + "(" +
                 args.toString().substring(1, args.toString().length() - 1) + "))";
     }
 
@@ -358,16 +359,12 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitExprInt(AbdlParser.ExprIntContext ctx) {
-        if (functionCount == 0) {
-            ST varDecl = templates.getInstanceOf("decl");
-            String resVar = createVar();
-            varDecl.add("var", resVar);
-            varDecl.add("val", "new ABDLVar(" + ctx.Int().getText() + ")");
-            addVar(varDecl.render());
-            return resVar;
-        }
-        return "new ABDLVar(" + ctx.Int().getText() + ")";
-
+        ST varDecl = templates.getInstanceOf("decl");
+        String resVar = createVar();
+        varDecl.add("var", resVar);
+        varDecl.add("val", "new ABDLVar(" + ctx.Int().getText() + ")");
+        addVar(varDecl.render());
+        return resVar;
     }
 
     @Override
@@ -435,4 +432,5 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         return "v" + varCounter++;
     }
 
+    public String createFunc() { return "f" + funcCounter++; }
 }

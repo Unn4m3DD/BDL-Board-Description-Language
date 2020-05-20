@@ -1,14 +1,11 @@
-int fact(n : int):
-  if(n == 1) then
-    return 1;
-  end if;
-  return fact(n - 1) * n;
-end fact;
-
 main:
-  print(fact(1));
-  print(fact(2));
-  print(fact(3));
-  print(fact(4));
-  print(fact(5));
+  move([0, width -1], [0, width - 2]);
+  sleep(1000);
 end main;
+
+sleep(time : int):
+  print("its not you bra <3");
+  if(2 == 0) then 
+    let i = 2;
+  end if;
+end sleep;
