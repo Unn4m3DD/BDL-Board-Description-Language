@@ -175,6 +175,9 @@
     <jar destfile="${temp.jar.path.BDLCompiler.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
       <zipfileset dir="${compilersource.output.dir}"/>
       <zipfileset src="${basedir}/antlr-4.8-complete.jar"/>
+      <manifest>
+        <attribute name="Main-Class" value="Main" />
+      </manifest>
     </jar>
     <copy file="${temp.jar.path.BDLCompiler.jar}" tofile="${artifact.temp.output.bdlcompiler:jar}/BDLCompiler.jar"/>
   </target>

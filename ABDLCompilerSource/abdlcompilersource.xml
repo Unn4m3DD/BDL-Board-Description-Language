@@ -175,6 +175,9 @@
     <jar destfile="${temp.jar.path.ABDLCompilerSource.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
       <zipfileset dir="${abdlcompilersource.output.dir}"/>
       <zipfileset src="${basedir}/antlr-4.8-complete.jar"/>
+      <manifest>
+        <attribute name="Main-Class" value="Compiler.Main" />
+      </manifest>
     </jar>
     <copy file="${temp.jar.path.ABDLCompilerSource.jar}" tofile="${artifact.temp.output.abdlcompilersource:jar}/ABDLCompilerSource.jar"/>
   </target>
