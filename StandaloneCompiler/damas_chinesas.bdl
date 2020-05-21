@@ -1,0 +1,94 @@
+rules{
+  first_player : 0
+  width : 7
+  height : 7
+  coloring : explicit{
+    (x, y, last_color) => {
+      if(y == 0)
+        last_color = (x % 2 == 0) ? "#c90" : "#ffffff";
+      last_color = last_color === "#ffffff" ? "#c90" : "#ffffff"
+      return last_color
+    }
+  }
+  player_change : explicit {
+    (context) => {
+      context.current_player = context.current_player === 0 ? 1 : 0
+    }
+  }
+}
+
+pieces{
+  D1{
+    moves{
+      x : [-2, 2], y : [-2, 2], kills : false
+    }
+    mirrored
+  }
+  D2{
+    moves{
+      x : [-2, 2], y : [-2, 2], kills : false
+    }
+    mirrored
+  }
+}
+
+initial_piece_position{
+  D1{
+    positions{
+      x : [0, 3], y : 0
+      x : [0, 2], y : 1
+      x : [0, 1], y : 2
+      x : [0, 0], y : 3
+    }
+    owner : 0
+  }
+  D2{
+    positions{
+      x : 6, y : [3, 6]
+      x : 5, y : [4, 6]
+      x : 4, y : [5, 6]
+      x : 3, y : [6, 6]
+    }
+    owner : 1
+  }
+}
+
+invariants{
+  explicit{
+    (context, current_x, current_y, target_x, target_y) => {
+      if(context.board[current_x][current_y].piece.name != "D1" &&
+        context.board[current_x][current_y].piece.name != "D2")
+        return true;
+        
+      if(Math.abs(current_x - target_x) < 2 && Math.abs(current_y - target_y) < 2)
+        return true;
+
+      let x_must_be_enemy = (target_x - current_x) / 2 + current_x;
+      let y_must_be_enemy = (target_y - current_y) / 2 + current_y;
+      if(context.board[current_x] &&
+        context.board[current_x][current_y] &&
+        context.board[current_x][current_y].piece &&
+        context.board[current_x][current_y].piece.name == "D1")
+        if(context.board[x_must_be_enemy] &&
+          context.board[x_must_be_enemy][y_must_be_enemy] &&
+          context.board[x_must_be_enemy][y_must_be_enemy].piece &&
+          context.board[x_must_be_enemy][y_must_be_enemy].piece.name == "D2")
+          return true;
+      if(context.board[current_x] &&
+        context.board[current_x][current_y] &&
+        context.board[current_x][current_y].piece &&
+        context.board[current_x][current_y].piece.name == "D2")
+        if(context.board[x_must_be_enemy] &&
+          context.board[x_must_be_enemy][y_must_be_enemy] &&
+          context.board[x_must_be_enemy][y_must_be_enemy].piece &&
+          context.board[x_must_be_enemy][y_must_be_enemy].piece.name == "D1")
+          return true;
+
+      return false;
+    }
+  }
+}
+
+finish{
+  no_moves_available
+}

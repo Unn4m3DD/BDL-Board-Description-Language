@@ -3,7 +3,7 @@ import org.antlr.v4.runtime.Token;
 
 import java.util.HashMap;
 import java.util.Map;
-
+//TODO invariant explicit
 public class BoardCustomVisitor extends BoardBaseVisitor<Object> {
     int width = 8, height = 8;
     Map<String, String> files = new HashMap<>();
@@ -55,10 +55,11 @@ public class BoardCustomVisitor extends BoardBaseVisitor<Object> {
                 result.append((String) visit(ctx.explicitParsed()));
             else if (ctx.getChild(2).getText().equals("alternate"))
                 result.append("(x, y, last_color) => {\n" +
-                        "    if (y === 0) last_color = last_color === \"#ffffff\" ? \"#c90\" : \"#ffffff\"\n" +
-                        "    last_color = last_color === \"#ffffff\" ? \"#c90\" : \"#ffffff\"\n" +
-                        "    return last_color\n" +
-                        "  }");
+                        "      if(y == 0)\n" +
+                        "        last_color = (x % 2 == 0) ? \"#c90\" : \"#ffffff\";\n" +
+                        "      last_color = last_color === \"#ffffff\" ? \"#c90\" : \"#ffffff\"\n" +
+                        "      return last_color\n" +
+                        "    }");
             else
                 throw new Exception("Unknown coloring: " + ctx.getChild(2).getText());
         } catch (Exception e) {
@@ -659,7 +660,7 @@ public class BoardCustomVisitor extends BoardBaseVisitor<Object> {
     @Override
     public Object visitExplicitParsed(BoardParser.ExplicitParsedContext ctx) {
         String txt = ctx.EXPLICIT().getText();
-        txt = txt.substring(9).trim(); //cleans explicit
+        txt = txt.substring(8).trim(); //cleans explicit
         return txt.substring(1, txt.length() - 1); //cleans {}
     }
 

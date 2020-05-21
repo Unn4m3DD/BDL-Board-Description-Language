@@ -7,16 +7,16 @@ int get(idx: int):
 end get;
 
 main:
-let sorted = 0;
-while sorted == 0 do
-  sorted = 1;
-  for i from 0 to width - 2 do 
-    if get(i) < get(i+1) then
-      swap(i, i+1);
-      sorted = 0;
-    end if;
+  let sorted = 0;
+  while sorted == 0 do
+    sorted = 1;
+    for i from 0 to width - 2 do 
+      if get(i) < get(i+1) then
+        swap(i, i+1);
+        sorted = 0;
+      end if;
+    done;
   done;
-done;
 end main;
 
 swap(idx1 : int, idx2 : int):

@@ -3,5 +3,5 @@ main:
 end main;
 
 on_move:
-
+  print(move_count);
 end on_move;

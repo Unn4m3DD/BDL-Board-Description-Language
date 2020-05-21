@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.Token;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
+//TODO verificar multiplas definiçoes de metodos
 public class SemanticVisitor extends AbdlBaseVisitor<Object> {
     SymbolTable st = new SymbolTable();
     boolean error = false;
