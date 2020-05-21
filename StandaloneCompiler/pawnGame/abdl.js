@@ -46,6 +46,10 @@ const can_move = (origin, destination) => {
     return new ABDLVar(0);
 }
 export default {
+  on_move: async (arg_context, arg_table, arg_render) => {
+      let v10 = new ABDLVar(context.move_count);
+      console.log(v10.toString());
+    },
   main: async (arg_context, arg_table, arg_render) => {
     context = arg_context;
     table = arg_table;
