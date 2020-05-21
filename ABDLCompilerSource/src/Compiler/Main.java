@@ -13,7 +13,7 @@ import java.util.BitSet;
 import antlr4Gen.*;
 
 import javax.xml.transform.ErrorListener;
-
+//TODO fix move_count js
 public class Main {
     public static void main(String[] args) throws IOException {
         new Main(args);
