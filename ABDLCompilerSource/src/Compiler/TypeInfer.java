@@ -90,6 +90,12 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
     }
 
     @Override
+    public String visitExprMoveCount(AbdlParser.ExprMoveCountContext ctx) {
+        return "int";
+    }
+
+
+    @Override
     public String visitExprBoard(AbdlParser.ExprBoardContext ctx) {
         if (ctx.board().prop.getText().equals("piece_name"))
             return "string";

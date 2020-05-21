@@ -46,8 +46,8 @@ const can_move = (origin, destination) => {
     return new ABDLVar(0);
 }
 export default {
-  on_move: async (arg_context, arg_table, arg_render) => {
-      let v62 = new ABDLVar(context.height);
+  on_move: async () => {
+      let v62 = new ABDLVar(context.move_count);
       console.log(v62.toString());
     },
   main: async (arg_context, arg_table, arg_render) => {

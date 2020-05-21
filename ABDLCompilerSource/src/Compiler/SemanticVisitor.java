@@ -12,8 +12,8 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
     SymbolTable st = new SymbolTable();
     boolean error = false;
     //TODO typeinfer do getName e getOwner
-    //TODO redefinicao do sleep
     //TODO semantica visitExprMoveCount
+    //TODO talvez num futuro distante redefinicao do sleep
     @Override
     public Object visitProgram(AbdlParser.ProgramContext ctx) {
         st.pushScope();
@@ -91,14 +91,14 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
                     || typeInfer.visit(args.expr(0)).equals("")) {
                 error = true;
                 //tested
-                System.err.println("Invalid call to print statement " + getLineFormated(start));
+                System.err.println("Invalid call to print statement " + getLineFormatted(start));
             }
             return;
         }
         Function func = (Function) st.resolve(funcName.getText());
         if (func == null) {
             //tested
-            System.err.println("Function not defined " + getLineFormated(start) + ": " + funcName.getText());
+            System.err.println("Function not defined " + getLineFormatted(start) + ": " + funcName.getText());
             error = true;
         } else {
             List<String> passedVarTypes = new ArrayList<String>(args != null ? args.expr().size() : 0);
@@ -108,7 +108,7 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
             if (!passedVarTypes.equals(func.getArgs())) {
                 //tested
                 System.err.println(
-                        "Function argument types and passed parameters do not match " + getLineFormated(start) + ": " +
+                        "Function argument types and passed parameters do not match " + getLineFormatted(start) + ": " +
                                 func.getArgs() + " != " + passedVarTypes
                 );
                 error = true;
@@ -156,15 +156,15 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
         String inferredType = typeInfer.visit(ctx.expr());
         if (variable == null) {
             //tested
-            System.err.println("Variable not declared " + getLineFormated(ctx.start) + ": " + ctx.ID().getText());
+            System.err.println("Variable not declared " + getLineFormatted(ctx.start) + ": " + ctx.ID().getText());
             error = true;
         } else if (inferredType.equals("")) {
             //tested
-            System.err.println("It was not possible to infer expression type " + getLineFormated(ctx.expr().start) + ": " + ctx.expr().getText());
+            System.err.println("It was not possible to infer expression type " + getLineFormatted(ctx.expr().start) + ": " + ctx.expr().getText());
             error = true;
         } else if (!variable.getType().equals(inferredType)) {
             //tested
-            System.err.println("Variable and attribution types mismatch " + getLineFormated(ctx.start) + ": " +
+            System.err.println("Variable and attribution types mismatch " + getLineFormatted(ctx.start) + ": " +
                     ctx.ID().getText() + " (" + variable.getType() + ") and " +
                     ctx.expr().getText() + " (" + inferredType + ")");
             error = true;
@@ -179,7 +179,7 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
         TypeInfer ti = new TypeInfer(st);
         String inferredType = ctx.expr() != null ? ti.visit(ctx.expr()) : "";
         if (declaredType.equals("") && inferredType.equals("")) {
-            System.err.println("It was not possible to infer the type " + getLineFormated(ctx.expr().start) + ": " + ctx.ID().getText());
+            System.err.println("It was not possible to infer the type " + getLineFormatted(ctx.expr().start) + ": " + ctx.ID().getText());
             error = true;
         } else if (declaredType.equals(""))
             type = inferredType;
@@ -189,7 +189,7 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
             type = declaredType;
         else {
             //tested
-            System.err.println("Declared and inferred type do not match " + getLineFormated(ctx.start) + ": " +
+            System.err.println("Declared and inferred type do not match " + getLineFormatted(ctx.start) + ": " +
                     inferredType + " != " + declaredType
             );
             error = true;
@@ -209,18 +209,13 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
         return result;
     }
 
+
     @Override
     public Object visitExprID(AbdlParser.ExprIDContext ctx) {
-        /* TODO verificar que isto pode estar comentado
-        if (st.resolve(ctx.ID().getText()) == null) {
-            System.err.println("Undefined variable " + getLineFormated(ctx.start) + ":" + ctx.ID().getText());
-            error = true;
-        }
-        */
         return visitChildren(ctx);
     }
 
-    String getLineFormated(Token start) {
+    String getLineFormatted(Token start) {
         return "(" + start.getLine() + ":" + start.getCharPositionInLine() + ")";
     }
 }

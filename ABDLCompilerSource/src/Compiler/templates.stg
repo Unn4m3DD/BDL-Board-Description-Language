@@ -47,7 +47,7 @@ const can_move = (origin, destination) => {
     return new ABDLVar(0);
 }
 export default {
-  <if(onMoveStat)>on_move: async (arg_context, arg_tab  le, arg_render) => {
+  <if(onMoveStat)>on_move: async (arg_context, arg_table, arg_render) => {
     <statements(onMoveStat)>
   },
   <endif>
