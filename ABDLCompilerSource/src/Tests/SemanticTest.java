@@ -30,8 +30,9 @@ public class SemanticTest {
             AbdlLexer lexer = new AbdlLexer(cs);
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             AbdlParser parser = new AbdlParser(tokens);
+            parser.removeErrorListeners();
+            parser.addErrorListener(new MyErrorListener());
             ParseTree tree = parser.program();
-
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PrintStream ps = new PrintStream(baos);
             System.setErr(ps);

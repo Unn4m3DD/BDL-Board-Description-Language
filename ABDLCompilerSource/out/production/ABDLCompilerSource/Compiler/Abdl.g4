@@ -1,10 +1,9 @@
 grammar Abdl;
-//TODO sem predicate para function names
 program: (functDef | onMove | main)* EOF;
 
 main: 'main' ':' statements* ('end' 'main'|'endmain') ';';
 
-functDef: Type? func_name=ID '(' typedArgs ')' ':' statements* 'end' ID ';';
+functDef: Type? func_name=ID '(' typedArgs ')' ':' statements* 'end' (func_name2=ID{$func_name.text.equals($func_name2.text)}?) ';';
 
 onMove: 'on_move' ':' statements* 'end' 'on_move' ';';
 

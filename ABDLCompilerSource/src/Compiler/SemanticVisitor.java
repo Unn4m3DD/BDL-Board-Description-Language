@@ -1,5 +1,4 @@
 package Compiler;
-//TODO lista de argumento no print
 import SymbolTable.*;
 import antlr4Gen.*;
 import org.antlr.v4.runtime.Token;
@@ -11,12 +10,15 @@ import java.util.List;
 public class SemanticVisitor extends AbdlBaseVisitor<Object> {
     SymbolTable st = new SymbolTable();
     boolean error = false;
-    //TODO typeinfer do getName e getOwner
-    //TODO semantica visitExprMoveCount
+
     //TODO talvez num futuro distante redefinicao do sleep
     @Override
     public Object visitProgram(AbdlParser.ProgramContext ctx) {
         st.pushScope();
+        if (ctx.main().size() + ctx.onMove().size() == 0) {
+            System.err.println("Neither main or on_move declared");
+            error = true;
+        }
         for (var func : ctx.functDef()) {
             LinkedList<String> args = new LinkedList<>();
             for (var type : func.typedArgs().Type()) {
@@ -209,6 +211,13 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
         return result;
     }
 
+    @Override
+    public Object visitOnMove(AbdlParser.OnMoveContext ctx) {
+        st.pushScope();
+        Object result = visitChildren(ctx);
+        st.popScope();
+        return result;
+    }
 
     @Override
     public Object visitExprID(AbdlParser.ExprIDContext ctx) {

@@ -1,14 +1,18 @@
 package Compiler;
 
 import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.atn.ATNConfigSet;
+import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.tree.*;
 import org.stringtemplate.v4.ST;
 
 import java.io.*;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.BitSet;
 
 import antlr4Gen.*;
+
+import javax.xml.transform.ErrorListener;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -40,8 +44,14 @@ public class Main {
         AbdlLexer lexer = new AbdlLexer(cs);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         AbdlParser parser = new AbdlParser(tokens);
+        parser.removeErrorListeners();
+        MyErrorListener lexicalErrorListener = new MyErrorListener();
+        parser.addErrorListener(lexicalErrorListener);
         ParseTree tree = parser.program();
-
+        if (lexicalErrorListener.error) {
+            System.err.println("Lexical errors occurred and compilation will stop");
+            System.exit(1);
+        }
         SemanticVisitor visitor = new SemanticVisitor();
         visitor.visit(tree);
         if (visitor.error) {
@@ -51,7 +61,7 @@ public class Main {
 
         AbdlCompiler visitor1 = new AbdlCompiler();
         ST srcCode = (ST) visitor1.visit(tree);
-        try (PrintWriter pw = new PrintWriter(dir.getPath() + File.separator +"abdl.js")) {
+        try (PrintWriter pw = new PrintWriter(dir.getPath() + File.separator + "abdl.js")) {
             pw.write(srcCode.render());
         }
         File f = new File(dir.getPath() + File.separator + "AbdlVar.js");

@@ -45,32 +45,21 @@ const can_move = (origin, destination) => {
   else
     return new ABDLVar(0);
 }
-export default async (arg_context, arg_table, arg_render) => {
-  context = arg_context;
-  table = arg_table;
-  render = arg_render;
-  let v8 = new ABDLVar(0);
-  let v10 = new ABDLVar(context.width);
-  let v11 = new ABDLVar(1);
-  let v9 = v10.sub(v11);
-  let v7 = new ABDLVar([v8, v9]);
-  let v13 = new ABDLVar(0);
-  let v15 = new ABDLVar(context.width);
-  let v16 = new ABDLVar(2);
-  let v14 = v15.sub(v16);
-  let v12 = new ABDLVar([v13, v14]);
-  await move(v7, v12);
-  let v18 = new ABDLVar(1000);
-  let v17 = new ABDLVar( await f0(v18));
-}
-async function f0(v0){
-  let v1 = new ABDLVar("its not you bra <3");
-  console.log(v1.toString());
-  let v3 = new ABDLVar(2);
-  let v4 = new ABDLVar(0);
-  let v2 = v3.equal(v4);
-  if (v2.getValue() != 0) {
-     let v5 = new ABDLVar(2);
-     let v6 = v5;
+export default {
+  main: async (arg_context, arg_table, arg_render) => {
+    context = arg_context;
+    table = arg_table;
+    render = arg_render;
+    let v1 = new ABDLVar(0);
+    let v3 = new ABDLVar(context.width);
+    let v4 = new ABDLVar(1);
+    let v2 = v3.sub(v4);
+    let v0 = new ABDLVar([v1, v2]);
+    let v6 = new ABDLVar(0);
+    let v8 = new ABDLVar(context.width);
+    let v9 = new ABDLVar(2);
+    let v7 = v8.sub(v9);
+    let v5 = new ABDLVar([v6, v7]);
+    await move(v0, v5);
   }
 }

@@ -66,7 +66,6 @@ export default {
         let v28 = v26.add(v29);
         let v27 = (await f0(v26)).less_than((await f0(v28)));
         if (v27.getValue() != 0) {
-           console.log(v26.toString());
            let v32 = new ABDLVar(1);
            let v31 = v26.add(v32);
            let v30 = new ABDLVar( await f1(v26, v31));

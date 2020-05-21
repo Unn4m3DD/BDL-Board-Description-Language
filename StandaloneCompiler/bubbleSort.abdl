@@ -7,13 +7,13 @@ int get(idx: int):
 end get;
 
 main:
-let ordered = 0;
-while ordered == 0 do
-  ordered = 1;
+let sorted = 0;
+while sorted == 0 do
+  sorted = 1;
   for i from 0 to width - 2 do 
     if get(i) < get(i+1) then
       swap(i, i+1);
-      ordered = 0;
+      sorted = 0;
     end if;
   done;
 done;
