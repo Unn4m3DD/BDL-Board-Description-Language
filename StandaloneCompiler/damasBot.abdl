@@ -1,0 +1,3 @@
+main:
+    print(board[0, height - 1].piece_name);
+end main;   

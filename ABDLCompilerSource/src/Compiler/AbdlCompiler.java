@@ -43,7 +43,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         for (var function : ctx.functDef()) {
             visit(function);
         }
-        visit(ctx.main(0));
+        if (ctx.main().size() == 1) visit(ctx.main(0));
         if (ctx.onMove().size() == 1) visit(ctx.onMove(0));
         return program;
     }

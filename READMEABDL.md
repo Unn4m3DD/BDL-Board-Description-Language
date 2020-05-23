@@ -5,7 +5,7 @@
 ## Download
 
 Download abdl compiler [here](https://github.com/Unn4m3DD/BDL-Board-Description-Language/raw/master/StandaloneCompiler/ABDLCompiler.jar).
-Download example, chess.bdl [here](https://github.com/Unn4m3DD/BDL-Board-Description-Language/raw/master/StandaloneCompiler/chess.bdl).
+Download example, matePastor.abdl [here](https://github.com/Unn4m3DD/BDL-Board-Description-Language/raw/master/StandaloneCompiler/matePastor.abdl).
 
 ## Usage
 
@@ -17,14 +17,21 @@ Download example, chess.bdl [here](https://github.com/Unn4m3DD/BDL-Board-Descrip
 
 ## Syntax
 
-All abdl files must have a main:
+All abdl files must have a main or a on_move, main is called when the program starts and on_move is called everytime a player makes a movement.
 
 **Main:**
 
 ``` abdl
 main:
-  statements;
+  //statements;
 end main;
+```
+
+**On move:**
+```
+on_move:
+  //statements;
+end on_move;
 ```
 
 **<a name="stats"></a>Statements:**
@@ -53,23 +60,45 @@ The language supports three variable types:
 
 Every variable that is declared must either have an explicit type or an initialization with an expr from which the type is infered.
 
+**Globally defined Variables:**
+
+| Variable | Value |
+|-|-|
+| `current_player` | current player, either 0 or 1| 
+| `width` | board width |
+| `height` | board height |
+| `board[x, y].piece_name` | piece name |
+| `board[x, y].owner` | piece owner |
+| `move_count` | number of movements |
+
+**Globally defined functions:**
+
+| Name | Return |
+|-|-|
+|`can_move(point, point);` | returns 1 if the move is possible, 0 otherwise
+|`move(point, point);` | returns 1 if the move was successful, 0 otherwise
+|`print([args](#args));` | returns void
+
+***<a name="args"></a>args:***
+One or more comma separated expr.
+
+**Functions:**
+
+Function defenition:
+
+``` abdl
+returnType functionName(fArgs):
+  statements;
+end functionName;
+```
+
+***<a name="fArgs"></a>fArgs:***
+One or more comma separated pairs of type varName : varType.
+
+The return type is optional and not being present is equivalent to it being void.
+The statements are the same as refered [here](#stats); 
+
 Operations available between types:
-<<<<<<< HEAD
-|| int | string | point |
-|-|---------------|------------------|-|
-|int| [all](#all) | + * | + - * / ^ % |
-|string|+ *|+ == != | + |
-|point|+ - * / ^ %| + | + - * / ^ % == != |
-
-|+| int | string | point |
-|-|---------------|------------------|-|
-|int| int | string | point |
-|string|string|string | string |
-|point|point| string | point |
-
-***<a name="all"></a>all:***
-\+ \- \* / ^ % == != < <= > >= 
-=======
 
 | + | int | string | point
 |-----|---------|------|-----|
@@ -154,42 +183,3 @@ Operations available between types:
 | int | int | undefined | undefined |
 | string | undefined | undefined | undefined |
 | point | undefined | undefined | undefined |
-
->>>>>>> 2b1744ec4bc8e34a58f8d7b226c7af713a5ff4ea
-
-**Globally defined Variables:**
-
-| Variable | Value |
-|-|-|
-| current_player | current player, either 0 or 1| 
-| width | board width |
-| height | board height |
-| board[x][y].piece_name | piece name |
-| board[x][y].owner | piece owner |
-
-**Invariants:**
-
-| Name | Return |
-|-|-|
-|can_move(point, point); | returns 1 if the move is possible, 0 otherwise
-|move(point, point); | returns 1 if the move was successful, 0 otherwise
-|print([args](#args)); | returns void
-
-***<a name="args"></a>args:***
-One or more comma separated expr.
-
-**Functions:**
-
-Function defenition:
-
-``` abdl
-returnType functionName(fArgs):
-  statements;
-end functionName;
-```
-
-***<a name="fArgs"></a>fArgs:***
-One or more comma separated pairs of type varName : varType.
-
-The return type is optional and not being present is equivalent to it being void.
-The statements are the same as refered [here](#stats); 
