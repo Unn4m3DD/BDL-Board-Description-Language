@@ -18,7 +18,7 @@ best_move():
     for j from 0 to height - 1 do
       if(board[i, j].owner == 0) then
         let dest = get_furthest_jump([i,j]);
-        if(norm(dest) > 0) then
+        if(norm(dest) > norm(p2)) then
             p1 = [i, j];
             p2 = dest;
         end if;
@@ -34,8 +34,10 @@ point get_furthest_jump(piece : point):
   let res = [0, 0];
   for i from 0 to 2 do
     for j from -2 to 0 do 
+      print(piece + "->" + (piece + [i, j]));
+      print(can_move(piece, piece + [i, j]));
       if can_move(piece, piece + [i, j]) then
-        if norm([i, j] - piece) > norm(res - piece) then
+        if norm([i, j]) > norm(res) then
           res = [i, j];
         end if;
       end if;
