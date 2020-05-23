@@ -45,12 +45,19 @@ const functions = {
     functions.colorize_table(table, context)
     for (let x = 0; x < board.length; x++) {
       for (let y = 0; y < board[x].length; y++) {
-
+        if (context.focused.x != -1 && context.focused.y != -1) {
+          for (let x = 0; x < context.board.length; x++) {
+            for (let y = 0; y < context.board[x].length; y++) {
+              context.board[x][y].target = false
+              table[x][y].onclick = (event) => { }
+            }
+          }
+        }
         if (board[x][y].target) {
           table[x][y].style.backgroundColor = "rgba(100, 200, 100, 100)"
           table[x][y].onclick = (event) => {
-          context.move_count++;
-          player_change_rule(context)
+            context.move_count++;
+            player_change_rule(context)
             for (let x = 0; x < context.board.length; x++) {
               for (let y = 0; y < context.board[x].length; y++) {
                 context.board[x][y].target = false
@@ -59,6 +66,7 @@ const functions = {
             }
             board[x][y].piece = board[context.focused.x][context.focused.y].piece
             board[context.focused.x][context.focused.y].piece = null
+
             if (!board[x][y].piece.mirrored) {
               if (y === context.height - 1)
                 pieces[board[x][y].piece.name].on_end_reached(context, x, y)

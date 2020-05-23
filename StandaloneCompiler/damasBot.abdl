@@ -25,7 +25,6 @@ best_move():
       end if;
     done;
   done;
-  print(p2);
   if p1 /= p2 then 
     move(p1, p1 + p2); 
   end if; 
@@ -34,15 +33,11 @@ end best_move;
 point get_furthest_jump(piece : point):
   let res = [0, 0];
   for i from 0 to 2 do
-    for j from 0 to 2 do 
+    for j from -2 to 0 do 
       if can_move(piece, piece + [i, j]) then
-        print(piece);
-        print(j);
-        print(piece + [i, j]);
-        res = [i, j];
-        //if norm([i, j] - piece) > norm(res - piece) then
-        // res = [i, j];
-        //end if;
+        if norm([i, j] - piece) > norm(res - piece) then
+          res = [i, j];
+        end if;
       end if;
     done;
   done;
