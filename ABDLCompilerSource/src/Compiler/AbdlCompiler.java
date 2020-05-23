@@ -113,6 +113,8 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String id = ctx.var.getText();
         String low = (String) visit(ctx.bottom);
         String high = (String) visit(ctx.up);
+        String stControlOld = stControl;
+        stControl = "stat";
         String result = createVar();
         ST forStat = templates.getInstanceOf("forStat");
         scopesST.push(forStat);
@@ -123,6 +125,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         forStat.add("high", high);
         for (var stat : ctx.statements()) forStat.add("stat", (String) visit(stat));
         scopesST.pop();
+        stControl = stControlOld;
         symbolTable.popScope();
         return forStat.render();
     }
@@ -131,6 +134,8 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
     public Object visitWhileStatement(AbdlParser.WhileStatementContext ctx) {
         scopesST.push(templates.getInstanceOf("statements"));
         String resVar = (String) visit(ctx.expr());
+        String stControlOld = stControl;
+        stControl = "stat";
         ST.AttributeList test = (ST.AttributeList) scopesST.pop().getAttribute("stat");
         String condRepeat = "";
         for (int i = 0; i < test.size(); i++) {
@@ -146,6 +151,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         }
         whileStat.add("stat", condRepeat);
         scopesST.pop();
+        stControl = stControlOld;
         symbolTable.popScope();
         return whileStat.render();
     }
@@ -156,6 +162,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String s = (String) visit(ctx.expr());
         ifStat.add("var", (String) s);
         scopesST.push(ifStat);
+        String stControlOld = stControl;
         stControl = "stat_true";
         symbolTable.pushScope();
         for (var stat : ctx.statements()) {
@@ -188,7 +195,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
             }
         }
         scopesST.pop();
-        stControl = "stat";
+        stControl = stControlOld;
         symbolTable.popScope();
         return ifStat.render();
     }

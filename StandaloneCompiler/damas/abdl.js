@@ -46,15 +46,32 @@ const can_move = (origin, destination) => {
     return new ABDLVar(0);
 }
 export default {
+  on_move: async (arg_context, arg_table, arg_render) => {
+      let v0 = new ABDLVar(0);
+      let v2 = new ABDLVar(context.width);
+      let v3 = new ABDLVar(1);
+      let v1 = v2.sub(v3);
+      for(let v4 of range(v0,v1)) {
+        let v5 = new ABDLVar(0);
+        let v7 = new ABDLVar(context.height);
+        let v8 = new ABDLVar(1);
+        let v6 = v7.sub(v8);
+        for(let v9 of range(v5,v6)) {
+          let v11 = new ABDLVar([v4, v9]);
+          let v12 = new ABDLVar("D1");
+          let v10 = (getName(v11)).equal(v12);
+          if (v10.getValue() != 0) {
+             let v15 = new ABDLVar(", ");
+             let v14 = v4.add(v15);
+             let v13 = v14.add(v9);
+             console.log(v13.toString());
+          }
+        }
+      }
+    },
   main: async (arg_context, arg_table, arg_render) => {
     context = arg_context;
     table = arg_table;
     render = arg_render;
-    let v1 = new ABDLVar(0);
-    let v3 = new ABDLVar(context.height);
-    let v4 = new ABDLVar(1);
-    let v2 = v3.sub(v4);
-    let v0 = new ABDLVar([v1, v2]);
-    console.log((getName(v0)).toString());
   }
 }

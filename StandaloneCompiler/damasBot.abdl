@@ -1,3 +1,13 @@
 main:
-    print(board[0, height - 1].piece_name);
-end main;   
+    
+end main;
+
+on_move:
+  for i from 0 to width - 1 do
+    for j from 0 to height - 1 do
+      if(board[i,j].piece_name == "D1") then
+        print(i + ", " + j);
+      end if;
+    done;
+  done;
+end on_move;
