@@ -41,11 +41,51 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         symbolTable.pushScope();
         scopesST.push(program);
         for (var function : ctx.functDef()) {
+            String sourceFuncName = function.funcName.getText();
+            List<String> args = new ArrayList<>();
+            String resType = function.Type() != null ? function.Type().getText() : null;
+            if (resType == null) resType = "void";
+            args.addAll((List<String>) visit(function.typedArgs()));
+            String targetFuncName = createFunc();
+            Function funct = new Function(targetFuncName, args, resType);
+            symbolTable.pushSymbol(sourceFuncName, funct);
+        }
+        List<String> argList = new ArrayList<>(2) {{
+            add("point");
+            add("point");
+        }};
+        //  can_move([x_prev, y_prev], [x_next, y_next]) // returns 1 or 0
+        symbolTable.pushSymbol("can_move", new Function("can_move", argList, "int"));
+        //  move([x_prev, y_prev], [x_next, y_next]) // returns 1 or 0 (success or failure)
+        symbolTable.pushSymbol("move", new Function("move", argList, "int"));
+        for (var function : ctx.functDef()) {
             visit(function);
         }
         if (ctx.main().size() == 1) visit(ctx.main(0));
         if (ctx.onMove().size() == 1) visit(ctx.onMove(0));
         return program;
+    }
+
+    @Override
+    public Object visitFunctDef(AbdlParser.FunctDefContext ctx) {
+        List<String> args = new ArrayList<>();
+        String targetFuncName = symbolTable.resolveName(ctx.funcName.getText());
+        args.addAll((List<String>) visit(ctx.typedArgs()));
+        ST func = templates.getInstanceOf("function");
+        scopesST.push(func);
+        func.add("funcName", targetFuncName);
+        symbolTable.pushScope();
+        for (String arg : args) {
+            String varName = createVar();
+            symbolTable.pushSymbol(arg, new Variable(varName, ""));
+            func.add("arg", varName);
+        }
+        for (var stat : ctx.statements()) func.add("stat", (String) visit(stat));
+        program.add("functs", func.render());
+        symbolTable.popScope();
+        scopesST.pop();
+        return func.render();
+
     }
 
     @Override
@@ -66,32 +106,6 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         return null;
     }
 
-    @Override
-    public Object visitFunctDef(AbdlParser.FunctDefContext ctx) {
-        String sourceFuncName = ctx.func_name.getText();
-        List<String> args = new ArrayList<>();
-        String resType = ctx.Type() != null ? ctx.Type().getText() : null;
-        if (resType == null) resType = "void";
-        args.addAll((List<String>) visit(ctx.typedArgs()));
-        String targetFuncName = createFunc();
-        Function funct = new Function(targetFuncName, args, resType);
-        symbolTable.pushSymbol(sourceFuncName, funct);
-        ST func = templates.getInstanceOf("function");
-        scopesST.push(func);
-        func.add("funcName", targetFuncName);
-        symbolTable.pushScope();
-        for (String arg : args) {
-            String varName = createVar();
-            symbolTable.pushSymbol(arg, new Variable(varName, ""));
-            func.add("arg", varName);
-        }
-        for (var stat : ctx.statements()) func.add("stat", (String) visit(stat));
-        program.add("functs", func.render());
-        symbolTable.popScope();
-        scopesST.pop();
-        return func.render();
-
-    }
 
     @Override
     public Object visitFunctionCallStatement(AbdlParser.FunctionCallStatementContext ctx) {
@@ -326,9 +340,15 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx) {
-        List<String> args = (List<String>) visit(ctx.args());
-        return "(await " + symbolTable.resolveName(ctx.funcName.getText()) + "(" +
-                args.toString().substring(1, args.toString().length() - 1) + "))";
+        List<String> args;
+        if (ctx.args() != null)
+            args = (List<String>) visit(ctx.args());
+        else
+            args = null;
+        String sourceFuncName = ctx.funcName.getText();
+        String targetFuncName = symbolTable.resolveName(sourceFuncName);
+        return "(await " + targetFuncName + "(" +
+                (args == null ? "" : args.toString().substring(1, args.toString().length() - 1)) + "))";
     }
 
     @Override
@@ -420,7 +440,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
 
     @Override
     public Object visitExprID(AbdlParser.ExprIDContext ctx) {
-        return symbolTable.resolve(ctx.ID().getText()).getName();
+        return symbolTable.resolveName(ctx.ID().getText());
     }
 
     @Override
@@ -448,7 +468,7 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         String expr0 = (String) visit(ctx.expr(0));
         String expr1 = (String) visit(ctx.expr(1));
         varDecl.add("var", resVar);
-        varDecl.add("val", "new ABDLVar(" + expr0 + ".getValue()[" + expr1 + ".getValu  e()])");
+        varDecl.add("val", "new ABDLVar(" + expr0 + ".getValue()[" + expr1 + ".getValue()])");
         addVar(varDecl.render());
         return resVar;
     }

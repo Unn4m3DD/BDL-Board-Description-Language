@@ -15,9 +15,9 @@ public class MyErrorListener extends BaseErrorListener {
         if (e instanceof FailedPredicateException && e.getCtx() instanceof AbdlParser.FunctDefContext) {
             AbdlParser.FunctDefContext ctx = (AbdlParser.FunctDefContext) e.getCtx();
             System.err.println("Function name must match " +
-                    "(" + ctx.func_name.getLine() + ":" + ctx.func_name.getCharPositionInLine() + ")" +
-                    "(" + ctx.func_name2.getLine() + ":" + ctx.func_name2.getCharPositionInLine() + "): " +
-                    ctx.func_name.getText() + " and " + ctx.func_name2.getText()
+                    "(" + ctx.funcName.getLine() + ":" + ctx.funcName.getCharPositionInLine() + ")" +
+                    "(" + ctx.funcName2.getLine() + ":" + ctx.funcName2.getCharPositionInLine() + "): " +
+                    ctx.funcName.getText() + " and " + ctx.funcName2.getText()
             );
         } else
             super.syntaxError(recognizer, offendingSymbol, line, charPositionInLine, msg, e);

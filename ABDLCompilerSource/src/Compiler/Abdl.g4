@@ -3,7 +3,7 @@ program: (functDef | onMove | main)* EOF;
 
 main: 'main' ':' statements* ('end' 'main'|'endmain') ';';
 
-functDef: Type? func_name=ID '(' typedArgs ')' ':' statements* 'end' (func_name2=ID{$func_name.text.equals($func_name2.text)}?) ';';
+functDef: Type? funcName=ID '(' typedArgs ')' ':' statements* 'end' (funcName2=ID{$funcName.text.equals($funcName2.text)}?) ';';
 
 onMove: 'on_move' ':' statements* 'end' 'on_move' ';';
 
@@ -27,17 +27,17 @@ functionCall: funcName='can_move' '('args ')' #CanMoveCall
              | funcName=ID '(' args ')' #FuncCall;
 returnStat: 'return' expr ';';
 //TODO verificar que expr é point
-expr: <assoc=right> expr op='^' expr #ExprOp
+expr:  expr '[' expr ']' #ExprPointIndex
+     | <assoc=right> expr op='^' expr #ExprOp
      | expr op=('*' | '/' | '%') expr #ExprOp
      | expr op=('+' | '-' ) expr #ExprOp
      | expr op=( '<' | '<=' | '>' | '>=' | '==' | '/=') expr #ExprOp
-     | funcName=(ID|'can_move'|'move') '(' args ')' #ExprFunctionCall
+     | funcName=('can_move'| 'move'| ID) '(' args ')' #ExprFunctionCall
      | board #ExprBoard
      | '(' expr ')' #Parent
      | Int #ExprInt
      | String #ExprString
      | point #ExprPoint
-     | expr '[' expr ']' #ExprPointIndex
      | 'null' #ExprNull
      | 'width' #ExprWidth
      | 'height' #ExprHeight
@@ -56,7 +56,7 @@ Type: 'int' | 'point' | 'string';
 String: '"' ('\\"'|'\\'|.)*? '"'
        |'\'' ('\\\''|'\\'|.)*? '\'';
 ID: [_a-zA-Z][_a-zA-Z0-9]*; 
-Int: [0-9]+;
+Int: '-'?[0-9]+;
 Comment: ('//' .*? '\r'? '\n' | '/*' .*? '*/') -> skip;
 WS: [ \n\r\t] -> skip;
 ERRORS: .;

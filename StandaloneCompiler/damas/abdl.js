@@ -40,27 +40,29 @@ const can_move = (origin, destination) => {
   if (!table[origin.getValue()[0]][origin.getValue()[1]].onclick) return new ABDLVar(0);
   table[origin.getValue()[0]][origin.getValue()[1]].onclick();
   render(context, table)
-  if (!!table[destination.getValue()[0]][destination.getValue()[1]].onclick)
-    return new ABDLVar(1);
-  else
-    return new ABDLVar(0);
+  try{
+    if (!!table[destination.getValue()[0]][destination.getValue()[1]].onclick)
+      return new ABDLVar(1);
+    else
+      return new ABDLVar(0);
+  } catch(e){ return new ABDLVar(0) }
 }
 export default {
   on_move: async (arg_context, arg_table, arg_render) => {
-      let v52 = new ABDLVar(context.current_player);
-      let v53 = new ABDLVar(1);
-      let v51 = v52.equal(v53);
-      if (v51.getValue() != 0) {
-         let v54 = new ABDLVar();
-         return v54;
+      let v58 = new ABDLVar(context.current_player);
+      let v59 = new ABDLVar(1);
+      let v57 = v58.equal(v59);
+      if (v57.getValue() != 0) {
+         let v60 = new ABDLVar();
+         return v60;
       }
-      let v55 = new ABDLVar( await f0());
+      let v61 = new ABDLVar( await f0());
     },
   main: async (arg_context, arg_table, arg_render) => {
     context = arg_context;
     table = arg_table;
     render = arg_render;
-    let v50 = new ABDLVar( await f0());
+    let v56 = new ABDLVar( await f0());
   }
 }
 async function f0(){
@@ -88,52 +90,60 @@ async function f0(){
       let v22 = new ABDLVar(0);
       let v20 = (getOwner(v21)).equal(v22);
       if (v20.getValue() != 0) {
-         let v24 = new ABDLVar([v14, v19]);
-         let v23 = (await null((await null(v24)))).greater_than(v9);
-         if (v23.getValue() != 0) {
-            let v25 = new ABDLVar([v14, v19]);
-            v3 = v25;
-            let v26 = new ABDLVar([v14, v19]);
-            v7 = (await null(v26));
+         let v23 = new ABDLVar([v14, v19]);
+         let v24 = (await f1(v23));
+         let v26 = new ABDLVar(0);
+         let v25 = (await f2(v24)).greater_than(v26);
+         if (v25.getValue() != 0) {
+            let v27 = new ABDLVar([v14, v19]);
+            v3 = v27;
+            v7 = v24;
          }
       }
     }
   }
-  let v27 = v3.not_equal(v7);
-  if (v27.getValue() != 0) {
-     await move(v3, v7);
+  console.log(v7.toString());
+  let v28 = v3.not_equal(v7);
+  if (v28.getValue() != 0) {
+     let v29 = v3.add(v7);
+     await move(v3, v29);
   }
 }
-async function f1(v28){
-  let v30 = new ABDLVar(0);
-  let v31 = new ABDLVar(0);
-  let v29 = new ABDLVar([v30, v31]);
-  let v32 = v29;
+async function f1(v30){
+  let v32 = new ABDLVar(0);
   let v33 = new ABDLVar(0);
-  let v34 = new ABDLVar(2);
-  for(let v35 of range(v33,v34)) {
-    let v36 = new ABDLVar(0);
-    let v37 = new ABDLVar(2);
-    for(let v38 of range(v36,v37)) {
-      let v40 = new ABDLVar([v35, v38]);
-      let v39 = v28.add(v40);
-      if ((await null(v28, v39)).getValue() != 0) {
-         let v42 = v35.add(v38);
-         let v41 = v42.greater_than(v32);
-         if (v41.getValue() != 0) {
-            let v43 = new ABDLVar([v35, v38]);
-            v32 = v43;
-         }
+  let v31 = new ABDLVar([v32, v33]);
+  let v34 = v31;
+  let v35 = new ABDLVar(0);
+  let v36 = new ABDLVar(2);
+  for(let v37 of range(v35,v36)) {
+    let v38 = new ABDLVar(0);
+    let v39 = new ABDLVar(2);
+    for(let v40 of range(v38,v39)) {
+      let v42 = new ABDLVar([v37, v40]);
+      let v41 = v30.add(v42);
+      if ((await can_move(v30, v41)).getValue() != 0) {
+         console.log(v30.toString());
+         console.log(v40.toString());
+         let v44 = new ABDLVar([v37, v40]);
+         let v43 = v30.add(v44);
+         console.log(v43.toString());
+         let v45 = new ABDLVar([v37, v40]);
+         v34 = v45;
       }
     }
   }
-  return v32;
+  return v34;
 }
-async function f2(v44){
-  let v48 = new ABDLVar(0);
-  let v47 = new ABDLVar(v44.getValue()[v48]);
-  let v46 = v47.add(v44);
-  let v49 = new ABDLVar(1);
-  let v45 = new ABDLVar(v46.getValue()[v49]);
-  return v45;
+async function f2(v46){
+  let v50 = new ABDLVar(0);
+  let v49 = new ABDLVar(v46.getValue()[v50.getValue()]);
+  let v51 = new ABDLVar(2);
+  let v48 = v49.pow(v51);
+  let v54 = new ABDLVar(1);
+  let v53 = new ABDLVar(v46.getValue()[v54.getValue()]);
+  let v55 = new ABDLVar(2);
+  let v52 = v53.pow(v55);
+  let v47 = v48.add(v52);
+  return v47;
 }

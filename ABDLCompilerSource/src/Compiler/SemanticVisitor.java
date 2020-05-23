@@ -25,9 +25,9 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
                 args.add(type.getText());
             }
             st.pushSymbol(
-                    func.func_name.getText(),
+                    func.funcName.getText(),
                     new Function(
-                            func.func_name.getText(),
+                            func.funcName.getText(),
                             args,
                             func.Type() != null ?
                                     func.Type().getText() :

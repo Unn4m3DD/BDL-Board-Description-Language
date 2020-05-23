@@ -47,8 +47,8 @@ public class AbdlParser extends Parser {
 			null, "'main'", "':'", "'end'", "'endmain'", "';'", "'('", "')'", "'on_move'", 
 			"'for'", "'from'", "'to'", "'do'", "'done'", "'while'", "'if'", "'then'", 
 			"'endif'", "'else'", "'let'", "'='", "'can_move'", "'move'", "'print'", 
-			"'return'", "'^'", "'*'", "'/'", "'%'", "'+'", "'-'", "'<'", "'<='", 
-			"'>'", "'>='", "'=='", "'/='", "'['", "']'", "'null'", "'width'", "'height'", 
+			"'return'", "'['", "']'", "'^'", "'*'", "'/'", "'%'", "'+'", "'-'", "'<'", 
+			"'<='", "'>'", "'>='", "'=='", "'/='", "'null'", "'width'", "'height'", 
 			"'current_player'", "'move_count'", "','", "'board'", "'.'", "'piece_name'", 
 			"'owner'"
 		};
@@ -297,8 +297,8 @@ public class AbdlParser extends Parser {
 	}
 
 	public static class FunctDefContext extends ParserRuleContext {
-		public Token func_name;
-		public Token func_name2;
+		public Token funcName;
+		public Token funcName2;
 		public TypedArgsContext typedArgs() {
 			return getRuleContext(TypedArgsContext.class,0);
 		}
@@ -350,7 +350,7 @@ public class AbdlParser extends Parser {
 			}
 
 			setState(70);
-			((FunctDefContext)_localctx).func_name = match(ID);
+			((FunctDefContext)_localctx).funcName = match(ID);
 			setState(71);
 			match(T__5);
 			setState(72);
@@ -377,9 +377,9 @@ public class AbdlParser extends Parser {
 			match(T__2);
 			{
 			setState(82);
-			((FunctDefContext)_localctx).func_name2 = match(ID);
+			((FunctDefContext)_localctx).funcName2 = match(ID);
 			setState(83);
-			if (!((((FunctDefContext)_localctx).func_name!=null?((FunctDefContext)_localctx).func_name.getText():null).equals((((FunctDefContext)_localctx).func_name2!=null?((FunctDefContext)_localctx).func_name2.getText():null)))) throw new FailedPredicateException(this, "$func_name.text.equals($func_name2.text)");
+			if (!((((FunctDefContext)_localctx).funcName!=null?((FunctDefContext)_localctx).funcName.getText():null).equals((((FunctDefContext)_localctx).funcName2!=null?((FunctDefContext)_localctx).funcName2.getText():null)))) throw new FailedPredicateException(this, "$funcName.text.equals($funcName2.text)");
 			}
 			setState(85);
 			match(T__4);
@@ -1872,11 +1872,11 @@ public class AbdlParser extends Parser {
 						_localctx = new ExprOpContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(249);
-						if (!(precpred(_ctx, 17))) throw new FailedPredicateException(this, "precpred(_ctx, 17)");
+						if (!(precpred(_ctx, 16))) throw new FailedPredicateException(this, "precpred(_ctx, 16)");
 						setState(250);
-						((ExprOpContext)_localctx).op = match(T__24);
+						((ExprOpContext)_localctx).op = match(T__26);
 						setState(251);
-						expr(17);
+						expr(16);
 						}
 						break;
 					case 2:
@@ -1884,11 +1884,11 @@ public class AbdlParser extends Parser {
 						_localctx = new ExprOpContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(252);
-						if (!(precpred(_ctx, 16))) throw new FailedPredicateException(this, "precpred(_ctx, 16)");
+						if (!(precpred(_ctx, 15))) throw new FailedPredicateException(this, "precpred(_ctx, 15)");
 						setState(253);
 						((ExprOpContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
-						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__25) | (1L << T__26) | (1L << T__27))) != 0)) ) {
+						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__27) | (1L << T__28) | (1L << T__29))) != 0)) ) {
 							((ExprOpContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						else {
@@ -1897,7 +1897,7 @@ public class AbdlParser extends Parser {
 							consume();
 						}
 						setState(254);
-						expr(17);
+						expr(16);
 						}
 						break;
 					case 3:
@@ -1905,11 +1905,11 @@ public class AbdlParser extends Parser {
 						_localctx = new ExprOpContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(255);
-						if (!(precpred(_ctx, 15))) throw new FailedPredicateException(this, "precpred(_ctx, 15)");
+						if (!(precpred(_ctx, 14))) throw new FailedPredicateException(this, "precpred(_ctx, 14)");
 						setState(256);
 						((ExprOpContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
-						if ( !(_la==T__28 || _la==T__29) ) {
+						if ( !(_la==T__30 || _la==T__31) ) {
 							((ExprOpContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						else {
@@ -1918,7 +1918,7 @@ public class AbdlParser extends Parser {
 							consume();
 						}
 						setState(257);
-						expr(16);
+						expr(15);
 						}
 						break;
 					case 4:
@@ -1926,11 +1926,11 @@ public class AbdlParser extends Parser {
 						_localctx = new ExprOpContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(258);
-						if (!(precpred(_ctx, 14))) throw new FailedPredicateException(this, "precpred(_ctx, 14)");
+						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
 						setState(259);
 						((ExprOpContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
-						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__30) | (1L << T__31) | (1L << T__32) | (1L << T__33) | (1L << T__34) | (1L << T__35))) != 0)) ) {
+						if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__32) | (1L << T__33) | (1L << T__34) | (1L << T__35) | (1L << T__36) | (1L << T__37))) != 0)) ) {
 							((ExprOpContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 						}
 						else {
@@ -1939,7 +1939,7 @@ public class AbdlParser extends Parser {
 							consume();
 						}
 						setState(260);
-						expr(15);
+						expr(14);
 						}
 						break;
 					case 5:
@@ -1947,13 +1947,13 @@ public class AbdlParser extends Parser {
 						_localctx = new ExprPointIndexContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(261);
-						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
+						if (!(precpred(_ctx, 17))) throw new FailedPredicateException(this, "precpred(_ctx, 17)");
 						setState(262);
-						match(T__36);
+						match(T__24);
 						setState(263);
 						expr(0);
 						setState(264);
-						match(T__37);
+						match(T__25);
 						}
 						break;
 					}
@@ -2012,7 +2012,7 @@ public class AbdlParser extends Parser {
 			setState(272);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__5) | (1L << T__20) | (1L << T__21) | (1L << T__36) | (1L << T__38) | (1L << T__39) | (1L << T__40) | (1L << T__41) | (1L << T__42) | (1L << T__44) | (1L << String) | (1L << ID) | (1L << Int))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__5) | (1L << T__20) | (1L << T__21) | (1L << T__24) | (1L << T__38) | (1L << T__39) | (1L << T__40) | (1L << T__41) | (1L << T__42) | (1L << T__44) | (1L << String) | (1L << ID) | (1L << Int))) != 0)) {
 				{
 				setState(271);
 				expr(0);
@@ -2165,7 +2165,7 @@ public class AbdlParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(295);
-			match(T__36);
+			match(T__24);
 			setState(296);
 			expr(0);
 			setState(297);
@@ -2173,7 +2173,7 @@ public class AbdlParser extends Parser {
 			setState(298);
 			expr(0);
 			setState(299);
-			match(T__37);
+			match(T__25);
 			}
 		}
 		catch (RecognitionException re) {
@@ -2260,22 +2260,22 @@ public class AbdlParser extends Parser {
 	private boolean functDef_sempred(FunctDefContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return (((FunctDefContext)_localctx).func_name!=null?((FunctDefContext)_localctx).func_name.getText():null).equals((((FunctDefContext)_localctx).func_name2!=null?((FunctDefContext)_localctx).func_name2.getText():null));
+			return (((FunctDefContext)_localctx).funcName!=null?((FunctDefContext)_localctx).funcName.getText():null).equals((((FunctDefContext)_localctx).funcName2!=null?((FunctDefContext)_localctx).funcName2.getText():null));
 		}
 		return true;
 	}
 	private boolean expr_sempred(ExprContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 1:
-			return precpred(_ctx, 17);
-		case 2:
 			return precpred(_ctx, 16);
-		case 3:
+		case 2:
 			return precpred(_ctx, 15);
-		case 4:
+		case 3:
 			return precpred(_ctx, 14);
+		case 4:
+			return precpred(_ctx, 13);
 		case 5:
-			return precpred(_ctx, 7);
+			return precpred(_ctx, 17);
 		}
 		return true;
 	}
@@ -2305,9 +2305,9 @@ public class AbdlParser extends Parser {
 		"\u0117\n\23\f\23\16\23\u011a\13\23\3\24\3\24\3\24\5\24\u011f\n\24\3\24"+
 		"\3\24\3\24\3\24\7\24\u0125\n\24\f\24\16\24\u0128\13\24\3\25\3\25\3\25"+
 		"\3\25\3\25\3\25\3\26\3\26\3\26\3\26\3\26\3\26\2\3\"\27\2\4\6\b\n\f\16"+
-		"\20\22\24\26\30\32\34\36 \"$&(*\2\7\4\2\27\30\65\65\3\2\34\36\3\2\37 "+
-		"\3\2!&\3\2\61\62\2\u014e\2\61\3\2\2\2\4\66\3\2\2\2\6F\3\2\2\2\bY\3\2\2"+
-		"\2\nh\3\2\2\2\fo\3\2\2\2\16q\3\2\2\2\20t\3\2\2\2\22\u0084\3\2\2\2\24\u0090"+
+		"\20\22\24\26\30\32\34\36 \"$&(*\2\7\4\2\27\30\65\65\3\2\36 \3\2!\"\3\2"+
+		"#(\3\2\61\62\2\u014e\2\61\3\2\2\2\4\66\3\2\2\2\6F\3\2\2\2\bY\3\2\2\2\n"+
+		"h\3\2\2\2\fo\3\2\2\2\16q\3\2\2\2\20t\3\2\2\2\22\u0084\3\2\2\2\24\u0090"+
 		"\3\2\2\2\26\u00a9\3\2\2\2\30\u00b3\3\2\2\2\32\u00ba\3\2\2\2\34\u00c6\3"+
 		"\2\2\2\36\u00df\3\2\2\2 \u00e1\3\2\2\2\"\u00f9\3\2\2\2$\u0112\3\2\2\2"+
 		"&\u011e\3\2\2\2(\u0129\3\2\2\2*\u012f\3\2\2\2,\60\5\6\4\2-\60\5\b\5\2"+
@@ -2367,27 +2367,27 @@ public class AbdlParser extends Parser {
 		"\2\2\u00f9\u00eb\3\2\2\2\u00f9\u00ec\3\2\2\2\u00f9\u00f0\3\2\2\2\u00f9"+
 		"\u00f1\3\2\2\2\u00f9\u00f2\3\2\2\2\u00f9\u00f3\3\2\2\2\u00f9\u00f4\3\2"+
 		"\2\2\u00f9\u00f5\3\2\2\2\u00f9\u00f6\3\2\2\2\u00f9\u00f7\3\2\2\2\u00f9"+
-		"\u00f8\3\2\2\2\u00fa\u010e\3\2\2\2\u00fb\u00fc\f\23\2\2\u00fc\u00fd\7"+
-		"\33\2\2\u00fd\u010d\5\"\22\23\u00fe\u00ff\f\22\2\2\u00ff\u0100\t\3\2\2"+
-		"\u0100\u010d\5\"\22\23\u0101\u0102\f\21\2\2\u0102\u0103\t\4\2\2\u0103"+
-		"\u010d\5\"\22\22\u0104\u0105\f\20\2\2\u0105\u0106\t\5\2\2\u0106\u010d"+
-		"\5\"\22\21\u0107\u0108\f\t\2\2\u0108\u0109\7\'\2\2\u0109\u010a\5\"\22"+
-		"\2\u010a\u010b\7(\2\2\u010b\u010d\3\2\2\2\u010c\u00fb\3\2\2\2\u010c\u00fe"+
-		"\3\2\2\2\u010c\u0101\3\2\2\2\u010c\u0104\3\2\2\2\u010c\u0107\3\2\2\2\u010d"+
-		"\u0110\3\2\2\2\u010e\u010c\3\2\2\2\u010e\u010f\3\2\2\2\u010f#\3\2\2\2"+
-		"\u0110\u010e\3\2\2\2\u0111\u0113\5\"\22\2\u0112\u0111\3\2\2\2\u0112\u0113"+
-		"\3\2\2\2\u0113\u0118\3\2\2\2\u0114\u0115\7.\2\2\u0115\u0117\5\"\22\2\u0116"+
-		"\u0114\3\2\2\2\u0117\u011a\3\2\2\2\u0118\u0116\3\2\2\2\u0118\u0119\3\2"+
-		"\2\2\u0119%\3\2\2\2\u011a\u0118\3\2\2\2\u011b\u011c\7\65\2\2\u011c\u011d"+
-		"\7\4\2\2\u011d\u011f\7\63\2\2\u011e\u011b\3\2\2\2\u011e\u011f\3\2\2\2"+
-		"\u011f\u0126\3\2\2\2\u0120\u0121\7.\2\2\u0121\u0122\7\65\2\2\u0122\u0123"+
-		"\7\4\2\2\u0123\u0125\7\63\2\2\u0124\u0120\3\2\2\2\u0125\u0128\3\2\2\2"+
-		"\u0126\u0124\3\2\2\2\u0126\u0127\3\2\2\2\u0127\'\3\2\2\2\u0128\u0126\3"+
-		"\2\2\2\u0129\u012a\7\'\2\2\u012a\u012b\5\"\22\2\u012b\u012c\7.\2\2\u012c"+
-		"\u012d\5\"\22\2\u012d\u012e\7(\2\2\u012e)\3\2\2\2\u012f\u0130\7/\2\2\u0130"+
-		"\u0131\5(\25\2\u0131\u0132\7\60\2\2\u0132\u0133\t\6\2\2\u0133+\3\2\2\2"+
-		"\35/\61;AFP^ho~\u008a\u0096\u009c\u00a0\u00a5\u00b0\u00b7\u00be\u00c2"+
-		"\u00df\u00f9\u010c\u010e\u0112\u0118\u011e\u0126";
+		"\u00f8\3\2\2\2\u00fa\u010e\3\2\2\2\u00fb\u00fc\f\22\2\2\u00fc\u00fd\7"+
+		"\35\2\2\u00fd\u010d\5\"\22\22\u00fe\u00ff\f\21\2\2\u00ff\u0100\t\3\2\2"+
+		"\u0100\u010d\5\"\22\22\u0101\u0102\f\20\2\2\u0102\u0103\t\4\2\2\u0103"+
+		"\u010d\5\"\22\21\u0104\u0105\f\17\2\2\u0105\u0106\t\5\2\2\u0106\u010d"+
+		"\5\"\22\20\u0107\u0108\f\23\2\2\u0108\u0109\7\33\2\2\u0109\u010a\5\"\22"+
+		"\2\u010a\u010b\7\34\2\2\u010b\u010d\3\2\2\2\u010c\u00fb\3\2\2\2\u010c"+
+		"\u00fe\3\2\2\2\u010c\u0101\3\2\2\2\u010c\u0104\3\2\2\2\u010c\u0107\3\2"+
+		"\2\2\u010d\u0110\3\2\2\2\u010e\u010c\3\2\2\2\u010e\u010f\3\2\2\2\u010f"+
+		"#\3\2\2\2\u0110\u010e\3\2\2\2\u0111\u0113\5\"\22\2\u0112\u0111\3\2\2\2"+
+		"\u0112\u0113\3\2\2\2\u0113\u0118\3\2\2\2\u0114\u0115\7.\2\2\u0115\u0117"+
+		"\5\"\22\2\u0116\u0114\3\2\2\2\u0117\u011a\3\2\2\2\u0118\u0116\3\2\2\2"+
+		"\u0118\u0119\3\2\2\2\u0119%\3\2\2\2\u011a\u0118\3\2\2\2\u011b\u011c\7"+
+		"\65\2\2\u011c\u011d\7\4\2\2\u011d\u011f\7\63\2\2\u011e\u011b\3\2\2\2\u011e"+
+		"\u011f\3\2\2\2\u011f\u0126\3\2\2\2\u0120\u0121\7.\2\2\u0121\u0122\7\65"+
+		"\2\2\u0122\u0123\7\4\2\2\u0123\u0125\7\63\2\2\u0124\u0120\3\2\2\2\u0125"+
+		"\u0128\3\2\2\2\u0126\u0124\3\2\2\2\u0126\u0127\3\2\2\2\u0127\'\3\2\2\2"+
+		"\u0128\u0126\3\2\2\2\u0129\u012a\7\33\2\2\u012a\u012b\5\"\22\2\u012b\u012c"+
+		"\7.\2\2\u012c\u012d\5\"\22\2\u012d\u012e\7\34\2\2\u012e)\3\2\2\2\u012f"+
+		"\u0130\7/\2\2\u0130\u0131\5(\25\2\u0131\u0132\7\60\2\2\u0132\u0133\t\6"+
+		"\2\2\u0133+\3\2\2\2\35/\61;AFP^ho~\u008a\u0096\u009c\u00a0\u00a5\u00b0"+
+		"\u00b7\u00be\u00c2\u00df\u00f9\u010c\u010e\u0112\u0118\u011e\u0126";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

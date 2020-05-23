@@ -41,10 +41,12 @@ const can_move = (origin, destination) => {
   if (!table[origin.getValue()[0]][origin.getValue()[1]].onclick) return new ABDLVar(0);
   table[origin.getValue()[0]][origin.getValue()[1]].onclick();
   render(context, table)
-  if (!!table[destination.getValue()[0]][destination.getValue()[1]].onclick)
-    return new ABDLVar(1);
-  else
-    return new ABDLVar(0);
+  try{
+    if (!!table[destination.getValue()[0]][destination.getValue()[1]].onclick)
+      return new ABDLVar(1);
+    else
+      return new ABDLVar(0);
+  } catch(e){ return new ABDLVar(0) }
 }
 export default {
   <if(onMoveStat)>on_move: async (arg_context, arg_table, arg_render) => {
