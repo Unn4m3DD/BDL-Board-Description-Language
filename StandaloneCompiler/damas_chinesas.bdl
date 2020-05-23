@@ -65,25 +65,10 @@ invariants{
 
       let x_must_be_enemy = (target_x - current_x) / 2 + current_x;
       let y_must_be_enemy = (target_y - current_y) / 2 + current_y;
-      if(context.board[current_x] &&
-        context.board[current_x][current_y] &&
-        context.board[current_x][current_y].piece &&
-        context.board[current_x][current_y].piece.name == "D1")
-        if(context.board[x_must_be_enemy] &&
+      if(context.board[x_must_be_enemy] &&
           context.board[x_must_be_enemy][y_must_be_enemy] &&
-          context.board[x_must_be_enemy][y_must_be_enemy].piece &&
-          context.board[x_must_be_enemy][y_must_be_enemy].piece.name == "D2")
+          context.board[x_must_be_enemy][y_must_be_enemy].piece)
           return true;
-      if(context.board[current_x] &&
-        context.board[current_x][current_y] &&
-        context.board[current_x][current_y].piece &&
-        context.board[current_x][current_y].piece.name == "D2")
-        if(context.board[x_must_be_enemy] &&
-          context.board[x_must_be_enemy][y_must_be_enemy] &&
-          context.board[x_must_be_enemy][y_must_be_enemy].piece &&
-          context.board[x_must_be_enemy][y_must_be_enemy].piece.name == "D1")
-          return true;
-
       return false;
     }
   }
