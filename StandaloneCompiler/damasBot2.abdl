@@ -1,0 +1,28 @@
+main:
+end main;
+
+on_move:
+  if current_player == 1 then
+    move_a();
+  end if;
+end on_move;
+
+move_a():
+  let best_move = [width - 1, 0];
+  let best_piece = [width - 1, 0];
+  for x from 0 to width - 1 do
+    for y from 0 to height - 1 do
+      if(board[x, y].owner == 1) then
+        best_move = get_best_move([x, y]);
+        if()
+      end if;
+    done;
+  done;
+
+end move_a;
+
+
+
+int dist(a : point, b : point)
+  return (a[0] - b[0]) ^ 2 + (a[1] - b[1])
+end dist;

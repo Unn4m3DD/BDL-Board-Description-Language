@@ -53,7 +53,6 @@ const functions = {
     }
     for (let x = 0; x < board.length; x++) {
       for (let y = 0; y < board[x].length; y++) {
-
         if (board[x][y].target) {
           table[x][y].style.backgroundColor = "rgba(100, 200, 100, 100)"
           table[x][y].onclick = (event) => {
@@ -67,6 +66,7 @@ const functions = {
             }
             board[x][y].piece = board[context.focused.x][context.focused.y].piece
             board[context.focused.x][context.focused.y].piece = null
+
             if (!board[x][y].piece.mirrored) {
               if (y === context.height - 1)
                 pieces[board[x][y].piece.name].on_end_reached(context, x, y)
