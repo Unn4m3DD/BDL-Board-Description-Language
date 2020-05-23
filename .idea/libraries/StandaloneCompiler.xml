@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="StandaloneCompiler">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/StandaloneCompiler/ABDLCompiler.jar!/" />
+      <root url="jar://$PROJECT_DIR$/StandaloneCompiler/BDLCompiler.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
