@@ -44,7 +44,6 @@ public class Main {
         AbdlLexer lexer = new AbdlLexer(cs);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         AbdlParser parser = new AbdlParser(tokens);
-        parser.removeErrorListeners();
         MyErrorListener lexicalErrorListener = new MyErrorListener();
         parser.addErrorListener(lexicalErrorListener);
         ParseTree tree = parser.program();

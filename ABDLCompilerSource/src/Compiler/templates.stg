@@ -39,8 +39,10 @@ const move = async (origin, destination) => {
 }
 const can_move = async (origin, destination) => {
   let result
-  if (!table[origin.getValue()[0]][origin.getValue()[1]].onclick) return new ABDLVar(0);
-  table[origin.getValue()[0]][origin.getValue()[1]].onclick();
+  try{
+    if (!table[origin.getValue()[0]][origin.getValue()[1]].onclick) return new ABDLVar(0);
+      table[origin.getValue()[0]][origin.getValue()[1]].onclick();
+  } catch(e) { return new ABDLVar(0); }
   render(context, table)
   try {
     if (
