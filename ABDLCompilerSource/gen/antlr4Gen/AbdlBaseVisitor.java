@@ -150,6 +150,13 @@ public class AbdlBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements A
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitExprPointIndex(AbdlParser.ExprPointIndexContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitExprMoveCount(AbdlParser.ExprMoveCountContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

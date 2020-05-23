@@ -47,31 +47,93 @@ const can_move = (origin, destination) => {
 }
 export default {
   on_move: async (arg_context, arg_table, arg_render) => {
-      let v0 = new ABDLVar(0);
-      let v2 = new ABDLVar(context.width);
-      let v3 = new ABDLVar(1);
-      let v1 = v2.sub(v3);
-      for(let v4 of range(v0,v1)) {
-        let v5 = new ABDLVar(0);
-        let v7 = new ABDLVar(context.height);
-        let v8 = new ABDLVar(1);
-        let v6 = v7.sub(v8);
-        for(let v9 of range(v5,v6)) {
-          let v11 = new ABDLVar([v4, v9]);
-          let v12 = new ABDLVar("D1");
-          let v10 = (getName(v11)).equal(v12);
-          if (v10.getValue() != 0) {
-             let v15 = new ABDLVar(", ");
-             let v14 = v4.add(v15);
-             let v13 = v14.add(v9);
-             console.log(v13.toString());
-          }
-        }
+      let v52 = new ABDLVar(context.current_player);
+      let v53 = new ABDLVar(1);
+      let v51 = v52.equal(v53);
+      if (v51.getValue() != 0) {
+         let v54 = new ABDLVar();
+         return v54;
       }
+      let v55 = new ABDLVar( await f0());
     },
   main: async (arg_context, arg_table, arg_render) => {
     context = arg_context;
     table = arg_table;
     render = arg_render;
+    let v50 = new ABDLVar( await f0());
   }
+}
+async function f0(){
+  let v1 = new ABDLVar(0);
+  let v2 = new ABDLVar(0);
+  let v0 = new ABDLVar([v1, v2]);
+  let v3 = v0;
+  let v5 = new ABDLVar(0);
+  let v6 = new ABDLVar(0);
+  let v4 = new ABDLVar([v5, v6]);
+  let v7 = v4;
+  let v8 = new ABDLVar(0);
+  let v9 = v8;
+  let v10 = new ABDLVar(0);
+  let v12 = new ABDLVar(context.width);
+  let v13 = new ABDLVar(1);
+  let v11 = v12.sub(v13);
+  for(let v14 of range(v10,v11)) {
+    let v15 = new ABDLVar(0);
+    let v17 = new ABDLVar(context.height);
+    let v18 = new ABDLVar(1);
+    let v16 = v17.sub(v18);
+    for(let v19 of range(v15,v16)) {
+      let v21 = new ABDLVar([v14, v19]);
+      let v22 = new ABDLVar(0);
+      let v20 = (getOwner(v21)).equal(v22);
+      if (v20.getValue() != 0) {
+         let v24 = new ABDLVar([v14, v19]);
+         let v23 = (await null((await null(v24)))).greater_than(v9);
+         if (v23.getValue() != 0) {
+            let v25 = new ABDLVar([v14, v19]);
+            v3 = v25;
+            let v26 = new ABDLVar([v14, v19]);
+            v7 = (await null(v26));
+         }
+      }
+    }
+  }
+  let v27 = v3.not_equal(v7);
+  if (v27.getValue() != 0) {
+     await move(v3, v7);
+  }
+}
+async function f1(v28){
+  let v30 = new ABDLVar(0);
+  let v31 = new ABDLVar(0);
+  let v29 = new ABDLVar([v30, v31]);
+  let v32 = v29;
+  let v33 = new ABDLVar(0);
+  let v34 = new ABDLVar(2);
+  for(let v35 of range(v33,v34)) {
+    let v36 = new ABDLVar(0);
+    let v37 = new ABDLVar(2);
+    for(let v38 of range(v36,v37)) {
+      let v40 = new ABDLVar([v35, v38]);
+      let v39 = v28.add(v40);
+      if ((await null(v28, v39)).getValue() != 0) {
+         let v42 = v35.add(v38);
+         let v41 = v42.greater_than(v32);
+         if (v41.getValue() != 0) {
+            let v43 = new ABDLVar([v35, v38]);
+            v32 = v43;
+         }
+      }
+    }
+  }
+  return v32;
+}
+async function f2(v44){
+  let v48 = new ABDLVar(0);
+  let v47 = new ABDLVar(v44.getValue()[v48]);
+  let v46 = v47.add(v44);
+  let v49 = new ABDLVar(1);
+  let v45 = new ABDLVar(v46.getValue()[v49]);
+  return v45;
 }

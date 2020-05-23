@@ -26,6 +26,7 @@ functionCall: funcName='can_move' '('args ')' #CanMoveCall
              | funcName='print' '(' args ')' #PrintCall
              | funcName=ID '(' args ')' #FuncCall;
 returnStat: 'return' expr ';';
+//TODO verificar que expr é point
 expr: <assoc=right> expr op='^' expr #ExprOp
      | expr op=('*' | '/' | '%') expr #ExprOp
      | expr op=('+' | '-' ) expr #ExprOp
@@ -36,6 +37,7 @@ expr: <assoc=right> expr op='^' expr #ExprOp
      | Int #ExprInt
      | String #ExprString
      | point #ExprPoint
+     | expr '[' expr ']' #ExprPointIndex
      | 'null' #ExprNull
      | 'width' #ExprWidth
      | 'height' #ExprHeight

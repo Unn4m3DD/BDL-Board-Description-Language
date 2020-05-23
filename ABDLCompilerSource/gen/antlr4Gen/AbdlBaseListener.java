@@ -244,6 +244,18 @@ public class AbdlBaseListener implements AbdlListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExprPointIndex(AbdlParser.ExprPointIndexContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprPointIndex(AbdlParser.ExprPointIndexContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExprMoveCount(AbdlParser.ExprMoveCountContext ctx) { }
 	/**
 	 * {@inheritDoc}

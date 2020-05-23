@@ -206,6 +206,18 @@ public interface AbdlListener extends ParseTreeListener {
 	 */
 	void exitReturnStat(AbdlParser.ReturnStatContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code ExprPointIndex}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprPointIndex(AbdlParser.ExprPointIndexContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExprPointIndex}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprPointIndex(AbdlParser.ExprPointIndexContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ExprMoveCount}
 	 * labeled alternative in {@link AbdlParser#expr}.
 	 * @param ctx the parse tree

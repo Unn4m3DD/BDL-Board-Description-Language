@@ -1,13 +1,48 @@
 main:
-    
+    best_move();
 end main;
 
 on_move:
+  if current_player == 1 then
+    return null;
+  end if;
+  best_move();
+end on_move;
+
+best_move():
+  let p1 = [0,0];
+  let p2 = [0,0];
+  let fursthest = 0;
   for i from 0 to width - 1 do
     for j from 0 to height - 1 do
-      if(board[i,j].piece_name == "D1") then
-        print(i + ", " + j);
+      if(board[i,j].owner == 0) then
+        if(sum_point_vals(get_furthest_jump([i,j])) > fursthest) then
+          p1 = [i, j];
+         p2 = get_furthest_jump([i,j]);
+        end if;
       end if;
     done;
   done;
-end on_move;
+  if p1 /= p2 then 
+    move(p1, p2); 
+  end if; 
+end best_move;
+
+point get_furthest_jump(piece : point):
+  let res = [0, 0];
+  for i from 0 to 2 do
+    for j from 0 to 2 do 
+      if can_move(piece, piece + [i, j]) then
+        if i+j > res then
+          res = [i, j];
+        end if;
+      end if;
+    done;
+  done;
+  return res;
+end get_furthest_jump;
+
+int sum_point_vals(in : point):
+  return in[0] + in[1];
+end sum_point_vals;
+

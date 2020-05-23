@@ -129,6 +129,13 @@ public interface AbdlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitReturnStat(AbdlParser.ReturnStatContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ExprPointIndex}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprPointIndex(AbdlParser.ExprPointIndexContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ExprMoveCount}
 	 * labeled alternative in {@link AbdlParser#expr}.
 	 * @param ctx the parse tree
