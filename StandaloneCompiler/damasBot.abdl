@@ -25,6 +25,9 @@ best_move():
       end if;
     done;
   done;
+  if res == [0, 0] then
+    if piece[0] < width/2 then res = []
+  end if;
   if p1 /= p2 then 
     move(p1, p1 + p2); 
   end if; 
