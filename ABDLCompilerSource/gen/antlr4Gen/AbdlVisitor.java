@@ -192,6 +192,13 @@ public interface AbdlVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code ExprUnary}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprUnary(AbdlParser.ExprUnaryContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code ExprOp}
 	 * labeled alternative in {@link AbdlParser#expr}.
 	 * @param ctx the parse tree

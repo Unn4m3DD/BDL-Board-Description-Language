@@ -314,6 +314,18 @@ public interface AbdlListener extends ParseTreeListener {
 	 */
 	void exitExprFunctionCall(AbdlParser.ExprFunctionCallContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code ExprUnary}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprUnary(AbdlParser.ExprUnaryContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ExprUnary}
+	 * labeled alternative in {@link AbdlParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprUnary(AbdlParser.ExprUnaryContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code ExprOp}
 	 * labeled alternative in {@link AbdlParser#expr}.
 	 * @param ctx the parse tree

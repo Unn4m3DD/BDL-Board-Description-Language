@@ -27,7 +27,8 @@ functionCall: funcName='can_move' '('args ')' #CanMoveCall
              | funcName=ID '(' args ')' #FuncCall;
 returnStat: 'return' expr ';';
 //TODO verificar que expr é point
-expr:  expr '[' expr ']' #ExprPointIndex
+expr: ('-'|'+') expr #ExprUnary
+     | expr '[' expr ']' #ExprPointIndex
      | <assoc=right> expr op='^' expr #ExprOp
      | expr op=('*' | '/' | '%') expr #ExprOp
      | expr op=('+' | '-' ) expr #ExprOp
@@ -56,7 +57,7 @@ Type: 'int' | 'point' | 'string';
 String: '"' ('\\"'|'\\'|.)*? '"'
        |'\'' ('\\\''|'\\'|.)*? '\'';
 ID: [_a-zA-Z][_a-zA-Z0-9]*; 
-Int: '-'?[0-9]+;
+Int: [0-9]+;
 Comment: ('//' .*? '\r'? '\n' | '/*' .*? '*/') -> skip;
 WS: [ \n\r\t] -> skip;
 ERRORS: .;
