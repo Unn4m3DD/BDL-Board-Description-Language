@@ -1,7 +1,0 @@
-main:
-  move([0, width -1], [0, width - 2]);
-end main;
-
-on_move:
-  print(move_count);
-end on_move;
