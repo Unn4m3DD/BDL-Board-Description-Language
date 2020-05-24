@@ -105,7 +105,8 @@ const functions = {
     for (const rule of finishing_rules) {
       finished = finished & rule(context)
     }
-    if (finished) {
+    if (finished && context.current_player != -1) {
+      context.current_player = -1;
       alert("Game Finished")
     }
   }
