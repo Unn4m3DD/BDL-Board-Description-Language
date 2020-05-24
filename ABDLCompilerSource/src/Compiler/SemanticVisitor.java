@@ -1,4 +1,5 @@
 package Compiler;
+
 import SymbolTable.*;
 import antlr4Gen.*;
 import org.antlr.v4.runtime.Token;
@@ -6,6 +7,7 @@ import org.antlr.v4.runtime.Token;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
 //TODO verificar multiplas definiçoes de metodos
 public class SemanticVisitor extends AbdlBaseVisitor<Object> {
     SymbolTable st = new SymbolTable();
@@ -19,21 +21,28 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
             System.err.println("Neither main or on_move declared");
             error = true;
         }
+        if (ctx.main().size() > 1) {
+            System.err.println("main function declared multiple times" + getLineFormatted(ctx.main(0).stop));
+            error = true;
+        }
+        if (ctx.onMove().size() > 1) {
+            System.err.println("on_move function declared multiple times" + getLineFormatted(ctx.main(0).stop));
+            error = true;
+        }
         for (var func : ctx.functDef()) {
             LinkedList<String> args = new LinkedList<>();
             for (var type : func.typedArgs().Type()) {
                 args.add(type.getText());
             }
-            st.pushSymbol(
-                    func.funcName.getText(),
-                    new Function(
-                            func.funcName.getText(),
-                            args,
-                            func.Type() != null ?
-                                    func.Type().getText() :
-                                    ""
-                    )
-            );
+            if (st.resolve(func.funcName.getText()) == null)
+                st.pushSymbol(func.funcName.getText(),
+                        new Function(func.funcName.getText(), args, func.Type() != null ? func.Type().getText() : "")
+                );
+            else {
+                System.err.println("Multiple functions declared with the same name " + getLineFormatted(func.start) + ": " +
+                        func.funcName.getText()
+                );
+            }
         }
         List<String> argList = new ArrayList<>(2) {{
             add("point");
@@ -44,6 +53,29 @@ public class SemanticVisitor extends AbdlBaseVisitor<Object> {
         //  move([x_prev, y_prev], [x_next, y_next]) // returns 1 or 0 (success or failure)
         st.pushSymbol("move", new Function("move", argList, "int"));
 
+        return visitChildren(ctx);
+    }
+
+    @Override
+    public Object visitExprPointIndex(AbdlParser.ExprPointIndexContext ctx) {
+        TypeInfer typeInfer = new TypeInfer(st);
+        String e0Type = typeInfer.visit(ctx.expr(0));
+        if (!e0Type.equals("point")) {
+            System.err.println(
+                    "Only points are indexable " + getLineFormatted(ctx.start) + ": " +
+                            ctx.expr(0).getText() + " is of type " + e0Type
+            );
+            error = true;
+        }
+
+        String e1Type = typeInfer.visit(ctx.expr(1));
+        if (!e1Type.equals("int")) {
+            System.err.println(
+                    "Indexes must be integers (0 or 1)" + getLineFormatted(ctx.start) + ": " +
+                            ctx.expr(1).getText() + " is of type " + e1Type
+            );
+            error = true;
+        }
         return visitChildren(ctx);
     }
 

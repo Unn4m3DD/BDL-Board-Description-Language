@@ -27,5 +27,5 @@ matePastor.abdl < bubbleSort.abdl < damasBot*.abdl
 Ao correr o comando 
 find . -type f -not -path '*/\.git/*' | grep -E "[a-zA-Z]\.[a]?bdl"
 serão mostrados outros exemplos de codigo, a maioria utilizado para testes
-automatizados dos visitors de deteçao de erros semanticos e do visitor gerador de 
+automatizados dos visitors de deteção de erros semânticos e gerador de 
 codigo da abdl.

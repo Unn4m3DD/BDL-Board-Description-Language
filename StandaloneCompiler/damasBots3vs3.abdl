@@ -1,0 +1,141 @@
+main:
+  move_b(current_player);
+end main;
+
+on_move:
+  print(current_player);
+  if(current_player == -1) then
+    return 0;
+  end if;
+  move_b(current_player);
+end on_move;
+
+
+move_b(player : int):
+  let objective = [0, height - 1];
+  let best_dest = [width - 1, 0];
+  let best_piece = [0, height - 1];
+  if(player == 0) then
+    objective = [width - 1, 0];
+    best_dest = [0, height - 1];
+    best_piece = [width - 1, 0];
+  end if;
+  for x from 0 to width - 1 do
+    for y from 0 to height - 1 do
+      if(board[x, y].owner == player) then
+        let dest = get_best_dest([x, y], objective, player);
+        if
+          score([x, y], dest, objective) > score(best_piece, best_dest, objective)
+        then
+          best_dest = dest;
+          best_piece = [x, y];
+        end if;
+      end if;
+    done;
+  done;
+  move(best_piece, best_dest);
+end move_b;
+
+point get_best_dest(origin : point, objective : point, player : int):
+  let best_dest = [width - 1, 0];
+  if player == 0 then
+    best_dest = [0, height - 1];
+  end if;
+  for x from -2 to 2 do
+    for y from -2 to 2 do
+      if([x, y] /= [0, 0]) then
+        if(can_move(origin, origin + [x, y])) then
+          if
+            score(origin, origin + [x, y], objective) > score(origin, best_dest, objective)
+          then
+            best_dest = origin + [x, y];
+          end if;
+        end if;
+      end if;
+    done;
+  done;
+  return best_dest;
+end get_best_dest;
+
+int score(origin : point, dest : point, objective : point):
+  return dist(origin, objective) - dist(dest, objective);
+end score;
+
+int dist(a : point, b : point):
+  return abs(a[0] - b[0]) + abs(a[1] - b[1]);
+end dist;
+
+int abs(num : int):
+  if(num > 0) then
+    return num;
+  else
+    return -num;
+  end if;
+end abs;
+
+best_move():
+  let p1 = [0,0];
+  let p2 = [0,0];
+  let furthest = 0;
+  for i from 0 to width - 1 do
+    for j from 0 to height - 1 do
+      if(board[i, j].owner == 0) then
+        let dest = get_furthest_jump([i,j]);
+        if(norm(dest) > norm(p2)) then
+            p1 = [i, j];
+            p2 = dest;
+        end if;
+      end if;
+    done;
+  done;
+  if p2 == [0, 0] then
+    p2 = [width - 1, height - 1];
+    for i from 0 to width - 1 do
+      for j from 0 to height - 1 do
+        if(board[i, j].owner == 0) then
+          let dest = get_possible_jump([i,j]);
+          if(norm(dest) > norm(p2)) then
+            p1 = [i, j];
+            p2 = dest;
+          end if;
+        end if;
+      done;
+    done;
+  end if;
+  if p1 /= p2 then 
+    move(p1, p1 + p2); 
+  end if; 
+end best_move;
+
+point get_furthest_jump(piece : point):
+  let res = [0, 0];
+  for i from 0 to 2 do
+    for j from -2 to 0 do 
+      if can_move(piece, piece + [i, j]) then
+        if norm([i, j]) > norm(res) then
+          res = [i, j];
+        end if;
+      end if;
+    done;
+  done;
+  return res;
+end get_furthest_jump;
+
+point get_possible_jump(piece : point):
+  let res = [-2, 2];
+  for i from -2 to 0 do
+    for j from 0 to 2 do 
+      if can_move(piece, piece + [i, j]) then
+        if norm([i, j]) < norm(res) then
+          res = [i, j];
+        end if;
+      end if;
+    done;
+  done;
+  return res;
+end get_possible_jump;
+
+int norm(in : point):
+  return in[0]^2 + in[1]^2;
+end norm;
+

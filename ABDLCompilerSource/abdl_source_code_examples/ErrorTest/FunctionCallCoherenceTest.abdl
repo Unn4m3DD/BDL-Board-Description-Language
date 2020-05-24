@@ -1,6 +1,6 @@
 f(i : int, s : string, p : point):
 
-end f1;
+end f;
 
 
 main:

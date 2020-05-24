@@ -1,0 +1,17 @@
+main:
+    let i = 0;
+    let s = "";
+    let p = [0, 0];
+
+    let v0 = i[i];
+    let v1 = i[p];
+    let v2 = i[s];
+
+    let v3 = p[i];
+    let v4 = p[p];
+    let v5 = p[s];
+
+    let v6 = s[i];
+    let v7 = s[p];
+    let v8 = s[s];
+end main;

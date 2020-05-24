@@ -94,6 +94,10 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
         return "int";
     }
 
+    @Override
+    public String visitExprPointIndex(AbdlParser.ExprPointIndexContext ctx) {
+        return "int";
+    }
 
     @Override
     public String visitExprBoard(AbdlParser.ExprBoardContext ctx) {

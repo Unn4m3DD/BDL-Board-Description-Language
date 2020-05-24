@@ -13,7 +13,6 @@ import java.util.BitSet;
 import antlr4Gen.*;
 
 import javax.xml.transform.ErrorListener;
-//TODO fix move_count js
 public class Main {
     public static void main(String[] args) throws IOException {
         new Main(args);
@@ -52,10 +51,10 @@ public class Main {
             System.exit(1);
         }
         SemanticVisitor visitor = new SemanticVisitor();
-        //visitor.visit(tree);
+        visitor.visit(tree);
         if (visitor.error) {
             System.err.println("Semantic errors occurred and compilation will stop");
-            //System.exit(1);
+            System.exit(1);
         }
 
         AbdlCompiler visitor1 = new AbdlCompiler();

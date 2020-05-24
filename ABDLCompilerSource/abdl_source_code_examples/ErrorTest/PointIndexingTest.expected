@@ -1,0 +1,5 @@
+Only points are indexable (6:13): i is of type int
+Only points are indexable (7:13): i is of type int
+Indexes must be integers (0 or 1)(7:13): p is of type point
+Only points are indexable (8:13): i is of type int
+Indexes must be integers (0 or 1)(8:13): s is of type string
