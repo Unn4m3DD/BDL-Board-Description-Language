@@ -23,12 +23,17 @@ move_a():
           best_piece = [x, y];
         end if;
         if(dist(alt_dest, objective) < dist(alt_best_dest, objective)) then
-          alt_best_dest = alt_dest;
-          alt_best_piece = [x, y];
+          if([x, y] /= alt_dest) then
+            alt_best_dest = alt_dest;
+            alt_best_piece = [x, y];
+          end if;
         end if;
       end if;
     done;
   done;
+  print("---------------------");
+  print(best_piece + " -> " + best_dest);
+  print(alt_best_dest + " -> " + alt_best_dest);
   if(best_piece /= best_dest) then
     move(best_piece, best_dest);
   else
