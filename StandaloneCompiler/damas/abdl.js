@@ -28,7 +28,7 @@ const move = async (origin, destination) => {
   try {
     table[origin.getValue()[0]][origin.getValue()[1]].onclick();
     render(context, table)
-    await sleep(1);
+    await sleep(1000);
     table[destination.getValue()[0]][destination.getValue()[1]].onclick();
     render(context, table)
     return new ABDLVar(1);

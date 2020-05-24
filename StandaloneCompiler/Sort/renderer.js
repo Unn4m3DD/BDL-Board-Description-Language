@@ -107,6 +107,7 @@ const functions = {
     }
     if (finished && context.current_player != -1) {
       context.current_player = -1;
+      setTimeout(() => alert("Game Finished"), 200)
       alert("Game Finished")
     }
   }
