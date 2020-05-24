@@ -11,17 +11,17 @@ const range = (a, b) => {
   return result;
 }
 const getName = (a) => {
-  try{
+  try {
     return new ABDLVar(context.board[a.getValue()[0]][a.getValue()[1]].piece.name)
-  } catch(e){
+  } catch (e) {
     return new ABDLVar("");
   }
 }
 const getOwner = (a) => {
-  try{
+  try {
     return new ABDLVar(context.board[a.getValue()[0]][a.getValue()[1]].piece.owner)
-  } catch(e){
-    return new ABDLVar(0);
+  } catch (e) {
+    return new ABDLVar(-1);
   }
 }
 const move = async (origin, destination) => {
@@ -36,14 +36,26 @@ const move = async (origin, destination) => {
     return new ABDLVar(0);
   }
 }
-const can_move = (origin, destination) => {
-  if (!table[origin.getValue()[0]][origin.getValue()[1]].onclick) return new ABDLVar(0);
-  table[origin.getValue()[0]][origin.getValue()[1]].onclick();
+const can_move = async (origin, destination) => {
+  let result
+  try{
+    if (!table[origin.getValue()[0]][origin.getValue()[1]].onclick) return new ABDLVar(0);
+      table[origin.getValue()[0]][origin.getValue()[1]].onclick();
+  } catch(e) { return new ABDLVar(0); }
   render(context, table)
-  if (!!table[destination.getValue()[0]][destination.getValue()[1]].onclick)
-    return new ABDLVar(1);
-  else
-    return new ABDLVar(0);
+  try {
+    if (
+      table[destination.getValue()[0]][destination.getValue()[1]].style.backgroundColor ==
+      "rgb(100, 200, 100)"
+    )//rgb(100, 200, 100)
+      result = new ABDLVar(1);
+    else
+      result = new ABDLVar(0);
+  } catch (e) { result = new ABDLVar(0); }
+  context.focused.x = -1;
+  context.focused.y = -1;
+  render(context, table);
+  return result
 }
 export default {
   main: async (arg_context, arg_table, arg_render) => {

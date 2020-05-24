@@ -69,7 +69,7 @@ int abs(num : int):
   if(num > 0) then
     return num;
   else
-    return 0 - num;
+    return -num;
   end if;
 end abs;
 

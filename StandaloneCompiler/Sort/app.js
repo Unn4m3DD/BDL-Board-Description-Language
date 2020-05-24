@@ -7,7 +7,6 @@ import rules from "./rules.js"
 const { create_context_from_initial_status_and_rules } = gameLogic
 const context = create_context_from_initial_status_and_rules(initial_status, rules)
 
-
 let table = generate_table("board", rules.height, rules.width);
 
 render(context, table)
