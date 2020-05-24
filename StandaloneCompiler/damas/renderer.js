@@ -106,7 +106,6 @@ const functions = {
       finished = finished & rule(context)
     }
     if (finished) {
-      context.current_player = -1;
       alert("Game Finished")
     }
   }

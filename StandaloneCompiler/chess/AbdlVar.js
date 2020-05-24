@@ -155,17 +155,19 @@ export default class AbdlVar {
     let e1 = this.getValue()
     let e2 = other.getValue()
     if (this.getType() == 'number' && other.getType() == 'number'
-      || this.getType() == 'string' && other.getType() == 'string'
-      || this.getType() == 'object' && other.getType() == 'object')
+      || this.getType() == 'string' && other.getType() == 'string')
       return new AbdlVar(e1 === e2 ? 1 : 0);
+    if(this.getType() == 'object' && other.getType() == 'object')
+      return new AbdlVar((e1[0] == e2[0] && e1[1] == e2[1]) ? 1: 0);
   }
   not_equal(other) { // '/='
     let e1 = this.getValue()
     let e2 = other.getValue()
     if (this.getType() == 'number' && other.getType() == 'number'
-      || this.getType() == 'string' && other.getType() == 'string'
-      || this.getType() == 'object' && other.getType() == 'object')
+      || this.getType() == 'string' && other.getType() == 'string')
       return new AbdlVar(e1 === e2 ? 0 : 1);
+    if(this.getType() == 'object' && other.getType() == 'object')
+      return new AbdlVar((e1[0] == e2[0] && e1[1] == e2[1]) ? 0: 1);
   }
 
   getType() {
