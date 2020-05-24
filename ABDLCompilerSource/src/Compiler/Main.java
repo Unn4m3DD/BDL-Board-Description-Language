@@ -48,7 +48,7 @@ public class Main {
         parser.addErrorListener(lexicalErrorListener);
         ParseTree tree = parser.program();
         if (lexicalErrorListener.error) {
-            System.err.println("Lexical errors occurred and compilation will stop"); //TODO verificar se é mesmo lexico
+            System.err.println("Errors occurred and compilation will stop"); 
             System.exit(1);
         }
         SemanticVisitor visitor = new SemanticVisitor();

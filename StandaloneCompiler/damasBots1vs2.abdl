@@ -13,19 +13,33 @@ end on_move;
 move_a():
   let objective = [0, height - 1];
   let best_dest = [width - 1, 0];
+  let alt_best_dest = [width - 1, 0];
   let best_piece = [width - 1, 0];
+  let alt_best_piece = [width - 1, 0];
   for x from 0 to width - 1 do
     for y from 0 to height - 1 do
       if(board[x, y].owner == 1) then
         let dest = get_best_dest([x, y], objective);
+        let alt_dest = get_alt_dest([x, y], objective);
         if(dist(dest, objective) < dist(best_dest, objective)) then
           best_dest = dest;
           best_piece = [x, y];
         end if;
+        if(dist(alt_dest, objective) < dist(alt_best_dest, objective)) then
+          alt_best_dest = alt_dest;
+          alt_best_piece = [x, y];
+        end if;
       end if;
     done;
   done;
-  move(best_piece, best_dest);
+  if(best_piece /= best_dest) then
+    print(best_piece + " -> " + best_dest);
+    move(best_piece, best_dest);
+  else
+    print(alt_best_dest + " -> " + alt_best_dest);
+    move(alt_best_dest, alt_best_dest);  
+  end if;
+
 end move_a;
 
 point get_best_dest(origin : point, objective : point):
@@ -43,6 +57,22 @@ point get_best_dest(origin : point, objective : point):
   done;
   return best_dest;
 end get_best_dest;
+
+point get_alt_dest(origin : point, objective : point):
+  let best_dest = [width - 1, 0];
+  for x from -2 to 2 do
+    for y from -2 to 2 do
+      if(can_move(origin, origin + [x, y])) then
+        if(dist(origin + [x, y], objective) <= dist(best_dest, objective)) then
+          if(dist(origin + [x, y], objective) <= dist(origin, objective)) then
+            best_dest = origin + [x, y];
+          end if;
+        end if;
+      end if;
+    done;
+  done;
+  return best_dest;
+end get_alt_dest;
 
 
 int dist(a : point, b : point):
@@ -81,8 +111,6 @@ point get_furthest_jump(piece : point):
   let res = [0, 0];
   for i from 0 to 2 do
     for j from -2 to 0 do 
-      print(piece + "->" + (piece + [i, j]));
-      print(can_move(piece, piece + [i, j]));
       if can_move(piece, piece + [i, j]) then
         if norm([i, j]) > norm(res) then
           res = [i, j];

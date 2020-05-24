@@ -22,14 +22,14 @@ move_a():
           best_dest = dest;
           best_piece = [x, y];
         end if;
-        if(dist(alt_dest, objective) < dist(best_alt_dest, objective)) then
-          alt_best_dest = best_alt_dest;
+        if(dist(alt_dest, objective) < dist(alt_best_dest, objective)) then
+          alt_best_dest = alt_dest;
           alt_best_piece = [x, y];
         end if;
       end if;
     done;
   done;
-  if(best_piece != best_dest) then
+  if(best_piece /= best_dest) then
     move(best_piece, best_dest);
   else
     move(alt_best_dest, alt_best_dest);  
@@ -67,7 +67,7 @@ point get_alt_dest(origin : point, objective : point):
     done;
   done;
   return best_dest;
-end get_best_dest;
+end get_alt_dest;
 
 
 int dist(a : point, b : point):
