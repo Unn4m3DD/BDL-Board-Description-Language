@@ -1,9 +1,4 @@
 # Change Log
 
-All notable changes to the "board-description-language-support" extension will be documented in this file.
-
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
-
-- Initial release
+Updated BDL support and ABDL support added.
+Snippets added for both to create template files

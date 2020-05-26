@@ -1,0 +1,17 @@
+{
+  "$schema": {
+    "Template ABDL File": {
+      "prefix": "abdl",
+      "body": [
+        "main:",
+        "",
+        "end main;",
+        "",
+        "on_move:",
+        "",
+        "end on_move;"
+      ],
+      "description": "Create Board Description Language Template File"
+    }
+  }
+}

@@ -7,14 +7,25 @@
   "name": "board-description-language-support",
   "displayName": "Board Description Language Support",
   "description": "Board description language syntax highlight",
-  "version": "0.0.1",
+  "version": "0.3.0",
   "engines": {
     "vscode": "^1.42.0"
   },
   "categories": [
+    "Snippets",
     "Programming Languages"
   ],
   "contributes": {
+    "snippets": [
+      {
+        "language": "bdl",
+        "path": "./snippets/bdl.json"
+      },
+      {
+        "language": "abdl",
+        "path": "./snippets/abdl.json"
+      }
+    ],
     "languages": [
       {
         "id": "bdl",
@@ -26,6 +37,17 @@
           ".bdl"
         ],
         "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "abdl",
+        "aliases": [
+          "Auto BDL",
+          "abdl"
+        ],
+        "extensions": [
+          ".abdl"
+        ],
+        "configuration": "./language-configuration.json"
       }
     ],
     "grammars": [
@@ -33,7 +55,17 @@
         "language": "bdl",
         "scopeName": "source.bdl",
         "path": "./syntaxes/bdl.tmLanguage.json"
+      },
+      {
+        "language": "abdl",
+        "scopeName": "source.abdl",
+        "path": "./syntaxes/abdl.tmLanguage.json"
       }
     ]
+  },
+  "__metadata": {
+    "id": "1852c426-8d80-41fb-8ba3-9b7f96c8cf16",
+    "publisherId": "7a560274-845f-47a3-b5f2-20f7cf4000de",
+    "publisherDisplayName": "André Patacas"
   }
 }

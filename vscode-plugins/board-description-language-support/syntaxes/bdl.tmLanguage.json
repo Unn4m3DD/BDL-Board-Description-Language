@@ -5,63 +5,246 @@
   "foldingStopMarker": "}",
   "patterns": [
     {
-      "include": "#keyword"
-    },
-    {
-      "include": "#inner_keyword"
-    },
-    {
-      "include": "#number"
-    },
-    {
-      "include": "#vector"
-    },
-    {
-      "include": "#var"
+      "include": "#program"
     }
   ],
   "repository": {
-    "vector": {
+    "program": {
       "patterns": [
         {
-          "name": "variable.language",
-          "match": "(x|y)"
+          "include": "#rules"
+        },
+        {
+          "include": "#pieces"
+        },
+        {
+          "include": "#initial_piece_position"
+        },
+        {
+          "include": "#invariants"
+        },
+        {
+          "include": "#finish"
         }
       ]
     },
-    "var": {
+    "rules": {
+      "name": "support.class",
+      "begin": "rules[ ]*{",
+      "end": "}",
       "patterns": [
         {
-          "name": "support.variable",
-          "match": "[_a-zA-Z]+"
+          "name": "entity",
+          "match": "first_player|width|height|coloring|player_change"
+        },
+        {
+          "name": "constant.numeric",
+          "match": "alternate"
+        },
+        {
+          "include": "#number"
+        },
+        {
+          "include": "#explicit"
+        },
+        {
+          "name": "variable.other.readwrite.js",
+          "match": ":"
         }
       ]
     },
-    "keyword": {
+    "pieces": {
+      "name": "support.class",
+      "begin": "pieces{",
+      "end": "}",
       "patterns": [
         {
           "name": "keyword",
-          "match": "\\b(rules|pieces|initial_status|invariants|finish|positions|moves)\\b"
+          "begin": "[a-zA-Z_][a-zA-Z0-9_ ]*{",
+          "end": "}",
+          "patterns": [
+            {
+              "include": "#moves"
+            },
+            {
+              "patterns": [
+                {
+                  "name": "entity",
+                  "match": "can_jump|on_end_reached|mirrored"
+                },
+                {
+                  "include": "#explicit"
+                },
+                {
+                  "include": "#bool"
+                },
+                {
+                  "name": "entity",
+                  "begin": "spawn\\(",
+                  "end": "\\)",
+                  "patterns": [
+                    {
+                      "include": "#ID"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "variable.other.readwrite.js",
+              "match": ":"
+            }
+          ]
         }
       ]
     },
-    "inner_keyword": {
+    "initial_piece_position": {
+      "name": "support.class",
+      "begin": "initial_piece_position[ ]*{",
+      "end": "}",
       "patterns": [
         {
-          "name": "entity.name",
-          "match": "\\b(first_player|width|height|coloring|player_change|moves|can_jump|horizontal|vertical|diagonal|on_end_reached|spawn|mirrored|cant_risk|protect_piece|pawn_movement|no_moves_available)\\b"
+          "name": "keyword",
+          "begin": "[a-zA-Z_][a-zA-Z_0-9 ]*{",
+          "end": "}",
+          "patterns": [
+            {
+              "name": "entity",
+              "begin": "positions[ ]*{",
+              "end": "}",
+              "patterns": [
+                {
+                  "include": "#vector"
+                },
+                {
+                  "include": "#explicit"
+                }
+              ]
+            },
+            {
+              "include": "#number"
+            },
+            {
+              "include": "#bool"
+            },
+            {
+              "name": "entity",
+              "match": "mirrored|owner"
+            },
+            {
+              "name": "variable.other.readwrite.js",
+              "match": ":"
+            }
+          ]
+        }
+      ]
+    },
+    "invariants": {
+      "name": "support.class",
+      "begin": "invariants[ ]*{",
+      "end": "}",
+      "patterns": [
+        {
+          "name": "entity",
+          "begin": "(cant_risk|protect_piece|pawn_movement)\\(",
+          "end": "\\)",
+          "patterns": [
+            {
+              "include": "#ID"
+            },
+            {
+              "name": "variable.other.readwrite.js",
+              "match": ","
+            }
+          ]
         },
         {
-          "name": "constant.language",
-          "match": "\\b(alternate)\\b"
+          "include": "#explicit"
         }
       ]
     },
-    "number": {
+    "finish": {
+      "name": "support.class",
+      "begin": "finish[ ]*{",
+      "end": "}",
       "patterns": [
         {
-          "name": "constant.numeric",
-          "match": "[\\-]?[0-9]+"
+          "name": "entity",
+          "match": "no_moves_available"
+        },
+        {
+          "include": "#explicit"
+        }
+      ]
+    },
+    "moves": {
+      "name": "entity",
+      "begin": "moves[ ]*{",
+      "end": "}",
+      "patterns": [
+        {
+          "include": "#vector"
+        },
+        {
+          "include": "#explicit"
+        },
+        {
+          "name": "entity",
+          "begin": "(vertical\\(|diagonal\\(|horizontal\\()",
+          "end": "\\)",
+          "patterns": [
+            {
+              "include": "#number"
+            },
+            {
+              "name": "variable.other.readwrite.js",
+              "match": ","
+            }
+          ]
+        }
+      ]
+    },
+    "vector": {
+      "patterns": [
+        {
+          "name": "string",
+          "match": "(x|y|kills)"
+        },
+        {
+          "include": "#number"
+        },
+        {
+          "include": "#bool"
+        },
+        {
+          "name": "variable.other.readwrite.js",
+          "match": ":"
+        },
+        {
+          "name": "variable.other.readwrite.js",
+          "match": ","
+        }
+      ]
+    },
+    "ID": {
+      "name": "keyword",
+      "match": "[a-zA-Z_][a-zA-Z_0-9]*"
+    },
+    "number": {
+      "name": "constant.numeric",
+      "match": "[0-9]+"
+    },
+    "bool": {
+      "name": "constant.numeric",
+      "match": "true|false"
+    },
+    "explicit": {
+      "name": "keyword",
+      "begin": "explicit[ ]*{",
+      "end": "}",
+      "patterns": [
+        {
+          "include": "source.js"
         }
       ]
     }

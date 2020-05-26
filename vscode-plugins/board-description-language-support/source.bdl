@@ -1,101 +1,51 @@
 rules{
   first_player : 0
-  width : 8
-  height : 8
+  width : 10
+  height : 10
   coloring : alternate
-  player_change : alternate
-}
-pieces{
-  horse{
-    moves{
-      x : 2, y : 1
-      x : 2, y : -1
-      x : -2, y : 1
-      x : -2, y : -1
-      x : 1, y : 2
-      x : 1, y : -2
-      x : -1, y : 2
-      x : -1, y : -2
-    }
-    can_jump
-  }
-  tower{
-    moves{
-      horizontal(,)
-      vertical(,)
-    }
-  }
-  bishop{
-    moves{
-      diagonal(,)
-    }
-  }
-  queen{
-    moves{
-      horizontal(,)
-      vertical(,)
-      diagonal(,)
-    }
-  }
-  king{
-    moves{
-      horizontal(-1,1)
-      vertical(-1,1)
-      diagonal(-1,1)
-    }
-  }
-  pawn{
-    moves{
-      vertical(1,2), kills : false
-      x : 1, y : 1
-      x : -1, y : 1
-    }
-    on_end_reached: spawn(queen, bishop, tower, horse)
-    mirrored
+  player_change : explicit {
+    (e) => e
   }
 }
 
-initial_status{
-  pieces{
-    tower{
-      positions{
-        x : 0, y : 0
-        x : 7, y : 0
-      }
-      mirrored
+pieces{
+  p1 {
+    moves{
+      vertical(2, 3)
+      x : 1, x : 0, kills : true
     }
-    horse{
-      positions{
-        x : 1, y : 0
-        x : 6, y : 0
-      }
-      mirrored
+    can_jump : true
+    on_end_reached : explicit{(e) => 2}
+  }
+  p2 {
+    moves{
+      vertical(2, 3)
+      x : 1, x : 0, kills : true
     }
-    bishop{
-      positions{
-        x : 2, y : 0
-        x : 5, y : 0
-      }
-      mirrored
+    can_jump : true
+    on_end_reached : spawn(p1, p2)
+  }
+}
+
+initial_piece_position{
+  p {
+    positions{
+      x : 0, y: 0
+      x : 1, y: 5
+      x : 7, y: [1, 2]
+      x : 8, y: 9
+      x : 9, y: 6
     }
-    queen{
-      positions{
-        x : 3, y : 0
-      }
-      mirrored
+    mirrored : true
+    owner : 1
+  }
+  p {
+    positions{
+      x : 9, y: 6,
+      explicit{let a = 2}
     }
-    king{
-      positions{
-        x : 4, y : 0
-      }
-      mirrored
-    }
-    pawn{
-      positions{
-        x : [0, 7], y : 1
-      }
-      mirrored
-    }
+    mirrored : true
+    owner : 1
   }
 }
 
@@ -103,8 +53,18 @@ invariants{
   cant_risk(king)
   protect_piece(king)
   pawn_movement(pawn)
+  explicit{
+    (context, current_x, current_y, target_x, target_y) => {
+      //returns bool representing movements that are allowed or not
+    }
+  }
 }
 
 finish{
   no_moves_available
+  explicit{
+    (context, current_x, current_y, target_x, target_y) => {
+      //returns bool representing movements that are allowed or not
+    }
+  }
 }

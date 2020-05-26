@@ -1,0 +1,241 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Auto BDL",
+  "patterns": [
+    {
+      "include": "#program"
+    }
+  ],
+  "repository": {
+    "program": {
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "include": "#main_or_on_move"
+        },
+        {
+          "include": "#func_def"
+        },
+        {
+          "include": "#type"
+        }
+      ]
+    },
+    "comments": {
+      "name": "comment",
+      "match": "//.*?\\n"
+    },
+    "func_def": {
+      "name": "support.function",
+      "begin": "[a-zA-Z_][a-zA-Z_0-9]*\\(",
+      "end": "end[ ]*[a-zA-Z_][a-zA-Z_0-9]*[ ]*;",
+      "patterns": [
+        {
+          "include": "#type"
+        },
+        {
+          "include": "#statements"
+        },
+        {
+          "include": "#ID"
+        }
+      ]
+    },
+    "main_or_on_move": {
+      "name": "variable.language",
+      "begin": "(main|on_move)[ ]*:",
+      "end": "end[ ]*(main|on_move)[ ]*;",
+      "patterns": [
+        {
+          "include": "#statements"
+        }
+      ]
+    },
+    "statements": {
+      "patterns": [
+        {
+          "include": "#comments"
+        },
+        {
+          "include": "#var_declare"
+        },
+        {
+          "include": "#if_stat"
+        },
+        {
+          "include": "#for_stat"
+        },
+        {
+          "include": "#while_stat"
+        },
+        {
+          "include": "#func_call"
+        },
+        {
+          "include": "#return"
+        }
+      ]
+    },
+    "return": {
+      "name": "constant.numeric",
+      "begin": "return",
+      "end": ";",
+      "patterns": [
+        {
+          "include": "#variable"
+        }
+      ]
+    },
+    "for_stat": {
+      "name": "entity",
+      "begin": "for",
+      "end": "done[ ]*;",
+      "patterns": [
+        {
+          "name": "entity",
+          "match": "from|to|do"
+        },
+        {
+          "include": "#statements"
+        },
+        {
+          "include": "#variable"
+        }
+      ]
+    },
+    "while_stat": {
+      "name": "entity",
+      "begin": "while",
+      "end": "done[ ]*;",
+      "patterns": [
+        {
+          "name": "entity",
+          "match": "do"
+        },
+        {
+          "include": "#statements"
+        },
+        {
+          "include": "#variable"
+        }
+      ]
+    },
+    "if_stat": {
+      "name": "entity",
+      "begin": "if",
+      "end": "end[ ]*if[ ]*;",
+      "patterns": [
+        {
+          "name": "entity",
+          "match": "then|else if|else"
+        },
+        {
+          "include": "#statements"
+        },
+        {
+          "include": "#variable"
+        }
+      ]
+    },
+    "var_declare": {
+      "name": "entity",
+      "begin": "let",
+      "end": ";",
+      "patterns": [
+        {
+          "include": "#ID"
+        },
+        {
+          "include": "#variable"
+        }
+      ]
+    },
+    "func_call": {
+      "name": "entity",
+      "begin": "[a-zA-Z_][a-zA-Z0-9_]*\\(",
+      "end": "\\)",
+      "patterns": [
+        {
+          "include": "#variable"
+        }
+      ]
+    },
+    "variable": {
+      "patterns": [
+        {
+          "include": "#func_call"
+        },
+        {
+          "include": "#OP"
+        },
+        {
+          "include": "#board"
+        },
+        {
+          "include": "#ID"
+        },
+        {
+          "include": "#int"
+        },
+        {
+          "include": "#string"
+        },
+        {
+          "include": "#point"
+        }
+      ]
+    },
+    "board": {
+      "name": "comment",
+      "begin": "board",
+      "end": ".(owner|piece_name)",
+      "patterns": [
+        {
+          "include": "variable"
+        }
+      ]
+    },
+    "OP": {
+      "name": "entity",
+      "match": "(<=|>=|==|\\/=|[+\\-*/\\^=<>%])",
+      "patterns": [
+        {
+          "include": "#variable"
+        }
+      ]
+    },
+    "int": {
+      "name": "constant.numeric",
+      "match": "[0-9]+"
+    },
+    "string": {
+      "name": "string",
+      "begin": "(\"|')",
+      "end": "(\"|')"
+    },
+    "point": {
+      "name": "entity",
+      "begin": "\\[",
+      "end": "\\]",
+      "patterns": [
+        {
+          "include": "#int"
+        },
+        {
+          "include": "#ID"
+        }
+      ]
+    },
+    "type": {
+      "name": "support.class",
+      "match": "int|point|string"
+    },
+    "ID": {
+      "name": "variable",
+      "match": "[a-zA-Z_][a-zA-Z0-9_]*"
+    }
+  },
+  "scopeName": "source.abdl"
+}
