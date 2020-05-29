@@ -6,7 +6,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import java.io.*;
 import java.nio.file.Path;
 import java.util.Map;
-
+//todo mirrored width != height
 public class Main {
     public static void main(String[] args) throws IOException {
         new Main(args);

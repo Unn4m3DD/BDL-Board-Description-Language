@@ -50,13 +50,11 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
         put(new Triple<>("point", "==", "point"), ("int"));
         put(new Triple<>("point", "/=", "point"), ("int"));
         put(new Triple<>("int", "<", "int"), ("int"));
-        put(new Triple<>("int", "<", "int"), ("int"));
-        put(new Triple<>("int", "<=", "int"), ("int"));
         put(new Triple<>("int", "<=", "int"), ("int"));
         put(new Triple<>("int", ">", "int"), ("int"));
-        put(new Triple<>("int", ">", "int"), ("int"));
         put(new Triple<>("int", ">=", "int"), ("int"));
-        put(new Triple<>("int", ">=", "int"), ("int"));
+        put(new Triple<>("int", "||", "int"), ("int"));
+        put(new Triple<>("int", "&&", "int"), ("int"));
     }};
 
     @Override
@@ -117,7 +115,7 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
         Symbol resolved = st.resolve(ctx.ID().getText());
         if (!(resolved instanceof Variable)) {
             //tested
-            System.err.println("Undefined variable " + getLineFormated(ctx.start) + ": " + ctx.ID().getText());
+            System.err.println("Undefined variable " + getLineFormatted(ctx.start) + ": " + ctx.ID().getText());
             return "";
         }
         return ((Variable) resolved).getType();
@@ -134,7 +132,7 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
             type2 = type2.equals("") ? "undefined" : type2;
             //tested
             System.err.println("Operation undefined between types " +
-                    getLineFormated(ctx.start) + ": " + type1 + " " + op + " " + type2
+                    getLineFormatted(ctx.start) + ": " + type1 + " " + op + " " + type2
             );
         }
         return result;
@@ -148,7 +146,7 @@ public class TypeInfer extends AbdlBaseVisitor<String> {
         return function.getReturnType();
     }
 
-    String getLineFormated(Token start) {
+    String getLineFormatted(Token start) {
         return "(" + start.getLine() + ":" + start.getCharPositionInLine() + ")";
     }
 }

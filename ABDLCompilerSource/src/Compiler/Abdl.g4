@@ -32,6 +32,7 @@ expr: ('-'|'+') expr #ExprUnary
      | expr op=('*' | '/' | '%') expr #ExprOp
      | expr op=('+' | '-' ) expr #ExprOp
      | expr op=( '<' | '<=' | '>' | '>=' | '==' | '/=') expr #ExprOp
+     | expr op=( '&&' | '||') expr #ExprOp
      | funcName=('can_move'| 'move'| ID) '(' args ')' #ExprFunctionCall
      | board #ExprBoard
      | '(' expr ')' #Parent

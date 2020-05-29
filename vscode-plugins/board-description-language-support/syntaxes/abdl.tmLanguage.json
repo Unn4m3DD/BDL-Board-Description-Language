@@ -163,6 +163,7 @@
       ]
     },
     "variable": {
+      "name" : "entity",
       "patterns": [
         {
           "include": "#func_call"

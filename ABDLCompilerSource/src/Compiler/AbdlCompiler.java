@@ -34,6 +34,8 @@ public class AbdlCompiler extends AbdlBaseVisitor<Object> {
         put(">=", "greater_or_equal");
         put("==", "equal");
         put("/=", "not_equal");
+        put("&&", "and");
+        put("||", "or");
     }};
 
     @Override

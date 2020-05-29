@@ -9,7 +9,7 @@ Download example, matePastor.abdl [here](https://github.com/Unn4m3DD/BDL-Board-D
 
 ## Usage
 
-[abdl compiler](https://github.com/Unn4m3DD/BDL-Board-Description-Language/raw/master/StandaloneCompiler/ABDLCompiler.jar) usage:
+[ABDLCompiler](https://github.com/Unn4m3DD/BDL-Board-Description-Language/raw/master/StandaloneCompiler/ABDLCompiler.jar) usage:
 
 ``` shell
   java -jar ABDLCompiler.jar [source_file_name] [destination_directory_name]
@@ -17,7 +17,7 @@ Download example, matePastor.abdl [here](https://github.com/Unn4m3DD/BDL-Board-D
 
 ## Syntax
 
-All abdl files must have a main or a on_move, main is called when the program starts and on_move is called everytime a player makes a movement.
+All abdl files must have a main or a on_move function, main is called when the program starts and on_move is called every time a player finishes a movement.
 
 **Main:**
 
@@ -28,28 +28,29 @@ end main;
 ```
 
 **On move:**
-```
+
+``` 
 on_move:
   //statements;
 end on_move;
 ```
 
 **<a name="stats"></a>Statements:**
-| Statements          | Syntax             | 
+| Statements          | Syntax             |
 |---------------|------------------|
-| Var declaration  | ```let varName : varType = expr;```|
-| Var atribution   | ```varName = expr;```     |
-| For loop        | ```for varName from expr to expr do statements; done;``` |  
-| While loop        | ```while expr do statements; done;``` |  
-| If statement | ```if expr then statements; end if;``` |
-| ElseIf statement | ```else if expr then statements;``` |
-| Else statement | ```else statements;``` |
-| Return statement | ```return expr;``` |
-| Function Call | ```functionName(args);``` |
+| Variable declaration  | `let varName : varType = expr;` |
+| Variable attribution   | `varName = expr;` |
+| For loop        | `for varName from expr to expr do statements; done;` |  
+| While loop        | `while expr do statements; done;` |  
+| If | `if expr then statements; end if;` |
+| ElseIf | `else if expr then statements;` |
+| Else | `else statements;` |
+| Return statement | `return expr;` |
+| Function Call | `functionName(args);` |
 
 The language supports three variable types:
 
-| Type | Null initialization |
+| Type | Default |
 |---------------|------------------|
 | int | 0 |
 | string | "" |
@@ -57,48 +58,63 @@ The language supports three variable types:
 
 **Variable declaration:**
 
-
-Every variable that is declared must either have an explicit type or an initialization with an expr from which the type is infered.
+Every variable that is declared must either have an explicit type or an initialization with an expr from which the type is inferred.
 
 **Globally defined Variables:**
 
-| Variable | Value |
-|-|-|
-| `current_player` | current player, either 0 or 1| 
-| `width` | board width |
-| `height` | board height |
-| `board[x, y].piece_name` | piece name |
-| `board[x, y].owner` | piece owner |
-| `move_count` | number of movements |
+| Variable | Type | Value |
+|-|-|-|
+| `current_player` | int |current player, either 0 or 1|
+| `width` | int |board width |
+| `height` | int |board height |
+| `board[x, y].piece_name` | string |name of [x, y] pieces |
+| `board[x, y].owner` | int |owner of [x, y] pieces |
+| `move_count` | int |number of movements |
 
 **Globally defined functions:**
 
 | Name | Return |
 |-|-|
-|`can_move(point, point);` | returns 1 if the move is possible, 0 otherwise
-|`move(point, point);` | returns 1 if the move was successful, 0 otherwise
-|`print([args](#args));` | returns void
-
-***<a name="args"></a>args:***
-One or more comma separated expr.
+| `can_move(point, point);` | returns 1 if the move is possible, 0 otherwise
+| `move(point, point);` | returns 1 if the move was successful, 0 otherwise
+| `print(any);` | returns void
 
 **Functions:**
 
 Function defenition:
 
 ``` abdl
-returnType functionName(fArgs):
-  statements;
+returnType functionName(args):
+  //statements;
 end functionName;
 ```
 
-***<a name="fArgs"></a>fArgs:***
+Example:
+
+``` abdl
+int isPrime(n : int):
+  //statements;
+end isPrime;
+```
+
+***<a name="args"></a>fArgs:***
 One or more comma separated pairs of type varName : varType.
 
-The return type is optional and not being present is equivalent to it being void.
-The statements are the same as refered [here](#stats); 
+The return type is optional and not being present means that it doesn't return.
+The statements are the same as referred [here](#stats);
 
-Operations available between types:
+Operations:
+
+| Types                          | Meaning                               | Example                                       |
+|--------------------------------|---------------------------------------|-----------------------------------------------|
+| int op int                     | Commonly used operations              | `1 + 2 == 3` |
+| any + string or string + any   | Concatenation of both operands        | `"a" + [1, 2] = "a[1,2]"` |
+| int \* string or string \* int | Repeating the string int times        | `"a" * 2 == "aa"` |
+| int op point and point op int  | Operating with single elements        | `[a, b] op c = [a op c, b op c]` |
+| point op point                 | Operation element by element          | `[x1, y1] op [x2, y2] = [x1 op x2, y1 op y2]` |
+| point\[int\]                   | Indexing a point                      | `[2, 3][0] == 2` |
+
+Operations available between types (Extensive):
 
 | + | int | string | point
 |-----|---------|------|-----|
@@ -106,79 +122,25 @@ Operations available between types:
 | string | string | string | string |
 | point | point | string | point |
 
-| - | int | string | point
-|-----|---------|------|-----|
-| int | int | undefined | point |
-| string | undefined | undefined | undefined |
-| point | point | undefined | point |
-
 | * | int | string | point
 |-----|---------|------|-----|
 | int | int | string | point |
 | string | string | undefined | undefined |
 | point | point | undefined | point |
 
-| / | int | string | point
+| -, /, %, ^ | int | string | point
 |-----|---------|------|-----|
 | int | int | undefined | point |
 | string | undefined | undefined | undefined |
 | point | point | undefined | point |
 
-| % | int | string | point
-|-----|---------|------|-----|
-| int | int | undefined | point |
-| string | undefined | undefined | undefined |
-| point | point | undefined | point |
-
-| != | int | string | point
+| ==, /= | int | string | point
 |-----|---------|------|-----|
 | int | int | undefined | undefined |
-| string | int | undefined | undefined |
-| point | undefined | int | undefined |
-
-| != | int | string | point
-|-----|---------|------|-----|
-| int | undefined | int | undefined |
-| string | undefined | undefined | int |
+| string | undefined | int | undefined |
 | point | undefined | undefined | int |
 
-| < | int | string | point
-|-----|---------|------|-----|
-| int | int | undefined | undefined |
-| string | undefined | undefined | undefined |
-| point | undefined | undefined | undefined |
-
-| < | int | string | point
-|-----|---------|------|-----|
-| int | int | undefined | undefined |
-| string | undefined | undefined | undefined |
-| point | undefined | undefined | undefined |
-
-| <= | int | string | point
-|-----|---------|------|-----|
-| int | int | undefined | undefined |
-| string | undefined | undefined | undefined |
-| point | undefined | undefined | undefined |
-
-| <= | int | string | point
-|-----|---------|------|-----|
-| int | int | undefined | undefined |
-| string | undefined | undefined | undefined |
-| point | undefined | undefined | undefined |
-
-| > | int | string | point
-|-----|---------|------|-----|
-| int | int | undefined | undefined |
-| string | undefined | undefined | undefined |
-| point | undefined | undefined | undefined |
-
-| > | int | string | point
-|-----|---------|------|-----|
-| int | int | undefined | undefined |
-| string | undefined | undefined | undefined |
-| point | undefined | undefined | undefined |
-
-| >= | int | string | point
+| <=, <, >, >= | int | string | point
 |-----|---------|------|-----|
 | int | int | undefined | undefined |
 | string | undefined | undefined | undefined |

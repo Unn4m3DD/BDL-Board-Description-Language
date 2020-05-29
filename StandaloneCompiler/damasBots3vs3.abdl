@@ -43,13 +43,11 @@ point get_best_dest(origin : point, objective : point, player : int):
   end if;
   for x from -2 to 2 do
     for y from -2 to 2 do
-      if([x, y] /= [0, 0]) then
-        if(can_move(origin, origin + [x, y])) then
-          if
-            score(origin, origin + [x, y], objective) > score(origin, best_dest, objective)
-          then
-            best_dest = origin + [x, y];
-          end if;
+      if([x, y] /= [0, 0] &&can_move(origin, origin + [x, y])) then
+        if
+          score(origin, origin + [x, y], objective) > score(origin, best_dest, objective)
+        then
+          best_dest = origin + [x, y];
         end if;
       end if;
     done;
@@ -80,7 +78,7 @@ best_move():
   for i from 0 to width - 1 do
     for j from 0 to height - 1 do
       if(board[i, j].owner == 0) then
-        let dest = get_furthest_jump([i,j]);
+        let dest = get_furthest_jump([i, j]);
         if(norm(dest) > norm(p2)) then
             p1 = [i, j];
             p2 = dest;
@@ -93,7 +91,7 @@ best_move():
     for i from 0 to width - 1 do
       for j from 0 to height - 1 do
         if(board[i, j].owner == 0) then
-          let dest = get_possible_jump([i,j]);
+          let dest = get_possible_jump([i, j]);
           if(norm(dest) > norm(p2)) then
             p1 = [i, j];
             p2 = dest;

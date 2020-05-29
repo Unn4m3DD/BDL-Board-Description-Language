@@ -7,8 +7,8 @@ const { player_change_rule, board_coloring_rule } = rules
 const functions = {
   colorize_table: (table, context) => {
     let last_color = ""
-    for (let x = 0; x < context.height; x++) {
-      for (let y = 0; y < context.width; y++) {
+    for (let x = 0; x < context.width; x++) {
+      for (let y = 0; y < context.height; y++) {
         last_color = board_coloring_rule(x, y, last_color)
         table[x][y].style.backgroundColor = last_color
       }
@@ -108,7 +108,6 @@ const functions = {
     if (finished && context.current_player != -1) {
       context.current_player = -1;
       setTimeout(() => alert("Game Finished"), 200)
-      alert("Game Finished")
     }
   }
 }

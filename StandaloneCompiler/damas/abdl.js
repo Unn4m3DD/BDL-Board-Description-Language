@@ -59,25 +59,25 @@ const can_move = async (origin, destination) => {
 }
 export default {
   on_move: async (arg_context, arg_table, arg_render) => {
-      let v214 = new ABDLVar(context.current_player);
-      console.log(v214.toString());
-      let v216 = new ABDLVar(context.current_player);
-      let v218 = new ABDLVar(1);
-      let v217 = v218.mul(new ABDLVar(-1));
-      let v215 = v216.equal(v217);
-      if (v215.getValue() != 0) {
-         let v219 = new ABDLVar(0);
-         return v219;
+      let v215 = new ABDLVar(context.current_player);
+      console.log(v215.toString());
+      let v217 = new ABDLVar(context.current_player);
+      let v219 = new ABDLVar(1);
+      let v218 = v219.mul(new ABDLVar(-1));
+      let v216 = v217.equal(v218);
+      if (v216.getValue() != 0) {
+         let v220 = new ABDLVar(0);
+         return v220;
       }
-      let v221 = new ABDLVar(context.current_player);
-      let v220 = new ABDLVar( await f0(v221));
+      let v222 = new ABDLVar(context.current_player);
+      let v221 = new ABDLVar( await f0(v222));
     },
   main: async (arg_context, arg_table, arg_render) => {
     context = arg_context;
     table = arg_table;
     render = arg_render;
-    let v213 = new ABDLVar(context.current_player);
-    let v212 = new ABDLVar( await f0(v213));
+    let v214 = new ABDLVar(context.current_player);
+    let v213 = new ABDLVar( await f0(v214));
   }
 }
 async function f0(v0){
@@ -173,201 +173,200 @@ async function f1(v53, v54, v55){
     let v73 = v74.mul(new ABDLVar(-1));
     let v75 = new ABDLVar(2);
     for(let v76 of range(v73,v75)) {
-      let v78 = new ABDLVar([v72, v76]);
-      let v80 = new ABDLVar(0);
+      let v79 = new ABDLVar([v72, v76]);
       let v81 = new ABDLVar(0);
-      let v79 = new ABDLVar([v80, v81]);
-      let v77 = v78.not_equal(v79);
+      let v82 = new ABDLVar(0);
+      let v80 = new ABDLVar([v81, v82]);
+      let v78 = v79.not_equal(v80);
+      let v84 = new ABDLVar([v72, v76]);
+      let v83 = v53.add(v84);
+      let v77 = v78.and((await can_move(v53, v83)));
       if (v77.getValue() != 0) {
-         let v83 = new ABDLVar([v72, v76]);
-         let v82 = v53.add(v83);
-         if ((await can_move(v53, v82)).getValue() != 0) {
-            let v86 = new ABDLVar([v72, v76]);
-            let v85 = v53.add(v86);
-            let v84 = (await f2(v53, v85, v54)).greater_than((await f2(v53, v61, v54)));
-            if (v84.getValue() != 0) {
-               let v88 = new ABDLVar([v72, v76]);
-               let v87 = v53.add(v88);
-               v61 = v87;
-            }
+         let v87 = new ABDLVar([v72, v76]);
+         let v86 = v53.add(v87);
+         let v85 = (await f2(v53, v86, v54)).greater_than((await f2(v53, v61, v54)));
+         if (v85.getValue() != 0) {
+            let v89 = new ABDLVar([v72, v76]);
+            let v88 = v53.add(v89);
+            v61 = v88;
          }
       }
     }
   }
   return v61;
 }
-async function f2(v89, v90, v91){
-  let v92 = (await f3(v89, v91)).sub((await f3(v90, v91)));
-  return v92;
+async function f2(v90, v91, v92){
+  let v93 = (await f3(v90, v92)).sub((await f3(v91, v92)));
+  return v93;
 }
-async function f3(v93, v94){
-  let v98 = new ABDLVar(0);
-  let v97 = new ABDLVar(v93.getValue()[v98.getValue()]);
-  let v100 = new ABDLVar(0);
-  let v99 = new ABDLVar(v94.getValue()[v100.getValue()]);
-  let v96 = v97.sub(v99);
-  let v103 = new ABDLVar(1);
-  let v102 = new ABDLVar(v93.getValue()[v103.getValue()]);
-  let v105 = new ABDLVar(1);
-  let v104 = new ABDLVar(v94.getValue()[v105.getValue()]);
-  let v101 = v102.sub(v104);
-  let v95 = (await f4(v96)).add((await f4(v101)));
-  return v95;
+async function f3(v94, v95){
+  let v99 = new ABDLVar(0);
+  let v98 = new ABDLVar(v94.getValue()[v99.getValue()]);
+  let v101 = new ABDLVar(0);
+  let v100 = new ABDLVar(v95.getValue()[v101.getValue()]);
+  let v97 = v98.sub(v100);
+  let v104 = new ABDLVar(1);
+  let v103 = new ABDLVar(v94.getValue()[v104.getValue()]);
+  let v106 = new ABDLVar(1);
+  let v105 = new ABDLVar(v95.getValue()[v106.getValue()]);
+  let v102 = v103.sub(v105);
+  let v96 = (await f4(v97)).add((await f4(v102)));
+  return v96;
 }
-async function f4(v106){
-  let v108 = new ABDLVar(0);
-  let v107 = v106.greater_than(v108);
-  if (v107.getValue() != 0) {
-     return v106;
+async function f4(v107){
+  let v109 = new ABDLVar(0);
+  let v108 = v107.greater_than(v109);
+  if (v108.getValue() != 0) {
+     return v107;
   }
   else {
-     let v109 = v106.mul(new ABDLVar(-1));
-     return v109;
+     let v110 = v107.mul(new ABDLVar(-1));
+     return v110;
   }
 }
 async function f5(){
-  let v111 = new ABDLVar(0);
   let v112 = new ABDLVar(0);
-  let v110 = new ABDLVar([v111, v112]);
-  let v113 = v110;
-  let v115 = new ABDLVar(0);
+  let v113 = new ABDLVar(0);
+  let v111 = new ABDLVar([v112, v113]);
+  let v114 = v111;
   let v116 = new ABDLVar(0);
-  let v114 = new ABDLVar([v115, v116]);
-  let v117 = v114;
-  let v118 = new ABDLVar(0);
-  let v119 = v118;
-  let v120 = new ABDLVar(0);
-  let v122 = new ABDLVar(context.width);
-  let v123 = new ABDLVar(1);
-  let v121 = v122.sub(v123);
-  for(let v124 of range(v120,v121)) {
-    let v125 = new ABDLVar(0);
-    let v127 = new ABDLVar(context.height);
-    let v128 = new ABDLVar(1);
-    let v126 = v127.sub(v128);
-    for(let v129 of range(v125,v126)) {
-      let v131 = new ABDLVar([v124, v129]);
-      let v132 = new ABDLVar(0);
-      let v130 = (getOwner(v131)).equal(v132);
-      if (v130.getValue() != 0) {
-         let v133 = new ABDLVar([v124, v129]);
-         let v134 = (await f6(v133));
-         let v135 = (await f8(v134)).greater_than((await f8(v117)));
-         if (v135.getValue() != 0) {
-            let v136 = new ABDLVar([v124, v129]);
-            v113 = v136;
-            v117 = v134;
+  let v117 = new ABDLVar(0);
+  let v115 = new ABDLVar([v116, v117]);
+  let v118 = v115;
+  let v119 = new ABDLVar(0);
+  let v120 = v119;
+  let v121 = new ABDLVar(0);
+  let v123 = new ABDLVar(context.width);
+  let v124 = new ABDLVar(1);
+  let v122 = v123.sub(v124);
+  for(let v125 of range(v121,v122)) {
+    let v126 = new ABDLVar(0);
+    let v128 = new ABDLVar(context.height);
+    let v129 = new ABDLVar(1);
+    let v127 = v128.sub(v129);
+    for(let v130 of range(v126,v127)) {
+      let v132 = new ABDLVar([v125, v130]);
+      let v133 = new ABDLVar(0);
+      let v131 = (getOwner(v132)).equal(v133);
+      if (v131.getValue() != 0) {
+         let v134 = new ABDLVar([v125, v130]);
+         let v135 = (await f6(v134));
+         let v136 = (await f8(v135)).greater_than((await f8(v118)));
+         if (v136.getValue() != 0) {
+            let v137 = new ABDLVar([v125, v130]);
+            v114 = v137;
+            v118 = v135;
          }
       }
     }
   }
-  let v139 = new ABDLVar(0);
   let v140 = new ABDLVar(0);
-  let v138 = new ABDLVar([v139, v140]);
-  let v137 = v117.equal(v138);
-  if (v137.getValue() != 0) {
-     let v143 = new ABDLVar(context.width);
-     let v144 = new ABDLVar(1);
-     let v142 = v143.sub(v144);
-     let v146 = new ABDLVar(context.height);
-     let v147 = new ABDLVar(1);
-     let v145 = v146.sub(v147);
-     let v141 = new ABDLVar([v142, v145]);
-     v117 = v141;
-     let v148 = new ABDLVar(0);
-     let v150 = new ABDLVar(context.width);
-     let v151 = new ABDLVar(1);
-     let v149 = v150.sub(v151);
-     for(let v152 of range(v148,v149)) {
-       let v153 = new ABDLVar(0);
-       let v155 = new ABDLVar(context.height);
-       let v156 = new ABDLVar(1);
-       let v154 = v155.sub(v156);
-       for(let v157 of range(v153,v154)) {
-         let v159 = new ABDLVar([v152, v157]);
-         let v160 = new ABDLVar(0);
-         let v158 = (getOwner(v159)).equal(v160);
-         if (v158.getValue() != 0) {
-            let v161 = new ABDLVar([v152, v157]);
-            let v162 = (await f7(v161));
-            let v163 = (await f8(v162)).greater_than((await f8(v117)));
-            if (v163.getValue() != 0) {
-               let v164 = new ABDLVar([v152, v157]);
-               v113 = v164;
-               v117 = v162;
+  let v141 = new ABDLVar(0);
+  let v139 = new ABDLVar([v140, v141]);
+  let v138 = v118.equal(v139);
+  if (v138.getValue() != 0) {
+     let v144 = new ABDLVar(context.width);
+     let v145 = new ABDLVar(1);
+     let v143 = v144.sub(v145);
+     let v147 = new ABDLVar(context.height);
+     let v148 = new ABDLVar(1);
+     let v146 = v147.sub(v148);
+     let v142 = new ABDLVar([v143, v146]);
+     v118 = v142;
+     let v149 = new ABDLVar(0);
+     let v151 = new ABDLVar(context.width);
+     let v152 = new ABDLVar(1);
+     let v150 = v151.sub(v152);
+     for(let v153 of range(v149,v150)) {
+       let v154 = new ABDLVar(0);
+       let v156 = new ABDLVar(context.height);
+       let v157 = new ABDLVar(1);
+       let v155 = v156.sub(v157);
+       for(let v158 of range(v154,v155)) {
+         let v160 = new ABDLVar([v153, v158]);
+         let v161 = new ABDLVar(0);
+         let v159 = (getOwner(v160)).equal(v161);
+         if (v159.getValue() != 0) {
+            let v162 = new ABDLVar([v153, v158]);
+            let v163 = (await f7(v162));
+            let v164 = (await f8(v163)).greater_than((await f8(v118)));
+            if (v164.getValue() != 0) {
+               let v165 = new ABDLVar([v153, v158]);
+               v114 = v165;
+               v118 = v163;
             }
          }
        }
      }
   }
-  let v165 = v113.not_equal(v117);
-  if (v165.getValue() != 0) {
-     let v166 = v113.add(v117);
-     await move(v113, v166);
+  let v166 = v114.not_equal(v118);
+  if (v166.getValue() != 0) {
+     let v167 = v114.add(v118);
+     await move(v114, v167);
   }
 }
-async function f6(v167){
-  let v169 = new ABDLVar(0);
+async function f6(v168){
   let v170 = new ABDLVar(0);
-  let v168 = new ABDLVar([v169, v170]);
-  let v171 = v168;
-  let v172 = new ABDLVar(0);
-  let v173 = new ABDLVar(2);
-  for(let v174 of range(v172,v173)) {
-    let v176 = new ABDLVar(2);
-    let v175 = v176.mul(new ABDLVar(-1));
-    let v177 = new ABDLVar(0);
-    for(let v178 of range(v175,v177)) {
-      let v180 = new ABDLVar([v174, v178]);
-      let v179 = v167.add(v180);
-      if ((await can_move(v167, v179)).getValue() != 0) {
-         let v182 = new ABDLVar([v174, v178]);
-         let v181 = (await f8(v182)).greater_than((await f8(v171)));
-         if (v181.getValue() != 0) {
-            let v183 = new ABDLVar([v174, v178]);
-            v171 = v183;
+  let v171 = new ABDLVar(0);
+  let v169 = new ABDLVar([v170, v171]);
+  let v172 = v169;
+  let v173 = new ABDLVar(0);
+  let v174 = new ABDLVar(2);
+  for(let v175 of range(v173,v174)) {
+    let v177 = new ABDLVar(2);
+    let v176 = v177.mul(new ABDLVar(-1));
+    let v178 = new ABDLVar(0);
+    for(let v179 of range(v176,v178)) {
+      let v181 = new ABDLVar([v175, v179]);
+      let v180 = v168.add(v181);
+      if ((await can_move(v168, v180)).getValue() != 0) {
+         let v183 = new ABDLVar([v175, v179]);
+         let v182 = (await f8(v183)).greater_than((await f8(v172)));
+         if (v182.getValue() != 0) {
+            let v184 = new ABDLVar([v175, v179]);
+            v172 = v184;
          }
       }
     }
   }
-  return v171;
+  return v172;
 }
-async function f7(v184){
-  let v187 = new ABDLVar(2);
-  let v186 = v187.mul(new ABDLVar(-1));
+async function f7(v185){
   let v188 = new ABDLVar(2);
-  let v185 = new ABDLVar([v186, v188]);
-  let v189 = v185;
-  let v191 = new ABDLVar(2);
-  let v190 = v191.mul(new ABDLVar(-1));
-  let v192 = new ABDLVar(0);
-  for(let v193 of range(v190,v192)) {
-    let v194 = new ABDLVar(0);
-    let v195 = new ABDLVar(2);
-    for(let v196 of range(v194,v195)) {
-      let v198 = new ABDLVar([v193, v196]);
-      let v197 = v184.add(v198);
-      if ((await can_move(v184, v197)).getValue() != 0) {
-         let v200 = new ABDLVar([v193, v196]);
-         let v199 = (await f8(v200)).less_than((await f8(v189)));
-         if (v199.getValue() != 0) {
-            let v201 = new ABDLVar([v193, v196]);
-            v189 = v201;
+  let v187 = v188.mul(new ABDLVar(-1));
+  let v189 = new ABDLVar(2);
+  let v186 = new ABDLVar([v187, v189]);
+  let v190 = v186;
+  let v192 = new ABDLVar(2);
+  let v191 = v192.mul(new ABDLVar(-1));
+  let v193 = new ABDLVar(0);
+  for(let v194 of range(v191,v193)) {
+    let v195 = new ABDLVar(0);
+    let v196 = new ABDLVar(2);
+    for(let v197 of range(v195,v196)) {
+      let v199 = new ABDLVar([v194, v197]);
+      let v198 = v185.add(v199);
+      if ((await can_move(v185, v198)).getValue() != 0) {
+         let v201 = new ABDLVar([v194, v197]);
+         let v200 = (await f8(v201)).less_than((await f8(v190)));
+         if (v200.getValue() != 0) {
+            let v202 = new ABDLVar([v194, v197]);
+            v190 = v202;
          }
       }
     }
   }
-  return v189;
+  return v190;
 }
-async function f8(v202){
-  let v206 = new ABDLVar(0);
-  let v205 = new ABDLVar(v202.getValue()[v206.getValue()]);
-  let v207 = new ABDLVar(2);
-  let v204 = v205.pow(v207);
-  let v210 = new ABDLVar(1);
-  let v209 = new ABDLVar(v202.getValue()[v210.getValue()]);
-  let v211 = new ABDLVar(2);
-  let v208 = v209.pow(v211);
-  let v203 = v204.add(v208);
-  return v203;
+async function f8(v203){
+  let v207 = new ABDLVar(0);
+  let v206 = new ABDLVar(v203.getValue()[v207.getValue()]);
+  let v208 = new ABDLVar(2);
+  let v205 = v206.pow(v208);
+  let v211 = new ABDLVar(1);
+  let v210 = new ABDLVar(v203.getValue()[v211.getValue()]);
+  let v212 = new ABDLVar(2);
+  let v209 = v210.pow(v212);
+  let v204 = v205.add(v209);
+  return v204;
 }

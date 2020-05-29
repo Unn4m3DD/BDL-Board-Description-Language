@@ -3,6 +3,7 @@ import org.antlr.v4.runtime.Token;
 
 import java.util.HashMap;
 import java.util.Map;
+
 //TODO invariant explicit
 public class BoardCustomVisitor extends BoardBaseVisitor<Object> {
     int width = 8, height = 8;
@@ -10,11 +11,13 @@ public class BoardCustomVisitor extends BoardBaseVisitor<Object> {
 
     @Override
     public Object visitGame(BoardParser.GameContext ctx) {
-        String[] fileNames = {"/rules.js",
+        String[] fileNames = {
+                "/rules.js",
                 "/pieces.js",
                 "/initial_status.js",
                 "/invariants.js",
-                "/finishing.js"};
+                "/finishing.js"
+        };
 
         for (int i = 0; i < 5; i++) {
             String result = (String) visit(ctx.getChild(i));
@@ -212,12 +215,12 @@ public class BoardCustomVisitor extends BoardBaseVisitor<Object> {
 
     @Override
     public Object visitDescriptionModifierCanJump(BoardParser.DescriptionModifierCanJumpContext ctx) {
-        return ctx.BOOL() == null ? true : ctx.BOOL().getText().equals("true") ? true : false;
+        return ctx.BOOL() == null || (ctx.BOOL().getText().equals("true"));
     }
 
     @Override
     public Object visitDescriptionModifierMirrored(BoardParser.DescriptionModifierMirroredContext ctx) {
-        return ctx.BOOL() == null ? true : ctx.BOOL().getText().equals("true") ? true : false;
+        return ctx.BOOL() == null || (ctx.BOOL().getText().equals("true"));
     }
 
     @Override
@@ -255,7 +258,7 @@ public class BoardCustomVisitor extends BoardBaseVisitor<Object> {
 
 
     private IntervalContainer[] parseMoveFunctionInterval(Token e1, Token e2, ParserRuleContext ctx) {
-        int right = (width > height ? width : height) + 2;
+        int right = (Math.max(width, height)) + 2;
         int left = -right;
         if (e1 != null)
             left = Integer.parseInt(e1.getText());
@@ -266,7 +269,7 @@ public class BoardCustomVisitor extends BoardBaseVisitor<Object> {
             System.exit(1);
         }
         IntervalContainer[] result = new IntervalContainer[2];
-        if ((left < 0 && right < 0) || (0 < left && 0 < right)) {
+        if ((left < 0 && right < 0) || (0 < left && 0 < right)) { //TODO algo errado na comparacao
             result[0] = new IntervalContainer(left, right + 1);
             result[1] = new IntervalContainer(0, 0);
         } else if (left < 0 && 0 < right) {
@@ -614,7 +617,7 @@ public class BoardCustomVisitor extends BoardBaseVisitor<Object> {
 
     @Override
     public Object visitPositionModifierMirrored(BoardParser.PositionModifierMirroredContext ctx) {
-        return ctx.BOOL() == null ? true : ctx.BOOL().getText().equals("true") ? true : false;
+        return ctx.BOOL() == null || (ctx.BOOL().getText().equals("true"));
     }
 
     @Override
