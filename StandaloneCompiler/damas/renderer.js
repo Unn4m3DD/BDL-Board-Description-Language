@@ -17,27 +17,23 @@ const functions = {
   generate_table: (target_id, height, width) => {
     let old_table = []
     let table_body = document.createElement("tbody")
-    for (let x = 0; x < height; x++) {
+    for (let y = 0; y < height; y++) {
       old_table.push([])
       let table_row = document.createElement("tr")
-      for (let y = 0; y < width; y++) {
-        old_table[x].push(document.createElement("td"))
-        table_row.appendChild(old_table[x][y])
+      for (let x = 0; x < width; x++) {
+        old_table[y].push(document.createElement("td"))
+        table_row.appendChild(old_table[y][x])
       }
       table_body.appendChild(table_row)
     }
     document.getElementById(target_id).appendChild(table_body)
 
-    function transpose(mat) {
-      for (var i = 0; i < mat.length; i++) {
-        for (var j = 0; j < i; j++) {
-          const tmp = mat[i][j];
-          mat[i][j] = mat[j][i];
-          mat[j][i] = tmp;
-        }
-      }
+    function transpose(a) {
+      return Object.keys(a[0]).map(function (c) {
+        return a.map(function (r) { return r[c]; });
+      });
     }
-    transpose(old_table)
+    old_table = transpose(old_table)
     return old_table
   },
   render: (context, table) => {

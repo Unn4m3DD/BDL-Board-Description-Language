@@ -1,6 +1,0 @@
-main:
-    let i = 0;
-    if(0) then
-       i = 0;
-    end if;
-end main;

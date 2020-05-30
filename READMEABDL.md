@@ -40,7 +40,7 @@ end on_move;
 |---------------|------------------|
 | Variable declaration  | `let varName : varType = expr;` |
 | Variable attribution   | `varName = expr;` |
-| For loop        | `for varName from expr to expr do statements; done;` |  
+| For loop        | `for varName from int to int do statements; done;` |  
 | While loop        | `while expr do statements; done;` |  
 | If | `if expr then statements; end if;` |
 | ElseIf | `else if expr then statements;` |
@@ -67,8 +67,8 @@ Every variable that is declared must either have an explicit type or an initiali
 | `current_player` | int |current player, either 0 or 1|
 | `width` | int |board width |
 | `height` | int |board height |
-| `board[x, y].piece_name` | string |name of [x, y] pieces |
-| `board[x, y].owner` | int |owner of [x, y] pieces |
+| `board[x, y].piece_name` | string |name of [x, y] piece |
+| `board[x, y].owner` | int |owner of [x, y] piece |
 | `move_count` | int |number of movements |
 
 **Globally defined functions:**
@@ -101,7 +101,7 @@ end isPrime;
 One or more comma separated pairs of type varName : varType.
 
 The return type is optional and not being present means that it doesn't return.
-The statements are the same as referred [here](#stats);
+The statements are the same as referred [here](#stats); 
 
 Operations:
 
