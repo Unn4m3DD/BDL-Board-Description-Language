@@ -572,7 +572,7 @@ public class BoardCustomVisitor extends BoardBaseVisitor<Object> {
     public Object visitFinishingNoMovesAvailable(BoardParser.FinishingNoMovesAvailableContext ctx) {
         return "  (context) => {\n" +
                 "    for (let x = 0; x < context.width; x++) {\n" +
-                "      for (let y = 0; y < context.width; y++) {\n" +
+                "      for (let y = 0; y < context.height; y++) {\n" +
                 "        if (context.board[x][y].piece\n" +
                 "          && context.board[x][y].piece.owner === context.current_player) {\n" +
                 "          let temp_board = JSON.parse(JSON.stringify(context.board))\n" +
@@ -590,7 +590,7 @@ public class BoardCustomVisitor extends BoardBaseVisitor<Object> {
                 "            true)()\n" +
                 "          const targets = temp_board.map((e) => e.map((e2) => e2.target))\n" +
                 "          for (let i = 0; i < context.width; i++)\n" +
-                "            for (let j = 0; j < context.width; j++)\n" +
+                "            for (let j = 0; j < context.height; j++)\n" +
                 "              if (targets[i][j]) return false\n" +
                 "        }\n" +
                 "      }\n" +
