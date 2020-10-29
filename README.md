@@ -132,9 +132,9 @@ invariants{
 
 There are currently 3 available invariants and all of them receive a list of arguments.
 
-cant_risk(piece_name1, piece_name2) means that pieces 1 and 2 can't be moved to enemy a reachable position
+cant_risk(piece_name1, piece_name2) means that pieces 1 and 2 can't be moved to an enemy's reachable position
 
-protect_piece(piece_name1, piece_name2) means that every move must at least, guaranty the safety of pieces 1 and 2
+protect_piece(piece_name1, piece_name2) means that every move must at least, guarantee the safety of pieces 1 and 2
 
 pawn_movement is a function that implements the limitations on chess pawns.
 
